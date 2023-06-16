@@ -5,7 +5,7 @@ import { CssBaseline } from '@mui/material';
 import Layout from '../Layout';
 
 const App: React.FC = () => {
-  console.log('Hello world')
+  console.log("Hello world");
   return (
     <>
       <CssBaseline />
