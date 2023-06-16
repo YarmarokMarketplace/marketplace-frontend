@@ -1,28 +1,23 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
 
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+import Layout from '../Layout';
 
 const App: React.FC = () => {
   console.log('Hello world')
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stack spacing={2}>
-        <Item>Item 1</Item>
-        <Item>Item 2</Item>
-        <Item>Item 3</Item>
-      </Stack>
-    </Box>
+    <>
+      <CssBaseline />
+
+      <Router>
+        <Layout>
+          <Routes>
+            {/* <Route path="/" element={<Home />} /> */}
+          </Routes>
+        </Layout>
+      </Router>
+    </>
   )
 }
 

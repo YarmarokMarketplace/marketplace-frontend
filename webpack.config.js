@@ -40,10 +40,11 @@ module.exports = {
             //     },
             // },
             {
-                test: /\.(png)$/,
-                use: [
-                    { loader: 'file-loader' }
-                ]
+                test: /\.(png|jpe?g)$/,
+                loader: 'file-loader',
+                options: {
+                    name: 'img/[name].[ext]'
+                }
             },
         ],
     },
