@@ -1,19 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';;
 
 import Layout from '../Layout';
+import HomePage from '../pages/HomePage';
 
 const App: React.FC = () => {
   console.log("Hello world");
   return (
     <>
-      <CssBaseline />
-
       <Router>
         <Layout>
           <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<HomePage />} />
           </Routes>
         </Layout>
       </Router>
