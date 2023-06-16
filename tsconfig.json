@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-     "moduleResolution": "node",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "img/*": ["./src/img"]
+    }
   }
 }
