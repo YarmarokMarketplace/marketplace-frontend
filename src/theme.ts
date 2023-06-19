@@ -6,6 +6,14 @@ export const theme = createTheme({
     body1: {
       color: "#1B2124",
     },
+    h6: {
+      fontSize: "1.125rem",
+      fontWeight: 400,
+    },
+    h4: {
+      fontSize: "1.5rem",
+      fontWeight: 700,
+    },
     button: {
       textTransform: "none",
     },
@@ -18,6 +26,7 @@ export const theme = createTheme({
       main: "#3860E2",
       dark: "#152D7B",
       light: "#9EADFB",
+      contrastText: "#F5F7FF",
     },
     secondary: {
       main: "#AAAFBE",
@@ -25,5 +34,19 @@ export const theme = createTheme({
       light: "#D4D7DF",
     },
     divider: "#8D9092",
+    text: {
+      primary: "#1B2124",
+      secondary: "#8D9092",
+      disabled: "#C6C7C8",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+        },
+      },
+    },
   },
 });
