@@ -1,10 +1,22 @@
-import { AppBar, Button, Toolbar, styled, ToggleButton } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Toolbar,
+  styled,
+  ToggleButton,
+  IconButton,
+} from "@mui/material";
+
+export const StyledHeader = styled("header")(({ theme }) => ({
+  padding: theme.spacing(1, 4),
+}));
 
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.background.paper,
   boxShadow: "none",
   justifyContent: "center",
-  padding: theme.spacing(1, 5),
+  padding: theme.spacing(1),
+  borderRadius: 16,
 }));
 
 export const StyledToolBar = styled(Toolbar)`
@@ -24,4 +36,14 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 
 export const StyledToggleButton = styled(ToggleButton)`
   border: none;
+  width: 40px;
+  &.Mui-selected {
+    background-color: transparent;
+  }
 `;
+
+export const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  border: "1px solid",
+  padding: theme.spacing(1),
+  borderColor: theme.palette.secondary.light,
+}));
