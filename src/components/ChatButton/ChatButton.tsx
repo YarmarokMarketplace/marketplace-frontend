@@ -5,7 +5,11 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 const ChatButton = () => {
   return (
-    <StyledButton startIcon={<ChatOutlinedIcon />} variant="contained">
+    <StyledButton
+      color="primary"
+      startIcon={<ChatOutlinedIcon />}
+      variant="contained"
+    >
       Чат
     </StyledButton>
   );

@@ -7,4 +7,8 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   right: 30,
   bottom: 20,
   zIndex: 1002,
+  // backgroundColor: theme.palette.primary.dark,
+  // ":hover": {
+  //   backgroundColor: theme.palette.primary.main,
+  // },
 }));

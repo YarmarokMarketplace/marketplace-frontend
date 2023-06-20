@@ -8,6 +8,7 @@ export const StyledContainer = styled(Container)(({ theme }) => ({
 
 export const CategoriesWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
+  marginTop: theme.spacing(1),
 }));
 
 export const StyledLink = styled(Link)(({ theme }) => ({

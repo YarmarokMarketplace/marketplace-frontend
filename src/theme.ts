@@ -5,6 +5,7 @@ export const theme = createTheme({
     fontFamily: `'Mulish', sans-serif`,
     body1: {
       color: "#1B2124",
+      fontSize: "1rem",
     },
     h6: {
       fontSize: "1.125rem",
@@ -45,6 +46,16 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
+          fontSize: "1rem",
+          fontWeight: 400,
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          fontSize: "1rem",
+          fontWeight: 400,
         },
       },
     },

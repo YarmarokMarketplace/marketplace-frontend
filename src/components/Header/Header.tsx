@@ -1,16 +1,9 @@
 import React from "react";
+import { ToggleButtonGroup, Stack, Typography } from "@mui/material";
 import {
-  Button,
-  ToggleButtonGroup,
-  Stack,
-  Divider,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import {
+  CustomDivider,
   StyledAppBar,
   StyledButton,
-  StyledHeader,
   StyledIconButton,
   StyledLogo,
   StyledToggleButton,
@@ -29,9 +22,9 @@ const Header = () => {
   const handleCheckFavourites = () => {};
   const handleClickAccount = () => {};
   return (
-    <StyledHeader>
+    <>
       <StyledAppBar position="static">
-        <StyledToolBar>
+        <StyledToolBar disableGutters>
           <StyledLogo src={logo} alt="logo" />
 
           <Stack direction="row" spacing={8}>
@@ -61,11 +54,12 @@ const Header = () => {
               size="small"
               color="primary"
               exclusive
+              sx={{ alignItems: "center" }}
             >
               <StyledToggleButton onClick={handleLocalization} value="ua">
                 UA
               </StyledToggleButton>
-              <Divider orientation="vertical" variant="middle" flexItem />
+              <CustomDivider />
               <StyledToggleButton onClick={handleLocalization} value="en">
                 ENG
               </StyledToggleButton>
@@ -82,7 +76,7 @@ const Header = () => {
           </Stack>
         </StyledToolBar>
       </StyledAppBar>
-    </StyledHeader>
+    </>
   );
 };
 
