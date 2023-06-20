@@ -1,29 +1,19 @@
 import React from "react";
 
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  InputAdornment,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ChatButton from "../../ChatButton";
+import CategoryItem from "./CategoryItem";
+import SearchBar from "../../SearchBar";
+
 import {
   CategoriesWrapper,
-  SearchButton,
-  SearchWrapper,
   StyledBox,
-  StyledCard,
   StyledContainer,
   StyledImage,
-  StyledImgWrapper,
-  StyledItemWrapper,
   StyledLink,
 } from "./style";
-
-import SearchIcon from "@mui/icons-material/Search";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const categories = [
   "Дитячій світ",
@@ -47,21 +37,7 @@ const categories = [
 const HomePage = () => {
   return (
     <StyledContainer maxWidth="xl">
-      <SearchWrapper direction="row" spacing={3}>
-        <TextField
-          fullWidth
-          placeholder="Що шукаєте?"
-          size="small"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <SearchButton variant="outlined">Пошук</SearchButton>
-      </SearchWrapper>
+      <SearchBar />
       <CategoriesWrapper>
         <Stack
           direction="row"
@@ -74,41 +50,17 @@ const HomePage = () => {
         <StyledBox>
           {categories.slice(0, 11).map((category, index) => {
             return (
-              <StyledItemWrapper key={index} spacing={2}>
-                <StyledCard>
-                  <CardActionArea>
-                    <CardContent>
-                      <StyledImgWrapper>
-                        <StyledImage src="https://freepngimg.com/thumb/toy/33903-2-plush-toy-transparent-image.png" />
-                      </StyledImgWrapper>
-                    </CardContent>
-                  </CardActionArea>
-                </StyledCard>
-                <Typography minHeight={60} variant="h6">
-                  {category}
-                </Typography>
-              </StyledItemWrapper>
+              <CategoryItem key={index} category={category}>
+                <StyledImage src="https://freepngimg.com/thumb/toy/33903-2-plush-toy-transparent-image.png" />
+              </CategoryItem>
             );
           })}
-          <StyledItemWrapper spacing={2}>
-            <StyledCard>
-              <CardActionArea>
-                <CardContent>
-                  <StyledImgWrapper>
-                    <MoreHorizIcon
-                      color="primary"
-                      sx={{ height: 100, width: 100 }}
-                    />
-                  </StyledImgWrapper>
-                </CardContent>
-              </CardActionArea>
-            </StyledCard>
-            <Typography minHeight={60} variant="h6">
-              Переглянути всі
-            </Typography>
-          </StyledItemWrapper>
+          <CategoryItem category="Переглянути всі">
+            <MoreHorizIcon color="primary" sx={{ height: 100, width: 100 }} />
+          </CategoryItem>
         </StyledBox>
       </CategoriesWrapper>
+      <ChatButton />
     </StyledContainer>
   );
 };

@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
   padding: theme.spacing(2),
-}));
-
-export const SearchWrapper = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1, 3),
-  boxShadow: "rgba(151, 159, 183, 0.15)",
-}));
-
-export const SearchButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.contrastText,
-  borderColor: theme.palette.primary.contrastText,
-  width: theme.spacing(18),
+  position: "relative",
 }));
 
 export const CategoriesWrapper = styled(Box)(({ theme }) => ({
