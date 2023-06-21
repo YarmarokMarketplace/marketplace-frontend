@@ -3,8 +3,8 @@ import { createTheme } from "@mui/material";
 export const theme = createTheme({
   typography: {
     fontFamily: `'Mulish', sans-serif`,
+    fontWeightMedium: 400,
     body1: {
-      color: "#1B2124",
       fontSize: "1rem",
     },
     h6: {
@@ -14,9 +14,6 @@ export const theme = createTheme({
     h4: {
       fontSize: "1.5rem",
       fontWeight: 700,
-    },
-    button: {
-      textTransform: "none",
     },
   },
   palette: {
@@ -34,6 +31,19 @@ export const theme = createTheme({
       dark: "#7F879E",
       light: "#D4D7DF",
     },
+    error: {
+      main: "#E60019",
+      dark: "#AAAFBE",
+      light: "#D4D7DF",
+    },
+    success: {
+      main: "#34A853",
+      dark: "#3D5BF6",
+      light: "#78C58C",
+    },
+    info: {
+      main: "#FFAA37",
+    },
     divider: "#8D9092",
     text: {
       primary: "#1B2124",
@@ -46,8 +56,9 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          fontSize: "1rem",
-          fontWeight: 400,
+          fontSize: "1.25rem",
+          fontWeight: 600,
+          textTransform: "none",
         },
       },
     },
@@ -56,6 +67,13 @@ export const theme = createTheme({
         root: {
           fontSize: "1rem",
           fontWeight: 400,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: "#1B2124",
         },
       },
     },

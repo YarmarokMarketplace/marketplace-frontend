@@ -8,7 +8,7 @@ const ChatButton = () => {
     <StyledButton
       color="primary"
       startIcon={<ChatOutlinedIcon />}
-      variant="contained"
+      variant="outlined"
     >
       Чат
     </StyledButton>

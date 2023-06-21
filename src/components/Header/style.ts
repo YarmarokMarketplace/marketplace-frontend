@@ -5,13 +5,8 @@ import {
   styled,
   ToggleButton,
   IconButton,
-  Container,
   Box,
 } from "@mui/material";
-
-export const StyledContainer = styled(Container)(({ theme }) => ({
-  padding: theme.spacing(1, 4),
-}));
 
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
@@ -25,7 +20,7 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   borderRadius: 16,
-  padding: theme.spacing(3),
+  padding: theme.spacing(2, 3),
   backgroundColor: theme.palette.background.paper,
 }));
 export const StyledLogo = styled("img")(({ theme }) => ({
@@ -33,7 +28,6 @@ export const StyledLogo = styled("img")(({ theme }) => ({
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
-  borderRadius: 8,
   padding: theme.spacing(1, 2),
 }));
 
