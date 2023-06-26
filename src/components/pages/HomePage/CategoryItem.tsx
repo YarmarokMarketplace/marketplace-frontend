@@ -1,6 +1,11 @@
 import React from "react";
-import { StyledCard, StyledImgWrapper, StyledItemWrapper } from "./style";
-import { CardActionArea, CardContent, Typography } from "@mui/material";
+import {
+  StyledCard,
+  StyledCategoryLink,
+  StyledImgWrapper,
+  StyledItemWrapper,
+} from "./style";
+import { CardActionArea, CardContent, Box } from "@mui/material";
 
 interface CategotyItemProp {
   category: string;
@@ -16,9 +21,9 @@ const CategoryItem: React.FC<CategotyItemProp> = ({ category, children }) => {
           </CardContent>
         </CardActionArea>
       </StyledCard>
-      <Typography minHeight={60} variant="h6">
-        {category}
-      </Typography>
+      <Box sx={{ minHeight: 60 }}>
+        <StyledCategoryLink to="/category">{category}</StyledCategoryLink>
+      </Box>
     </StyledItemWrapper>
   );
 };

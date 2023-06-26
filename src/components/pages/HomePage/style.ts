@@ -1,4 +1,4 @@
-import { Box, Button, Card, Container, Stack, styled } from "@mui/material";
+import { Box, Card, Container, Stack, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
@@ -15,6 +15,9 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
   fontSize: "1.12rem",
   color: theme.palette.primary.main,
+  ":hover": {
+    color: theme.palette.primary.light,
+  },
 }));
 
 export const StyledBox = styled(Box)(({ theme }) => ({
@@ -46,4 +49,19 @@ export const StyledImage = styled("img")(({ theme }) => ({
 export const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: 40,
   boxShadow: "none",
+  ":hover ~": {
+    "div a": {
+      color: theme.palette.primary.light,
+    },
+  },
+}));
+
+export const StyledCategoryLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
+  fontSize: "1.125rem",
+  fontWeight: 400,
+  color: theme.palette.text.primary,
+  ":hover": {
+    color: theme.palette.primary.light,
+  },
 }));
