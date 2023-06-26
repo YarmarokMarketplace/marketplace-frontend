@@ -28,14 +28,14 @@ const Header = () => {
           <StyledToolBar disableGutters>
             <StyledLogo src={logo} alt="logo" />
 
-            <Stack direction="row" spacing={8}>
+            <Stack direction="row" spacing={7}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <StyledIconButton
                   onClick={handleCheckFavourites}
                   size="small"
                   color="primary"
                 >
-                  <FavoriteIcon fontSize="small" />
+                  <FavoriteIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <Typography variant="body1">Обране</Typography>
               </Stack>
@@ -45,7 +45,7 @@ const Header = () => {
                   size="small"
                   color="primary"
                 >
-                  <PersonIcon fontSize="small" />
+                  <PersonIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <Typography variant="body1">Увійти</Typography>
               </Stack>

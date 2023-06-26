@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchButton, SearchWrapper } from "./style";
+import { SearchButton, SearchWrapper, StyledInput } from "./style";
 import { InputAdornment, TextField } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,19 +7,21 @@ import SearchIcon from "@mui/icons-material/Search";
 const SearchBar = () => {
   return (
     <SearchWrapper direction="row" spacing={3}>
-      <TextField
+      <StyledInput
         fullWidth
         placeholder="Що шукаєте?"
         size="small"
+        variant="outlined"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
+              <SearchButton variant="outlined">Пошук</SearchButton>
             </InputAdornment>
           ),
+          // disableUnderline: true,
         }}
       />
-      <SearchButton variant="outlined">Пошук</SearchButton>
     </SearchWrapper>
   );
 };

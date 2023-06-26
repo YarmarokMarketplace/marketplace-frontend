@@ -1,13 +1,15 @@
 import { Box, Card, Container, Stack, styled } from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
 import { Link } from "react-router-dom";
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
-  padding: theme.spacing(2),
+  padding: theme.spacing(2, 7),
   position: "relative",
 }));
 
 export const CategoriesWrapper = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: theme.spacing(1, 7),
   marginTop: theme.spacing(1),
 }));
 
@@ -16,7 +18,7 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: "1.12rem",
   color: theme.palette.primary.main,
   ":hover": {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -51,7 +53,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: "none",
   ":hover ~": {
     "div a": {
-      color: theme.palette.primary.light,
+      color: theme.palette.primary.main,
     },
   },
 }));
@@ -62,6 +64,13 @@ export const StyledCategoryLink = styled(Link)(({ theme }) => ({
   fontWeight: 400,
   color: theme.palette.text.primary,
   ":hover": {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
   },
+}));
+
+export const StyledMoreIcon = styled(MoreHorizIcon)(({ theme }) => ({
+  padding: theme.spacing(2),
+  height: 100,
+  width: 100,
+  fontSize: "0.8rem",
 }));

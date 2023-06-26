@@ -2,7 +2,6 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatButton from "../../ChatButton";
 import CategoryItem from "./CategoryItem";
 import SearchBar from "../../SearchBar";
@@ -13,6 +12,7 @@ import {
   StyledContainer,
   StyledImage,
   StyledLink,
+  StyledMoreIcon,
 } from "./style";
 
 const categories = [
@@ -56,7 +56,7 @@ const HomePage = () => {
             );
           })}
           <CategoryItem category="Переглянути всі">
-            <MoreHorizIcon color="primary" sx={{ height: 100, width: 100 }} />
+            <StyledMoreIcon color="primary" />
           </CategoryItem>
         </StyledBox>
       </CategoriesWrapper>

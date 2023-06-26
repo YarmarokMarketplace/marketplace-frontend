@@ -11,7 +11,7 @@ import {
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
   justifyContent: "center",
-  padding: theme.spacing(1, 0),
+  padding: theme.spacing(2, 7),
   backgroundColor: "transparent",
 }));
 
@@ -24,11 +24,14 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export const StyledLogo = styled("img")(({ theme }) => ({
-  height: theme.spacing(3),
+  width: "20%",
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 2),
+  ":hover": {
+    backgroundColor: theme.palette.primary.light,
+  },
 }));
 
 export const StyledToggleButton = styled(ToggleButton)`
