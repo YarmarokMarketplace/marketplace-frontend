@@ -7,9 +7,8 @@ import {
 } from "@mui/material";
 
 export const SearchWrapper = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1, 7),
-  boxShadow: "rgba(151, 159, 183, 0.15)",
-  marginTop: theme.spacing(2),
+  padding: theme.spacing(0, 7),
+  margin: theme.spacing(3, 0),
   alignItems: "center",
 }));
 
@@ -22,7 +21,6 @@ export const SearchButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledInput = styled(TextField)(({ theme }) => ({
-  padding: theme.spacing(2, 0),
   boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
   ".MuiInputBase-root": {
     height: theme.spacing(10),
