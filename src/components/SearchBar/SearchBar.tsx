@@ -19,7 +19,6 @@ const SearchBar = () => {
               <SearchButton variant="outlined">Пошук</SearchButton>
             </InputAdornment>
           ),
-          // disableUnderline: true,
         }}
       />
     </SearchWrapper>
