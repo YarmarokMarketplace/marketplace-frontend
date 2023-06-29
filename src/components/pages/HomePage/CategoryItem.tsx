@@ -6,16 +6,18 @@ import {
   StyledItemWrapper,
 } from "./style";
 import { CardActionArea, CardContent, Box } from "@mui/material";
+import { useNavigate } from "react-router";
 
 interface CategotyItemProp {
   category: string;
 }
 
 const CategoryItem: React.FC<CategotyItemProp> = ({ category, children }) => {
+  const navigate = useNavigate();
   return (
     <StyledItemWrapper spacing={2}>
       <StyledCard>
-        <CardActionArea>
+        <CardActionArea onClick={() => navigate("/category")}>
           <CardContent>
             <StyledImgWrapper>{children}</StyledImgWrapper>
           </CardContent>
