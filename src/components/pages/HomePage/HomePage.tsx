@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Stack, Typography } from "@mui/material";
+import { Skeleton, Stack, Typography } from "@mui/material";
 
 import ChatButton from "../../ChatButton";
 import CategoryItem from "./CategoryItem";
@@ -13,28 +13,20 @@ import {
   StyledImage,
   StyledLink,
   StyledMoreIcon,
+  StyledSkeleton,
 } from "./style";
-
-const categories = [
-  "Дитячий світ",
-  "Нерухомість",
-  "Авто",
-  "Запчастини для транспорту",
-  "Тварини",
-  "Дім і сад",
-  "Робота",
-  "Бізнес та послуги",
-  "Мода і стиль",
-  "Хобі, відпочинок і спорт",
-  "Електроніка",
-  "Безкоштовно",
-  "Обмін",
-  "Ремонт",
-  "Довідка",
-  "Товари для виграшу",
-];
+import { useDispatch, useSelector } from "react-redux";
+import { categoriesStateSelector } from "./selector";
+import { categoryListFetch } from "./thunk";
+import { AppDispatch } from "../../../store";
 
 const HomePage = () => {
+  const { categories, loading, error } = useSelector(categoriesStateSelector);
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(categoryListFetch());
+  }, [dispatch]);
   return (
     <StyledContainer maxWidth="xl">
       <SearchBar />
@@ -48,16 +40,37 @@ const HomePage = () => {
           <StyledLink to="/categories">Всі</StyledLink>
         </Stack>
         <StyledBox>
-          {categories.slice(0, 11).map((category, index) => {
-            return (
-              <CategoryItem key={index} category={category}>
-                <StyledImage src="https://freepngimg.com/thumb/toy/33903-2-plush-toy-transparent-image.png" />
-              </CategoryItem>
-            );
-          })}
-          <CategoryItem category="Переглянути всі">
-            <StyledMoreIcon color="primary" />
-          </CategoryItem>
+          {loading &&
+            Array.from(Array(12).keys()).map((item, index) => {
+              return (
+                <Stack key={index} spacing={2}>
+                  <StyledSkeleton animation="wave" variant="rectangular" />
+                  <Skeleton
+                    animation="wave"
+                    sx={{ height: 60, width: 165 }}
+                    variant="rounded"
+                  />
+                </Stack>
+              );
+            })}
+          {!loading &&
+            !error &&
+            categories.slice(0, 11).map((category) => {
+              return (
+                <CategoryItem key={category._id} category={category.name}>
+                  <StyledImage
+                    id={`category-${category._id.slice(20)}`}
+                    src="https://freepngimg.com/thumb/toy/33903-2-plush-toy-transparent-image.png"
+                    alt={`${category.name} image`}
+                  />
+                </CategoryItem>
+              );
+            })}
+          {!loading && (
+            <CategoryItem category="Переглянути всі">
+              <StyledMoreIcon color="primary" />
+            </CategoryItem>
+          )}
         </StyledBox>
       </CategoriesWrapper>
       <ChatButton />

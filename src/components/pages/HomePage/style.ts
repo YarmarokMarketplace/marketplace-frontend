@@ -1,4 +1,4 @@
-import { Box, Card, Container, Stack, styled } from "@mui/material";
+import { Box, Card, Container, Skeleton, Stack, styled } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 import { Link } from "react-router-dom";
@@ -56,6 +56,12 @@ export const StyledCard = styled(Card)(({ theme }) => ({
       color: theme.palette.primary.main,
     },
   },
+}));
+
+export const StyledSkeleton = styled(Skeleton)(({ theme }) => ({
+  borderRadius: 40,
+  height: 165,
+  width: 165,
 }));
 
 export const StyledCategoryLink = styled(Link)(({ theme }) => ({
