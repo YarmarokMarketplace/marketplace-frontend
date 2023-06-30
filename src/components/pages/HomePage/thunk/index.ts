@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllCategories } from "../../../api/categories";
+import { getAllCategories } from "../../../../api/categories";
 
 const CATEGORIES_FETCH_THUNK_TYPE = "CATEGORIES_FETCH_THUNK_TYPE";
 

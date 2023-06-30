@@ -25,6 +25,7 @@
     "@types/styled-components": "^5.1.26",
     "@types/webpack": "^5.28.1",
     "babel-loader": "^9.1.2",
+    "dotenv": "^16.3.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.2",
     "ts-loader": "^9.4.3",
