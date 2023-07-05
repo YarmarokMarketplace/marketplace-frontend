@@ -2,13 +2,13 @@ import { Box, Link, Typography, Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const FooterContainer = styled("footer")(({ theme }) => ({
-  backgroundColor: "#0F192E;",
+  backgroundColor: theme.palette.secBlack.dark,
   padding: theme.spacing(5, 7),
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "space-between",
   alignItems: "center",
-  color: "#FFF",
+  color: theme.palette.white,
 }));
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
@@ -16,7 +16,7 @@ export const StyledContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const LogoContainer = styled(Box)({
-  maxWidth: "20%",
+  maxWidth: "17%",
 });
 
 export const Logo = styled("img")({
@@ -30,15 +30,16 @@ export const LinksContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const CustomLink = styled(Link)(({ theme }) => ({
-  color: "#fff",
+  color: theme.palette.white,
   display: "block",
   textDecoration: "none",
-  fontSize: ".9rem",
+  fontSize: "0.9rem",
+  fontWeight: 500,
 }));
 
 export const Text = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(4),
   width: "100%",
   textAlign: "center",
-  color: "#fff",
+  color: theme.palette.white,
 }));

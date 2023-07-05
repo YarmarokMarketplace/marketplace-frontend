@@ -24,11 +24,14 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export const StyledLogo = styled("img")(({ theme }) => ({
-  width: "20%",
+  width: "17%",
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 2),
+  [theme.breakpoints.down("md")]: {
+    fontSize: "1rem",
+  },
   ":hover": {
     backgroundColor: theme.palette.primary.light,
   },

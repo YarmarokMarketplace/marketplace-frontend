@@ -65,7 +65,6 @@ const Header = () => {
                   ENG
                 </StyledToggleButton>
               </ToggleButtonGroup>
-
               <StyledButton
                 onClick={handleAddAdvert}
                 size="small"

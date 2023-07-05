@@ -1,36 +1,42 @@
 import React from "react";
+
 import {
   StyledCard,
+  StyledCardContent,
   StyledCategoryLink,
   StyledImgWrapper,
   StyledItemWrapper,
 } from "./style";
-import { CardActionArea, CardContent, Box } from "@mui/material";
+import { CardActionArea } from "@mui/material";
+
 import { useNavigate } from "react-router";
 
+import { CategoryItem } from "../../../types";
+import { categoryNames } from "../../../constants";
+
 interface CategotyItemProp {
-  category: string;
+  category: CategoryItem;
 }
 
 const CategoryItem: React.FC<CategotyItemProp> = ({ category, children }) => {
   const navigate = useNavigate();
 
   const handleItemClick = () => {
-    navigate("/category");
+    navigate(`/${category.name}`);
   };
 
   return (
     <StyledItemWrapper spacing={2}>
       <StyledCard>
         <CardActionArea onClick={handleItemClick}>
-          <CardContent>
+          <StyledCardContent>
             <StyledImgWrapper>{children}</StyledImgWrapper>
-          </CardContent>
+          </StyledCardContent>
         </CardActionArea>
       </StyledCard>
-      <Box sx={{ minHeight: 60, maxWidth: 165 }}>
-        <StyledCategoryLink to="/category">{category}</StyledCategoryLink>
-      </Box>
+      <StyledCategoryLink to={`/${category.name}`}>
+        {categoryNames[category.name]}
+      </StyledCategoryLink>
     </StyledItemWrapper>
   );
 };
