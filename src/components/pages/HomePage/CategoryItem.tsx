@@ -4,6 +4,7 @@ import {
   StyledCard,
   StyledCardContent,
   StyledCategoryLink,
+  StyledImage,
   StyledImgWrapper,
   StyledItemWrapper,
 } from "./style";
@@ -18,19 +19,36 @@ interface CategotyItemProp {
   category: CategoryItem;
 }
 
-const CategoryItem: React.FC<CategotyItemProp> = ({ category, children }) => {
+const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
   const navigate = useNavigate();
 
   const handleItemClick = () => {
     navigate(`/${category.name}`);
   };
 
+  const className: { [key: string]: string } = {
+    help: "help",
+    exchange: "exchange",
+    "for-free": "resize",
+    "home-and-garden": "resize",
+  };
+
   return (
     <StyledItemWrapper spacing={2}>
       <StyledCard>
-        <CardActionArea onClick={handleItemClick}>
+        <CardActionArea
+          id={`btn-${category._id.slice(20)}`}
+          onClick={handleItemClick}
+        >
           <StyledCardContent>
-            <StyledImgWrapper>{children}</StyledImgWrapper>
+            <StyledImgWrapper>
+              <StyledImage
+                id={`category-${category._id.slice(20)}`}
+                src={category.photo}
+                alt={`${category.name} image`}
+                className={className[category.name]}
+              />
+            </StyledImgWrapper>
           </StyledCardContent>
         </CardActionArea>
       </StyledCard>

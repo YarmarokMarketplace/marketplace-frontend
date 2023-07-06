@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchButton, SearchWrapper, StyledInput } from "./style";
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
 

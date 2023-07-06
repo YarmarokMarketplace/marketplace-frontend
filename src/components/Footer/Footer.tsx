@@ -15,7 +15,7 @@ import { Container, Stack } from "@mui/material";
 const Footer = () => {
   return (
     <FooterContainer>
-      <Container maxWidth="xl">
+      <Container maxWidth={false} disableGutters sx={{ maxWidth: 1320 }}>
         <Stack direction="row" justifyContent="space-between">
           <LogoContainer>
             <Logo src={logo} alt="Логотип" />

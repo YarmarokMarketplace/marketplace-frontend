@@ -7,10 +7,8 @@ import CategoryItem from "./CategoryItem";
 import SearchBar from "../../SearchBar";
 
 import {
-  CategoriesWrapper,
-  StyledBox,
+  StyledCategoryContainer,
   StyledContainer,
-  StyledImage,
   StyledLink,
   StyledSkeleton,
   StyledTextSkeleton,
@@ -30,42 +28,28 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <StyledContainer maxWidth="xl">
+    <StyledContainer maxWidth="xl" disableGutters>
       <SearchBar />
-      <CategoriesWrapper>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Typography variant="h4">Головні рубрики</Typography>
-          <StyledLink to="/categories">Всі</StyledLink>
-        </Stack>
-        <StyledBox maxWidth="xl" disableGutters>
-          {loading &&
-            Array.from(Array(16).keys()).map((item, index) => {
-              return (
-                <Stack key={index} spacing={2}>
-                  <StyledSkeleton animation="wave" variant="rectangular" />
-                  <StyledTextSkeleton animation="wave" variant="rounded" />
-                </Stack>
-              );
-            })}
-          {!loading &&
-            !error &&
-            categories.map((category) => {
-              return (
-                <CategoryItem key={category._id} category={category}>
-                  <StyledImage
-                    id={`category-${category._id.slice(20)}`}
-                    src={category.photo}
-                    alt={`${category.name} image`}
-                  />
-                </CategoryItem>
-              );
-            })}
-        </StyledBox>
-      </CategoriesWrapper>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Typography variant="h4">Головні рубрики</Typography>
+        <StyledLink to="/categories">Всі</StyledLink>
+      </Stack>
+      <StyledCategoryContainer>
+        {loading &&
+          Array.from(Array(16).keys()).map((item, index) => {
+            return (
+              <Stack key={index} spacing={2}>
+                <StyledSkeleton animation="wave" variant="rounded" />
+                <StyledTextSkeleton animation="wave" variant="rounded" />
+              </Stack>
+            );
+          })}
+        {!loading &&
+          !error &&
+          categories.map((category) => {
+            return <CategoryItem key={category._id} category={category} />;
+          })}
+      </StyledCategoryContainer>
       <ChatButton />
     </StyledContainer>
   );

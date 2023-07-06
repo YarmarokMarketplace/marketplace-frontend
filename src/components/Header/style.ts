@@ -7,11 +7,12 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
   justifyContent: "center",
-  padding: theme.spacing(2, 7),
+  padding: theme.spacing(2, 0),
   backgroundColor: "transparent",
 }));
 
@@ -24,7 +25,7 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 export const StyledLogo = styled("img")(({ theme }) => ({
-  width: "17%",
+  width: "100%",
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
@@ -57,4 +58,11 @@ export const CustomDivider = styled(Box)(({ theme }) => ({
   border: "1px solid",
   borderColor: theme.palette.text.secondary,
   height: theme.spacing(2.5),
+}));
+
+export const StyledLink = styled(NavLink)(({ theme }) => ({
+  width: "17%",
+  "&.active": {
+    pointerEvents: "none",
+  },
 }));
