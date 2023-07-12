@@ -3,3 +3,25 @@ export interface CategoryItem {
   name: string;
   photo?: string;
 }
+
+export interface ProductItem {
+  _id: string;
+  category: string;
+  goodtype?: string;
+  title: string;
+  description: string;
+  photos: string;
+  location: string;
+  price: number;
+  comments?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductListResponse {
+  totalResults: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  notices: ProductItem[];
+}

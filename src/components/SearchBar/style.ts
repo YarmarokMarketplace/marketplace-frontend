@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 
 export const SearchWrapper = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(0, 7),
   margin: theme.spacing(3, 0),
   alignItems: "center",
 }));

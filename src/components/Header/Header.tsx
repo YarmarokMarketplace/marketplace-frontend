@@ -17,14 +17,14 @@ import AddIcon from "@mui/icons-material/Add";
 import logo from "../../img/logo.png";
 
 const Header = () => {
-  const handleAddAdvert = () => {};
-  const handleLocalization = () => {};
-  const handleCheckFavourites = () => {};
-  const handleClickAccount = () => {};
+  const handleAddAdvert = () => { };
+  const handleLocalization = () => { };
+  const handleCheckFavourites = () => { };
+  const handleClickAccount = () => { };
   return (
     <>
       <StyledAppBar position="static">
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
             <StyledLogo src={logo} alt="logo" />
 

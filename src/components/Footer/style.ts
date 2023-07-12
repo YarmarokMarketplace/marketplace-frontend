@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 export const FooterContainer = styled("footer")(({ theme }) => ({
   backgroundColor: "#0F192E;",
-  padding: theme.spacing(5, 7),
+  padding: theme.spacing(5, 7.5),
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "space-between",

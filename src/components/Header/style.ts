@@ -11,7 +11,7 @@ import {
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
   justifyContent: "center",
-  padding: theme.spacing(2, 7),
+  padding: theme.spacing(2, 0),
   backgroundColor: "transparent",
 }));
 
