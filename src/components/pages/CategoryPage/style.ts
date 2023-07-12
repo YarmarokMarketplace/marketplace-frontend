@@ -65,6 +65,7 @@ export const StyledImgWrapper = styled(Box)(({ theme }) => ({
 
 export const StyledImg = styled("img")(({ theme }) => ({
     position: "absolute",
+    borderRadius: 12,
     objectFit: "cover",
     height: "100%",
     width: "100%",

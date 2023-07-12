@@ -1,9 +1,9 @@
 import React from 'react';
-import { Typography, Breadcrumbs, Link, useTheme } from '@mui/material';
+import { Breadcrumbs, Link, useTheme } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Theme } from '@mui/material/styles';
 
-const BasicBreadcrumbs: React.FC = () => {
+const BasicBreadcrumbs: React.FC = ({ children }) => {
     const theme: Theme = useTheme();
 
     return (
@@ -13,7 +13,7 @@ const BasicBreadcrumbs: React.FC = () => {
             <Link underline="hover" color="inherit" href="/">
                 Головна
             </Link>
-            <Typography color="text.primary">Каталог</Typography>
+            {children}
         </Breadcrumbs>
     );
 }

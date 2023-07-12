@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Typography, Stack } from "@mui/material";
+import { Typography, Stack, Link } from "@mui/material";
 
 import SearchBar from '../../SearchBar';
 import CategoryFilters from './CategoryFilters';
@@ -17,7 +17,9 @@ const CategoryPage = () => {
     return (
         <CategoryPageContainer maxWidth="xl" disableGutters>
             <SearchBar />
-            <BasicBreadcrumbs />
+            <BasicBreadcrumbs>
+                <Typography color="text.primary">Каталог</Typography>
+            </BasicBreadcrumbs>
             <Stack
                 direction="row"
                 justifyContent="space-between"
