@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { Typography, Box, Checkbox } from "@mui/material";
+import { Typography, Box, Checkbox, FormControlLabel, TextField, FormLabel } from "@mui/material";
 import ListItemButton from '@mui/material/ListItemButton';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-
-import TextField from '@mui/material/TextField';
 
 import {
     FiltersContainer,
