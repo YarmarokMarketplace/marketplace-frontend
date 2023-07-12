@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router";
-import { Box, Stack, Typography, Chip, CardActionArea, CardActions } from "@mui/material";
+import { Stack, Typography, Chip, CardActionArea, CardActions } from "@mui/material";
 import {
     StyledCard,
     StyledCardWrapper,
@@ -15,12 +15,15 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 
 import Moment from 'react-moment';
 import { ProductItem } from "../../../types";
+import placeholderImg from '/src/img/placeholder-image.png'
 
 interface ProductItemProp {
     product: ProductItem;
 }
 
 const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
+    const [error, setError] = useState(false);
+
     const navigate = useNavigate();
 
     const { _id, photos, title, location, createdAt, price } = product;
@@ -34,12 +37,26 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
         console.log("Favorite")
     }
 
+    const handleImageError = () => {
+        setError(true);
+    }
+
     return (
         <StyledCard>
             <CardActionArea onClick={handleItemClick}>
                 <StyledCardWrapper>
                     <StyledImgWrapper>
-                        <StyledImg src={photos} id={`product-${_id.slice(20)}`} />
+                        {error ?
+                            (<StyledImg
+                                src={placeholderImg}
+                                id={`product-${_id.slice(20)}`} />
+                            ) : (
+                                <StyledImg
+                                    src={photos}
+                                    id={`product-${_id.slice(20)}`}
+                                    onError={handleImageError} />)
+                        }
+
                     </StyledImgWrapper>
 
                     <StyledCardContent>
