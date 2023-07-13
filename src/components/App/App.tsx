@@ -1,11 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';;
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Layout from '../Layout';
-import HomePage from '../pages/HomePage';
+import Layout from "../Layout";
+import HomePage from "../pages/HomePage";
 
 const App: React.FC = () => {
-  console.log("Hello world");
   return (
     <>
       <Router>
@@ -16,7 +15,7 @@ const App: React.FC = () => {
         </Layout>
       </Router>
     </>
-  )
-}
+  );
+};
 
 export default App;

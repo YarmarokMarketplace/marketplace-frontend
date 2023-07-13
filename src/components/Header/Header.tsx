@@ -5,6 +5,7 @@ import {
   StyledAppBar,
   StyledButton,
   StyledIconButton,
+  StyledLink,
   StyledLogo,
   StyledToggleButton,
   StyledToolBar,
@@ -24,9 +25,11 @@ const Header = () => {
   return (
     <>
       <StyledAppBar position="static">
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
-            <StyledLogo src={logo} alt="logo" />
+            <StyledLink to="/">
+              <StyledLogo src={logo} alt="logo" />
+            </StyledLink>
 
             <Stack direction="row" spacing={7}>
               <Stack direction="row" spacing={1} alignItems="center">
@@ -65,7 +68,6 @@ const Header = () => {
                   ENG
                 </StyledToggleButton>
               </ToggleButtonGroup>
-
               <StyledButton
                 onClick={handleAddAdvert}
                 size="small"

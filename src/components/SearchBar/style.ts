@@ -1,13 +1,6 @@
-import {
-  Button,
-  InputAdornment,
-  Stack,
-  TextField,
-  styled,
-} from "@mui/material";
+import { Button, Stack, TextField, styled } from "@mui/material";
 
 export const SearchWrapper = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(0, 7),
   margin: theme.spacing(3, 0),
   alignItems: "center",
 }));

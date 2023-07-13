@@ -1,5 +1,26 @@
 import { createTheme } from "@mui/material";
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    secBlack: Palette["primary"];
+  }
+  interface PaletteOptions {
+    secBlack: PaletteOptions["primary"];
+  }
+  interface Palette {
+    lightGrey: Palette["primary"];
+  }
+  interface PaletteOptions {
+    lightGrey: PaletteOptions["primary"];
+  }
+  interface Palette {
+    white: Palette["divider"];
+  }
+  interface PaletteOptions {
+    white: PaletteOptions["divider"];
+  }
+}
+
 export const theme = createTheme({
   typography: {
     fontFamily: `'Mulish', sans-serif`,
@@ -50,6 +71,18 @@ export const theme = createTheme({
       secondary: "#8D9092",
       disabled: "#C6C7C8",
     },
+    secBlack: {
+      main: "#2A2F46",
+      dark: "#252A3F",
+      light: "#30364F",
+    },
+    lightGrey: {
+      main: "#F6F8F9",
+      dark: "#F3F3F3",
+      light: "#F9F9F9",
+      contrastText: "#F8F8FD",
+    },
+    white: "#fff",
   },
   components: {
     MuiButton: {

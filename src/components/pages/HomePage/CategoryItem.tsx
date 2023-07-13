@@ -1,36 +1,60 @@
 import React from "react";
+
 import {
   StyledCard,
+  StyledCardContent,
   StyledCategoryLink,
+  StyledImage,
   StyledImgWrapper,
   StyledItemWrapper,
 } from "./style";
-import { CardActionArea, CardContent, Box } from "@mui/material";
+import { CardActionArea } from "@mui/material";
+
 import { useNavigate } from "react-router";
 
+import { CategoryItem } from "../../../types";
+import { categoryNames } from "../../../constants";
+
 interface CategotyItemProp {
-  category: string;
+  category: CategoryItem;
 }
 
-const CategoryItem: React.FC<CategotyItemProp> = ({ category, children }) => {
+const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
   const navigate = useNavigate();
 
   const handleItemClick = () => {
-    navigate("/category");
+    navigate(`/${category.name}`);
+  };
+
+  const className: { [key: string]: string } = {
+    help: "help",
+    exchange: "exchange",
+    "for-free": "resize",
+    "home-and-garden": "resize",
   };
 
   return (
     <StyledItemWrapper spacing={2}>
       <StyledCard>
-        <CardActionArea onClick={handleItemClick}>
-          <CardContent>
-            <StyledImgWrapper>{children}</StyledImgWrapper>
-          </CardContent>
+        <CardActionArea
+          id={`btn-${category._id.slice(20)}`}
+          onClick={handleItemClick}
+        >
+          <StyledCardContent>
+            <StyledImgWrapper>
+              <StyledImage
+                id={`category-${category._id.slice(20)}`}
+                src={category.photo}
+                alt={`${category.name} image`}
+                className={className[category.name]}
+              />
+            </StyledImgWrapper>
+          </StyledCardContent>
         </CardActionArea>
       </StyledCard>
-      <Box sx={{ minHeight: 60, maxWidth: 165 }}>
-        <StyledCategoryLink to="/category">{category}</StyledCategoryLink>
-      </Box>
+      <StyledCategoryLink to={`/${category.name}`}>
+        {categoryNames[category.name]}
+      </StyledCategoryLink>
     </StyledItemWrapper>
   );
 };
