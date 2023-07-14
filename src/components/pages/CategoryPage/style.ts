@@ -10,6 +10,24 @@ export const CategoryPageContainer = styled(Container)(({ theme }) => ({
 
 }))
 
+export const CategoryProductsWrapper = styled(Box)(({ theme }) => ({
+    display: 'grid',
+    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    width: '61.5rem',
+    [theme.breakpoints.down('lg')]: {
+        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+
+    },
+    [theme.breakpoints.down('md')]: {
+        gridTemplateColumns: "1fr 1fr 1fr",
+
+    },
+    [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: "1fr 1fr",
+
+    },
+}))
+
 export const FiltersContainer = styled(Box)(({ theme }) => ({
     width: theme.spacing(39),
     borderRadius: 20,
@@ -89,11 +107,18 @@ export const TitleTypography = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(2),
 }))
 
-export const StyledButton = styled(Button)(({ theme }) => ({
+export const StyledButton = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
     padding: 0,
     backgroundColor: "#FFF",
     minWidth: 0,
     width: theme.spacing(4),
     height: theme.spacing(4),
     borderRadius: '20px',
+    ':hover': {
+        filter: "brightness(0.9)",
+    }
 }))

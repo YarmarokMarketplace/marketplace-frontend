@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Skeleton, Stack, Box, Typography } from "@mui/material";
+import { CategoryProductsWrapper } from './style';
 
 import { useDispatch, useSelector } from "react-redux";
 import { productsStateSelector } from "./selector";
@@ -12,19 +14,15 @@ import ProductItem from './ProductItem';
 const CategoryProducts = () => {
     const { products, loading, error } = useSelector(productsStateSelector);
     const dispatch: AppDispatch = useDispatch();
+    let { categoryName } = useParams();
 
     useEffect(() => {
-        dispatch(productListFetch());
-    }, [dispatch]);
+        if (!categoryName || typeof categoryName !== 'string') return;
+        dispatch(productListFetch(categoryName));
+    }, [dispatch, categoryName]);
 
     return (
-        <Box
-            gap={2}
-            sx={{
-                display: 'grid',
-                gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                width: '61.5rem'
-            }}>
+        <CategoryProductsWrapper gap={2}>
             {loading &&
                 Array.from(Array(12).keys()).map((item, index) => {
                     return (
@@ -59,7 +57,7 @@ const CategoryProducts = () => {
                     );
                 })
             }
-        </Box>
+        </CategoryProductsWrapper>
 
     )
 };

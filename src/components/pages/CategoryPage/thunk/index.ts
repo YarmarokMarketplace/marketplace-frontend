@@ -5,9 +5,9 @@ const PRODUCTS_FETCH_THUNK_TYPE = "PRODUCTS_FETCH_THUNK_TYPE";
 
 export const productListFetch = createAsyncThunk(
   PRODUCTS_FETCH_THUNK_TYPE,
-  async (_, { rejectWithValue }) => {
+  async (categoryName: string, { rejectWithValue }) => {
     try {
-      return await getAllProducts();
+      return await getAllProducts(categoryName);
     } catch (error) {
       return rejectWithValue(error);
     }

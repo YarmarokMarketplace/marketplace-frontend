@@ -26,15 +26,14 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
 
     const navigate = useNavigate();
 
-    const { _id, photos, title, location, createdAt, price } = product;
-
+    const { _id, photos, title, location, createdAt, price, category } = product;
+    console.log(product)
     const handleItemClick = () => {
-        navigate(`/category/${product._id}`);
+        navigate(`/${category}/${product._id}`);
     };
 
     const handleFavoriteClick = (e: any) => {
         e.stopPropagation();
-        console.log("Favorite")
     }
 
     const handleImageError = () => {
@@ -77,10 +76,8 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
                             <Chip label={`${price} грн`} size="small" color="primary" variant="outlined"
                                 sx={{ fontSize: "0.875rem", fontWeight: "600", }} />
                             <CardActions>
-                                <StyledButton
-                                    onClick={handleFavoriteClick}
-                                    size="small" color="primary">
-                                    <FavoriteBorderOutlinedIcon fontSize="small" />
+                                <StyledButton onClick={handleFavoriteClick} >
+                                    <FavoriteBorderOutlinedIcon fontSize="small" color="primary" />
                                 </StyledButton>
                             </CardActions>
                         </Stack>

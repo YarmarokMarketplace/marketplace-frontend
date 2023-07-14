@@ -20,6 +20,7 @@ const CategoryPage = () => {
             <BasicBreadcrumbs>
                 <Typography color="text.primary">Каталог</Typography>
             </BasicBreadcrumbs>
+
             <Stack
                 direction="row"
                 justifyContent="space-between"
@@ -29,6 +30,7 @@ const CategoryPage = () => {
                 <CategoryHeader />
                 <CategorySort />
             </Stack>
+
             <Stack sx={{ mt: 3 }}
                 direction="row"
                 justifyContent="space-between"
@@ -38,6 +40,7 @@ const CategoryPage = () => {
                 <CategoryFilters />
                 <CategoryProducts />
             </Stack>
+
             <CategoryPagination />
             <ChatButton />
         </CategoryPageContainer>
