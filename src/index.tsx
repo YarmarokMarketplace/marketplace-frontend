@@ -3,6 +3,7 @@ import ReactDom from "react-dom/client";
 
 import App from "./components/App";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import InputGlobalStyles from "./styles/GlobalStyles";
 
 import { theme } from "./theme";
 import { Provider } from "react-redux";
@@ -16,6 +17,7 @@ if (rootElement) {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline>
+            <InputGlobalStyles />
             <App />
           </CssBaseline>
         </ThemeProvider>
