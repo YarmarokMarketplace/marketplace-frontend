@@ -1,5 +1,12 @@
-import React from "react";
-import { ToggleButtonGroup, Stack, Typography, Container } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Stack,
+  Typography,
+  Container,
+  ButtonGroup,
+  Button,
+  useTheme,
+} from "@mui/material";
 import {
   CustomDivider,
   StyledAppBar,
@@ -7,7 +14,6 @@ import {
   StyledIconButton,
   StyledLink,
   StyledLogo,
-  StyledToggleButton,
   StyledToolBar,
 } from "./style";
 
@@ -18,10 +24,16 @@ import AddIcon from "@mui/icons-material/Add";
 import logo from "../../img/logo.png";
 
 const Header = () => {
-  const handleAddAdvert = () => { };
-  const handleLocalization = () => { };
-  const handleCheckFavourites = () => { };
-  const handleClickAccount = () => { };
+  const theme = useTheme();
+  const [lang, setLang] = useState("ua");
+  const handleAddAdvert = () => {};
+  const handleLocalization = (
+    event: React.SyntheticEvent<HTMLButtonElement>
+  ) => {
+    setLang(event.currentTarget.value);
+  };
+  const handleCheckFavourites = () => {};
+  const handleClickAccount = () => {};
   return (
     <>
       <StyledAppBar position="static">
@@ -52,22 +64,39 @@ const Header = () => {
                 </StyledIconButton>
                 <Typography variant="body1">Увійти</Typography>
               </Stack>
-
-              <ToggleButtonGroup
-                value="ua"
-                size="small"
-                color="primary"
-                exclusive
-                sx={{ alignItems: "center" }}
-              >
-                <StyledToggleButton onClick={handleLocalization} value="ua">
+              <ButtonGroup size="small" sx={{ alignItems: "center", gap: 1 }}>
+                <Button
+                  value="ua"
+                  sx={{
+                    fontSize: "1rem",
+                    color:
+                      lang === "ua"
+                        ? theme.palette.primary.main
+                        : theme.palette.divider,
+                  }}
+                  variant="text"
+                  size="small"
+                  onClick={handleLocalization}
+                >
                   UA
-                </StyledToggleButton>
+                </Button>
                 <CustomDivider />
-                <StyledToggleButton onClick={handleLocalization} value="en">
-                  ENG
-                </StyledToggleButton>
-              </ToggleButtonGroup>
+                <Button
+                  value="en"
+                  sx={{
+                    fontSize: "1rem",
+                    color:
+                      lang === "en"
+                        ? theme.palette.primary.main
+                        : theme.palette.divider,
+                  }}
+                  variant="text"
+                  size="small"
+                  onClick={handleLocalization}
+                >
+                  EN
+                </Button>
+              </ButtonGroup>
               <StyledButton
                 onClick={handleAddAdvert}
                 size="small"
