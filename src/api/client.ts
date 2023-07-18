@@ -7,7 +7,7 @@ export const client = axios.create({
 });
 
 client.interceptors.response.use(
-  (response) => response.data.result,
+  (response) => response.data,
   (error) => {
     return Promise.reject(error);
   }

@@ -7,7 +7,8 @@ export const categoryListFetch = createAsyncThunk(
   CATEGORIES_FETCH_THUNK_TYPE,
   async (_, { rejectWithValue }) => {
     try {
-      return await getAllCategories();
+      const res = await getAllCategories();
+      return res.result;
     } catch (error) {
       return rejectWithValue(error);
     }
