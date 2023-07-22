@@ -1,26 +1,35 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Stack, Pagination } from '@mui/material';
+import React from "react";
+import { Stack, Pagination } from "@mui/material";
+import { AppDispatch } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { currentPageSetAction } from "./reducer";
+import { productsResultStateSelector } from "./selector";
 
 const CategoryPagination: React.FC = () => {
-    return (
-        <Stack
-            direction="row"
-            justifyContent="center"
-            m="2rem 0 4rem"
-        >
-            <Pagination count={10} color="primary"
-                sx={{
-                    "button": {
-                        fontWeight: 700,
-                    },
-                    "svg": {
-                        fontSize: "2rem",
-                    }
-                }}
-            />
-        </Stack >
-    )
-}
+  const dispatch: AppDispatch = useDispatch();
+  const { totalPages, page } = useSelector(productsResultStateSelector);
+
+  const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
+    dispatch(currentPageSetAction(page));
+  };
+  return (
+    <Stack direction="row" justifyContent="center" m="2rem 0 4rem">
+      <Pagination
+        count={totalPages}
+        color="primary"
+        page={page}
+        onChange={handlePageChange}
+        sx={{
+          button: {
+            fontWeight: 700,
+          },
+          svg: {
+            fontSize: "2rem",
+          },
+        }}
+      />
+    </Stack>
+  );
+};
 
 export default CategoryPagination;
