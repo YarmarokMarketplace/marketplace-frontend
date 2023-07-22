@@ -23,8 +23,8 @@ export const initialState: ProductsState = {
   error: null,
   sort: "newest",
   products: {
-    totalPages: 0,
-    totalResult: 0,
+    totalPages: 1,
+    totalResult: 12,
     page: 1,
     limit: 12,
     result: [],
