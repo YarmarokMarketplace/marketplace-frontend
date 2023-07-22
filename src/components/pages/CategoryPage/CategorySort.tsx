@@ -4,7 +4,7 @@ import { Tabs, Tab, Box, Typography, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { productsStateSelector } from "./selector";
 import { AppDispatch } from "../../../store";
-import { productSortAction } from "./reducer";
+import { currentPageSetAction, productSortAction } from "./reducer";
 
 const CategorySort: React.FC = () => {
   const { sort } = useSelector(productsStateSelector);
@@ -23,6 +23,7 @@ const CategorySort: React.FC = () => {
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     dispatch(productSortAction(newValue));
+    dispatch(currentPageSetAction(1));
     localStorage.setItem("sort", newValue);
   };
 

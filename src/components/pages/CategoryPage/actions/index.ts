@@ -13,3 +13,9 @@ export const productSort = (
 ) => {
   state.sort = action.payload;
 };
+export const currentPageSet = (
+  state: ProductsState,
+  action: PayloadAction<number>
+) => {
+  state.products.page = action.payload;
+};

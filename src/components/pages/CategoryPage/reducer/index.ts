@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
+<<<<<<< HEAD
 import { currentPageSet, productSort } from "../actions";
+=======
+import { productSort } from "../actions";
+import { currentPageSet } from "../actions";
+>>>>>>> 86b84bc (feat: added pagination)
 
 type ResponseProducts = {
   totalResult: number;
@@ -38,6 +43,7 @@ const productSlice = createSlice({
   reducers: {
     currentPageSet,
     productSort,
+    currentPageSet,
   },
   extraReducers(builder) {
     builder
