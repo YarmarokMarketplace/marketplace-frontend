@@ -23,6 +23,7 @@ const CategorySort: React.FC = () => {
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     dispatch(productSortAction(newValue));
+    localStorage.setItem("sort", newValue);
   };
 
   return (

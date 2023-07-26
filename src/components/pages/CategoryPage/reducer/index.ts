@@ -21,7 +21,7 @@ export interface ProductsState {
 export const initialState: ProductsState = {
   loading: false,
   error: null,
-  sort: "newest",
+  sort: localStorage.getItem("sort")!,
   products: {
     totalPages: 1,
     totalResult: 0,
