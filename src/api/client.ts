@@ -3,7 +3,7 @@ import axios from "axios";
 const { REACT_APP_API } = process.env;
 
 export const client = axios.create({
-  baseURL: "https://yarmarok-pr-12.onrender.com/api/",
+  baseURL: REACT_APP_API,
 });
 
 client.interceptors.response.use(
