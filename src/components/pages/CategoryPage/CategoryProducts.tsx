@@ -13,9 +13,7 @@ import ProductItem from "./ProductItem";
 
 const CategoryProducts = () => {
   const { loading, error, sort } = useSelector(productsStateSelector);
-  const { result, limit, page, totalResult } = useSelector(
-    productsResultStateSelector
-  );
+  const { result, limit, page } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
 
@@ -27,37 +25,35 @@ const CategoryProducts = () => {
   return (
     <CategoryProductsWrapper gap={2}>
       {loading &&
-        Array.from(Array(totalResult > 12 ? limit : totalResult).keys()).map(
-          (item, index) => {
-            return (
-              <Stack key={index} gap={2} p={2}>
+        Array.from(Array(12).keys()).map((item, index) => {
+          return (
+            <Stack key={index} gap={2} p={2}>
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                sx={{ height: "12.5rem", width: "12.5rem" }}
+              />
+              <Skeleton
+                animation="wave"
+                sx={{ height: "2.438rem", width: "12rem" }}
+                variant="rounded"
+              />
+              <Skeleton
+                animation="wave"
+                sx={{ height: "0.875rem", width: "6rem" }}
+                variant="rounded"
+              />
+              <Stack direction="row" justifyContent="space-between">
                 <Skeleton
                   animation="wave"
-                  variant="rounded"
-                  sx={{ height: "12.5rem", width: "12.5rem" }}
-                />
-                <Skeleton
-                  animation="wave"
-                  sx={{ height: "2.438rem", width: "12rem" }}
+                  sx={{ height: "1.5em", width: "5.5rem" }}
                   variant="rounded"
                 />
-                <Skeleton
-                  animation="wave"
-                  sx={{ height: "0.875rem", width: "6rem" }}
-                  variant="rounded"
-                />
-                <Stack direction="row" justifyContent="space-between">
-                  <Skeleton
-                    animation="wave"
-                    sx={{ height: "1.5em", width: "5.5rem" }}
-                    variant="rounded"
-                  />
-                  <Skeleton variant="circular" width={32} height={32} />
-                </Stack>
+                <Skeleton variant="circular" width={32} height={32} />
               </Stack>
-            );
-          }
-        )}
+            </Stack>
+          );
+        })}
       {!loading &&
         !error &&
         result.map((product) => {
