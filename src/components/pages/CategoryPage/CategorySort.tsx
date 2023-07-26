@@ -7,7 +7,6 @@ import { AppDispatch } from "../../../store";
 import { productSortAction } from "./reducer";
 
 const CategorySort: React.FC = () => {
-  const [value, setValue] = React.useState(0);
   const { sort } = useSelector(productsStateSelector);
   const dispatch: AppDispatch = useDispatch();
 
