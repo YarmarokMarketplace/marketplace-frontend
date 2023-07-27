@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -29,5 +30,7 @@ const CategoryHeader: React.FC = () => {
     </Stack>
   );
 };
+
+
 
 export default CategoryHeader;
