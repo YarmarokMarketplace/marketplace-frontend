@@ -5,9 +5,9 @@ import { Skeleton, Stack } from "@mui/material";
 import { CategoryProductsWrapper } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store";
 import { productsResultStateSelector, productsStateSelector } from "./selector";
 import { productListFetch } from "./thunk";
-import { AppDispatch } from "../../../store";
 
 import ProductItem from "./ProductItem";
 

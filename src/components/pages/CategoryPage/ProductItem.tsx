@@ -46,7 +46,6 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
     setError(true);
   };
 
-
   return (
     <StyledCard>
       <CardActionArea onClick={handleItemClick}>

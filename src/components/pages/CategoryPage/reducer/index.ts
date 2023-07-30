@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
-import { currentPageSet } from "../actions";
+import { currentPageSet, productSort } from "../actions";
 
 type ResponseProducts = {
   totalResult: number;
@@ -20,9 +20,9 @@ export interface ProductsState {
 export const initialState: ProductsState = {
   loading: false,
   error: null,
-  sort: "newest",
+  sort: localStorage.getItem("sort") || "newest",
   products: {
-    totalPages: 0,
+    totalPages: 1,
     totalResult: 0,
     page: 1,
     limit: 12,
@@ -37,6 +37,7 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     currentPageSet,
+    productSort,
   },
   extraReducers(builder) {
     builder
@@ -55,6 +56,9 @@ const productSlice = createSlice({
   },
 });
 
-export const { currentPageSet: currentPageSetAction } = productSlice.actions;
+export const {
+  currentPageSet: currentPageSetAction,
+  productSort: productSortAction,
+} = productSlice.actions;
 
 export default productSlice.reducer;
