@@ -17,17 +17,20 @@ const CategoryProducts = () => {
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
 
+
   useEffect(() => {
     if (!categoryName || typeof categoryName !== "string") return;
     dispatch(productListFetch({ categoryName, sort, page, limit }));
-  }, [dispatch, categoryName, sort]);
+  }, [dispatch, categoryName, sort, page]);
 
   return (
     <CategoryProductsWrapper gap={2}>
       {loading &&
         Array.from(Array(12).keys()).map((item, index) => {
           return (
-            <Stack key={index} gap={2} p={2}>
+
+            <Stack key={index} gap={1} p={2}>
+
               <Skeleton
                 animation="wave"
                 variant="rounded"
