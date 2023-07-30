@@ -4,7 +4,9 @@ import { Tabs, Tab, Box, Typography, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { productsStateSelector } from "./selector";
 import { AppDispatch } from "../../../store";
+
 import { currentPageSetAction, productSortAction } from "./reducer";
+
 
 const CategorySort: React.FC = () => {
   const { sort } = useSelector(productsStateSelector);

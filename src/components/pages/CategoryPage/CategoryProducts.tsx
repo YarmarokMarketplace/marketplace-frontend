@@ -5,9 +5,9 @@ import { Skeleton, Stack } from "@mui/material";
 import { CategoryProductsWrapper } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store";
 import { productsResultStateSelector, productsStateSelector } from "./selector";
 import { productListFetch } from "./thunk";
-import { AppDispatch } from "../../../store";
 
 import ProductItem from "./ProductItem";
 
@@ -16,6 +16,7 @@ const CategoryProducts = () => {
   const { result, limit, page } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
+
 
   useEffect(() => {
     if (!categoryName || typeof categoryName !== "string") return;
@@ -27,7 +28,9 @@ const CategoryProducts = () => {
       {loading &&
         Array.from(Array(12).keys()).map((item, index) => {
           return (
+
             <Stack key={index} gap={1} p={2}>
+
               <Skeleton
                 animation="wave"
                 variant="rounded"

@@ -7,6 +7,7 @@ export const currentPageSet = (
 ) => {
   state.products.page = action.payload;
 };
+
 export const productSort = (
   state: ProductsState,
   action: PayloadAction<string>

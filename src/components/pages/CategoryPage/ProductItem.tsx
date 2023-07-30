@@ -42,6 +42,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
     e.stopPropagation();
   };
 
+
   const handleImageError = () => {
     setError(true);
   };

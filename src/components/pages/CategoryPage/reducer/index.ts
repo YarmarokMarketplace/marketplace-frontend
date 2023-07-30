@@ -55,10 +55,10 @@ const productSlice = createSlice({
       });
   },
 });
-
 export const {
   currentPageSet: currentPageSetAction,
   productSort: productSortAction,
 } = productSlice.actions;
+
 
 export default productSlice.reducer;
