@@ -1,17 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
+import { productSort } from "../actions";
+
+type ResponseProducts = {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  result: ProductItem[] | [];
+};
 
 export interface ProductsState {
+  sort: string;
   loading: boolean;
   error: boolean | null;
-  products: ProductItem[] | [];
+  products: ResponseProducts;
 }
 
 export const initialState: ProductsState = {
   loading: false,
   error: null,
-  products: [],
+  sort: localStorage.getItem("sort")!,
+  products: {
+    totalPages: 1,
+    totalResult: 0,
+    page: 1,
+    limit: 12,
+    result: [],
+  },
 };
 
 const name = "PRODUCTS";
@@ -19,7 +36,9 @@ const name = "PRODUCTS";
 const productSlice = createSlice({
   name,
   initialState,
-  reducers: {},
+  reducers: {
+    productSort,
+  },
   extraReducers(builder) {
     builder
       .addCase(productListFetch.pending, (state) => {
@@ -36,5 +55,7 @@ const productSlice = createSlice({
       });
   },
 });
+
+export const { productSort: productSortAction } = productSlice.actions;
 
 export default productSlice.reducer;

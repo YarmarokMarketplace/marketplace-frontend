@@ -26,10 +26,9 @@ export const StyledLink = styled(Link)(({ theme }) => ({
 
 export const StyledCategoryContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2, 0),
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "start",
-  gap: theme.spacing(4.5),
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(12rem, 1fr))",
+  gridGap: theme.spacing(3),
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(8),
 }));
@@ -42,8 +41,8 @@ export const StyledItemWrapper = styled(Stack)(({ theme }) => ({
 
 export const StyledCardContent = styled(CardContent)(({ theme }) => ({
   display: "flex",
-  width: 190,
-  height: 160,
+  width: theme.spacing(23.75),
+  height: theme.spacing(20),
 }));
 
 export const StyledImgWrapper = styled(Box)(({ theme }) => ({
@@ -70,7 +69,7 @@ export const StyledImage = styled("img")(({ theme }) => ({
 }));
 
 export const StyledCard = styled(Card)(({ theme }) => ({
-  borderRadius: 40,
+  borderRadius: theme.spacing(5),
   boxShadow: "none",
   ":hover ~": {
     a: {
@@ -80,22 +79,22 @@ export const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 export const StyledSkeleton = styled(Skeleton)(({ theme }) => ({
-  borderRadius: 40,
-  height: 160,
-  width: 190,
+  borderRadius: theme.spacing(5),
+  width: theme.spacing(23.75),
+  height: theme.spacing(20),
 }));
 
 export const StyledTextSkeleton = styled(Skeleton)(({ theme }) => ({
-  height: 60,
-  width: 190,
+  height: theme.spacing(6.875),
+  width: theme.spacing(23.75),
 }));
 
 export const StyledCategoryLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
   fontSize: "1.125rem",
   fontWeight: 500,
-  minHeight: 55,
-  maxWidth: 190,
+  minHeight: theme.spacing(6.875),
+  maxWidth: theme.spacing(23.75),
   color: theme.palette.text.primary,
   ":hover": {
     color: theme.palette.primary.main,
