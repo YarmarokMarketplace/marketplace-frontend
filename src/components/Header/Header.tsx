@@ -60,6 +60,7 @@ const Header = () => {
                   <FavoriteIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <StyledTextButton
+                  disableTouchRipple
                   id="fav-txt-btn"
                   color="inherit"
                   variant="text"
@@ -78,6 +79,7 @@ const Header = () => {
                   <PersonIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <StyledTextButton
+                  disableTouchRipple
                   id="acc-text-btn"
                   color="inherit"
                   variant="text"
@@ -102,6 +104,7 @@ const Header = () => {
                   }}
                   variant="text"
                   size="small"
+                  disableTouchRipple
                   onClick={handleLocalization}
                 >
                   UA
