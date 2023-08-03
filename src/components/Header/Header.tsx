@@ -22,10 +22,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 
 import logo from "../../img/logo.png";
+import { AppDispatch } from "../../store";
+import { useDispatch } from "react-redux";
+import {
+  openDrawerAction,
+  setDrawerContentAction,
+} from "../CustomDrawer/reducer";
+import { DrawerContent } from "../../types";
 
 const Header = () => {
   const theme = useTheme();
   const [lang, setLang] = useState("ua");
+  const dispatch: AppDispatch = useDispatch();
   const handleAddAdvert = () => {};
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
@@ -33,7 +41,11 @@ const Header = () => {
     setLang(event.currentTarget.value);
   };
   const handleCheckFavourites = () => {};
-  const handleClickAccount = () => {};
+  const handleClickAccount = () => {
+    //If user not logged in
+    dispatch(openDrawerAction(true));
+    dispatch(setDrawerContentAction(DrawerContent.login));
+  };
   return (
     <>
       <StyledAppBar position="static">
