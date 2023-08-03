@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack, Box, Typography } from "@mui/material";
 import { CategoryProductsWrapper } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,7 @@ const CategoryProducts = () => {
 
   return (
     <>
-      {!error &&
+      {!error && (
         <CategoryProductsWrapper gap={2}>
           {loading &&
             Array.from(Array(12).keys()).map((item, index) => {
@@ -62,9 +62,8 @@ const CategoryProducts = () => {
             result.map((product) => {
               return <ProductItem key={product._id} product={product} />;
             })}
-
         </CategoryProductsWrapper>
-      }
+      )}
 
       {error && <NoProductsMessage />}
     </>

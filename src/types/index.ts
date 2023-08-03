@@ -11,12 +11,13 @@ export interface ProductItem {
   goodtype?: string;
   title: string;
   description: string;
-  photos: string;
+  photos: string[];
   location: string;
   price: number;
   comments?: string;
   createdAt: string;
   updatedAt: string;
+  active?: boolean;
 }
 
 export interface ProductListResponse {

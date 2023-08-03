@@ -94,6 +94,11 @@ export const theme = createTheme({
           fontWeight: 600,
           textTransform: "none",
         },
+        contained: {
+          ":hover": {
+            backgroundColor: "#9EADFB",
+          },
+        },
       },
     },
     MuiToggleButton: {
@@ -108,6 +113,31 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           color: "#1B2124",
+        },
+        caption: {
+          lineHeight: "0.875rem",
+        },
+        subtitle2: {
+          lineHeight: "1rem",
+        },
+        body1: {
+          lineHeight: "1.25rem",
+        },
+        h6: {
+          lineHeight: "1.5rem",
+        },
+        h4: {
+          lineHeight: "2rem",
+        },
+      },
+    },
+    MuiRating: {
+      styleOverrides: {
+        root: {
+          color: "#FFAA37",
+        },
+        sizeMedium: {
+          fontSize: "1.25rem",
         },
       },
     },

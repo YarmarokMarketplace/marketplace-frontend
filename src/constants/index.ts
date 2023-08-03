@@ -16,3 +16,8 @@ export const categoryNames: { [key: string]: string } = {
   "goods-to-win": "Товари для перемоги",
   "hobbies-recreation-sports": "Хобі, відпочинок і спорт",
 };
+
+export const goodTypeNames: { [key: string]: string } = {
+  new: "Нове",
+  used: "Вживане",
+};

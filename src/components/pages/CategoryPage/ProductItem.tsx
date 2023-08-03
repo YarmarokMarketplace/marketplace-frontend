@@ -42,7 +42,6 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
     e.stopPropagation();
   };
 
-
   const handleImageError = () => {
     setError(true);
   };
@@ -56,7 +55,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
               <StyledImg src={placeholderImg} id={`product-${_id.slice(20)}`} />
             ) : (
               <StyledImg
-                src={photos}
+                src={photos[0]}
                 id={`product-${_id.slice(20)}`}
                 onError={handleImageError}
               />

@@ -14,6 +14,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import logo from "../../img/logo.png";
 import { AppDispatch } from "../../store";
@@ -24,28 +25,49 @@ import {
 } from "../CustomDrawer/reducer";
 import { DrawerContent } from "../../types";
 
+import { matchPath, useLocation } from "react-router-dom";
+
 const Header = () => {
   const theme = useTheme();
   const [lang, setLang] = useState("ua");
   const dispatch: AppDispatch = useDispatch();
-  const handleAddAdvert = () => {};
+  const { pathname } = useLocation();
+
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
   ) => {
     setLang(event.currentTarget.value);
   };
+  const handleAddAdvert = () => {};
   const handleCheckFavourites = () => {};
   const handleClickAccount = () => {
     //If user not logged in
   };
+
+  const handlePathMatch = () => {
+    if (matchPath("/:categoryName/:id", pathname)) return true;
+    return false;
+  };
+
   return (
     <>
       <StyledAppBar position="static">
         <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
-            <StyledLink to="/">
-              <StyledLogo src={logo} alt="logo" />
-            </StyledLink>
+            <Stack direction="row" alignItems="center" spacing={4} width="30%">
+              <StyledLink to="/">
+                <StyledLogo src={logo} alt="logo" />
+              </StyledLink>
+              {handlePathMatch() && (
+                <Button
+                  id="catalog-btn"
+                  endIcon={<ExpandMoreIcon />}
+                  variant="outlined"
+                >
+                  Каталог
+                </Button>
+              )}
+            </Stack>
 
             <Stack direction="row" spacing={7}>
               <Stack direction="row" spacing={1} alignItems="center">
@@ -132,7 +154,6 @@ const Header = () => {
               </ButtonGroup>
               <StyledButton
                 onClick={handleAddAdvert}
-                size="small"
                 variant="contained"
                 startIcon={<AddIcon />}
               >
