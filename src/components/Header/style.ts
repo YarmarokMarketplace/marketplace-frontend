@@ -55,3 +55,13 @@ export const StyledLink = styled(NavLink)(({ theme }) => ({
     pointerEvents: "none",
   },
 }));
+
+export const StyledTextButton = styled(Button)(({ theme }) => ({
+  fontSize: "1rem",
+  color: theme.palette.text.primary,
+  fontWeight: 400,
+  ":hover": {
+    color: theme.palette.primary.main,
+    backgroundColor: "transparent",
+  },
+}));

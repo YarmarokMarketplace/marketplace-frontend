@@ -25,7 +25,6 @@ const Footer = () => {
             <CustomLink href="#">Умови використання</CustomLink>
             <CustomLink href="#">Як продавати й купувати?</CustomLink>
             <CustomLink href="#">Правила безпеки</CustomLink>
-            <CustomLink href="#">Карта сайту</CustomLink>
           </LinksContainer>
         </Stack>
 

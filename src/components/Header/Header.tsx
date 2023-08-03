@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  Typography,
-  Container,
-  ButtonGroup,
-  Button,
-  useTheme,
-} from "@mui/material";
+import { Stack, Container, ButtonGroup, Button, useTheme } from "@mui/material";
 import {
   CustomDivider,
   StyledAppBar,
@@ -14,6 +7,7 @@ import {
   StyledIconButton,
   StyledLink,
   StyledLogo,
+  StyledTextButton,
   StyledToolBar,
 } from "./style";
 
@@ -61,20 +55,39 @@ const Header = () => {
                   onClick={handleCheckFavourites}
                   size="small"
                   color="primary"
+                  id="fav-btn"
                 >
                   <FavoriteIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
-                <Typography variant="body1">Обране</Typography>
+                <StyledTextButton
+                  disableTouchRipple
+                  id="fav-txt-btn"
+                  color="inherit"
+                  variant="text"
+                  size="small"
+                >
+                  Обране
+                </StyledTextButton>
               </Stack>
               <Stack direction="row" spacing={1} alignItems="center">
                 <StyledIconButton
                   onClick={handleClickAccount}
                   size="small"
                   color="primary"
+                  id="acc-btn"
                 >
                   <PersonIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
-                <Typography variant="body1">Увійти</Typography>
+                <StyledTextButton
+                  onClick={handleClickAccount}
+                  disableTouchRipple
+                  id="acc-text-btn"
+                  color="inherit"
+                  variant="text"
+                  size="small"
+                >
+                  Увійти
+                </StyledTextButton>
               </Stack>
               <ButtonGroup size="small" sx={{ alignItems: "center", gap: 1 }}>
                 <Button
@@ -83,11 +96,16 @@ const Header = () => {
                     fontSize: "1rem",
                     color:
                       lang === "ua"
-                        ? theme.palette.primary.main
+                        ? theme.palette.text.primary
                         : theme.palette.divider,
+                    ":hover": {
+                      color: theme.palette.primary.main,
+                      backgroundColor: "transparent",
+                    },
                   }}
                   variant="text"
                   size="small"
+                  disableTouchRipple
                   onClick={handleLocalization}
                 >
                   UA
@@ -95,12 +113,17 @@ const Header = () => {
                 <CustomDivider />
                 <Button
                   value="en"
+                  disableTouchRipple
                   sx={{
                     fontSize: "1rem",
                     color:
                       lang === "en"
-                        ? theme.palette.primary.main
+                        ? theme.palette.text.primary
                         : theme.palette.divider,
+                    ":hover": {
+                      backgroundColor: "transparent",
+                      color: theme.palette.primary.main,
+                    },
                   }}
                   variant="text"
                   size="small"
