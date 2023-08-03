@@ -18,3 +18,11 @@ export const productSort = (
 export const productStateReset = (state: ProductsState) => {
   state.products = initialState.products;
 };
+
+export const productFilterGoodtype = (state: ProductsState, action: PayloadAction<string>) => {
+  state.filterBy.goodtype = action.payload;
+};
+
+export const productFilterPrice = (state: ProductsState, action: PayloadAction<string>) => {
+  state.filterBy.price = action.payload;
+};

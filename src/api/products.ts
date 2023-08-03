@@ -13,11 +13,15 @@ export const getAllProducts = async (
   categoryName: string,
   sort: string,
   page: number,
-  limit: number
+  limit: number,
+  filterBy: {
+    goodtype: string,
+    price: string
+  },
 ) => {
   try {
     return await client.get<never, Response>(
-      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}`
+      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}`
     );
   } catch (error) {
     return Promise.reject(error);
