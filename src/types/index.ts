@@ -26,3 +26,11 @@ export interface ProductListResponse {
   limit: number;
   notices: ProductItem[];
 }
+
+export enum DrawerContent {
+  login = "login",
+  register = "register",
+  chat = "chat",
+  password = "password",
+  noContent = "noContent",
+}
