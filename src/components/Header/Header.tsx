@@ -79,6 +79,7 @@ const Header = () => {
                   <PersonIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <StyledTextButton
+                  onClick={handleClickAccount}
                   disableTouchRipple
                   id="acc-text-btn"
                   color="inherit"
