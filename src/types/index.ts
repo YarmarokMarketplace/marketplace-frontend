@@ -17,6 +17,7 @@ export interface ProductItem {
   comments?: string;
   createdAt: string;
   updatedAt: string;
+  active?: boolean;
 }
 
 export interface ProductListResponse {

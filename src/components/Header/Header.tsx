@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Stack, Container, ButtonGroup, Button, useTheme } from "@mui/material";
+import React, { useState } from 'react';
+import { Stack, Container, ButtonGroup, Button, useTheme } from '@mui/material';
 import {
   CustomDivider,
   StyledAppBar,
@@ -9,27 +9,32 @@ import {
   StyledLogo,
   StyledTextButton,
   StyledToolBar,
-} from "./style";
+} from './style';
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import logo from "../../img/logo.png";
-import { AppDispatch } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+import logo from '../../img/logo.png';
+import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   openDrawerAction,
   setDrawerContentAction,
-} from "../CustomDrawer/reducer";
-import { DrawerContent } from "../../types";
-import { useNavigate } from "react-router";
-import { userLoginStateSelector, getUserStateSelector } from "../DrawerContent/selector";
+} from '../CustomDrawer/reducer';
+import { DrawerContent } from '../../types';
+import { useNavigate } from 'react-router';
+import {
+  userLoginStateSelector,
+  getUserStateSelector,
+} from '../DrawerContent/selector';
+import { matchPath, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const [lang, setLang] = useState("ua");
+  const [lang, setLang] = useState('ua');
   const dispatch: AppDispatch = useDispatch();
   const handleAddAdvert = () => {
     if (isLogin) {
@@ -39,6 +44,7 @@ const Header = () => {
       dispatch(setDrawerContentAction(DrawerContent.login));
     }
   };
+  const { pathname } = useLocation();
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
   ) => {
@@ -58,24 +64,35 @@ const Header = () => {
   };
 
   const handleClickProfile = () => {
-    navigate('/profile')
-  }
+    navigate('/profile');
+  };
 
-  const { isLogin } = useSelector(
-    userLoginStateSelector
-  );
-  const { name } = useSelector(
-    getUserStateSelector
-  );
+  const { isLogin } = useSelector(userLoginStateSelector);
+  const { name } = useSelector(getUserStateSelector);
 
+  const handlePathMatch = () => {
+    if (matchPath('/:categoryName/:id', pathname)) return true;
+    return false;
+  };
   return (
     <>
       <StyledAppBar position="static">
         <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
-            <StyledLink to="/">
-              <StyledLogo src={logo} alt="logo" />
-            </StyledLink>
+            <Stack direction="row" alignItems="center" spacing={4} width="30%">
+              <StyledLink to="/">
+                <StyledLogo src={logo} alt="logo" />
+              </StyledLink>
+              {handlePathMatch() && (
+                <Button
+                  id="catalog-btn"
+                  endIcon={<ExpandMoreIcon />}
+                  variant="outlined"
+                >
+                  Каталог
+                </Button>
+              )}
+            </Stack>
 
             <Stack direction="row" spacing={7}>
               <Stack direction="row" spacing={1} alignItems="center">
@@ -85,7 +102,7 @@ const Header = () => {
                   color="primary"
                   id="fav-btn"
                 >
-                  <FavoriteIcon sx={{ fontSize: "1rem" }} />
+                  <FavoriteIcon sx={{ fontSize: '1rem' }} />
                 </StyledIconButton>
                 <StyledTextButton
                   onClick={handleCheckFavourites}
@@ -98,38 +115,36 @@ const Header = () => {
                   Обране
                 </StyledTextButton>
               </Stack>
-              {isLogin ?
-                (
-                  < Stack direction="row" spacing={1} alignItems="center">
-                    <StyledIconButton
-                      onClick={handleClickProfile}
-                      size="small"
-                      color="primary"
-                      id="acc-btn"
-                    >
-                      <PersonIcon sx={{ fontSize: "1rem" }} />
-                    </StyledIconButton>
-                    <StyledTextButton
-                      onClick={handleClickProfile}
-                      disableTouchRipple
-                      id="acc-text-btn"
-                      color="inherit"
-                      variant="text"
-                      size="small"
-                    >
-                      {name}
-                    </StyledTextButton>
-                  </Stack>
-                )
-                :
-                (< Stack direction="row" spacing={1} alignItems="center">
+              {isLogin ? (
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <StyledIconButton
+                    onClick={handleClickProfile}
+                    size="small"
+                    color="primary"
+                    id="acc-btn"
+                  >
+                    <PersonIcon sx={{ fontSize: '1rem' }} />
+                  </StyledIconButton>
+                  <StyledTextButton
+                    onClick={handleClickProfile}
+                    disableTouchRipple
+                    id="acc-text-btn"
+                    color="inherit"
+                    variant="text"
+                    size="small"
+                  >
+                    {name}
+                  </StyledTextButton>
+                </Stack>
+              ) : (
+                <Stack direction="row" spacing={1} alignItems="center">
                   <StyledIconButton
                     onClick={handleClickAccount}
                     size="small"
                     color="primary"
                     id="acc-btn"
                   >
-                    <PersonIcon sx={{ fontSize: "1rem" }} />
+                    <PersonIcon sx={{ fontSize: '1rem' }} />
                   </StyledIconButton>
                   <StyledTextButton
                     onClick={handleClickAccount}
@@ -142,19 +157,19 @@ const Header = () => {
                     Увійти
                   </StyledTextButton>
                 </Stack>
-                )}
-              <ButtonGroup size="small" sx={{ alignItems: "center", gap: 1 }}>
+              )}
+              <ButtonGroup size="small" sx={{ alignItems: 'center', gap: 1 }}>
                 <Button
                   value="ua"
                   sx={{
-                    fontSize: "1rem",
+                    fontSize: '1rem',
                     color:
-                      lang === "ua"
+                      lang === 'ua'
                         ? theme.palette.text.primary
                         : theme.palette.divider,
-                    ":hover": {
+                    ':hover': {
                       color: theme.palette.primary.main,
-                      backgroundColor: "transparent",
+                      backgroundColor: 'transparent',
                     },
                   }}
                   variant="text"
@@ -169,13 +184,13 @@ const Header = () => {
                   value="en"
                   disableTouchRipple
                   sx={{
-                    fontSize: "1rem",
+                    fontSize: '1rem',
                     color:
-                      lang === "en"
+                      lang === 'en'
                         ? theme.palette.text.primary
                         : theme.palette.divider,
-                    ":hover": {
-                      backgroundColor: "transparent",
+                    ':hover': {
+                      backgroundColor: 'transparent',
                       color: theme.palette.primary.main,
                     },
                   }}
@@ -188,7 +203,6 @@ const Header = () => {
               </ButtonGroup>
               <StyledButton
                 onClick={handleAddAdvert}
-                size="small"
                 variant="contained"
                 startIcon={<AddIcon />}
               >
@@ -197,7 +211,7 @@ const Header = () => {
             </Stack>
           </StyledToolBar>
         </Container>
-      </StyledAppBar >
+      </StyledAppBar>
     </>
   );
 };
