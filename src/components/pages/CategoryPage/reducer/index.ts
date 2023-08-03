@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
-import { currentPageSet, productSort, productStateReset } from "../actions";
+import {
+  currentPageSet,
+  productSort,
+  productFilterGoodtype,
+  productFilterPrice,
+  productStateReset
+} from "../actions";
 
 export type ResponseProducts = {
   totalResult: number;
@@ -15,12 +21,20 @@ export interface ProductsState {
   loading: boolean;
   error: boolean | null;
   products: ResponseProducts;
+  filterBy: {
+    goodtype: string,
+    price: string,
+  }
 }
 
 export const initialState: ProductsState = {
   loading: false,
   error: null,
   sort: localStorage.getItem("sort") || "newest",
+  filterBy: {
+    goodtype: localStorage.getItem("goodtype") || '',
+    price: localStorage.getItem("price") || '',
+  },
   products: {
     totalPages: 1,
     totalResult: 0,
@@ -32,13 +46,15 @@ export const initialState: ProductsState = {
 
 const name = "PRODUCTS";
 
-const productSlice = createSlice({
+const productsSlice = createSlice({
   name,
   initialState,
   reducers: {
     currentPageSet,
     productSort,
     productStateReset,
+    productFilterGoodtype,
+    productFilterPrice
   },
   extraReducers(builder) {
     builder
@@ -60,6 +76,8 @@ export const {
   currentPageSet: currentPageSetAction,
   productSort: productSortAction,
   productStateReset: productStateResetAction,
-} = productSlice.actions;
+  productFilterGoodtype: productFilterGoodtypeAction,
+  productFilterPrice: productFilterPriceAction
+} = productsSlice.actions;
 
-export default productSlice.reducer;
+export default productsSlice.reducer;

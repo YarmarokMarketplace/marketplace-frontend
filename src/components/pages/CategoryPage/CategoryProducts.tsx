@@ -6,21 +6,27 @@ import { CategoryProductsWrapper } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../store";
-import { productsResultStateSelector, productsStateSelector } from "./selector";
+import { productsStateSelector, productsResultStateSelector } from "./selector";
 import { productListFetch } from "./thunk";
 
 import ProductItem from "./ProductItem";
 
 const CategoryProducts = () => {
-  const { loading, error, sort } = useSelector(productsStateSelector);
+  const { loading, error, filterBy } = useSelector(productsStateSelector);
   const { result, limit, page } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
 
   useEffect(() => {
-    if (!categoryName || typeof categoryName !== "string") return;
-    dispatch(productListFetch({ categoryName, sort, page, limit }));
-  }, [dispatch, categoryName, sort, page]);
+    if (!categoryName || typeof categoryName !== 'string') return;
+    dispatch(productListFetch({
+      categoryName,
+      sort: 'newest',
+      page: 1,
+      limit: 12,
+      filterBy
+    }));
+  }, [dispatch, categoryName, filterBy]);
 
   return (
     <CategoryProductsWrapper gap={2}>
