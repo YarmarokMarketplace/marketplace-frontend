@@ -12,7 +12,7 @@ import { productListFetch } from "./thunk";
 import ProductItem from "./ProductItem";
 
 const CategoryProducts = () => {
-  const { loading, error, filterBy } = useSelector(productsStateSelector);
+  const { loading, error, sort, filterBy } = useSelector(productsStateSelector);
   const { result, limit, page } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
@@ -21,12 +21,12 @@ const CategoryProducts = () => {
     if (!categoryName || typeof categoryName !== 'string') return;
     dispatch(productListFetch({
       categoryName,
-      sort: 'newest',
-      page: 1,
-      limit: 12,
+      sort,
+      page,
+      limit,
       filterBy
     }));
-  }, [dispatch, categoryName, filterBy]);
+  }, [dispatch, categoryName, sort, page, filterBy]);
 
   return (
     <CategoryProductsWrapper gap={2}>
