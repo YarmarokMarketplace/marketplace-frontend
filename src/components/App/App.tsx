@@ -6,6 +6,13 @@ import HomePage from "../pages/HomePage";
 import CategoryPage from "../pages/CategoryPage";
 
 const App: React.FC = () => {
+  useEffect(() => {
+    localStorage.setItem("sort", "newest");
+    localStorage.setItem(
+      "regInput",
+      JSON.stringify({ name: "", email: "", password: "", confirmPassword: "" })
+    );
+  }, []);
   return (
     <>
       <Router>
