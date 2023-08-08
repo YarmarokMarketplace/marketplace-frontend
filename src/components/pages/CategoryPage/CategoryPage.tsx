@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Typography, Stack, Link } from "@mui/material";
 
@@ -12,11 +12,19 @@ import CategoryHeader from "./CategoryHeader";
 import CategoryPagination from "./CategoryPagination";
 import CategoryProducts from "./CategoryProducts";
 import ChatButton from "../../ChatButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { productsResultStateSelector } from "./selector";
+import { AppDispatch } from "../../../store";
+import { productSortAction } from "./reducer";
 
 const CategoryPage = () => {
   const { result } = useSelector(productsResultStateSelector);
+  const dispatch: AppDispatch = useDispatch();
+  useEffect(() => {
+    return () => {
+      dispatch(productSortAction("newest"));
+    };
+  }, []);
   return (
     <CategoryPageContainer maxWidth="xl" disableGutters>
       <SearchBar />

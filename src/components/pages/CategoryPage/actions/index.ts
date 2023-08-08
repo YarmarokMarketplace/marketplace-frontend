@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ProductsState } from "../reducer";
+import { ProductsState, initialState } from "../reducer";
 
 export const currentPageSet = (
   state: ProductsState,
@@ -13,4 +13,8 @@ export const productSort = (
   action: PayloadAction<string>
 ) => {
   state.sort = action.payload;
+};
+
+export const productStateReset = (state: ProductsState) => {
+  state.products = initialState.products;
 };

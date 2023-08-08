@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
-import { currentPageSet, productSort } from "../actions";
+import { currentPageSet, productSort, productStateReset } from "../actions";
 
-type ResponseProducts = {
+export type ResponseProducts = {
   totalResult: number;
   totalPages: number;
   page: number;
@@ -38,6 +38,7 @@ const productSlice = createSlice({
   reducers: {
     currentPageSet,
     productSort,
+    productStateReset,
   },
   extraReducers(builder) {
     builder
@@ -49,7 +50,7 @@ const productSlice = createSlice({
         state.loading = false;
         state.products = action.payload;
       })
-      .addCase(productListFetch.rejected, (state) => {
+      .addCase(productListFetch.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
       });
@@ -58,7 +59,7 @@ const productSlice = createSlice({
 export const {
   currentPageSet: currentPageSetAction,
   productSort: productSortAction,
+  productStateReset: productStateResetAction,
 } = productSlice.actions;
-
 
 export default productSlice.reducer;

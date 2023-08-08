@@ -6,9 +6,6 @@ import HomePage from "../pages/HomePage";
 import CategoryPage from "../pages/CategoryPage";
 
 const App: React.FC = () => {
-  useEffect(() => {
-    localStorage.setItem("sort", "newest");
-  }, []);
   return (
     <>
       <Router>
