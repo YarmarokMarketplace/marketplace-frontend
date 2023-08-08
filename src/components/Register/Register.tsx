@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, FormControl, Stack, Typography } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,19 +28,19 @@ const registerSchema = yup.object().shape({
   email: yup
     .string()
     .email("Введіть коректний email")
-    .required("Не забудьте ввести ваш email"),
+    .required("Не забудьте ввести електронну пошту"),
   password: yup
     .string()
     .required("Не забудьте ввести пароль")
-    .min(8, "Пароль має містити мінімум 8 символів")
+    .min(8, "Пароль повинен мати мінімум 8 символів")
     .matches(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-      "Пароль має містити хоча б одну велику літеру, одну цифру та спеціальний символ"
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#._?!@$%^&*-]).{8,}$/,
+      "Пароль має містити хоча б одну велику літеру, одну цифру та спеціальний символ (#._?!@$%^&*-)"
     ),
   confirmPassword: yup
     .string()
     .required("Не забудьте ввести пароль")
-    .oneOf([yup.ref("password")], "Паролі не збігаються"),
+    .oneOf([yup.ref("password")], "Введені паролі не збігаються."),
 });
 
 const Register = () => {
@@ -111,6 +112,14 @@ const Register = () => {
                   id="name"
                   {...field}
                   size="small"
+                  InputProps={{
+                    endAdornment: errors.name && (
+                      <InfoOutlinedIcon
+                        color="error"
+                        sx={{ fontSize: "1rem" }}
+                      />
+                    ),
+                  }}
                 />
               )}
             />
@@ -127,6 +136,14 @@ const Register = () => {
                   id="email"
                   {...field}
                   size="small"
+                  InputProps={{
+                    endAdornment: errors.email && (
+                      <InfoOutlinedIcon
+                        color="error"
+                        sx={{ fontSize: "1rem" }}
+                      />
+                    ),
+                  }}
                 />
               )}
             />
@@ -144,6 +161,14 @@ const Register = () => {
                   {...field}
                   id="password"
                   size="small"
+                  InputProps={{
+                    endAdornment: errors.password && (
+                      <InfoOutlinedIcon
+                        color="error"
+                        sx={{ fontSize: "1rem" }}
+                      />
+                    ),
+                  }}
                 />
               )}
             />
@@ -161,6 +186,14 @@ const Register = () => {
                   id="confirmPassword"
                   {...field}
                   size="small"
+                  InputProps={{
+                    endAdornment: errors.confirmPassword && (
+                      <InfoOutlinedIcon
+                        color="error"
+                        sx={{ fontSize: "1rem" }}
+                      />
+                    ),
+                  }}
                 />
               )}
             />
@@ -184,7 +217,7 @@ const Register = () => {
           variant="contained"
           type="submit"
           id="register-btn"
-          disabled={isSubmitted && !isValid}
+          disabled={!isValid}
         >
           Зареєструватись
         </Button>
@@ -192,6 +225,7 @@ const Register = () => {
       {/* social media register */}
       <Stack mt={2} direction="row" alignItems="center">
         <Typography variant="caption">Вже зареєстрований?</Typography>
+
         <StyledLoginBtn
           sx={{ fontSize: "0.75rem" }}
           variant="text"
@@ -199,6 +233,7 @@ const Register = () => {
           size="small"
           id="login-redirect"
           disableTouchRipple
+          title="hello"
           onClick={handleLoginRedirect}
         >
           Увійти
