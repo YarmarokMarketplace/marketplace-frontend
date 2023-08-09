@@ -13,6 +13,7 @@ type ProductsArgs = {
   filterBy: {
     goodtype: string;
     price: string;
+    location: string;
   };
 };
 

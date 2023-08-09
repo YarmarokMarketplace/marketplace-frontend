@@ -19,7 +19,8 @@ const CategoryHeader: React.FC = () => {
         variant="h4"
         gutterBottom
         sx={{
-          mr: "1rem",
+          mr: '1rem',
+          mb: 0,
           fontSize: "1.5rem",
           fontWeight: 700,
         }}

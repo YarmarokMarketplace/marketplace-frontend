@@ -11,6 +11,7 @@ import { productListFetch } from "./thunk";
 
 import ProductItem from "./ProductItem";
 import NoProductsMessage from "./NoProductsMessage";
+// import { ProductItem as ProductItemType } from "../../../types";
 
 const CategoryProducts = () => {
   const { loading, error, sort, filterBy } = useSelector(productsStateSelector);

@@ -7,6 +7,7 @@ type Response = {
   page: number;
   limit: number;
   result: ProductItem[] | [];
+  maxPriceInCategory: number;
 };
 
 export const getAllProducts = async (
@@ -16,12 +17,13 @@ export const getAllProducts = async (
   limit: number,
   filterBy: {
     goodtype: string,
-    price: string
+    price: string,
+    location: string
   },
 ) => {
   try {
     return await client.get<never, Response>(
-      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}`
+      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
     );
   } catch (error) {
     return Promise.reject(error);

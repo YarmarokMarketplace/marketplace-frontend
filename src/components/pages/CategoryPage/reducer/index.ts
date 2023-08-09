@@ -6,7 +6,8 @@ import {
   productSort,
   productFilterGoodtype,
   productFilterPrice,
-  productStateReset
+  productStateReset,
+  productFilterLocation
 } from "../actions";
 
 export type ResponseProducts = {
@@ -15,6 +16,7 @@ export type ResponseProducts = {
   page: number;
   limit: number;
   result: ProductItem[] | [];
+  maxPriceInCategory: number;
 };
 export interface ProductsState {
   sort: string;
@@ -24,6 +26,7 @@ export interface ProductsState {
   filterBy: {
     goodtype: string,
     price: string,
+    location: string
   }
 }
 
@@ -34,6 +37,7 @@ export const initialState: ProductsState = {
   filterBy: {
     goodtype: localStorage.getItem("goodtype") || '',
     price: localStorage.getItem("price") || '',
+    location: localStorage.getItem("location") || ''
   },
   products: {
     totalPages: 1,
@@ -41,6 +45,7 @@ export const initialState: ProductsState = {
     page: 1,
     limit: 12,
     result: [],
+    maxPriceInCategory: 0
   },
 };
 
@@ -54,7 +59,8 @@ const productsSlice = createSlice({
     productSort,
     productStateReset,
     productFilterGoodtype,
-    productFilterPrice
+    productFilterPrice,
+    productFilterLocation
   },
   extraReducers(builder) {
     builder
@@ -77,7 +83,8 @@ export const {
   productSort: productSortAction,
   productStateReset: productStateResetAction,
   productFilterGoodtype: productFilterGoodtypeAction,
-  productFilterPrice: productFilterPriceAction
+  productFilterPrice: productFilterPriceAction,
+  productFilterLocation: productFilterLocationAction
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

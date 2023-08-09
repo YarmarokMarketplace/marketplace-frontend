@@ -26,3 +26,7 @@ export const productFilterGoodtype = (state: ProductsState, action: PayloadActio
 export const productFilterPrice = (state: ProductsState, action: PayloadAction<string>) => {
   state.filterBy.price = action.payload;
 };
+
+export const productFilterLocation = (state: ProductsState, action: PayloadAction<string>) => {
+  state.filterBy.location = action.payload;
+};
