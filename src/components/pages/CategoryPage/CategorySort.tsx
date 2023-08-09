@@ -60,9 +60,9 @@ const CategorySort: React.FC = () => {
           value={sort}
           onChange={handleChange}
         >
-          <StyledTab value="newest" label="За новизною" />
-          <StyledTab value="cheapest" label="Дешевше" />
-          <StyledTab value="expensive" label="Дорожче" />
+          <StyledTab value="newest" label="Новішими" />
+          <StyledTab value="cheapest" label="Дешевшими" />
+          <StyledTab value="expensive" label="Дорожчими" />
         </Tabs>
       </Stack>
     </Box>

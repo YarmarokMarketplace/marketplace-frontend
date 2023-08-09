@@ -25,11 +25,13 @@ export interface ProductListResponse {
   page: number;
   limit: number;
   notices: ProductItem[];
+  maxPriceInCategory: number;
 }
 
 export enum DrawerContent {
   login = "login",
   register = "register",
+  reset = "reset",
   chat = "chat",
   password = "password",
   noContent = "noContent",

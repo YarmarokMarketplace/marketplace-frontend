@@ -1,8 +1,6 @@
 import {
-    Box, Link, Typography, Container, ListItemText,
-    Card, CardActionArea, CardContent,
-    CardMedia, Button, CardActions,
-    Chip,
+    Box, Typography, Container, ListItemText,
+    Card, CardContent, Chip, Collapse, List, FormControlLabel
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -29,6 +27,22 @@ export const CategoryProductsWrapper = styled(Box)(({ theme }) => ({
 }))
 
 export const FiltersContainer = styled(Box)(({ theme }) => ({
+    scrollbarWidth: 'auto',
+    scrollbarColor: '#ffffff #808080',
+    '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
+        width: '0.6em',
+    },
+    '&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track': {
+        background: "#f1f1f1",
+    },
+    '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
+        backgroundColor: '#888',
+        borderRadius: '10px',
+    },
+    '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
+        background: '#555'
+    },
+
     width: theme.spacing(39),
     borderRadius: 20,
     padding: theme.spacing(3),
@@ -51,6 +65,7 @@ export const FiltersContainer = styled(Box)(({ theme }) => ({
 }))
 
 export const FilterText = styled(ListItemText)(({ theme }) => ({
+    color: theme.palette.text.primary,
     "span": {
         fontSize: "1.125rem",
         fontWeight: 700
@@ -121,4 +136,56 @@ export const StyledButton = styled("div")(({ theme }) => ({
     ':hover': {
         filter: "brightness(0.9)",
     }
+}))
+
+// Filters
+// CategoryFilter
+export const CategoryCollapse = styled(Collapse)(({ theme }) => ({
+    '& .MuiFormControl-root': {
+        margin: '0 !important'
+    },
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    borderRadius: theme.spacing(1),
+    border: "1px solid #F3F3F3",
+}))
+
+export const CurrentCategoryListItemText = styled(ListItemText)(({ theme }) => ({
+    padding: '1rem',
+    '&>span': {
+        fontSize: "1rem",
+        fontWeight: 700,
+        color: theme.palette.primary.main,
+    }
+}))
+
+export const CategoryList = styled(List)(({ theme }) => ({
+    width: '100%',
+    maxWidth: 360,
+    position: 'relative',
+    overflow: 'auto',
+    maxHeight: 185,
+    paddingTop: 0,
+    paddingBottom: 0,
+    borderTop: "1px solid #F3F3F3",
+}))
+
+
+export const CategoryListItemText = styled(ListItemText)(({ theme }) => ({
+    fontSize: '0.875rem',
+    padding: theme.spacing(1, 0, 1, 2)
+}))
+// GoodtypeFilter
+export const GoodtypeFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
+    fontSize: '1rem',
+    color: theme.palette.text.primary,
+}))
+
+// LocationFilter
+export const LocationCollapse = styled(Collapse)(({ theme }) => ({
+    '& .MuiFormControl-root': {
+        margin: '0 !important'
+    },
+    marginTop: '1rem',
+    marginBottom: '1.5rem',
 }))

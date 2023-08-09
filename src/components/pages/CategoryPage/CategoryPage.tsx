@@ -25,6 +25,7 @@ const CategoryPage = () => {
       dispatch(productSortAction("newest"));
     };
   }, []);
+
   return (
     <CategoryPageContainer maxWidth="xl" disableGutters>
       <SearchBar />
