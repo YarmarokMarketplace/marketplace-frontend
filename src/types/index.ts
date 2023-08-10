@@ -31,7 +31,7 @@ export interface ProductListResponse {
 export enum DrawerContent {
   login = "login",
   register = "register",
-  reset = "reset",
+  resetPassword = "resetPassword",
   chat = "chat",
   password = "password",
   noContent = "noContent",
