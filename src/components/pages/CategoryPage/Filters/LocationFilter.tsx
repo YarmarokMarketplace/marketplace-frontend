@@ -14,6 +14,8 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import { locations } from '../../../../constants'; // Translate
 
+import locationIcon from '../../../../img/locations/location.svg';
+
 import {
     FilterText, LocationCollapse
 } from "../style";
@@ -109,7 +111,7 @@ const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
                             <img
                                 loading="lazy"
                                 width="30"
-                                src={option.img || '/img/locations/location.svg'}
+                                src={option.img || locationIcon}
                                 srcSet={`/w40/${option.value}.png 2x`}
                                 alt=""
                             />

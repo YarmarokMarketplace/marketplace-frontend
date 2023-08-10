@@ -17,16 +17,22 @@ export const categoryNames: { [key: string]: string } = {
   "hobbies-recreation-sports": "Хобі, відпочинок і спорт",
 };
 
+import ua from '../img/locations/ukraine.png'
+import kyiv from '../img/locations/kyiv.png'
+import dnipro from '../img/locations/dnipro.png'
+import kharkiv from '../img/locations/kharkiv.png'
+import odesa from '../img/locations/odesa.png'
+
 export const locations: Array<{ label: string; value: string; img?: string; }> = [
-  { label: 'Вся Україна', value: 'Ukraine', img: '/img/locations/ukraine.png' },
+  { label: 'Вся Україна', value: 'Ukraine', img: ua },
   { label: 'Популярні', value: '' },
-  { label: 'Київ', value: 'Kyiv', img: '/img/locations/kyiv.png' },
+  { label: 'Київ', value: 'Kyiv', img: kyiv },
   { label: 'Київська область', value: 'Kyiv-region' },
-  { label: 'Дніпро', value: 'Dnipro', img: '/img/locations/dnipro.png' },
+  { label: 'Дніпро', value: 'Dnipro', img: dnipro },
   { label: 'Дніпропетровська область', value: 'Dripro-region' },
-  { label: 'Харків', value: 'Kharkiv', img: '/img/locations/kharkiv.png' },
+  { label: 'Харків', value: 'Kharkiv', img: kharkiv },
   { label: 'Харківська область', value: 'Kharkiv-region' },
-  { label: 'Одеса', value: 'Odesa', img: '/img/locations/odesa.png' },
+  { label: 'Одеса', value: 'Odesa', img: odesa },
   { label: 'Одеська область', value: 'Odesa-region' },
   { label: 'Інші', value: '' },
   { label: 'Львів', value: 'Lviv' },

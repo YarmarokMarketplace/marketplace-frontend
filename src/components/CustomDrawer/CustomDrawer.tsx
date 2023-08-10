@@ -36,7 +36,7 @@ const CustomDrawer = () => {
           {/* {content == DrawerContent.login && <Login />} */}
           {/* {content == DrawerContent.chat && } */}
           {/* {content == DrawerContent.register && } */}
-          {/* {content == DrawerContent.reset && <ResetPassword />} */}
+          {/* {content == DrawerContent.resetPassword && <ResetPassword />} */}
         </>
       </StyledCustomDrawer>
     </>

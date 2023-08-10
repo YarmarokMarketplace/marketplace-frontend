@@ -42,7 +42,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = (
     let { categoryName } = useParams();
 
     const [categoryOpen, setCategoryOpen] = useState(true);
-    const [categoryListOpen, setCategoryListOpen] = useState(true);
+    const [categoryListOpen, setCategoryListOpen] = useState(false);
 
     const [selectedCategory, setSelectedCategory] = useState<string>('');
 

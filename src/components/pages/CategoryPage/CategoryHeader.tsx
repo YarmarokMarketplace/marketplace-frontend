@@ -14,7 +14,7 @@ const CategoryHeader: React.FC = () => {
   let { categoryName } = useParams();
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" alignItems="flex-end">
       <Typography
         variant="h4"
         gutterBottom
