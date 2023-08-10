@@ -6,6 +6,10 @@ import HomePage from "../pages/HomePage";
 import CategoryPage from "../pages/CategoryPage";
 
 const App: React.FC = () => {
+  useEffect(() => {
+    localStorage.setItem("logInput", JSON.stringify({ email: "", password: "" }));
+  }, []);
+
   return (
     <>
       <Router>

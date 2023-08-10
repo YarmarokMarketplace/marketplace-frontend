@@ -8,8 +8,8 @@ import { drawerSelector } from "./selector";
 import { AppDispatch } from "../../store";
 import { openDrawerAction } from "./reducer";
 import { DrawerContent } from "../../types";
-// import Login from "../DrawerContent/Login";
-// import ResetPassword from "../DrawerContent/ResetPassword";
+import Login from "../DrawerContent/Login";
+import ResetPassword from "../DrawerContent/ResetPassword";
 
 const CustomDrawer = () => {
   const { open, content } = useSelector(drawerSelector);
@@ -33,10 +33,10 @@ const CustomDrawer = () => {
           >
             <CloseIcon fontSize="medium" />
           </IconButton>
-          {/* {content == DrawerContent.login && <Login />} */}
+          {content == DrawerContent.login && <Login />}
           {/* {content == DrawerContent.chat && } */}
           {/* {content == DrawerContent.register && } */}
-          {/* {content == DrawerContent.resetPassword && <ResetPassword />} */}
+          {content == DrawerContent.resetPassword && <ResetPassword />}
         </>
       </StyledCustomDrawer>
     </>
