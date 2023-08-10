@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { debounce } from "lodash"
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../../store";
@@ -26,6 +26,8 @@ interface CategoryFilterProps {
 
 const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPriceValue, maxPriceValue, setMaxPriceValue }) => {
     const dispatch: AppDispatch = useDispatch();
+
+    const [maxPriceError, setMaxPriceError] = useState(false);
 
     const { maxPriceInCategory } = useSelector(productsResultStateSelector);
     const minPrice = useRef<HTMLInputElement>();
@@ -55,17 +57,25 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
 
     const debouncedHandlePriceChange = useRef(
         debounce((newFilterByPrice: string) => {
-            const filterPrice = /=(\d*)-?(\d*)/g.exec(newFilterByPrice);
+            // const filterPrice = /=(\d*)-?(\d*)/g.exec(newFilterByPrice);
             const newFilterBy = { ...filterBy, price: newFilterByPrice };
-
-            if (filterPrice && (parseInt(filterPrice[1]) < parseInt(filterPrice[2]))) {
-                dispatch(productFilterPriceAction(newFilterBy.price));
-                localStorage.setItem("price", newFilterBy.price);
-            }
+            // if (filterPrice && (parseInt(filterPrice[1]) < parseInt(filterPrice[2]))) {
+            dispatch(productFilterPriceAction(newFilterBy.price));
+            localStorage.setItem("price", newFilterBy.price);
+            // }
         }, 500)
     ).current;
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (minPrice.current?.value && maxPrice.current?.value) {
+
+            if (parseFloat(minPrice.current.value) >= parseFloat(maxPrice.current.value)) {
+                setMaxPriceError(true)
+            } else {
+                setMaxPriceError(false);
+            }
+        }
+
         const filterNumbers = event.target.value.replace(/\D/g, '');
         event.target.name === 'min' ?
             setMinPriceValue(filterNumbers) :
@@ -73,14 +83,21 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
 
         let newFilterByPrice = '';
 
+        console.log('min: ' + minPrice.current?.value)
+        console.log('max: ' + maxPrice.current?.value)
+        console.log(maxPriceInCategory)
+
         if (minPrice.current?.value && maxPrice.current?.value) {
             newFilterByPrice = `&priceRange=${minPrice.current?.value}-${maxPrice.current?.value}`;
         } else if (!minPrice.current?.value && maxPrice.current?.value) {
             newFilterByPrice = `&priceRange=0-${maxPrice.current?.value}`;
-        } else if (minPrice.current?.value && !maxPrice.current?.value) {
-            setMaxPriceValue(maxPriceInCategory.toString());
+        } else if (minPrice.current?.value && !maxPrice.current?.value && maxPriceInCategory) {
             newFilterByPrice = `&priceRange=${minPrice.current?.value}-${maxPriceInCategory}`;
+        } else if (!minPrice.current?.value && !maxPrice.current?.value) {
+            setMaxPriceError(false);
+            newFilterByPrice = '';
         }
+
         debouncedHandlePriceChange(newFilterByPrice);
     }
 
@@ -110,7 +127,7 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
                         size="small" id="minPrice-textfield" label="Від" variant="outlined" name="min"
                         value={minPriceValue}
                         inputRef={minPrice} />
-                    <TextField
+                    <TextField error={maxPriceError}
                         size="small" id="maxPrice-textfield" label="До" variant="outlined" name="max"
                         value={maxPriceValue}
                         inputRef={maxPrice} />
