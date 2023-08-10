@@ -7,7 +7,6 @@ import { AppDispatch } from "../../../store";
 
 import { currentPageSetAction, productSortAction } from "./reducer";
 
-
 const CategorySort: React.FC = () => {
   const { sort } = useSelector(productsStateSelector);
   const dispatch: AppDispatch = useDispatch();
@@ -24,9 +23,9 @@ const CategorySort: React.FC = () => {
   }));
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    localStorage.setItem("sort", newValue);
     dispatch(productSortAction(newValue));
     dispatch(currentPageSetAction(1));
-    localStorage.setItem("sort", newValue);
   };
 
   return (

@@ -17,7 +17,6 @@ const CategoryProducts = () => {
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
 
-
   useEffect(() => {
     if (!categoryName || typeof categoryName !== "string") return;
     dispatch(productListFetch({ categoryName, sort, page, limit }));
@@ -28,9 +27,7 @@ const CategoryProducts = () => {
       {loading &&
         Array.from(Array(12).keys()).map((item, index) => {
           return (
-
             <Stack key={index} gap={1} p={2}>
-
               <Skeleton
                 animation="wave"
                 variant="rounded"
