@@ -8,7 +8,7 @@ import { drawerSelector } from "./selector";
 import { AppDispatch } from "../../store";
 import { openDrawerAction } from "./reducer";
 import { DrawerContent } from "../../types";
-import Register from "../Register";
+import Register from "../DrawerContent";
 
 const CustomDrawer = () => {
   const { open, content } = useSelector(drawerSelector);

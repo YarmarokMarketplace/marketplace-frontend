@@ -34,3 +34,15 @@ export enum DrawerContent {
   password = "password",
   noContent = "noContent",
 }
+
+export interface RegisterResponse {
+  email: string;
+  name: string;
+  lastName: string;
+}
+
+export interface RegisterBody {
+  email: string;
+  name: string;
+  password: string;
+}

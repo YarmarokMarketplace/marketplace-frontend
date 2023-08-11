@@ -14,7 +14,7 @@ export const StyledBox = styled(Box)(({ theme }) => ({
 export const StyledLabel = styled(FormLabel)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontWeight: 700,
-  mb: theme.spacing(0.5),
+  marginBottom: theme.spacing(0.5),
 }));
 
 export const StyledInput = styled(TextField)(({ theme }) => ({
@@ -38,4 +38,10 @@ export const StyledLoginBtn = styled(Button)(({ theme }) => ({
     backgroundColor: "transparent",
     color: theme.palette.primary.light,
   },
+}));
+
+export const StyledVector = styled(Box)(({ theme }) => ({
+  border: `1px solid ${theme.palette.primary.main}`,
+  padding: theme.spacing(4),
+  borderRadius: "50%",
 }));
