@@ -57,3 +57,28 @@ export enum ModalContent {
   cancel = "cancel",
   noContent = "noContent",
 }
+
+export interface LoginResponse {
+  status: string,
+  code: number;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  }
+}
+
+export interface LoginBody {
+  email: string;
+  password: string;
+}
+
+export interface CurrentResponse {
+  user: {
+    email: string;
+    name: string;
+  }
+  accessToken: string;
+}
