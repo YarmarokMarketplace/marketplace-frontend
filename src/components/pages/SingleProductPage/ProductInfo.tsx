@@ -24,14 +24,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             ID:7242432
           </Typography>
         </Stack>
-        <Typography variant="h4" mt={1}>
+        <Typography variant="h4" mt={1} minHeight="4rem">
           {product.title}
         </Typography>
         <Typography mt={2} color="primary" variant="h4">
           {product.price} грн
         </Typography>
         <Stack mt={2} direction="row" justifyContent="space-between">
-          <Stack gap={2} direction="row">
+          <Stack spacing={2} direction="row">
             <Button
               id="buy-btn"
               sx={{ width: "7rem", paddingY: 1 }}
