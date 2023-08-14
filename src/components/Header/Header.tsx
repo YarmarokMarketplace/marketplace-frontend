@@ -37,8 +37,6 @@ const Header = () => {
   const handleCheckFavourites = () => {};
   const handleClickAccount = () => {
     //If user not logged in
-    dispatch(openDrawerAction(true));
-    dispatch(setDrawerContentAction(DrawerContent.login));
   };
   return (
     <>

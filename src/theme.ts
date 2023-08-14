@@ -35,6 +35,7 @@ export const theme = createTheme({
     h4: {
       fontSize: "1.5rem",
       fontWeight: 700,
+      lineHeight: "2rem",
     },
   },
   palette: {
