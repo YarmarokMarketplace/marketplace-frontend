@@ -12,7 +12,8 @@ import userAuthReducer from "../../components/DrawerContent/reducer";
 const persistConfig = {
   key: 'login',
   storage,
-  whitelist: ['login']
+  whitelist: ['login'],
+  // serialize: true
 }
 
 const persistedAuthReducer = persistReducer(persistConfig, userAuthReducer);

@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import logo from "../../img/logo.png";
 import { AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   openDrawerAction,
   setDrawerContentAction,
@@ -25,13 +26,21 @@ import {
 import { DrawerContent } from "../../types";
 import { useNavigate } from "react-router";
 import { userLoginStateSelector, getUserStateSelector } from "../DrawerContent/selector";
+// import { openDrawer } from "../../utils/authUtils";
 
 const Header = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [lang, setLang] = useState("ua");
   const dispatch: AppDispatch = useDispatch();
-  const handleAddAdvert = () => { };
+  const handleAddAdvert = () => {
+    if (isLogin) {
+      navigate('/add-advert');
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
   ) => {
@@ -48,7 +57,6 @@ const Header = () => {
     getUserStateSelector
   );
 
-  console.log(isLogin)
   return (
     <>
       <StyledAppBar position="static">

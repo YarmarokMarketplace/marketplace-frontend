@@ -10,12 +10,9 @@ export const register = async (data: RegisterBody) => {
   }
 };
 
-
 export const login = async (data: LoginBody) => {
-  console.log(data)
   try {
     const result = await loginClient.post<never, LoginResponse>("/auth/login", data);
-    console.log(result)
     setToken(result.accessToken);
     localStorage.setItem("refreshToken", result.refreshToken);
     return result;

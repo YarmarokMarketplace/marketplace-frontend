@@ -32,14 +32,13 @@ export const userLoginFetch = createAsyncThunk(
     async (data: LoginBody, { rejectWithValue, dispatch }) => {
         try {
             const result: LoginResponse = await login(data);
-            const { accessToken } = result;
-            setToken(accessToken);
+            console.log(result)
             return result;
         } catch (error) {
             if (error instanceof AxiosError) {
-                console.log(error.response?.data.message)
-                if (error.response?.data.message === "Email or password is wrong") {
-                    console.log("Email or password is wrong")
+                const { message } = error.response?.data;
+                console.log(message)
+                if (message === "Email or password is wrong") {
                     dispatch(emailErrorToggleAction(true));
                 }
                 return rejectWithValue(error.response?.data);

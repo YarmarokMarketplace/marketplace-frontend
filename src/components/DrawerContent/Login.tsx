@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Stack, FormControl, Typography, Checkbox } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -123,7 +124,15 @@ const Login = () => {
                             render={({ field }) => (
                                 <StyledInput
                                     helperText={helperText}
-                                    error={Boolean(errors?.email)}
+                                    error={Boolean(errors?.email) || emailError}
+                                    InputProps={{
+                                        endAdornment: (errors.email || emailError) && (
+                                            <InfoOutlinedIcon
+                                                color="error"
+                                                sx={{ fontSize: "1rem" }}
+                                            />
+                                        ),
+                                    }}
                                     id="email"
                                     {...field}
                                     size="small"
@@ -141,7 +150,15 @@ const Login = () => {
                                 <StyledInput
                                     type="password"
                                     helperText={helperText}
-                                    error={Boolean(errors.password)}
+                                    error={Boolean(errors.password) || emailError}
+                                    InputProps={{
+                                        endAdornment: (errors.email || emailError) && (
+                                            <InfoOutlinedIcon
+                                                color="error"
+                                                sx={{ fontSize: "1rem" }}
+                                            />
+                                        ),
+                                    }}
                                     {...field}
                                     id="password"
                                     size="small"

@@ -29,13 +29,13 @@ loginClient.interceptors.response.use(response => response.data, async (error) =
     const refreshToken = localStorage.getItem("refreshToken");
     try {
       const { data } = await loginClient.post("/auth/refresh", { refreshToken })
-      // console.log('data' + data)
       setToken(data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
 
       return loginClient(error.config);
     } catch (error) {
-      return Promise.reject(error);
+      // return Promise.reject(error);
+      console.error(error);
     }
   }
   return Promise.reject(error);
