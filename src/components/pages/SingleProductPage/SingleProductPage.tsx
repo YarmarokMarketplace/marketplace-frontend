@@ -61,8 +61,8 @@ const SingleProductPage = () => {
               <ProductInfo product={product} />
             </StyledProductWrapper>
             <ProductDescription description={product.description} />
-            <ProductFeedback data={feedback} />
-            <Typography variant="h4">Інші товари продавця</Typography>
+            {/* <ProductFeedback data={feedback} /> */}
+            {/* <Typography variant="h4">Інші товари продавця</Typography> */}
           </Stack>
         </>
       )}

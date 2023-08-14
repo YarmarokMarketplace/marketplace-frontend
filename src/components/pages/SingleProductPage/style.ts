@@ -7,7 +7,6 @@ import {
   Tab,
   Stack,
 } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
 import { Link } from "react-router-dom";
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
@@ -84,13 +83,15 @@ export const StyledCarouselWrapper = styled(Stack)(({ theme, hidden }) => ({
   backgroundColor: theme.palette.white,
   boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
   borderRadius: 24,
-  height: "fit-content",
+  height: "44.5rem",
   display: hidden ? "none" : "",
 }));
 
 export const StyledProductWrapper = styled(Container)(({ theme, hidden }) => ({
   display: "grid",
-  gridTemplateColumns: hidden ? "1fr" : "1fr 1fr",
+  gridTemplateColumns: hidden
+    ? "1fr"
+    : "minmax(43.5rem, 1fr) minmax(37.5rem, 1fr) ",
   gap: theme.spacing(3),
   [theme.breakpoints.down("lg")]: {
     gridTemplateColumns: "1fr",
@@ -104,4 +105,3 @@ export const StyledCrumpsLink = styled(Link)(({ theme }) => ({
     textDecoration: "underline",
   },
 }));
-

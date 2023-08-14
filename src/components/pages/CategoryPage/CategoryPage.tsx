@@ -51,7 +51,7 @@ const CategoryPage = () => {
         <CategoryFilters />
         <CategoryProducts />
       </Stack>
-      {result.length > 0 && <CategoryPagination />}
+      {result?.length > 0 && <CategoryPagination />}
       <ChatButton />
     </CategoryPageContainer>
   );
