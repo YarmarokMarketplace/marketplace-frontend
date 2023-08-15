@@ -31,6 +31,9 @@ export const CustomLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
   fontSize: "0.9rem",
   fontWeight: 500,
+  ":hover": {
+    color: theme.palette.primary.main,
+  },
 }));
 
 export const Text = styled(Typography)(({ theme }) => ({

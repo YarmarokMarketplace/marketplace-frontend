@@ -41,7 +41,7 @@ const CategoryPage = () => {
         <CategorySort />
       </Stack>
       <Stack
-        sx={{ mt: 3 }}
+        sx={{ mt: 3, mb: 3 }}
         direction="row"
         justifyContent="space-between"
         alignItems="flex-start"

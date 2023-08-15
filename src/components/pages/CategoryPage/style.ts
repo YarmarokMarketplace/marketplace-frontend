@@ -1,7 +1,6 @@
 import {
-    Box, Link, Typography, Container, ListItemText,
-    Card, CardActionArea, CardContent,
-    CardMedia, Button, CardActions,
+    Box, Typography, Container, ListItemText,
+    Card, CardContent,
     Chip,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -121,4 +120,31 @@ export const StyledButton = styled("div")(({ theme }) => ({
     ':hover': {
         filter: "brightness(0.9)",
     }
+}))
+
+//NoProductsMessage
+
+export const NoProductsContainer = styled(Box)(({ theme }) => ({
+    width: '100%',
+    borderRadius: 20,
+    padding: theme.spacing(3),
+    backgroundColor: "#FFF",
+    boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(3),
+}))
+
+export const NoProductsImg = styled("img")(({ theme }) => ({
+    borderRadius: 12,
+    height: "12.5rem",
+
+}))
+
+export const NoProductsTypography = styled(Typography)(({ theme }) => ({
+    fontSize: '1.5rem',
+    textAlign: 'center',
+    lineHeight: '2rem',
+    color: theme.palette.text.primary
 }))
