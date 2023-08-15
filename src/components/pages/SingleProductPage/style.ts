@@ -27,7 +27,7 @@ export const StyledCurrentImage = styled(Box)(({ theme }) => ({
 
 export const StyledIndicator = styled("img")(({ theme }) => ({
   width: 108,
-  height: 92,
+  height: 90,
   objectFit: "cover",
 }));
 

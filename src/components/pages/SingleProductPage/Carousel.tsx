@@ -37,8 +37,9 @@ export const CarouselImage: React.FC<CarouselProps> = ({ photos }) => {
         indicatorContainerProps={{
           style: {
             display: "flex",
+            margin: "auto",
             flexDirection: "column",
-            gap: 24,
+            gap: 20,
             height: "100%",
             marginRight: 16,
             width: "20%",
