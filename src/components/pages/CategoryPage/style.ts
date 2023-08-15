@@ -143,8 +143,8 @@ export const NoProductsImg = styled("img")(({ theme }) => ({
 }))
 
 export const NoProductsTypography = styled(Typography)(({ theme }) => ({
-    fontSize: '1.5rem',
+    fontSize: '1.375rem',
     textAlign: 'center',
-    lineHeight: '2rem',
+    lineHeight: '1.8rem',
     color: theme.palette.text.primary
 }))
