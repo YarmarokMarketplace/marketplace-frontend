@@ -100,12 +100,7 @@ const Register = () => {
   return (
     <Stack alignItems="center">
       {isAuth ? (
-        <Stack
-          spacing={4}
-          paddingTop={25}
-          alignItems="center"
-          textAlign="center"
-        >
+        <Stack spacing={4} alignItems="center" textAlign="center">
           <StyledVector>
             <img src={success} alt="success-vector" />
           </StyledVector>
