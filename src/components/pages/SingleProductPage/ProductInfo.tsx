@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Rating, Stack, Typography } from "@mui/material";
 import { StyledIconButton, StyledInfoBlock, StyledShowButton } from "./style";
+import { StyledTextButton } from "../../Header/style";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
@@ -47,11 +48,11 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
               Чат з продавцем
             </Button>
           </Stack>
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" alignItems="center">
             <StyledIconButton id="fav-btn" size="small">
               <FavoriteBorderIcon color="primary" sx={{ fontSize: "1rem" }} />
             </StyledIconButton>
-            <Typography variant="body1">В обране</Typography>
+            <StyledTextButton disableTouchRipple> В обране</StyledTextButton>
           </Stack>
         </Stack>
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
@@ -77,9 +78,15 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Rating color="info" size="medium" value={5} readOnly />
+            <Rating
+              color="info"
+              size="medium"
+              value={4.5}
+              precision={0.5}
+              readOnly
+            />
             <Typography color="info.main" fontWeight={700} variant="h6">
-              4.9
+              4.5
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1}>
