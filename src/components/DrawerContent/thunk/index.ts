@@ -32,7 +32,7 @@ export const userLoginFetch = createAsyncThunk(
     async (data: LoginBody, { rejectWithValue, dispatch }) => {
         try {
             const result: LoginResponse = await login(data);
-            console.log(result)
+            // console.log(result)
             return result;
         } catch (error) {
             if (error instanceof AxiosError) {

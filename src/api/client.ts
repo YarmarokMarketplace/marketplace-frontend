@@ -26,16 +26,22 @@ export const setToken = (token?: string) => {
 
 loginClient.interceptors.response.use(response => response.data, async (error) => {
   if (error.response.status == 401) {
+    console.log("Refreshing token...");
     const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) {
+      console.log("No refresh token found.");
+      // return Promise.reject(error);
+    }
     try {
       const { data } = await loginClient.post("/auth/refresh", { refreshToken })
       setToken(data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
-
+      console.log("Token refreshed. Retrying original request...");
       return loginClient(error.config);
-    } catch (error) {
-      // return Promise.reject(error);
-      console.error(error);
+    }
+    catch (refreshError) {
+      console.error(refreshError);
+      return Promise.reject(refreshError);
     }
   }
   return Promise.reject(error);

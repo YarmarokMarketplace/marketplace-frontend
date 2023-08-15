@@ -26,7 +26,6 @@ import {
 import { DrawerContent } from "../../types";
 import { useNavigate } from "react-router";
 import { userLoginStateSelector, getUserStateSelector } from "../DrawerContent/selector";
-// import { openDrawer } from "../../utils/authUtils";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -48,7 +47,8 @@ const Header = () => {
   };
   const handleCheckFavourites = () => { };
   const handleClickAccount = () => {
-    //If user not logged in
+    dispatch(openDrawerAction(true));
+    dispatch(setDrawerContentAction(DrawerContent.login));
   };
   const { isLogin } = useSelector(
     userLoginStateSelector

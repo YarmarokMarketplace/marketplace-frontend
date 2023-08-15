@@ -11,15 +11,15 @@ export const register = async (data: RegisterBody) => {
 };
 
 export const login = async (data: LoginBody) => {
-  try {
-    const result = await loginClient.post<never, LoginResponse>("/auth/login", data);
-    setToken(result.accessToken);
-    localStorage.setItem("refreshToken", result.refreshToken);
-    return result;
-  } catch (error) {
-    // console.log(error)
-    return Promise.reject(error);
-  }
+  // try {
+  const result = await loginClient.post<never, LoginResponse>("/auth/login", data);
+  setToken(result.accessToken);
+  localStorage.setItem("refreshToken", result.refreshToken);
+  return result;
+  // } catch (error) {
+  //   // console.log(error)
+  //   return Promise.reject(error);
+  // }
 };
 
 export const getCurrent = async (token: string) => {
