@@ -22,6 +22,7 @@ import {
 } from '../pages/Articles';
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
+import AddProduct from '../pages/AddProduct';
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -65,6 +66,8 @@ const App: React.FC = () => {
             <Route path="/activities" element={<Activities />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/add-advert" element={<AddProduct />} />
+            <Route path="/:categoryName/:id" element={<SingleProductPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

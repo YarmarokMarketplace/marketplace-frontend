@@ -37,6 +37,10 @@ export const theme = createTheme({
       fontWeight: 700,
       lineHeight: "2rem",
     },
+    caption: {
+      fontSize: "0.75rem",
+      lineHeight: "0.875rem",
+    },
   },
   palette: {
     background: {
