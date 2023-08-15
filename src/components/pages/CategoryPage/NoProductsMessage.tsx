@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import { NoProductsContainer, NoProductsImg, NoProductsTypography } from './style';
 
-import noProductsImg from '../../../img/no-poducts-image.png'
+import noProductsImg from '../../../img/no-products-image.png'
 
 const NoProductsMessage = () => {
 
