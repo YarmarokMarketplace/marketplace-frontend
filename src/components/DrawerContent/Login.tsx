@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { ReactEventHandler, useEffect } from "react";
 import { Stack, FormControl, Typography, Checkbox } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
@@ -18,9 +18,11 @@ import { AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginStateSelector } from "./selector";
 import { openDrawerAction, setDrawerContentAction } from "../CustomDrawer/reducer";
+import { rememberLoginToggleAction } from "./reducer";
 import { DrawerContent, LoginBody } from "../../types";
 import { userLoginFetch } from './thunk';
 import { emailErrorToggleAction, isLoginResetAction } from "./reducer";
+import { rememberLoginToggle } from "./actions";
 
 const loginSchema = yup.object().shape({
     email: yup
@@ -35,7 +37,7 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { loading, error, isLogin, emailError } = useSelector(
+    const { loading, error, isLogin, emailError, rememberLogin } = useSelector(
         userLoginStateSelector
     );
 
@@ -59,17 +61,18 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
-        console.log(isLogin);
-
+        // console.log(isLogin);
         if (isLogin) {
             reset();
             dispatch(openDrawerAction(false));
             // dispatch(isLoginResetAction()); // Виклик екшену для зміни isLogin назад на false
             dispatch(emailErrorToggleAction(false));
         }
-
-        // ...
     }, [isLogin]);
+
+    useEffect(() => {
+        localStorage.setItem('rememberLogin', JSON.stringify(rememberLogin));
+    }, [rememberLogin])
 
     const onSubmit = (data: LoginBody) => {
         dispatch(userLoginFetch(data));
@@ -87,6 +90,10 @@ const Login = () => {
         defaultValues: JSON.parse(localStorage.getItem("logInput")!),
         mode: "onChange",
     });
+
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(rememberLoginToggleAction(event.target.checked));
+    }
 
     const helperText = emailError ?
         "Email або пароль невірні" :
@@ -173,7 +180,10 @@ const Login = () => {
 
                 </StyledBox>
 
-                <SaveDataControlLabel control={<Checkbox />} label="Зберегти мої дані для входу" />
+                <SaveDataControlLabel
+                    control={<Checkbox
+                        onChange={handleCheckboxChange}
+                    />} label="Зберегти мої дані для входу" />
 
                 <StyledSubmitBtn
                     id="login-btn"

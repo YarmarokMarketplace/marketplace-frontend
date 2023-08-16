@@ -16,3 +16,10 @@ export const isAuthReset = (state: UserAuthState) => {
 export const isLoginReset = (state: UserAuthState) => {
   state.login.isLogin = false;
 };
+
+export const rememberLoginToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.rememberLogin = action.payload;
+};

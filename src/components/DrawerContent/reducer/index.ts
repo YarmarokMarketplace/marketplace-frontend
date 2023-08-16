@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userRegisterFetch, userLoginFetch, currentFetch } from "../thunk";
-import { emailErrorToggle, isAuthReset, isLoginReset } from "../actions";
+import { emailErrorToggle, isAuthReset, isLoginReset, rememberLoginToggle } from "../actions";
 
 export interface UserAuthState {
   register: {
@@ -18,6 +18,7 @@ export interface UserAuthState {
     isLogin: boolean;
     refreshToken: string;
     emailError: boolean;
+    rememberLogin: boolean;
   };
   resetPassword: unknown;
   current: {
@@ -47,6 +48,7 @@ const initialState: UserAuthState = {
     isLogin: false,
     refreshToken: "",
     emailError: false,
+    rememberLogin: false,
   },
   resetPassword: {},
   current: {
@@ -69,6 +71,7 @@ export const userAuthSlice = createSlice({
     emailErrorToggle,
     isAuthReset,
     isLoginReset,
+    rememberLoginToggle
   },
   extraReducers(builder) {
     builder
@@ -122,6 +125,7 @@ export const {
   emailErrorToggle: emailErrorToggleAction,
   isAuthReset: isAuthResetAction,
   isLoginReset: isLoginResetAction,
+  rememberLoginToggle: rememberLoginToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
