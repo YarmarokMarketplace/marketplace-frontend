@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-import { productsResultStateSelector, productsStateSelector } from "./selector";
+import { productsResultStateSelector } from "./selector";
 
 import { FiltersContainer } from "./style";
 import CategoryFilter from './Filters/CategoryFilter';
@@ -26,7 +26,8 @@ const CategoryFilters: React.FC = () => {
                 setMinPriceValue={setMinPriceValue}
                 setMaxPriceValue={setMaxPriceValue}
                 setValue={setValue} />
-            {isGoodType &&
+            {
+                isGoodType &&
                 <GoodtypeFilter
                     setIsCheckedNew={setIsCheckedNew}
                     setIsCheckedUsed={setIsCheckedUsed}
