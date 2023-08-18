@@ -3,6 +3,7 @@ export interface CategoryItem {
   name: string;
   photo: string;
   image?: string;
+  isGoodType: boolean;
 }
 
 export interface ProductItem {
