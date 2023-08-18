@@ -17,6 +17,7 @@ export type ResponseProducts = {
   limit: number;
   result: ProductItem[] | [];
   maxPriceInCategory: number;
+  isGoodType: boolean;
 };
 export interface ProductsState {
   sort: string;
@@ -45,7 +46,8 @@ export const initialState: ProductsState = {
     page: 1,
     limit: 12,
     result: [],
-    maxPriceInCategory: 0
+    maxPriceInCategory: 0,
+    isGoodType: true,
   },
 };
 

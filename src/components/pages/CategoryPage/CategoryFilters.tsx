@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
-import { productsResultStateSelector } from "./selector";
+import { productsResultStateSelector, productsStateSelector } from "./selector";
 
 import { FiltersContainer } from "./style";
 import CategoryFilter from './Filters/CategoryFilter';
@@ -15,9 +15,7 @@ const CategoryFilters: React.FC = () => {
     const [maxPriceValue, setMaxPriceValue] = useState('');
     const [value, setValue] = useState<{ label: string; value: string; img?: string | undefined } | null>(null);
 
-    const { result } = useSelector(productsResultStateSelector);
-
-    const hasGoodType = result.some(item => item.goodtype);
+    const { isGoodType } = useSelector(productsResultStateSelector);
 
     return (
         <FiltersContainer>
@@ -28,7 +26,7 @@ const CategoryFilters: React.FC = () => {
                 setMinPriceValue={setMinPriceValue}
                 setMaxPriceValue={setMaxPriceValue}
                 setValue={setValue} />
-            {hasGoodType &&
+            {isGoodType &&
                 <GoodtypeFilter
                     setIsCheckedNew={setIsCheckedNew}
                     setIsCheckedUsed={setIsCheckedUsed}

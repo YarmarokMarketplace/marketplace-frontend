@@ -26,6 +26,7 @@ export interface ProductListResponse {
   limit: number;
   notices: ProductItem[];
   maxPriceInCategory: number;
+  isGoodType: boolean;
 }
 
 export enum DrawerContent {

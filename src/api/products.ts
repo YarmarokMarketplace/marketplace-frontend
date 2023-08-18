@@ -8,6 +8,7 @@ type Response = {
   limit: number;
   result: ProductItem[] | [];
   maxPriceInCategory: number;
+  isGoodType: boolean;
 };
 
 export const getAllProducts = async (
