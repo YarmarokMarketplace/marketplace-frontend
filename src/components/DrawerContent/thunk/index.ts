@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RegisterBody, LoginBody, LoginResponse } from "../../../types";
 import { register, login, getCurrent } from "../../../api/user";
 import { AxiosError } from "axios";
-import { emailErrorToggleAction } from "../reducer";
+import { emailErrorToggleAction, requestErrorToggleAction } from "../reducer";
 import { RootState } from "../../../store";
 import { setToken } from "../../../api/client";
 
@@ -32,7 +32,6 @@ export const userLoginFetch = createAsyncThunk(
     async (data: LoginBody, { rejectWithValue, dispatch }) => {
         try {
             const result: LoginResponse = await login(data);
-            // console.log(result)
             return result;
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -40,6 +39,9 @@ export const userLoginFetch = createAsyncThunk(
                 console.log(message)
                 if (message === "Email or password is wrong") {
                     dispatch(emailErrorToggleAction(true));
+                }
+                if (message === "Too many requests, please try again in 1 minute") {
+                    dispatch(requestErrorToggleAction(true));
                 }
                 return rejectWithValue(error.response?.data);
             }

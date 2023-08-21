@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const { REACT_APP_API, REACT_APP_PR_API } = process.env;
+const { REACT_APP_API } = process.env;
 
 export const client = axios.create({
   baseURL: REACT_APP_API,
@@ -14,7 +14,7 @@ client.interceptors.response.use(
 );
 
 export const loginClient = axios.create({
-  baseURL: REACT_APP_PR_API,
+  baseURL: REACT_APP_API,
 })
 
 export const setToken = (token?: string) => {

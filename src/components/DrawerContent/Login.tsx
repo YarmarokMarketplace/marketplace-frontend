@@ -21,7 +21,7 @@ import { openDrawerAction, setDrawerContentAction } from "../CustomDrawer/reduce
 import { rememberLoginToggleAction } from "./reducer";
 import { DrawerContent, LoginBody } from "../../types";
 import { userLoginFetch } from './thunk';
-import { emailErrorToggleAction, isLoginResetAction } from "./reducer";
+import { emailErrorToggleAction, requestErrorToggleAction, isLoginResetAction } from "./reducer";
 import { rememberLoginToggle } from "./actions";
 
 const loginSchema = yup.object().shape({
@@ -37,9 +37,10 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
     const dispatch: AppDispatch = useDispatch();
-    const { loading, error, isLogin, emailError, rememberLogin } = useSelector(
+    const { loading, error, isLogin, emailError, rememberLogin, requestError } = useSelector(
         userLoginStateSelector
     );
+
 
     const handleResetPasswordRedirect = () => {
         dispatch(openDrawerAction(true));
@@ -57,6 +58,7 @@ const Login = () => {
             localStorage.setItem("logInput", JSON.stringify({ ...values, password: "" }));
             // dispatch(isLoginResetAction());
             dispatch(emailErrorToggleAction(false));
+            dispatch(requestErrorToggleAction(false));
         };
     }, []);
 
@@ -67,6 +69,7 @@ const Login = () => {
             dispatch(openDrawerAction(false));
             // dispatch(isLoginResetAction()); // Виклик екшену для зміни isLogin назад на false
             dispatch(emailErrorToggleAction(false));
+            dispatch(requestErrorToggleAction(false));
         }
     }, [isLogin]);
 
@@ -95,9 +98,36 @@ const Login = () => {
         dispatch(rememberLoginToggleAction(event.target.checked));
     }
 
-    const helperText = emailError ?
-        "Email або пароль невірні" :
-        errors.email?.message;
+    const handleBeforeUnload = () => {
+        // Видалити значення з локального сховища
+        // if (!rememberLogin) {
+        // localStorage.removeItem('persist:login');
+        // localStorage.clear();
+        localStorage.removeItem('persist:login');
+        // }
+        return "Are you sure you want to leave?";
+
+    };
+
+    useEffect(() => {
+        window.addEventListener('unload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('unload', handleBeforeUnload);
+        };
+    }, [])
+
+    const setHelperText = () => {
+        let helperText: any = "";
+        if (emailError) {
+            helperText = "Email або пароль невірні";
+        } else if (requestError) {
+            helperText = "Забагато запитів, повторіть спробу через 1 хвилину";
+        } else {
+            helperText = errors.email?.message;
+        }
+        return helperText;
+    }
 
     return (
         <Stack alignItems="center">
@@ -130,10 +160,10 @@ const Login = () => {
                             name="email"
                             render={({ field }) => (
                                 <StyledInput
-                                    helperText={helperText}
-                                    error={Boolean(errors?.email) || emailError}
+                                    helperText={setHelperText()}
+                                    error={Boolean(errors?.email) || emailError || requestError}
                                     InputProps={{
-                                        endAdornment: (errors.email || emailError) && (
+                                        endAdornment: (errors.email || emailError || requestError) && (
                                             <InfoOutlinedIcon
                                                 color="error"
                                                 sx={{ fontSize: "1rem" }}
@@ -156,7 +186,9 @@ const Login = () => {
                             render={({ field }) => (
                                 <StyledInput
                                     type="password"
-                                    helperText={helperText}
+                                    helperText={emailError ?
+                                        "Email або пароль невірні" :
+                                        errors.email?.message}
                                     error={Boolean(errors.password) || emailError}
                                     InputProps={{
                                         endAdornment: (errors.email || emailError) && (

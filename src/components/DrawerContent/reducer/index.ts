@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userRegisterFetch, userLoginFetch, currentFetch } from "../thunk";
-import { emailErrorToggle, isAuthReset, isLoginReset, rememberLoginToggle } from "../actions";
+import { emailErrorToggle, isAuthReset, isLoginReset, rememberLoginToggle, requestErrorToggle } from "../actions";
 
 export interface UserAuthState {
   register: {
@@ -19,6 +19,7 @@ export interface UserAuthState {
     refreshToken: string;
     emailError: boolean;
     rememberLogin: boolean;
+    requestError: boolean;
   };
   resetPassword: unknown;
   current: {
@@ -49,6 +50,7 @@ const initialState: UserAuthState = {
     refreshToken: "",
     emailError: false,
     rememberLogin: false,
+    requestError: false,
   },
   resetPassword: {},
   current: {
@@ -71,7 +73,8 @@ export const userAuthSlice = createSlice({
     emailErrorToggle,
     isAuthReset,
     isLoginReset,
-    rememberLoginToggle
+    rememberLoginToggle,
+    requestErrorToggle
   },
   extraReducers(builder) {
     builder
@@ -93,6 +96,7 @@ export const userAuthSlice = createSlice({
         state.login.loading = true;
         state.login.error = false;
         state.login.emailError = false;
+        state.login.requestError = false;
       })
       .addCase(userLoginFetch.fulfilled, (state, { payload }) => {
         state.login.loading = false;
@@ -100,6 +104,7 @@ export const userAuthSlice = createSlice({
         state.login.refreshToken = payload.refreshToken;
         state.login.isLogin = true;
         state.login.emailError = false;
+        state.login.requestError = false;
       })
       .addCase(userLoginFetch.rejected, (state, action) => {
         state.login.loading = false;
@@ -126,6 +131,7 @@ export const {
   isAuthReset: isAuthResetAction,
   isLoginReset: isLoginResetAction,
   rememberLoginToggle: rememberLoginToggleAction,
+  requestErrorToggle: requestErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

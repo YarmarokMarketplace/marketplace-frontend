@@ -23,3 +23,10 @@ export const rememberLoginToggle = (
 ) => {
   state.login.rememberLogin = action.payload;
 };
+
+export const requestErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.requestError = action.payload;
+};
