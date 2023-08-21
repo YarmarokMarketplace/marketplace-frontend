@@ -34,12 +34,12 @@ export interface ProductListResponse {
 }
 
 export enum DrawerContent {
-  login = "login",
-  register = "register",
-  resetPassword = "resetPassword",
-  chat = "chat",
-  password = "password",
-  noContent = "noContent",
+  login = 'login',
+  register = 'register',
+  resetPassword = 'resetPassword',
+  chat = 'chat',
+  password = 'password',
+  noContent = 'noContent',
 }
 
 export interface RegisterResponse {
@@ -55,15 +55,15 @@ export interface RegisterBody {
 }
 
 export enum ModalContent {
-  exitProfile = "exitProfile",
-  deleteProfile = "deleteProfile",
-  confirmPurchase = "confirmPurchase",
-  cancel = "cancel",
-  noContent = "noContent",
+  exitProfile = 'exitProfile',
+  deleteProfile = 'deleteProfile',
+  confirmPurchase = 'confirmPurchase',
+  cancel = 'cancel',
+  noContent = 'noContent',
 }
 
 export interface LoginResponse {
-  status: string,
+  status: string;
   code: number;
   accessToken: string;
   refreshToken: string;
@@ -71,7 +71,7 @@ export interface LoginResponse {
     id: string;
     email: string;
     name: string;
-  }
+  };
 }
 
 export interface LoginBody {
@@ -83,11 +83,23 @@ export interface CurrentResponse {
   user: {
     email: string;
     name: string;
-  }
+  };
   accessToken: string;
 }
 
-
 export interface ForgotPasswordBody {
   email: string;
+}
+export interface AddAdvertInput {
+  title: string;
+  description: string;
+  category: string;
+  location: string;
+  price: string | undefined;
+  contactName: string;
+  contactNumber: string;
+  goodtype?: string | undefined;
+  photos?: string | undefined;
+  free?: boolean | undefined;
+  agree: boolean | undefined;
 }

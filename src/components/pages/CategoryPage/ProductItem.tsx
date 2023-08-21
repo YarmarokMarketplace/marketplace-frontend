@@ -55,7 +55,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
               <StyledImg src={placeholderImg} id={`product-${_id.slice(20)}`} />
             ) : (
               <StyledImg
-                src={photos[0] || placeholderImg}
+                src={photos[0] ? photos[0] : placeholderImg}
                 id={`product-${_id.slice(20)}`}
                 onError={handleImageError}
               />
@@ -63,8 +63,8 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
           </StyledImgWrapper>
 
           <StyledCardContent>
-            <TitleTypography gutterBottom variant="h5" height="2.5rem">
-              {title}
+            <TitleTypography height="2.5rem" gutterBottom variant="h5">
+              {title.length > 45 ? `${title.slice(0, 45)}...` : title}
             </TitleTypography>
             <Typography
               variant="body2"

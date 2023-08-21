@@ -1,5 +1,5 @@
-import { ProductItem } from "../types";
-import { client } from "./client";
+import { ProductItem } from '../types';
+import { client } from './client';
 
 type ProductsResponse = {
   totalResult: number;
@@ -13,6 +13,9 @@ type ProductsResponse = {
 
 type ProductResponse = {
   data: ProductItem;
+};
+type AddProductResponse = {
+  result: ProductItem;
 };
 
 export const getAllProducts = async (
@@ -38,6 +41,18 @@ export const getAllProducts = async (
 export const getProduct = async (id: string) => {
   try {
     return await client.get<never, ProductResponse>(`/notices/notice/${id}`);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const addProduct = async (data: FormData) => {
+  try {
+    return await client.post<never, AddProductResponse>(
+      '/notices',
+      (data = data),
+      { headers: { 'Content-Type': 'multipart/ form-data' } }
+    );
   } catch (error) {
     return Promise.reject(error);
   }

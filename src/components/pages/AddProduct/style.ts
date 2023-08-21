@@ -1,12 +1,13 @@
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormLabel,
-  Select,
-  TextField,
   styled,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+import upload from "../../../img/upload-file.png";
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
   display: "grid",
@@ -33,7 +34,6 @@ export const StyledFileInput = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
   display: "flex",
   flexDirection: "row-reverse",
-  justifyContent: "center",
   gap: theme.spacing(2),
   borderRadius: 12,
   ":hover": {
@@ -51,14 +51,22 @@ export const StyledFileLable = styled("label")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   fontSize: "0.75rem",
-  width: "6.5rem",
+  borderRadius: 12,
 }));
 
 export const StyledPreview = styled("img")(({ theme }) => ({
   width: "100%",
+  height: "inherit",
   maxHeight: "100%",
   objectFit: "cover",
   borderRadius: 12,
+}));
+
+export const StyledForm = styled("form")(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  gap: theme.spacing(4),
+  flexDirection: "column",
 }));
 
 export const menuStyles = {
@@ -79,3 +87,20 @@ export const menuStyles = {
     background: "#555",
   },
 };
+
+export const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  textDecoration: "none",
+  ":hover": {
+    textDecoration: "underline",
+  },
+}));
+
+export const StyledUploadButton = styled(Button)(({ theme }) => ({
+  backgroundImage: `url(${upload})`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  backgroundSize: "contain",
+  height: "7.3rem",
+  width: `100%`,
+}));

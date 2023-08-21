@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
+
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -9,6 +10,7 @@ import product from '../../components/pages/SingleProductPage/reducer';
 import userAuth from '../../components/DrawerContent/reducer';
 import modal from '../../components/CustomModal/reducer';
 import userAuthReducer from '../../components/DrawerContent/reducer';
+import addAdvert from '../../components/pages/AddProduct/reducer';
 
 const persistConfig = {
   key: 'login',
@@ -26,4 +28,5 @@ export default combineReducers({
   drawer,
   userAuth: persistedAuthReducer,
   modal,
+  addAdvert,
 });

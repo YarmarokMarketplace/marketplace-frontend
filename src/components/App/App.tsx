@@ -23,6 +23,7 @@ import {
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
+import { Typography } from '@mui/material';
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -68,6 +69,12 @@ const App: React.FC = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-advert" element={<AddProduct />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
+            <Route
+              path="/privacy-policy"
+              element={
+                <Typography variant="h4">Політика конфіденційності</Typography>
+              }
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

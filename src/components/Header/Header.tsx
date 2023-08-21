@@ -30,6 +30,7 @@ import {
   getUserStateSelector,
 } from '../DrawerContent/selector';
 import { matchPath, useLocation } from 'react-router-dom';
+import { resetAddAdvertStateAction } from '../pages/AddProduct/reducer';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Header = () => {
   const handleAddAdvert = () => {
     if (isLogin) {
       navigate('/add-advert');
+      dispatch(resetAddAdvertStateAction());
     } else {
       dispatch(openDrawerAction(true));
       dispatch(setDrawerContentAction(DrawerContent.login));
