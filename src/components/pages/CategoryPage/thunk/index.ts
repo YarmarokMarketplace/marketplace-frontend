@@ -8,16 +8,21 @@ const PRODUCTS_FETCH_THUNK_TYPE = "PRODUCTS_FETCH_THUNK_TYPE";
 type ProductsArgs = {
   categoryName: string;
   sort: string;
-  limit: number;
   page: number;
+  limit: number;
+  filterBy: {
+    goodtype: string;
+    price: string;
+    location: string;
+  };
 };
 
 export const productListFetch = createAsyncThunk(
   PRODUCTS_FETCH_THUNK_TYPE,
   async (values: ProductsArgs, { dispatch, rejectWithValue }) => {
     try {
-      const { categoryName, sort, page, limit } = values;
-      return await getAllProducts(categoryName, sort, page, limit);
+      const { categoryName, sort, page, limit, filterBy } = values;
+      return await getAllProducts(categoryName, sort, page, limit, filterBy);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.data.message == "Notices not found") {

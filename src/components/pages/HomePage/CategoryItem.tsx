@@ -1,4 +1,7 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { productFilterGoodtypeAction, productFilterPriceAction, productFilterLocationAction } from "../CategoryPage/reducer";
 
 import {
   StyledCard,
@@ -21,8 +24,15 @@ interface CategotyItemProp {
 
 const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   const handleItemClick = () => {
+    dispatch(productFilterGoodtypeAction(''));
+    dispatch(productFilterPriceAction(''));
+    dispatch(productFilterLocationAction(''));
+    localStorage.removeItem('goodtype');
+    localStorage.removeItem('price');
+    localStorage.removeItem('location');
     navigate(`/${category.name}`);
   };
 

@@ -14,12 +14,13 @@ const CategoryHeader: React.FC = () => {
   let { categoryName } = useParams();
 
   return (
-    <Stack direction="row">
+    <Stack direction="row" alignItems="flex-end">
       <Typography
         variant="h4"
         gutterBottom
         sx={{
-          mr: "1rem",
+          mr: '1rem',
+          mb: 0,
           fontSize: "1.5rem",
           fontWeight: 700,
         }}

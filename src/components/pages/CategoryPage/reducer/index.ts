@@ -1,7 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductItem } from "../../../../types";
 import { productListFetch } from "../thunk";
-import { currentPageSet, productSort, productStateReset } from "../actions";
+import {
+  currentPageSet,
+  productSort,
+  productFilterGoodtype,
+  productFilterPrice,
+  productStateReset,
+  productFilterLocation
+} from "../actions";
 
 export type ResponseProducts = {
   totalResult: number;
@@ -9,36 +16,53 @@ export type ResponseProducts = {
   page: number;
   limit: number;
   result: ProductItem[] | [];
+  maxPriceInCategory: number;
+  isGoodType: boolean;
 };
 export interface ProductsState {
   sort: string;
   loading: boolean;
   error: boolean | null;
   products: ResponseProducts;
+  filterBy: {
+    goodtype: string,
+    price: string,
+    location: string
+  }
 }
 
 export const initialState: ProductsState = {
   loading: false,
   error: null,
   sort: localStorage.getItem("sort") || "newest",
+  filterBy: {
+    goodtype: localStorage.getItem("goodtype") || '',
+    price: localStorage.getItem("price") || '',
+    location: localStorage.getItem("location") || ''
+  },
   products: {
     totalPages: 1,
     totalResult: 0,
     page: 1,
     limit: 12,
     result: [],
+    maxPriceInCategory: 0,
+    isGoodType: true,
   },
 };
 
 const name = "PRODUCTS";
 
-const productSlice = createSlice({
+const productsSlice = createSlice({
   name,
   initialState,
   reducers: {
     currentPageSet,
     productSort,
     productStateReset,
+    productFilterGoodtype,
+    productFilterPrice,
+    productFilterLocation
   },
   extraReducers(builder) {
     builder
@@ -60,6 +84,9 @@ export const {
   currentPageSet: currentPageSetAction,
   productSort: productSortAction,
   productStateReset: productStateResetAction,
-} = productSlice.actions;
+  productFilterGoodtype: productFilterGoodtypeAction,
+  productFilterPrice: productFilterPriceAction,
+  productFilterLocation: productFilterLocationAction
+} = productsSlice.actions;
 
-export default productSlice.reducer;
+export default productsSlice.reducer;

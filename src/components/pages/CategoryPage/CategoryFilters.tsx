@@ -1,81 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
+import { productsResultStateSelector } from "./selector";
 
-import { Typography, Box, Checkbox, FormControlLabel, TextField, FormLabel } from "@mui/material";
-import ListItemButton from '@mui/material/ListItemButton';
-import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import RadioGroup from '@mui/material/RadioGroup';
-
-import {
-    FiltersContainer,
-    FilterText
-} from "./style";
+import { FiltersContainer } from "./style";
+import CategoryFilter from './Filters/CategoryFilter';
+import GoodtypeFilter from './Filters/GoodtypeFilter';
+import PriceFilter from './Filters/PriceFilter';
+import LocationFilter from './Filters/LocationFilter';
 
 const CategoryFilters: React.FC = () => {
-    const [usedOpen, setUsedOpen] = React.useState(true);
-    const [priceOpen, setPriceOpen] = React.useState(true);
+    const [isCheckedNew, setIsCheckedNew] = useState(false);
+    const [isCheckedUsed, setIsCheckedUsed] = useState(false);
+    const [minPriceValue, setMinPriceValue] = useState('');
+    const [maxPriceValue, setMaxPriceValue] = useState('');
+    const [value, setValue] = useState<{ label: string; value: string; img?: string | undefined } | null>(null);
 
-    const usedHandleClick = () => {
-        setUsedOpen(!usedOpen);
-    };
-
-    const priceHandleClick = () => {
-        setPriceOpen(!priceOpen);
-    };
-
-    const [value, setValue] = React.useState('Нове');
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value);
-    };
+    const { isGoodType } = useSelector(productsResultStateSelector);
 
     return (
         <FiltersContainer>
 
-            <FormLabel
-                onClick={usedHandleClick}
-                id="demo-controlled-radio-buttons-group">
-                <ListItemButton onClick={usedHandleClick}>
-                    <FilterText primary="За станом" />
-                    {usedOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-            </FormLabel>
-            <Collapse in={usedOpen} timeout="auto" unmountOnExit>
-                <RadioGroup
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={value}
-                    onChange={handleChange}
-                >
+            <CategoryFilter
+                setIsCheckedNew={setIsCheckedNew}
+                setIsCheckedUsed={setIsCheckedUsed}
+                setMinPriceValue={setMinPriceValue}
+                setMaxPriceValue={setMaxPriceValue}
+                setValue={setValue} />
+            {
+                isGoodType &&
+                <GoodtypeFilter
+                    setIsCheckedNew={setIsCheckedNew}
+                    setIsCheckedUsed={setIsCheckedUsed}
+                    іsCheckedNew={isCheckedNew}
+                    іsCheckedUsed={isCheckedUsed} />
+            }
 
-                    <FormControlLabel className="filters" value="Нове" control={<Checkbox defaultChecked />} label="Нове" />
-                    <FormControlLabel className="filters" value="Вживане" control={<Checkbox defaultChecked />} label="Вживане" />
-                </RadioGroup>
-            </Collapse>
+            <PriceFilter
+                minPriceValue={minPriceValue} setMinPriceValue={setMinPriceValue}
+                maxPriceValue={maxPriceValue} setMaxPriceValue={setMaxPriceValue} />
+            <LocationFilter value={value} setValue={setValue} />
 
-            <ListItemButton onClick={priceHandleClick}>
-                <FilterText primary="За ціною" />
-                {priceOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={priceOpen} timeout="auto" unmountOnExit>
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1 },
-                        display: "flex",
-                        alignItems: "baseline",
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <Typography className="filters">Ціна:</Typography>
-                    <TextField size="small" id="outlined-basic" label="Від" variant="outlined" />
-                    <TextField size="small" id="outlined-basic" label="До" variant="outlined" />
-                </Box>
-            </Collapse>
-
-        </FiltersContainer>
+        </FiltersContainer >
     )
 };
 

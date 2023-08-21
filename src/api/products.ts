@@ -7,17 +7,24 @@ type Response = {
   page: number;
   limit: number;
   result: ProductItem[] | [];
+  maxPriceInCategory: number;
+  isGoodType: boolean;
 };
 
 export const getAllProducts = async (
   categoryName: string,
   sort: string,
   page: number,
-  limit: number
+  limit: number,
+  filterBy: {
+    goodtype: string,
+    price: string,
+    location: string
+  },
 ) => {
   try {
     return await client.get<never, Response>(
-      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}`
+      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
     );
   } catch (error) {
     return Promise.reject(error);

@@ -11,7 +11,7 @@ export interface ProductItem {
   goodtype?: string;
   title: string;
   description: string;
-  photos: string;
+  photos: string[];
   location: string;
   price: number;
   comments?: string;
@@ -25,11 +25,14 @@ export interface ProductListResponse {
   page: number;
   limit: number;
   notices: ProductItem[];
+  maxPriceInCategory: number;
+  isGoodType: boolean;
 }
 
 export enum DrawerContent {
   login = "login",
   register = "register",
+  resetPassword = "resetPassword",
   chat = "chat",
   password = "password",
   noContent = "noContent",
