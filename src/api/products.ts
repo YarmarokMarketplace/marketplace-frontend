@@ -27,7 +27,7 @@ export const getAllProducts = async (
   }
 ) => {
   try {
-    return await client.get<never, Response>(
+    return await client.get<never, ProductsResponse>(
       `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
     );
   } catch (error) {
