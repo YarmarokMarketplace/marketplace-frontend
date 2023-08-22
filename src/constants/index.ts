@@ -89,3 +89,10 @@ export const categoriesDeliveryAbsense = [
   'realty',
   'work',
 ];
+export const categoryWithoutGoodtype = [
+  'animals',
+  'work',
+  'repair',
+  'business-and-services',
+  'help',
+];

@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { categoryWithoutGoodtype } from "../../../constants";
 
 export const formatPhoneNumber = (value: string) => {
   const phoneNumber = value.replace(/[^0-9+]/g, "");
@@ -25,10 +26,12 @@ export const addAdvertSchema = yup.object().shape({
   title: yup
     .string()
     .required("Не забудьте ввести назву")
-    .max(100, "Максимальна довжина назви - 100 символів"),
+    .max(45, "Максимальна довжина назви - 45 символів")
+    .min(3, "Мінімальна довжина назви - 3 символи"),
   description: yup
     .string()
     .required("Не забудьте додати опис")
+    .min(3, "Мінімальна довжина опису - 3 символи")
     .max(1000, "Максимальна довжина опису - 1000 символів"),
   category: yup.string().required("Не забудьте обрати категорію"),
   location: yup.string().required("Не забудьте обрати місцезнаходження"),
@@ -39,6 +42,11 @@ export const addAdvertSchema = yup.object().shape({
       name: "positive",
       message: "Ціна має бути позитивною",
       test: (value) => Number(value) >= 0,
+    })
+    .test({
+      name: "bigIng",
+      message: "Введене значення завелике для обробки",
+      test: (value) => Number(value) < Number.MAX_SAFE_INTEGER,
     })
     .test({
       name: "decimal",
@@ -56,11 +64,15 @@ export const addAdvertSchema = yup.object().shape({
     ),
   free: yup.boolean(),
   photos: yup.string(),
-  goodtype: yup.string(),
+  goodtype: yup.string().when("category", {
+    is: (value: string) => !categoryWithoutGoodtype.includes(value),
+    then: (schema) => schema.required("Не забудьте вказати тип товару"),
+  }),
   contactName: yup
     .string()
     .required("Не забудьте ввести ваше ім’я")
-    .min(2, "Мінімальна довжина 2 символи"),
+    .min(2, "Мінімальна довжина 2 символи")
+    .max(30, "Максимальна довжина 30 символи"),
   agree: yup
     .boolean()
     .oneOf([true], "Ви маєте погодитися з Політикою конфіденційності"),

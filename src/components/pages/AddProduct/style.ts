@@ -29,7 +29,7 @@ export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
 }));
 
 export const StyledFileInput = styled(Box)(({ theme }) => ({
-  border: `1px solid ${theme.palette.secondary.light}`,
+  border: `1px solid`,
   width: "47.5rem",
   padding: theme.spacing(3),
   display: "flex",

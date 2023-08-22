@@ -47,23 +47,21 @@ import { addAdvertStateSelector } from "./selector";
 export const ProductForm = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File[] | []>([]);
-
   const { loading, error } = useSelector(addAdvertStateSelector);
-
   const [description, setDesc] = useState<string>("");
   const [phone, setPhone] = useState<string>("+38");
   const [category, setCategory] = useState<string>("");
   const [forFree, setForFree] = useState<boolean>(false);
-  const [rotation, setRotation] = useState(0);
-
-  const dispatch: AppDispatch = useDispatch();
+  const [imgQuantityError, setImgQuantityError] = useState(false);
   const { categories } = useSelector(categoriesStateSelector);
+  const dispatch: AppDispatch = useDispatch();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
     trigger,
+    getValues,
     setValue,
   } = useForm({
     resolver: yupResolver(addAdvertSchema),
@@ -73,6 +71,7 @@ export const ProductForm = () => {
   useEffect(() => {
     dispatch(categoryListFetch());
   }, []);
+  console.log(getValues());
 
   useEffect(() => {
     if (category === "for-free" || forFree) {
@@ -84,18 +83,40 @@ export const ProductForm = () => {
   }, [category, forFree]);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(selectedImage);
     console.log(event.target.files);
     if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      if (selectedImage.some((img) => img.name == file.name)) {
-        return;
-      }
-      setSelectedImage([file, ...selectedImage]);
+      const files = Array.from(event.target.files);
+
+      setSelectedImage((prevState) => {
+        if (
+          prevState.some((img) => files.some((file) => file.name == img.name))
+        ) {
+          const prev = prevState.filter(
+            (img) => !files.some((file) => file.name == img.name)
+          );
+          const updated = [...files, ...prev];
+          if (updated.length > 6) {
+            setImgQuantityError(true);
+            return prevState;
+          }
+          return updated;
+        }
+        const updated = [...files, ...prevState];
+        if (updated.length > 6) {
+          setImgQuantityError(true);
+          return prevState;
+        }
+        setImgQuantityError(false);
+        return updated;
+      });
     }
   };
 
   const handleImageDelete = (target: File) => {
-    setSelectedImage(selectedImage.filter((img) => img !== target));
+    setSelectedImage((prevState) => {
+      return prevState.filter((img) => img.name !== target.name);
+    });
   };
 
   const handleImageRotate = (
@@ -152,7 +173,7 @@ export const ProductForm = () => {
     const index = categories.findIndex(
       (categoryItem) => categoryItem.name === category
     );
-    return index ? categories[index]?.isGoodType : false;
+    return categories[index]?.isGoodType;
   };
 
   const onSubmit = (values: AddAdvertInput) => {
@@ -200,17 +221,22 @@ export const ProductForm = () => {
                   sx={{
                     justifyContent: selectedImage.length ? "start" : "center",
                     position: "relative",
+                    borderColor: imgQuantityError
+                      ? "error.main"
+                      : "secondary.light",
                   }}
                 >
                   <input
                     ref={fileRef}
                     type="file"
+                    multiple
                     accept="image/png, image/jpeg"
                     style={{ display: "none" }}
                     onChange={(event) => {
                       onChange(event);
                       handleImageUpload(event);
                     }}
+                    onClick={() => setValue("photos", "")}
                     onBlur={onBlur}
                     value={value}
                   />
@@ -295,9 +321,13 @@ export const ProductForm = () => {
                     {selectedImage.length} з 6
                   </Typography>
                 </StyledFileInput>
-                <Typography color="primary.main" variant="subtitle2">
-                  Перше фото - обкладинка. Оберіть найкраще фото для вашого
-                  товару
+                <Typography
+                  color={imgQuantityError ? "error" : "primary.main"}
+                  variant="subtitle2"
+                >
+                  {imgQuantityError
+                    ? "Ви не можете завантажити більше 6 фото"
+                    : "Перше фото - обкладинка. Оберіть найкраще фото для вашого товару."}
                 </Typography>
               </Stack>
             )}
@@ -526,6 +556,11 @@ export const ProductForm = () => {
                     </RadioGroup>
                   )}
                 />
+                {errors.goodtype && (
+                  <Typography color="error" variant="subtitle2">
+                    {errors.goodtype?.message}
+                  </Typography>
+                )}
               </StyledFormControl>
             )}
           </Stack>
@@ -643,15 +678,21 @@ export const ProductForm = () => {
                   </MenuItem>
                   {locations
                     .filter((location) => location.value)
-                    .map((location) => (
-                      <MenuItem
-                        id={location.value}
-                        key={location.value}
-                        value={location.value}
-                      >
-                        {location.label}
-                      </MenuItem>
-                    ))}
+                    .map((location) => {
+                      if (location.value == "Ukraine") {
+                        return;
+                      } else {
+                        return (
+                          <MenuItem
+                            id={location.value}
+                            key={location.value}
+                            value={location.value}
+                          >
+                            {location.label}
+                          </MenuItem>
+                        );
+                      }
+                    })}
                 </Select>
                 {errors.location && (
                   <Typography color="error" variant="subtitle2">
