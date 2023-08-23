@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Rating, Stack, Typography } from "@mui/material";
 import { StyledIconButton, StyledInfoBlock, StyledShowButton } from "./style";
 import { StyledTextButton } from "../../Header/style";
@@ -7,13 +7,18 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import { ProductItem } from "../../../types";
 import moment from "moment";
-import { goodTypeNames } from "../../../constants";
+import { goodTypeNames, locations } from "../../../constants";
 
 type ProductInfoProps = {
   product: ProductItem;
 };
 
 export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+  const location = locations.find(
+    (location) => location.value === product.location
+  );
+  const [showNumber, setShowNumber] = useState(false);
+
   return (
     <Stack spacing={2}>
       <StyledInfoBlock>
@@ -22,7 +27,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             {product.goodtype ? goodTypeNames[product.goodtype] : ""}
           </Typography>
           <Typography color="divider" variant="body1">
-            ID:7242432
+            {`ID:${product._id.replace(/[^\d]/g, "").slice(9)}`}
           </Typography>
         </Stack>
         <Typography variant="h4" mt={1} minHeight="4rem">
@@ -33,11 +38,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         </Typography>
         <Stack mt={2} direction="row" justifyContent="space-between">
           <Stack spacing={2} direction="row">
-            <Button
-              id="buy-btn"
-              sx={{ width: "7rem", paddingY: 1 }}
-              variant="contained"
-            >
+            <Button id="buy-btn" sx={{ width: "7rem" }} variant="contained">
               Купити
             </Button>
             <Button
@@ -56,7 +57,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           </Stack>
         </Stack>
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
-          {product.location}, Опубліковано{" "}
+          {location?.label}, Опубліковано{" "}
           {moment(product.createdAt).format("DD.MM.YYYY")}
         </Typography>
       </StyledInfoBlock>
@@ -71,10 +72,10 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
               color="primary.main"
               variant="subtitle2"
             >
-              Ольга Малова
+              {product.contactName}
             </Typography>
             <Typography color="divider" variant="caption">
-              м. Київ
+              {location?.label}
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
@@ -108,12 +109,17 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         </Typography>
         <Stack direction="row" alignItems="center" spacing={2} mt={1}>
           <LocalPhoneOutlinedIcon color="primary" />
-          <Typography variant="h6">xxx xxx xxxx </Typography>
+          <Typography variant="h6">
+            {showNumber && product.contactNumber
+              ? product.contactNumber.slice(3)
+              : "xxx xxx xxxx"}{" "}
+          </Typography>
           <StyledShowButton
             id="show-btn"
             variant="outlined"
             color="secondary"
             size="small"
+            onClick={() => setShowNumber(!showNumber)}
           >
             Показати
           </StyledShowButton>

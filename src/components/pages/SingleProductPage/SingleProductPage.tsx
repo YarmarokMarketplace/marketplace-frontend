@@ -18,13 +18,6 @@ import { productFetch } from "./thunk";
 import BasicBreadcrumbs from "../../Breadcrumbs";
 import { categoryNames } from "../../../constants";
 
-const feedback = {
-  name: "РИНАТ К.",
-  date: "30.03.23",
-  rate: 4,
-  feedback: "Рекомендую продавця хороші товари 👍",
-};
-
 const SingleProductPage = () => {
   const { loading, error, product } = useSelector(productStateSelector);
   const dispatch: AppDispatch = useDispatch();
@@ -60,9 +53,11 @@ const SingleProductPage = () => {
               <CarouselImage photos={product.photos} />
               <ProductInfo product={product} />
             </StyledProductWrapper>
+
             <ProductDescription description={product.description} />
-            {/* <ProductFeedback data={feedback} /> */}
-            {/* <Typography variant="h4">Інші товари продавця</Typography> */}
+            <ProductFeedback seller={product.contactName} />
+
+            <Typography variant="h4">Інші товари продавця</Typography>
           </Stack>
         </>
       )}

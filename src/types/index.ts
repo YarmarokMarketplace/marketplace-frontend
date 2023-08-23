@@ -18,6 +18,8 @@ export interface ProductItem {
   createdAt: string;
   updatedAt: string;
   active?: boolean;
+  contactName: string;
+  contactNumber: string;
 }
 
 export interface ProductListResponse {

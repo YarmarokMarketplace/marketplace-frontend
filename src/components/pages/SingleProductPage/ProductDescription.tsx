@@ -25,7 +25,9 @@ export const ProductDescription: React.FC<ProductDescriptionProps> = ({
         />
       </Tabs>
       <StyledDescBlock>
-        <Typography variant="body1">{description}</Typography>
+        <Typography whiteSpace="break-spaces" variant="body1">
+          {description}
+        </Typography>
       </StyledDescBlock>
     </Stack>
   );
