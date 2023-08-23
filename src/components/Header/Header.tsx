@@ -23,20 +23,23 @@ import {
   setDrawerContentAction,
 } from "../CustomDrawer/reducer";
 import { DrawerContent } from "../../types";
+import { useNavigate } from "react-router";
 
 const Header = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [lang, setLang] = useState("ua");
   const dispatch: AppDispatch = useDispatch();
-  const handleAddAdvert = () => {};
+  const handleAddAdvert = () => { };
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
   ) => {
     setLang(event.currentTarget.value);
   };
-  const handleCheckFavourites = () => {};
+  const handleCheckFavourites = () => { };
   const handleClickAccount = () => {
     //If user not logged in
+    navigate('/profile');
   };
   return (
     <>
