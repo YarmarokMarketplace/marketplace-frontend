@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 
 import {
-    Tab, Tabs, Box, Typography,
-    Button, Stack, FormLabel, TextField,
-    IconButton
+    Stack, TextField,
 } from '@mui/material';
 import {
     StyledFormLabel, StyledStar,
@@ -23,9 +21,7 @@ const Login_Password = () => {
 
     return (
         <>
-            <HeaderTypography
-                variant="h4"
-            >
+            <HeaderTypography>
                 Логін та пароль
             </HeaderTypography>
             <DescriptionTypography

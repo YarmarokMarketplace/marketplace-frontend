@@ -8,7 +8,7 @@ export const MenuContainer = styled(Box)(({ theme }) => ({
     width: theme.spacing(39),
     borderRadius: 20,
     padding: theme.spacing(3),
-    backgroundColor: "#FFF",
+    backgroundColor: theme.palette.white,
     boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
 }))
 
@@ -38,6 +38,6 @@ export const StyledList = styled(List)(({ theme }) => ({
     maxHeight: 185,
     paddingTop: 0,
     paddingBottom: 0,
-    borderTop: "1px solid #F3F3F3",
+    borderTop: `1px solid ${theme.palette.lightGrey.dark}`,
 }))
 

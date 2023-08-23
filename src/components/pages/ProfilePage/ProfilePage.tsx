@@ -26,16 +26,17 @@ const ProfilePage = () => {
             <MenuContainer>
                 <Box>
                     <Typography
-                        variant="h4"
-                        fontSize="1rem"
+                        variant="body1"
                         fontWeight="700"
-                    >Ольга</Typography>
+                    >
+                        Ольга
+                    </Typography>
                     <Typography
                         variant="body2"
-                        fontSize="0.875rem"
-                        fontWeight="400"
                         color='#8D9092'
-                    >test@ukr.net</Typography>
+                    >
+                        test@ukr.net
+                    </Typography>
                 </Box>
                 <Divider sx={{ mt: ".5rem", mb: "1.5rem" }} />
                 <Stack gap="1rem" mb="3.5rem">

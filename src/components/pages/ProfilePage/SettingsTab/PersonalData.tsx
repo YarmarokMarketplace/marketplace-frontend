@@ -22,9 +22,7 @@ const PersonalData = () => {
             <form
             // onSubmit={handleSubmit(onSubmit)}
             >
-                <HeaderTypography
-                    variant="h4"
-                >
+                <HeaderTypography>
                     Персональні дані
                 </HeaderTypography>
                 <DescriptionTypography
@@ -58,9 +56,7 @@ const PersonalData = () => {
                     </InputWrapper>
                 </Stack>
 
-                <HeaderTypography
-                    variant="h4"
-                >
+                <HeaderTypography>
                     Аватарка
                 </HeaderTypography>
                 <DescriptionTypography
@@ -98,9 +94,7 @@ const PersonalData = () => {
                 </Stack>
 
 
-                <HeaderTypography
-                    variant="h4"
-                >
+                <HeaderTypography>
                     Контакти
                 </HeaderTypography>
                 <DescriptionTypography

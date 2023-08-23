@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Tabs, Typography } from '@mui/material';
-import { SettingsContainer, StyledTab, TabsContainer, ContentContainer } from "./style";
+import { SettingsContainer, StyledTab, BoxShadowContainer } from "./style";
 import PersonalData from './PersonalData';
 import Login_Password from './Login_Password';
 
@@ -23,19 +23,12 @@ function CustomTabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <ContentContainer sx={{ p: 3 }}>
+                <BoxShadowContainer sx={{ p: 3 }}>
                     {children}
-                </ContentContainer>
+                </BoxShadowContainer>
             )}
         </div>
     );
-}
-
-function a11yProps(index: number) {
-    return {
-        id: `profile-tab-${index}`,
-        'aria-controls': `profile-tabpanel-${index}`,
-    };
 }
 
 const SettingsTab = () => {
@@ -47,8 +40,8 @@ const SettingsTab = () => {
 
     return (
         <SettingsContainer sx={{ width: '100%' }}>
-            <TabsContainer sx={{ mb: 2 }}>
-                <Typography variant="h4" fontSize="1.5rem" fontWeight="700">
+            <BoxShadowContainer sx={{ mb: 2 }}>
+                <Typography variant="h4">
                     Налаштування
                 </Typography>
                 <Tabs value={value} onChange={handleChange}
@@ -63,10 +56,18 @@ const SettingsTab = () => {
                             background: 'none'
                         },
                     }}>
-                    <StyledTab label="Персональні дані" {...a11yProps(0)} />
-                    <StyledTab label="Логін та пароль" {...a11yProps(1)} />
+                    <StyledTab
+                        label="Персональні дані"
+                        id="profile-tab-0"
+                        aria-controls="profile-tabpanel-0"
+                    />
+                    <StyledTab
+                        label="Логін та пароль"
+                        id="profile-tab-1"
+                        aria-controls="profile-tabpanel-1"
+                    />
                 </Tabs>
-            </TabsContainer>
+            </BoxShadowContainer>
             <CustomTabPanel value={value} index={0}>
                 <PersonalData />
             </CustomTabPanel>

@@ -1,6 +1,6 @@
 import {
-    Box, Typography, Container, ListItemText, FormLabel,
-    Card, CardContent, FormControlLabel, Tab, Button, Stack
+    Box, Typography, FormLabel,
+    Tab, Button, Stack
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Avatar from '../../../../img/profile-avatar-upload.png'
@@ -9,17 +9,10 @@ export const SettingsContainer = styled(Box)(({ theme }) => ({
 
 }))
 
-export const TabsContainer = styled(Box)(({ theme }) => ({
+export const BoxShadowContainer = styled(Box)(({ theme }) => ({
     borderRadius: 20,
     padding: theme.spacing(3),
-    backgroundColor: "#FFF",
-    boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
-}))
-
-export const ContentContainer = styled(Box)(({ theme }) => ({
-    borderRadius: 20,
-    padding: theme.spacing(3),
-    backgroundColor: "#FFF",
+    backgroundColor: theme.palette.white,
     boxShadow: "0px 4px 120px 0px rgba(151, 159, 183, 0.15)",
 }))
 
@@ -47,7 +40,7 @@ export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
 }));
 
 export const StyledStar = styled("span")(({ theme }) => ({
-    color: "red",
+    color: theme.palette.error.main,
     paddingLeft: theme.spacing(1)
 }));
 
@@ -62,8 +55,6 @@ export const HeaderTypography = styled(Typography)(({ theme }) => ({
 }));
 
 export const DescriptionTypography = styled(Typography)(({ theme }) => ({
-    fontSize: "0.875rem",
-    fontWeight: "400",
     color: theme.palette.divider,
     marginBottom: theme.spacing(2)
 }));
