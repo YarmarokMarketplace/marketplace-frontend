@@ -5,6 +5,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { MainContainer } from "./style";
 import CustomDrawer from "../CustomDrawer";
+import CustomModal from "../CustomModal";
 
 const Layout: React.FC = ({ children }) => {
   return (
@@ -13,6 +14,7 @@ const Layout: React.FC = ({ children }) => {
         <Header />
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <CustomDrawer />
+        <CustomModal />
       </MainContainer>
       <Footer />
     </>

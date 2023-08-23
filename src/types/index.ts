@@ -49,3 +49,11 @@ export interface RegisterBody {
   name: string;
   password: string;
 }
+
+export enum ModalContent {
+  exitProfile = "exitProfile",
+  deleteProfile = "deleteProfile",
+  confirmPurchase = "confirmPurchase",
+  cancel = "cancel",
+  noContent = "noContent",
+}
