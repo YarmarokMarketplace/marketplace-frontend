@@ -22,9 +22,19 @@ const Footer = () => {
           </LogoContainer>
 
           <LinksContainer>
-            <CustomLink href="#">Умови використання</CustomLink>
-            <CustomLink href="#">Як продавати й купувати?</CustomLink>
-            <CustomLink href="#">Правила безпеки</CustomLink>
+            <CustomLink id="requirements-link" href="#">
+              Умови використання
+            </CustomLink>
+            <CustomLink id="how-to-link" href="#">
+              Як продавати й купувати?
+            </CustomLink>
+            <CustomLink
+              id="security-rules-link"
+              href="#/security-rules"
+              target="_blank"
+            >
+              Правила безпеки
+            </CustomLink>
           </LinksContainer>
         </Stack>
 
