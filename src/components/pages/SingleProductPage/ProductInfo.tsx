@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { Button, Rating, Stack, Typography } from "@mui/material";
-import { StyledIconButton, StyledInfoBlock, StyledShowButton } from "./style";
-import { StyledTextButton } from "../../Header/style";
-import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import { ProductItem } from "../../../types";
-import moment from "moment";
-import { goodTypeNames, locations } from "../../../constants";
+import React, { useState } from 'react';
+import { Button, Rating, Stack, Typography } from '@mui/material';
+import { StyledIconButton, StyledInfoBlock, StyledShowButton } from './style';
+import { StyledTextButton } from '../../Header/style';
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
+import { ProductItem } from '../../../types';
+import moment from 'moment';
+import {
+  categoriesDeliveryAbsense,
+  goodTypeNames,
+  locations,
+} from '../../../constants';
 
 type ProductInfoProps = {
   product: ProductItem;
@@ -20,14 +24,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [showNumber, setShowNumber] = useState(false);
 
   return (
-    <Stack spacing={2}>
+    <Stack width="37.5rem" spacing={2}>
       <StyledInfoBlock>
         <Stack direction="row" justifyContent="space-between">
           <Typography color="success.main" variant="body1">
-            {product.goodtype ? goodTypeNames[product.goodtype] : ""}
+            {product.goodtype ? goodTypeNames[product.goodtype] : ''}
           </Typography>
           <Typography color="divider" variant="body1">
-            {`ID:${product._id.replace(/[^\d]/g, "").slice(9)}`}
+            {`ID:${product._id.replace(/[^\d]/g, '').slice(9)}`}
           </Typography>
         </Stack>
         <Typography variant="h4" mt={1} minHeight="4rem">
@@ -38,7 +42,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         </Typography>
         <Stack mt={2} direction="row" justifyContent="space-between">
           <Stack spacing={2} direction="row">
-            <Button id="buy-btn" sx={{ width: "7rem" }} variant="contained">
+            <Button id="buy-btn" sx={{ width: '7rem' }} variant="contained">
               Купити
             </Button>
             <Button
@@ -51,14 +55,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           </Stack>
           <Stack direction="row" alignItems="center">
             <StyledIconButton id="fav-btn" size="small">
-              <FavoriteBorderIcon color="primary" sx={{ fontSize: "1rem" }} />
+              <FavoriteBorderIcon color="primary" sx={{ fontSize: '1rem' }} />
             </StyledIconButton>
             <StyledTextButton disableTouchRipple> В обране</StyledTextButton>
           </Stack>
         </Stack>
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
-          {location?.label}, Опубліковано{" "}
-          {moment(product.createdAt).format("DD.MM.YYYY")}
+          {location?.label}, Опубліковано{' '}
+          {moment(product.createdAt).format('DD.MM.YYYY')}
         </Typography>
       </StyledInfoBlock>
       <StyledInfoBlock>
@@ -112,39 +116,43 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           <Typography variant="h6">
             {showNumber && product.contactNumber
               ? product.contactNumber.slice(3)
-              : "xxx xxx xxxx"}{" "}
+              : 'xxx xxx xxxx'}{' '}
           </Typography>
-          <StyledShowButton
-            id="show-btn"
-            variant="outlined"
-            color="secondary"
-            size="small"
-            onClick={() => setShowNumber(!showNumber)}
-          >
-            Показати
-          </StyledShowButton>
+          {!showNumber && (
+            <StyledShowButton
+              id="show-btn"
+              variant="outlined"
+              color="secondary"
+              size="small"
+              onClick={() => setShowNumber(!showNumber)}
+            >
+              Показати
+            </StyledShowButton>
+          )}
         </Stack>
       </StyledInfoBlock>
 
-      <Stack direction="row" spacing={2}>
-        <StyledInfoBlock sx={{ width: "50%" }}>
-          <Typography fontWeight={700} variant="h6" mb={1}>
-            Способи доставки
-          </Typography>
-          <Typography variant="body1">Доставка “Нова Пошта”</Typography>
-          <Typography variant="body1">Доставка “Укрпошта”</Typography>
-        </StyledInfoBlock>
-        <StyledInfoBlock sx={{ width: "50%" }}>
-          <Stack spacing={1}>
-            <Typography fontWeight={700} variant="h6">
-              Умови повернення
+      {!categoriesDeliveryAbsense.includes(product.category) && (
+        <Stack direction="row" spacing={2}>
+          <StyledInfoBlock sx={{ width: '50%' }}>
+            <Typography fontWeight={700} variant="h6" mb={1}>
+              Способи доставки
             </Typography>
-            <Typography maxWidth="12rem" variant="body1">
-              Протягом 14 днів після отримання товару
-            </Typography>
-          </Stack>
-        </StyledInfoBlock>
-      </Stack>
+            <Typography variant="body1">Доставка “Нова Пошта”</Typography>
+            <Typography variant="body1">Доставка “Укрпошта”</Typography>
+          </StyledInfoBlock>
+          <StyledInfoBlock sx={{ width: '50%' }}>
+            <Stack spacing={1}>
+              <Typography fontWeight={700} variant="h6">
+                Умови повернення
+              </Typography>
+              <Typography maxWidth="12rem" variant="body1">
+                Протягом 14 днів після отримання товару
+              </Typography>
+            </Stack>
+          </StyledInfoBlock>
+        </Stack>
+      )}
     </Stack>
   );
 };
