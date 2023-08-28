@@ -10,6 +10,7 @@ import NotFoundPage from "../NotFoundPage";
 import { useSelector } from "react-redux";
 import { userRegisterStateSelector } from "../DrawerContent/selector";
 import { logErrorToService } from '../../utils/utils'
+import { SecurityRules } from "../pages/Articles";
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -33,6 +34,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/:categoryName" element={<CategoryPage />} />
+            <Route path="/security-rules" element={<SecurityRules />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
