@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import {
-    Stack, TextField,
+    Stack, TextField, Typography,
 } from '@mui/material';
 import {
     StyledFormLabel, StyledStar,
@@ -33,11 +33,9 @@ const Login_Password = () => {
             <InputWrapper>
                 <StyledFormLabel>Логін
                 </StyledFormLabel>
-                <TextField
-                    disabled
-                    size="small"
-                    value="test@test.com"
-                />
+                <Typography variant='body2' mt='.5rem' mb='.5rem'>
+                    test@test.com
+                </Typography>
             </InputWrapper>
             <StyledButton
                 sx={{ mt: "-3.5rem" }}
