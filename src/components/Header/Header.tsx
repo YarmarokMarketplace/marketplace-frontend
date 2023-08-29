@@ -39,7 +39,6 @@ const Header = () => {
   const handleCheckFavourites = () => { };
   const handleClickAccount = () => {
     //If user not logged in
-    navigate('/profile');
   };
   return (
     <>

@@ -85,3 +85,9 @@ export const ActionButton = styled(Button)(({ theme }) => ({
     fontWeigth: "600",
     minWidth: theme.spacing(23)
 }));
+
+export const EmailTypography = styled(Typography)(({ theme }) => ({
+    marginTop: theme.spacing(.5),
+    marginBottom: theme.spacing(.5),
+    color: theme.palette.text.secondary
+}));

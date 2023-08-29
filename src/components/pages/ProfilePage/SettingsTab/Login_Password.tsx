@@ -6,7 +6,7 @@ import {
 import {
     StyledFormLabel, StyledStar,
     InputWrapper, HeaderTypography,
-    DescriptionTypography, StyledButton
+    DescriptionTypography, StyledButton, EmailTypography
 } from "./style";
 
 const Login_Password = () => {
@@ -21,21 +21,17 @@ const Login_Password = () => {
 
     return (
         <>
-            <HeaderTypography>
+            <HeaderTypography mb="1.875rem">
                 Логін та пароль
             </HeaderTypography>
-            <DescriptionTypography
-                variant="body2"
-            >
-                В якості логіна ви можете використовувати свій email
-            </DescriptionTypography>
 
             <InputWrapper>
-                <StyledFormLabel>Логін
+                <StyledFormLabel>
+                    Ваш поточний логін
                 </StyledFormLabel>
-                <Typography variant='body2' mt='.5rem' mb='.5rem'>
+                <EmailTypography variant='body2' >
                     test@test.com
-                </Typography>
+                </EmailTypography>
             </InputWrapper>
             <StyledButton
                 sx={{ mt: "-3.5rem" }}
