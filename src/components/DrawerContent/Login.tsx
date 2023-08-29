@@ -63,7 +63,6 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
-        // console.log(isLogin);
         if (isLogin) {
             reset();
             dispatch(openDrawerAction(false));
@@ -105,17 +104,15 @@ const Login = () => {
         // localStorage.clear();
         localStorage.removeItem('persist:login');
         // }
-        return "Are you sure you want to leave?";
-
     };
 
-    useEffect(() => {
-        window.addEventListener('unload', handleBeforeUnload);
+    // useEffect(() => {
+    //     window.addEventListener('unload', handleBeforeUnload);
 
-        return () => {
-            window.removeEventListener('unload', handleBeforeUnload);
-        };
-    }, [])
+    //     return () => {
+    //         window.removeEventListener('unload', handleBeforeUnload);
+    //     };
+    // }, [])
 
     const setHelperText = () => {
         let helperText: any = "";
@@ -188,10 +185,10 @@ const Login = () => {
                                     type="password"
                                     helperText={emailError ?
                                         "Email або пароль невірні" :
-                                        errors.email?.message}
+                                        errors.password?.message}
                                     error={Boolean(errors.password) || emailError}
                                     InputProps={{
-                                        endAdornment: (errors.email || emailError) && (
+                                        endAdornment: (errors.password || emailError) && (
                                             <InfoOutlinedIcon
                                                 color="error"
                                                 sx={{ fontSize: "1rem" }}

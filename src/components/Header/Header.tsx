@@ -45,11 +45,23 @@ const Header = () => {
   ) => {
     setLang(event.currentTarget.value);
   };
-  const handleCheckFavourites = () => { };
+  const handleCheckFavourites = () => {
+    if (isLogin) {
+      // navigate('/');
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
   const handleClickAccount = () => {
     dispatch(openDrawerAction(true));
     dispatch(setDrawerContentAction(DrawerContent.login));
   };
+
+  const handleClickProfile = () => {
+    navigate('/profile')
+  }
+
   const { isLogin } = useSelector(
     userLoginStateSelector
   );
@@ -77,6 +89,7 @@ const Header = () => {
                   <FavoriteIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <StyledTextButton
+                  onClick={handleCheckFavourites}
                   disableTouchRipple
                   id="fav-txt-btn"
                   color="inherit"
@@ -90,7 +103,7 @@ const Header = () => {
                 (
                   < Stack direction="row" spacing={1} alignItems="center">
                     <StyledIconButton
-                      // onClick={ }
+                      onClick={handleClickProfile}
                       size="small"
                       color="primary"
                       id="acc-btn"
@@ -98,7 +111,7 @@ const Header = () => {
                       <PersonIcon sx={{ fontSize: "1rem" }} />
                     </StyledIconButton>
                     <StyledTextButton
-                      // onClick={ }
+                      onClick={handleClickProfile}
                       disableTouchRipple
                       id="acc-text-btn"
                       color="inherit"
