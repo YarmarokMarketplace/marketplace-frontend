@@ -103,3 +103,17 @@ export interface AddAdvertInput {
   free?: boolean | undefined;
   agree: boolean | undefined;
 }
+
+export interface FormDataAddAdvert {
+  title: string;
+  description: string;
+  category: string;
+  location: string;
+  price: string;
+  contactName: string;
+  contactNumber: string;
+  goodtype: string | undefined;
+  photos: string | undefined;
+  free: boolean | undefined;
+  agree: boolean | undefined;
+}

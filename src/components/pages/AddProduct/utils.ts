@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 import { categoryWithoutGoodtype } from '../../../constants';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { FormDataAddAdvert } from '../../../types';
 
 export const formatPhoneNumber = (value: string) => {
   const phoneNumber = value.replace(/[^0-9+]/g, '');
@@ -72,3 +74,9 @@ export const addAdvertSchema = yup.object().shape({
     .boolean()
     .oneOf([true], 'Ви маєте погодитися з Політикою конфіденційності'),
 });
+
+export interface InputProps {
+  control: Control<FormDataAddAdvert>;
+  errors: FieldErrors<FormDataAddAdvert>;
+  loading: boolean;
+}
