@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -13,12 +13,12 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import {
   StyledFileInput,
@@ -30,29 +30,30 @@ import {
   StyledPreview,
   StyledUploadButton,
   menuStyles,
-} from "./style";
-import { useDispatch, useSelector } from "react-redux";
-import { categoryListFetch } from "../HomePage/thunk";
-import { AppDispatch } from "../../../store";
-import { categoriesStateSelector } from "../HomePage/selector";
-import { categoryNames, locations } from "../../../constants";
+} from './style';
+import { useDispatch, useSelector } from 'react-redux';
+import { categoryListFetch } from '../HomePage/thunk';
+import { AppDispatch } from '../../../store';
+import { categoriesStateSelector } from '../HomePage/selector';
+import { categoryNames, locations } from '../../../constants';
 
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
-import { addAdvertSchema, formatPhoneNumber } from "./utils";
-import { AddAdvertInput } from "../../../types";
-import { addAdvertFetch } from "./thunk";
-import { addAdvertStateSelector } from "./selector";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import { addAdvertSchema, formatPhoneNumber } from './utils';
+import { AddAdvertInput } from '../../../types';
+import { addAdvertFetch } from './thunk';
+import { addAdvertStateSelector } from './selector';
 
 export const ProductForm = () => {
   const fileRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File[] | []>([]);
   const { loading, error } = useSelector(addAdvertStateSelector);
-  const [description, setDesc] = useState<string>("");
-  const [phone, setPhone] = useState<string>("+38");
-  const [category, setCategory] = useState<string>("");
+  const [description, setDesc] = useState<string>('');
+  const [phone, setPhone] = useState<string>('+38');
+  const [category, setCategory] = useState<string>('');
   const [forFree, setForFree] = useState<boolean>(false);
   const [imgQuantityError, setImgQuantityError] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
   const { categories } = useSelector(categoriesStateSelector);
   const dispatch: AppDispatch = useDispatch();
 
@@ -61,56 +62,81 @@ export const ProductForm = () => {
     handleSubmit,
     formState: { errors, isValid },
     trigger,
-    getValues,
     setValue,
   } = useForm({
     resolver: yupResolver(addAdvertSchema),
-    mode: "all",
+    mode: 'all',
   });
 
   useEffect(() => {
     dispatch(categoryListFetch());
   }, []);
-  console.log(getValues());
 
   useEffect(() => {
-    if (category === "for-free" || forFree) {
-      setValue("price", "0");
-      setValue("free", true);
-      trigger("price");
+    if (category === 'for-free' || forFree) {
+      setValue('price', '0');
+      setValue('free', true);
+      trigger('price');
       setForFree(true);
     }
+
+    const preventDefault = (event: DragEvent) => {
+      event.preventDefault();
+    };
+    window.addEventListener('drop', preventDefault);
+    window.addEventListener('dragover', preventDefault);
+    return () => {
+      window.removeEventListener('drop', preventDefault);
+      window.removeEventListener('dragover', preventDefault);
+    };
   }, [category, forFree]);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(selectedImage);
-    console.log(event.target.files);
-    if (event.target.files && event.target.files.length > 0) {
-      const files = Array.from(event.target.files);
-
-      setSelectedImage((prevState) => {
-        if (
-          prevState.some((img) => files.some((file) => file.name == img.name))
-        ) {
-          const prev = prevState.filter(
-            (img) => !files.some((file) => file.name == img.name)
-          );
-          const updated = [...files, ...prev];
-          if (updated.length > 6) {
-            setImgQuantityError(true);
-            return prevState;
-          }
-          return updated;
-        }
-        const updated = [...files, ...prevState];
+  const handleSelectedImageSaving = (files: File[]) => {
+    setSelectedImage((prevState) => {
+      if (
+        prevState.some((img) => files.some((file) => file.name == img.name))
+      ) {
+        const prev = prevState.filter(
+          (img) => !files.some((file) => file.name == img.name)
+        );
+        const updated = [...files, ...prev];
         if (updated.length > 6) {
           setImgQuantityError(true);
           return prevState;
         }
-        setImgQuantityError(false);
         return updated;
-      });
+      }
+      const updated = [...files, ...prevState];
+      if (updated.length > 6) {
+        setImgQuantityError(true);
+        return prevState;
+      }
+      setImgQuantityError(false);
+      return updated;
+    });
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files);
+      handleSelectedImageSaving(files);
     }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragActive(true);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+      const files = Array.from(event.dataTransfer.files);
+      handleSelectedImageSaving(files);
+    }
+    setDragActive(false);
   };
 
   const handleImageDelete = (target: File) => {
@@ -119,13 +145,10 @@ export const ProductForm = () => {
     });
   };
 
-  const handleImageRotate = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    target: File
-  ) => {
+  const handleImageRotate = (target: File) => {
     const image = document.getElementById(target.name) as HTMLImageElement;
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
     if (image && context) {
       canvas.width = image.naturalWidth;
       canvas.height = image.naturalHeight;
@@ -149,7 +172,7 @@ export const ProductForm = () => {
           });
         });
       }
-    }, "image/jpeg");
+    }, target.type);
   };
 
   const handleChangePhone = (
@@ -158,14 +181,22 @@ export const ProductForm = () => {
     const value = formatPhoneNumber(event.target.value);
 
     setPhone(value);
-    setValue("contactNumber", value);
-    trigger("contactNumber");
+    setValue('contactNumber', value);
+    trigger('contactNumber');
+  };
+
+  const handlePriceChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = event.target.value.replace(/[^0-9.]/g, '');
+    setValue('price', value);
+    trigger('price');
   };
 
   const handleChangeCategory = (event: SelectChangeEvent<string>) => {
     setCategory(event.target.value);
-    setValue("goodtype", "");
-    setValue("free", false);
+    setValue('goodtype', '');
+    setValue('free', false);
     setForFree(false);
   };
 
@@ -189,16 +220,16 @@ export const ProductForm = () => {
     } = values;
 
     const form = new FormData();
-    form.append("title", title);
-    form.append("description", description);
-    form.append("category", category);
-    form.append("contactName", contactName);
-    form.append("contactNumber", contactNumber);
-    price && form.append("price", price);
-    form.append("location", location);
-    goodtype && form.append("goodtype", goodtype);
+    form.append('title', title);
+    form.append('description', description);
+    form.append('category', category);
+    form.append('contactName', contactName);
+    form.append('contactNumber', contactNumber);
+    price && form.append('price', price);
+    form.append('location', location);
+    goodtype && form.append('goodtype', goodtype);
     selectedImage.length &&
-      selectedImage.reverse().forEach((img) => form.append("photos", img));
+      selectedImage.reverse().forEach((img) => form.append('photos', img));
 
     dispatch(addAdvertFetch(form));
   };
@@ -206,7 +237,7 @@ export const ProductForm = () => {
   return (
     <Stack alignItems="start" spacing={3} mb={8}>
       <Typography mb={3} variant="h4">
-        Подача оголошення
+        Створити оголошення
       </Typography>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <StyledFormControl fullWidth>
@@ -218,12 +249,16 @@ export const ProductForm = () => {
             render={({ field: { onBlur, onChange, value } }) => (
               <Stack width="47.5rem">
                 <StyledFileInput
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={() => setDragActive(false)}
                   sx={{
-                    justifyContent: selectedImage.length ? "start" : "center",
-                    position: "relative",
+                    justifyContent: selectedImage.length ? 'start' : 'center',
+                    position: 'relative',
                     borderColor: imgQuantityError
-                      ? "error.main"
-                      : "secondary.light",
+                      ? 'error.main'
+                      : 'secondary.light',
+                    backgroundColor: dragActive ? 'primary.contrastText' : '',
                   }}
                 >
                   <input
@@ -231,20 +266,20 @@ export const ProductForm = () => {
                     type="file"
                     multiple
                     accept="image/png, image/jpeg"
-                    style={{ display: "none" }}
+                    style={{ display: 'none' }}
                     onChange={(event) => {
                       onChange(event);
                       handleImageUpload(event);
                     }}
-                    onClick={() => setValue("photos", "")}
+                    onClick={() => setValue('photos', '')}
                     onBlur={onBlur}
                     value={value}
                   />
                   <StyledFileLable
                     sx={{
                       width: `calc(100% - ${selectedImage.length} * (6.5rem + 16px))`,
-                      display: selectedImage.length < 6 ? "" : "none",
-                      border: selectedImage.length ? "1px solid #D4D7DF" : "",
+                      display: selectedImage.length < 6 ? '' : 'none',
+                      border: selectedImage.length ? '1px solid #D4D7DF' : '',
                     }}
                     htmlFor="upload-photo"
                   >
@@ -278,16 +313,14 @@ export const ProductForm = () => {
                             bottom={0}
                             left={0}
                           >
-                            <IconButton
-                              onClick={(event) => handleImageRotate(event, img)}
-                            >
+                            <IconButton onClick={() => handleImageRotate(img)}>
                               <RefreshOutlinedIcon
                                 sx={{
-                                  color: "white",
-                                  backgroundColor: "#00000033",
-                                  borderRadius: "50%",
-                                  ":hover": {
-                                    backgroundColor: "secondary.dark",
+                                  color: 'white',
+                                  backgroundColor: '#00000033',
+                                  borderRadius: '50%',
+                                  ':hover': {
+                                    backgroundColor: 'secondary.dark',
                                   },
                                 }}
                                 fontSize="small"
@@ -299,11 +332,11 @@ export const ProductForm = () => {
                             >
                               <DeleteOutlineOutlinedIcon
                                 sx={{
-                                  color: "white",
-                                  backgroundColor: "#00000033",
-                                  borderRadius: "50%",
-                                  ":hover": {
-                                    backgroundColor: "secondary.dark",
+                                  color: 'white',
+                                  backgroundColor: '#00000033',
+                                  borderRadius: '50%',
+                                  ':hover': {
+                                    backgroundColor: 'secondary.dark',
                                   },
                                 }}
                                 fontSize="small"
@@ -314,7 +347,7 @@ export const ProductForm = () => {
                       );
                     })}
                   <Typography
-                    sx={{ position: "absolute", bottom: 2, right: "48.5%" }}
+                    sx={{ position: 'absolute', bottom: 2, right: '48.5%' }}
                     color="secondary.dark"
                     variant="caption"
                   >
@@ -322,12 +355,12 @@ export const ProductForm = () => {
                   </Typography>
                 </StyledFileInput>
                 <Typography
-                  color={imgQuantityError ? "error" : "primary.main"}
+                  color={imgQuantityError ? 'error' : 'primary.main'}
                   variant="subtitle2"
                 >
                   {imgQuantityError
-                    ? "Ви не можете завантажити більше 6 фото"
-                    : "Перше фото - обкладинка. Оберіть найкраще фото для вашого товару."}
+                    ? 'Ви не можете завантажити більше 6 фото'
+                    : 'Перше фото - обкладинка. Оберіть найкраще фото для вашого товару.'}
                 </Typography>
               </Stack>
             )}
@@ -351,17 +384,17 @@ export const ProductForm = () => {
                       endAdornment: errors.title && (
                         <InfoOutlinedIcon
                           color="error"
-                          sx={{ fontSize: "1rem" }}
+                          sx={{ fontSize: '1rem' }}
                         />
                       ),
                     }}
                     size="small"
                   />
                   <Typography
-                    color={errors.title ? "error" : "primary.main"}
+                    color={errors.title ? 'error' : 'primary.main'}
                     variant="subtitle2"
                   >
-                    {errors.title?.message || "Напишіть назву оголошення"}
+                    {errors.title?.message || 'Напишіть назву оголошення'}
                   </Typography>
                 </Stack>
               )}
@@ -387,7 +420,7 @@ export const ProductForm = () => {
                       endAdornment: errors.description && (
                         <InfoOutlinedIcon
                           color="error"
-                          sx={{ fontSize: "1rem" }}
+                          sx={{ fontSize: '1rem' }}
                         />
                       ),
                     }}
@@ -395,13 +428,13 @@ export const ProductForm = () => {
                   />
                   <Stack direction="row" justifyContent="space-between">
                     <Typography
-                      color={errors.description ? "error" : "primary.main"}
+                      color={errors.description ? 'error' : 'primary.main'}
                       variant="subtitle2"
                     >
-                      {errors.description?.message || "Додайте опис"}
+                      {errors.description?.message || 'Додайте опис'}
                     </Typography>
                     <Typography
-                      color={errors.description ? "error" : "primary.main"}
+                      color={errors.description ? 'error' : 'primary.main'}
                       variant="subtitle2"
                     >
                       {`${description.length} / 1000`}
@@ -429,7 +462,7 @@ export const ProductForm = () => {
                     errors.category && (
                       <InfoOutlinedIcon
                         color="error"
-                        sx={{ fontSize: "1rem", marginRight: 2 }}
+                        sx={{ fontSize: '1rem', marginRight: 2 }}
                       />
                     )
                   }
@@ -443,14 +476,14 @@ export const ProductForm = () => {
                   }}
                   MenuProps={{
                     sx: {
-                      ".MuiPaper-root": menuStyles,
+                      '.MuiPaper-root': menuStyles,
                     },
                   }}
                   size="small"
                 >
                   <MenuItem
                     sx={{
-                      color: "secondary.main",
+                      color: 'secondary.main',
                     }}
                     disabled
                     value=""
@@ -487,7 +520,10 @@ export const ProductForm = () => {
                 <Stack width="22rem">
                   <StyledFormLabel>Вкажіть ціну у гривнях</StyledFormLabel>
                   <TextField
-                    onChange={onChange}
+                    onChange={(event) => {
+                      onChange();
+                      handlePriceChange(event);
+                    }}
                     onBlur={onBlur}
                     value={value}
                     error={Boolean(errors.price)}
@@ -495,19 +531,18 @@ export const ProductForm = () => {
                       endAdornment: errors.price && (
                         <InfoOutlinedIcon
                           color="error"
-                          sx={{ fontSize: "1rem" }}
+                          sx={{ fontSize: '1rem' }}
                         />
                       ),
                     }}
-                    disabled={category === "for-free" || forFree || loading}
+                    disabled={category === 'for-free' || forFree || loading}
                     size="small"
-                    type="number"
                   />
                   <Typography
-                    color={errors.price ? "error" : "primary.main"}
+                    color={errors.price ? 'error' : 'primary.main'}
                     variant="subtitle2"
                   >
-                    {errors.price?.message || "Наприклад: 99.99"}
+                    {errors.price?.message || 'Наприклад: 99.99'}
                   </Typography>
                 </Stack>
               )}
@@ -528,7 +563,7 @@ export const ProductForm = () => {
                         }}
                         value={value}
                         checked={value}
-                        disabled={category === "for-free" || loading}
+                        disabled={category === 'for-free' || loading}
                       />
                     }
                   />
@@ -570,7 +605,7 @@ export const ProductForm = () => {
           <Controller
             control={control}
             name="contactName"
-            defaultValue={""}
+            defaultValue={''}
             render={({ field }) => (
               <Stack width="47.5rem">
                 <StyledFormLabel>Імʼя</StyledFormLabel>
@@ -582,18 +617,18 @@ export const ProductForm = () => {
                     endAdornment: errors.contactName && (
                       <InfoOutlinedIcon
                         color="error"
-                        sx={{ fontSize: "1rem" }}
+                        sx={{ fontSize: '1rem' }}
                       />
                     ),
                   }}
                   error={Boolean(errors.contactName)}
                 />
                 <Typography
-                  color={errors.contactName ? "error" : "primary.main"}
+                  color={errors.contactName ? 'error' : 'primary.main'}
                   variant="subtitle2"
                 >
                   {errors.contactName?.message ||
-                    "Напишіть імʼя, наприклад: Андрій"}
+                    'Напишіть імʼя, наприклад: Андрій'}
                 </Typography>
               </Stack>
             )}
@@ -610,14 +645,14 @@ export const ProductForm = () => {
                 <StyledFormLabel>Номер телефону</StyledFormLabel>
                 <TextField
                   onChange={(event) => {
-                    onChange();
+                    onChange(event);
                     handleChangePhone(event);
                   }}
                   InputProps={{
                     endAdornment: errors.contactNumber && (
                       <InfoOutlinedIcon
                         color="error"
-                        sx={{ fontSize: "1rem" }}
+                        sx={{ fontSize: '1rem' }}
                       />
                     ),
                   }}
@@ -653,7 +688,7 @@ export const ProductForm = () => {
                     errors.location && (
                       <InfoOutlinedIcon
                         color="error"
-                        sx={{ fontSize: "1rem", marginRight: 2 }}
+                        sx={{ fontSize: '1rem', marginRight: 2 }}
                       />
                     )
                   }
@@ -662,14 +697,14 @@ export const ProductForm = () => {
                   {...field}
                   MenuProps={{
                     sx: {
-                      ".MuiPaper-root": menuStyles,
+                      '.MuiPaper-root': menuStyles,
                     },
                   }}
                   size="small"
                 >
                   <MenuItem
                     sx={{
-                      color: "secondary.main",
+                      color: 'secondary.main',
                     }}
                     disabled
                     value=""
@@ -679,7 +714,7 @@ export const ProductForm = () => {
                   {locations
                     .filter((location) => location.value)
                     .map((location) => {
-                      if (location.value == "Ukraine") {
+                      if (location.value == 'Ukraine') {
                         return;
                       } else {
                         return (
@@ -712,13 +747,13 @@ export const ProductForm = () => {
             render={({ field }) => (
               <Stack width="47.5rem">
                 <FormControlLabel
-                  sx={{ width: "fit-content", alignItems: "center" }}
+                  sx={{ width: 'fit-content', alignItems: 'center' }}
                   label={
                     <Typography
                       variant="subtitle2"
-                      color={errors.agree && "error"}
+                      color={errors.agree && 'error'}
                     >
-                      Я погоджуюсь з{" "}
+                      Я погоджуюсь з{' '}
                       <StyledLink target="_blank" to="/privacy-policy">
                         Політикою конфіденційності
                       </StyledLink>
@@ -742,7 +777,7 @@ export const ProductForm = () => {
               disabled={!isValid || loading}
               type="submit"
               variant="contained"
-              sx={{ width: "10.5rem" }}
+              sx={{ width: '10.5rem' }}
             >
               Опублікувати
             </Button>
