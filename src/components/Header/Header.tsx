@@ -36,6 +36,9 @@ const Header = () => {
   const theme = useTheme();
   const [lang, setLang] = useState('ua');
   const dispatch: AppDispatch = useDispatch();
+  const { isLogin } = useSelector(userLoginStateSelector);
+  const { name } = useSelector(getUserStateSelector);
+
   const handleAddAdvert = () => {
     if (isLogin) {
       navigate('/add-advert');
@@ -66,9 +69,6 @@ const Header = () => {
   const handleClickProfile = () => {
     navigate('/profile');
   };
-
-  const { isLogin } = useSelector(userLoginStateSelector);
-  const { name } = useSelector(getUserStateSelector);
 
   const handlePathMatch = () => {
     if (matchPath('/:categoryName/:id', pathname)) return true;

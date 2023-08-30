@@ -5,13 +5,20 @@ import { StyledTextButton } from '../../Header/style';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
-import { ProductItem } from '../../../types';
+import { DrawerContent, ProductItem } from '../../../types';
 import moment from 'moment';
 import {
   categoriesDeliveryAbsense,
   goodTypeNames,
   locations,
 } from '../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLoginStateSelector } from '../../DrawerContent/selector';
+import { AppDispatch } from '../../../store';
+import {
+  openDrawerAction,
+  setDrawerContentAction,
+} from '../../CustomDrawer/reducer';
 
 type ProductInfoProps = {
   product: ProductItem;
@@ -22,6 +29,35 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     (location) => location.value === product.location
   );
   const [showNumber, setShowNumber] = useState(false);
+  const { isLogin } = useSelector(userLoginStateSelector);
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleBuyClick = () => {
+    if (isLogin) {
+      // handle buy action
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
+
+  const handleChatClick = () => {
+    if (isLogin) {
+      // handle chat action
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
+
+  const handleFavClick = () => {
+    if (isLogin) {
+      // handle chat action
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
 
   return (
     <Stack width="37.5rem" spacing={2}>
@@ -42,22 +78,35 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         </Typography>
         <Stack mt={2} direction="row" justifyContent="space-between">
           <Stack spacing={2} direction="row">
-            <Button id="buy-btn" sx={{ width: '7rem' }} variant="contained">
+            <Button
+              id="buy-btn"
+              sx={{ width: '7rem' }}
+              onClick={handleBuyClick}
+              variant="contained"
+            >
               Купити
             </Button>
             <Button
               id="chat-btn"
               startIcon={<ChatOutlinedIcon />}
               variant="outlined"
+              onClick={handleChatClick}
             >
               Чат з продавцем
             </Button>
           </Stack>
           <Stack direction="row" alignItems="center">
-            <StyledIconButton id="fav-btn" size="small">
+            <StyledIconButton
+              onClick={handleFavClick}
+              id="fav-btn"
+              size="small"
+            >
               <FavoriteBorderIcon color="primary" sx={{ fontSize: '1rem' }} />
             </StyledIconButton>
-            <StyledTextButton disableTouchRipple> В обране</StyledTextButton>
+            <StyledTextButton onClick={handleFavClick} disableTouchRipple>
+              {' '}
+              В обране
+            </StyledTextButton>
           </Stack>
         </Stack>
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
