@@ -10,9 +10,17 @@ import NotFoundPage from '../NotFoundPage';
 import { useSelector } from 'react-redux';
 import { userRegisterStateSelector } from '../DrawerContent/selector';
 import { logErrorToService } from '../../utils/utils';
-import { SecurityRules } from '../pages/Articles';
-import ProfilePage from '../pages/ProfilePage';
+import {
+  SecurityRules,
+  RulesOfUse,
+  InfoPresentation,
+  InfoContent,
+  ProhibitedGoods,
+  ProhibitedServices,
+  Activities,
+} from '../pages/Articles';
 import SingleProductPage from '../pages/SingleProductPage';
+import ProfilePage from '../pages/ProfilePage';
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -23,7 +31,10 @@ const App: React.FC = () => {
     );
   }, [isAuth]);
   useEffect(() => {
-    localStorage.setItem("logInput", JSON.stringify({ email: "", password: "" }));
+    localStorage.setItem(
+      'logInput',
+      JSON.stringify({ email: '', password: '' })
+    );
   }, []);
 
   return (
@@ -42,8 +53,17 @@ const App: React.FC = () => {
             <Route path="/:categoryName" element={<CategoryPage />} />
             <Route path="/security-rules" element={<SecurityRules />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="/general-requirements" element={<RulesOfUse />} />
+            <Route path="/info-presentation" element={<InfoPresentation />} />
+            <Route path="/info-content" element={<InfoContent />} />
+            <Route path="/prohibited-goods" element={<ProhibitedGoods />} />
+            <Route
+              path="/prohibited-services"
+              element={<ProhibitedServices />}
+            />{' '}
+            <Route path="/activities" element={<Activities />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       </Router>
