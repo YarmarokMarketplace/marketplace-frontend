@@ -18,7 +18,6 @@ import AddIcon from "@mui/icons-material/Add";
 import logo from "../../img/logo.png";
 import { AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   openDrawerAction,
   setDrawerContentAction,
