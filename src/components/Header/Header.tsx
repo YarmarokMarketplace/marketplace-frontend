@@ -17,29 +17,57 @@ import AddIcon from "@mui/icons-material/Add";
 
 import logo from "../../img/logo.png";
 import { AppDispatch } from "../../store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   openDrawerAction,
   setDrawerContentAction,
 } from "../CustomDrawer/reducer";
 import { DrawerContent } from "../../types";
 import { useNavigate } from "react-router";
+import { userLoginStateSelector, getUserStateSelector } from "../DrawerContent/selector";
 
 const Header = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const [lang, setLang] = useState("ua");
   const dispatch: AppDispatch = useDispatch();
-  const handleAddAdvert = () => { };
+  const handleAddAdvert = () => {
+    if (isLogin) {
+      navigate('/add-advert');
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
+  };
   const handleLocalization = (
     event: React.SyntheticEvent<HTMLButtonElement>
   ) => {
     setLang(event.currentTarget.value);
   };
-  const handleCheckFavourites = () => { };
-  const handleClickAccount = () => {
-    //If user not logged in
+  const handleCheckFavourites = () => {
+    if (isLogin) {
+      // navigate('/favourites');
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
   };
+  const handleClickAccount = () => {
+    dispatch(openDrawerAction(true));
+    dispatch(setDrawerContentAction(DrawerContent.login));
+  };
+
+  const handleClickProfile = () => {
+    navigate('/profile')
+  }
+
+  const { isLogin } = useSelector(
+    userLoginStateSelector
+  );
+  const { name } = useSelector(
+    getUserStateSelector
+  );
+
   return (
     <>
       <StyledAppBar position="static">
@@ -60,6 +88,7 @@ const Header = () => {
                   <FavoriteIcon sx={{ fontSize: "1rem" }} />
                 </StyledIconButton>
                 <StyledTextButton
+                  onClick={handleCheckFavourites}
                   disableTouchRipple
                   id="fav-txt-btn"
                   color="inherit"
@@ -69,26 +98,51 @@ const Header = () => {
                   Обране
                 </StyledTextButton>
               </Stack>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <StyledIconButton
-                  onClick={handleClickAccount}
-                  size="small"
-                  color="primary"
-                  id="acc-btn"
-                >
-                  <PersonIcon sx={{ fontSize: "1rem" }} />
-                </StyledIconButton>
-                <StyledTextButton
-                  onClick={handleClickAccount}
-                  disableTouchRipple
-                  id="acc-text-btn"
-                  color="inherit"
-                  variant="text"
-                  size="small"
-                >
-                  Увійти
-                </StyledTextButton>
-              </Stack>
+              {isLogin ?
+                (
+                  < Stack direction="row" spacing={1} alignItems="center">
+                    <StyledIconButton
+                      onClick={handleClickProfile}
+                      size="small"
+                      color="primary"
+                      id="acc-btn"
+                    >
+                      <PersonIcon sx={{ fontSize: "1rem" }} />
+                    </StyledIconButton>
+                    <StyledTextButton
+                      onClick={handleClickProfile}
+                      disableTouchRipple
+                      id="acc-text-btn"
+                      color="inherit"
+                      variant="text"
+                      size="small"
+                    >
+                      {name}
+                    </StyledTextButton>
+                  </Stack>
+                )
+                :
+                (< Stack direction="row" spacing={1} alignItems="center">
+                  <StyledIconButton
+                    onClick={handleClickAccount}
+                    size="small"
+                    color="primary"
+                    id="acc-btn"
+                  >
+                    <PersonIcon sx={{ fontSize: "1rem" }} />
+                  </StyledIconButton>
+                  <StyledTextButton
+                    onClick={handleClickAccount}
+                    disableTouchRipple
+                    id="acc-text-btn"
+                    color="inherit"
+                    variant="text"
+                    size="small"
+                  >
+                    Увійти
+                  </StyledTextButton>
+                </Stack>
+                )}
               <ButtonGroup size="small" sx={{ alignItems: "center", gap: 1 }}>
                 <Button
                   value="ua"
@@ -143,7 +197,7 @@ const Header = () => {
             </Stack>
           </StyledToolBar>
         </Container>
-      </StyledAppBar>
+      </StyledAppBar >
     </>
   );
 };

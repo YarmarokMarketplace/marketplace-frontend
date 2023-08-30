@@ -143,7 +143,7 @@ export const StyledButton = styled("div")(({ theme }) => ({
 //NoProductsMessage
 
 export const NoProductsContainer = styled(Box)(({ theme }) => ({
-    width: '100%',
+    width: '61.5rem',
     borderRadius: 20,
     padding: theme.spacing(3),
     backgroundColor: "#FFF",

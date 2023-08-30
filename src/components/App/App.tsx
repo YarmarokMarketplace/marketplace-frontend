@@ -21,6 +21,10 @@ const App: React.FC = () => {
       JSON.stringify({ name: "", email: "", password: "", confirmPassword: "" })
     );
   }, [isAuth]);
+  useEffect(() => {
+    localStorage.setItem("logInput", JSON.stringify({ email: "", password: "" }));
+  }, []);
+
   return (
     <ErrorBoundary
       FallbackComponent={FallbackComponent}

@@ -6,8 +6,27 @@ export const emailErrorToggle = (
   action: PayloadAction<boolean>
 ) => {
   state.register.emailError = action.payload;
+  state.login.emailError = action.payload;
 };
 
 export const isAuthReset = (state: UserAuthState) => {
   state.register.isAuth = false;
+};
+
+export const isLoginReset = (state: UserAuthState) => {
+  state.login.isLogin = false;
+};
+
+export const rememberLoginToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.rememberLogin = action.payload;
+};
+
+export const requestErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.requestError = action.payload;
 };
