@@ -47,10 +47,6 @@ loginClient.interceptors.response.use(
           ] = `Bearer ${response.accessToken}`; //Set authorization header to failed request
           localStorage.setItem('refreshToken', response.refreshToken);
           return loginClient(error.response.config);
-        })
-        .catch((error) => {
-          console.error('Token refresh error:', error);
-          return Promise.reject(error);
         });
     }
     return Promise.reject(error);
