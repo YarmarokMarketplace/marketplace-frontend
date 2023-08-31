@@ -1,5 +1,5 @@
 import { ProductItem } from '../types';
-import { client } from './client';
+import { client, loginClient } from './client';
 
 type ProductsResponse = {
   totalResult: number;
@@ -48,7 +48,7 @@ export const getProduct = async (id: string) => {
 
 export const addProduct = async (data: FormData) => {
   try {
-    return await client.post<never, AddProductResponse>(
+    return await loginClient.post<never, AddProductResponse>(
       '/notices',
       (data = data),
       { headers: { 'Content-Type': 'multipart/ form-data' } }
