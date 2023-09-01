@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
-import { Button, FormControl, Stack, Typography } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import React, { useEffect, useState } from 'react';
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { VisibilityOff, Visibility } from '@mui/icons-material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import {
   StyledBox,
   StyledInput,
@@ -12,41 +19,48 @@ import {
   StyledLink,
   StyledLoginBtn,
   StyledVector,
-} from "./style";
-import { AppDispatch } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+} from './style';
+import { AppDispatch } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   openDrawerAction,
   setDrawerContentAction,
-} from "../CustomDrawer/reducer";
-import { DrawerContent, RegisterBody } from "../../types";
-import { userRegisterStateSelector } from "./selector";
-import { userRegisterFetch } from "./thunk";
+} from '../CustomDrawer/reducer';
+import { DrawerContent, RegisterBody } from '../../types';
+import { userRegisterStateSelector } from './selector';
+import { userRegisterFetch } from './thunk';
 
-import success from "../../img/success.svg";
-import { emailErrorToggleAction, isAuthResetAction } from "./reducer";
+import success from '../../img/success.svg';
+import {
+  emailErrorToggleAction,
+  isAuthResetAction,
+  requestLimitErrorToggleAction,
+} from './reducer';
 
 const registerSchema = yup.object().shape({
   name: yup
     .string()
-    .required("Не забудьте ввести ваше ім’я")
-    .min(2, "Мінімальна довжина 2 символи"),
+    .required('Не забудьте ввести ваше ім’я')
+    .min(2, 'Мінімальна довжина 2 символи'),
   email: yup
     .string()
-    .matches(/@([\w-]+.)+[\w-]{2,6}$/, "Введіть коректний email")
-    .required("Не забудьте ввести електронну пошту"),
+    .matches(
+      /@([\w-]+.)+[\w-]{2,6}$/,
+      'Некоректна електронна адреса. Перевірте правильність введення електронної адреси.'
+    )
+    .required('Не забудьте ввести електронну пошту'),
   password: yup
     .string()
-    .required("Не забудьте ввести пароль")
-    .min(8, "Пароль повинен мати мінімум 8 символів")
+    .required('Не забудьте ввести пароль')
+    .min(8, 'Пароль повинен мати мінімум 8 символів')
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#._?!@$%^&*-]).{8,}$/,
-      "Пароль має містити хоча б одну велику літеру, одну цифру та спеціальний символ (#._?!@$%^&*-)"
+      'Пароль має містити лише латинські літери, хоча б одну велику літеру, одну цифру та спеціальний символ (#._?!@$%^&*-)'
     ),
   confirmPassword: yup
     .string()
-    .required("Не забудьте ввести пароль")
-    .oneOf([yup.ref("password")], "Введені паролі не збігаються."),
+    .required('Не забудьте ввести пароль')
+    .oneOf([yup.ref('password')], 'Введені паролі не збігаються.'),
 });
 
 export interface RegisterData extends RegisterBody {
@@ -55,7 +69,9 @@ export interface RegisterData extends RegisterBody {
 
 const Register = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { loading, error, isAuth, emailError } = useSelector(
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { loading, error, isAuth, emailError, requestLimitError } = useSelector(
     userRegisterStateSelector
   );
 
@@ -68,8 +84,8 @@ const Register = () => {
     reset,
   } = useForm({
     resolver: yupResolver(registerSchema),
-    defaultValues: JSON.parse(localStorage.getItem("regInput")!),
-    mode: "onChange",
+    defaultValues: JSON.parse(localStorage.getItem('regInput')!),
+    mode: 'onChange',
   });
 
   const handleLoginRedirect = () => {
@@ -84,17 +100,26 @@ const Register = () => {
     return () => {
       const values = getValues();
       localStorage.setItem(
-        "regInput",
-        JSON.stringify({ ...values, password: "", confirmPassword: "" })
+        'regInput',
+        JSON.stringify({ ...values, password: '', confirmPassword: '' })
       );
       dispatch(isAuthResetAction());
       dispatch(emailErrorToggleAction(false));
+      dispatch(requestLimitErrorToggleAction(false));
     };
   }, []);
 
   const onSubmit = (values: RegisterData) => {
     const { name, password, email } = values;
     dispatch(userRegisterFetch({ name, password, email }));
+  };
+
+  const handlePasswordDisplay = (name: string) => {
+    if (name === 'password') {
+      setShowPassword(!showPassword);
+    } else {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
   };
 
   return (
@@ -105,7 +130,7 @@ const Register = () => {
             <img src={success} alt="success-vector" />
           </StyledVector>
           <Typography color="primary.main" width="15rem" variant="h4">
-            Вітаємо на нашому маркетплейсі YARMAROK!{" "}
+            Вітаємо на нашому маркетплейсі YARMAROK!{' '}
           </Typography>
           <Stack spacing={2}>
             <Typography color="primary.dark">Дякуємо за реєстрацію!</Typography>
@@ -124,9 +149,9 @@ const Register = () => {
             onSubmit={handleSubmit(onSubmit)}
             id="register-form"
             style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
             }}
           >
             <StyledBox>
@@ -156,7 +181,7 @@ const Register = () => {
                         endAdornment: errors.name && (
                           <InfoOutlinedIcon
                             color="error"
-                            sx={{ fontSize: "1rem" }}
+                            sx={{ fontSize: '1rem' }}
                           />
                         ),
                       }}
@@ -173,19 +198,27 @@ const Register = () => {
                     <StyledInput
                       helperText={
                         emailError
-                          ? "Користувач з такою поштою вже зареєстрований"
+                          ? 'Обліковий запис з такою електронною адресою вже існує. Будь ласка, виберіть іншу адресу або використайте опцію відновлення пароля.'
+                          : requestLimitError
+                          ? 'Забагато запитів, повторіть спробу через 24 години'
                           : errors.email?.message
                       }
-                      error={Boolean(errors?.email) || emailError}
+                      error={
+                        Boolean(errors?.email) ||
+                        emailError ||
+                        requestLimitError
+                      }
                       id="email"
                       disabled={loading}
                       {...field}
                       size="small"
                       InputProps={{
-                        endAdornment: (errors.email || emailError) && (
+                        endAdornment: (errors.email ||
+                          emailError ||
+                          requestLimitError) && (
                           <InfoOutlinedIcon
                             color="error"
-                            sx={{ fontSize: "1rem" }}
+                            sx={{ fontSize: '1rem' }}
                           />
                         ),
                       }}
@@ -200,24 +233,44 @@ const Register = () => {
                   name="password"
                   render={({ field }) => (
                     <StyledInput
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       helperText={errors.password?.message}
                       error={Boolean(errors.password)}
                       {...field}
                       onChange={(event) => {
-                        trigger("confirmPassword");
+                        trigger('confirmPassword');
                         field.onChange(event);
                       }}
                       id="password"
                       disabled={loading}
                       size="small"
                       InputProps={{
-                        endAdornment: errors.password && (
-                          <InfoOutlinedIcon
-                            color="error"
-                            sx={{ fontSize: "1rem" }}
-                          />
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={() => handlePasswordDisplay('password')}
+                            >
+                              {showPassword ? (
+                                <Visibility
+                                  color={
+                                    Boolean(errors.password)
+                                      ? 'error'
+                                      : 'inherit'
+                                  }
+                                />
+                              ) : (
+                                <VisibilityOff
+                                  color={
+                                    Boolean(errors.password)
+                                      ? 'error'
+                                      : 'inherit'
+                                  }
+                                />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
                         ),
+                        sx: { paddingRight: 1 },
                       }}
                     />
                   )}
@@ -232,25 +285,47 @@ const Register = () => {
                     <StyledInput
                       helperText={errors.confirmPassword?.message}
                       error={Boolean(errors.confirmPassword)}
-                      type="password"
+                      type={showConfirmPassword ? 'text' : 'password'}
                       disabled={loading}
                       id="confirmPassword"
                       {...field}
                       size="small"
                       InputProps={{
-                        endAdornment: errors.confirmPassword && (
-                          <InfoOutlinedIcon
-                            color="error"
-                            sx={{ fontSize: "1rem" }}
-                          />
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={() =>
+                                handlePasswordDisplay('confirmPassword')
+                              }
+                            >
+                              {showConfirmPassword ? (
+                                <Visibility
+                                  color={
+                                    Boolean(errors.confirmPassword)
+                                      ? 'error'
+                                      : 'inherit'
+                                  }
+                                />
+                              ) : (
+                                <VisibilityOff
+                                  color={
+                                    Boolean(errors.confirmPassword)
+                                      ? 'error'
+                                      : 'inherit'
+                                  }
+                                />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
                         ),
+                        sx: { paddingRight: 1 },
                       }}
                     />
                   )}
                 />
               </FormControl>
               <Typography variant="subtitle2">
-                Створюючи профіль на YARMAROK, ви погоджуєтесь{" "}
+                Створюючи профіль на YARMAROK, ви погоджуєтесь{' '}
                 <StyledLink id="rules-link" to="/rules" target="_blank">
                   з умовами використання
                 </StyledLink>
@@ -258,9 +333,9 @@ const Register = () => {
             </StyledBox>
             <Button
               sx={{
-                width: "83%",
+                width: '83%',
                 mt: 3,
-                fontSize: "0.875rem",
+                fontSize: '0.875rem',
                 fontWeight: 600,
                 paddingY: 1,
               }}
@@ -278,7 +353,7 @@ const Register = () => {
             <Typography variant="caption">Вже зареєстрований?</Typography>
 
             <StyledLoginBtn
-              sx={{ fontSize: "0.75rem" }}
+              sx={{ fontSize: '0.75rem' }}
               variant="text"
               color="primary"
               size="small"
