@@ -36,8 +36,9 @@ import {
   emailErrorToggleAction,
   requestErrorToggleAction,
   isLoginResetAction,
-} from './reducer';
-import { rememberLoginToggle } from './actions';
+  notVerifiedErrorToggleAction
+} from "./reducer";
+import { rememberLoginToggle } from "./actions";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -52,8 +53,10 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { loading, error, isLogin, emailError, rememberLogin, requestError } =
-    useSelector(userLoginStateSelector);
+  const { loading, error, isLogin, emailError, rememberLogin, requestError, notVerifiedError } = useSelector(
+    userLoginStateSelector
+  );
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleResetPasswordRedirect = () => {
@@ -69,13 +72,11 @@ const Login = () => {
   useEffect(() => {
     return () => {
       const values = getValues();
-      localStorage.setItem(
-        'logInput',
-        JSON.stringify({ ...values, password: '' })
-      );
+      localStorage.setItem("logInput", JSON.stringify({ ...values, password: "" }));
       // dispatch(isLoginResetAction());
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
+      dispatch(notVerifiedErrorToggleAction(false));
     };
   }, []);
 
@@ -86,12 +87,13 @@ const Login = () => {
       // dispatch(isLoginResetAction()); // Виклик екшену для зміни isLogin назад на false
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
+      dispatch(notVerifiedErrorToggleAction(false));
     }
   }, [isLogin]);
 
   useEffect(() => {
     localStorage.setItem('rememberLogin', JSON.stringify(rememberLogin));
-  }, [rememberLogin]);
+  }, [rememberLogin])
 
   const onSubmit = (data: LoginBody) => {
     dispatch(userLoginFetch(data));
@@ -132,16 +134,18 @@ const Login = () => {
   // }, [])
 
   const setHelperText = () => {
-    let helperText: any = '';
+    let helperText: any = "";
     if (emailError) {
-      helperText = 'Email або пароль невірні';
+      helperText = "Email або пароль невірні";
     } else if (requestError) {
-      helperText = 'Забагато запитів, повторіть спробу через 1 хвилину';
+      helperText = "Забагато запитів, повторіть спробу через 1 хвилину";
+    } else if (notVerifiedError) {
+      helperText = "Email не підтверджено. Підтвердіть свою електронну пошту"
     } else {
       helperText = errors.email?.message;
     }
     return helperText;
-  };
+  }
 
   return (
     <Stack alignItems="center">
@@ -163,8 +167,8 @@ const Login = () => {
               Увійти в кабінет
             </Typography>
             <Typography variant="subtitle2">
-              Увійдіть, щоб купувати та продавати, додавати товари до обраних та
-              листуватись з продавцем
+              Увійдіть, щоб купувати та продавати, додавати
+              товари до обраних та листуватись з продавцем
             </Typography>
           </Stack>
           <FormControl fullWidth>
@@ -175,16 +179,19 @@ const Login = () => {
               render={({ field }) => (
                 <StyledInput
                   helperText={setHelperText()}
-                  error={Boolean(errors?.email) || emailError || requestError}
+                  error={
+                    Boolean(errors?.email)
+                    || emailError || requestError || notVerifiedError
+                  }
                   InputProps={{
-                    endAdornment: (errors.email ||
-                      emailError ||
-                      requestError) && (
-                      <InfoOutlinedIcon
-                        color="error"
-                        sx={{ fontSize: '1rem' }}
-                      />
-                    ),
+                    endAdornment:
+                      (errors.email || emailError || requestError || notVerifiedError)
+                      && (
+                        <InfoOutlinedIcon
+                          color="error"
+                          sx={{ fontSize: "1rem" }}
+                        />
+                      ),
                   }}
                   id="email"
                   {...field}
@@ -243,7 +250,7 @@ const Login = () => {
           <StyledResetBtn onClick={handleResetPasswordRedirect}>
             Забули пароль?
           </StyledResetBtn>
-        </StyledBox>
+        </StyledBox >
 
         <SaveDataControlLabel
           control={<Checkbox onChange={handleCheckboxChange} />}
@@ -259,7 +266,7 @@ const Login = () => {
         >
           Увійти
         </StyledSubmitBtn>
-      </form>
+      </form >
 
       <Stack mt={2} direction="row" alignItems="center">
         <Typography variant="caption">Немає профілю?</Typography>
@@ -274,7 +281,7 @@ const Login = () => {
           Зареєструйтесь
         </StyledSignInBtn>
       </Stack>
-    </Stack>
+    </Stack >
   );
 };
 

@@ -37,3 +37,10 @@ export const requestLimitErrorToggle = (
 ) => {
   state.register.requestLimitError = action.payload;
 };
+
+export const notVerifiedErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.notVerifiedError = action.payload;
+};

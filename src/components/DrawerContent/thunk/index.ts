@@ -6,6 +6,7 @@ import {
   emailErrorToggleAction,
   requestErrorToggleAction,
   requestLimitErrorToggleAction,
+  notVerifiedErrorToggleAction,
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
@@ -43,12 +44,15 @@ export const userLoginFetch = createAsyncThunk(
     } catch (error) {
       if (error instanceof AxiosError) {
         const { message } = error.response?.data;
-        console.log(message);
-        if (message === 'Email or password is wrong') {
+        console.log(message)
+        if (message === "Email or password is wrong") {
           dispatch(emailErrorToggleAction(true));
         }
-        if (message === 'Too many requests, please try again in 1 minute') {
+        if (message === "Too many requests, please try again in 1 minute") {
           dispatch(requestErrorToggleAction(true));
+        }
+        if (message === "Email is not verified") {
+          dispatch(notVerifiedErrorToggleAction(true));
         }
         return rejectWithValue(error.response?.data);
       }
