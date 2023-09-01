@@ -35,19 +35,21 @@ loginClient.interceptors.response.use(
   async (error) => {
     if (error.response.status == 401) {
       const refreshToken = localStorage.getItem('refreshToken');
-      return client
-        .post<never, RefreshResponse>('/auth/refresh', {
-          refreshToken,
-        })
-        .then((response) => {
-          setToken(response.accessToken); //Set authorization header to login Client
+      if (refreshToken) {
+        return client
+          .post<never, RefreshResponse>('/auth/refresh', {
+            refreshToken,
+          })
+          .then((response) => {
+            setToken(response.accessToken); //Set authorization header to login Client
 
-          error.response.config.headers[
-            'Authorization'
-          ] = `Bearer ${response.accessToken}`; //Set authorization header to failed request
-          localStorage.setItem('refreshToken', response.refreshToken);
-          return loginClient(error.response.config);
-        });
+            error.response.config.headers[
+              'Authorization'
+            ] = `Bearer ${response.accessToken}`; //Set authorization header to failed request
+            localStorage.setItem('refreshToken', response.refreshToken);
+            return loginClient(error.response.config);
+          });
+      }
     }
     return Promise.reject(error);
   }
