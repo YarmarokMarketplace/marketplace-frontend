@@ -5,7 +5,13 @@ import {
   LoginResponse,
   ForgotPasswordBody,
 } from '../../../types';
-import { register, login, getCurrent, forgotPassword } from '../../../api/user';
+import {
+  register,
+  login,
+  getCurrent,
+  forgotPassword,
+  logout,
+} from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
   emailErrorToggleAction,
@@ -20,6 +26,7 @@ const USER_REGISTER_THUNK_TYPE = 'USER_REGISTER_THUNK_TYPE';
 const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
 const USER_CURRENT_THUNK_TYPE = 'USER_CURRENT_THUNK_TYPE';
 const USER_FORGOT_PASSWORD_THUNK_TYPE = 'USER_FORGOT_PASSWORD_THUNK_TYPE';
+const USER_LOGOUT_THUNK_TYPE = 'USER_LOGOUT_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -50,14 +57,14 @@ export const userLoginFetch = createAsyncThunk(
     } catch (error) {
       if (error instanceof AxiosError) {
         const { message } = error.response?.data;
-        console.log(message)
-        if (message === "Email or password is wrong") {
+        console.log(message);
+        if (message === 'Email or password is wrong') {
           dispatch(emailErrorToggleAction(true));
         }
-        if (message === "Too many requests, please try again in 1 minute") {
+        if (message === 'Too many requests, please try again in 1 minute') {
           dispatch(requestErrorToggleAction(true));
         }
-        if (message === "Email is not verified") {
+        if (message === 'Email is not verified') {
           dispatch(notVerifiedErrorToggleAction(true));
         }
         return rejectWithValue(error.response?.data);
@@ -101,6 +108,23 @@ export const forgotPasswordFetch = createAsyncThunk(
         }
         return rejectWithValue(error.response?.data);
       }
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const logoutFetch = createAsyncThunk(
+  USER_LOGOUT_THUNK_TYPE,
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await logout();
+      return result;
+    } catch ({ response }: any) {
+      const { status, data } = response;
+      const error = {
+        status,
+        message: data.message,
+      };
       return rejectWithValue(error);
     }
   }

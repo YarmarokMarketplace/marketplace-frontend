@@ -4,6 +4,7 @@ import {
   userLoginFetch,
   currentFetch,
   forgotPasswordFetch,
+  logoutFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -171,6 +172,22 @@ export const userAuthSlice = createSlice({
       .addCase(forgotPasswordFetch.rejected, (state, action) => {
         state.resetPassword.loading = false;
         state.resetPassword.error = true;
+      })
+      .addCase(logoutFetch.pending, (state, action) => {
+        state.login.loading = true;
+        state.login.error = false;
+      })
+      .addCase(logoutFetch.fulfilled, (state) => {
+        state.login.loading = false;
+        state.login.user = { name: '' };
+        state.login.refreshToken = '';
+        state.current.accessToken = '';
+        state.login.isLogin = false;
+        state.current.isLogin = false;
+      })
+      .addCase(logoutFetch.rejected, (state) => {
+        state.login.loading = false;
+        state.login.error = true;
       });
   },
 });

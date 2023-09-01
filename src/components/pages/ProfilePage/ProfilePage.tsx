@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { AppDispatch } from "../../../store";
+import { useDispatch } from "react-redux";
+import { openModalAction, setModalContentAction } from "../../CustomModal/reducer"
 
 import {
     Box, Typography,
@@ -11,10 +14,17 @@ import {
 } from "./style";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsTab from './SettingsTab/SettingsTab';
+import { ModalContent } from '../../../types';
 
 const ProfilePage = () => {
+    const dispatch: AppDispatch = useDispatch();
 
     const handleMenuClick = (event: React.MouseEvent<HTMLLIElement>) => {
+    }
+
+    const handleClickLogout = () => {
+        dispatch(openModalAction(true));
+        dispatch(setModalContentAction(ModalContent.logout));
     }
 
     return (
@@ -60,7 +70,9 @@ const ProfilePage = () => {
                     </StyledLink>
                 </Stack>
 
-                <StyledButton variant="text" endIcon={<LogoutIcon />}>
+                <StyledButton variant="text" endIcon={<LogoutIcon />}
+                    onClick={handleClickLogout}
+                >
                     Вийти
                 </StyledButton>
             </MenuContainer>
