@@ -7,6 +7,7 @@ import {
   rememberLoginToggle,
   requestErrorToggle,
   requestLimitErrorToggle,
+  notVerifiedErrorToggle,
 } from '../actions';
 
 export interface UserAuthState {
@@ -28,6 +29,7 @@ export interface UserAuthState {
     emailError: boolean;
     rememberLogin: boolean;
     requestError: boolean;
+    notVerifiedError: boolean;
   };
   resetPassword: unknown;
   current: {
@@ -60,6 +62,7 @@ const initialState: UserAuthState = {
     emailError: false,
     rememberLogin: false,
     requestError: false,
+    notVerifiedError: false,
   },
   resetPassword: {},
   current: {
@@ -85,6 +88,7 @@ export const userAuthSlice = createSlice({
     rememberLoginToggle,
     requestErrorToggle,
     requestLimitErrorToggle,
+    notVerifiedErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -107,6 +111,7 @@ export const userAuthSlice = createSlice({
         state.login.error = false;
         state.login.emailError = false;
         state.login.requestError = false;
+        state.login.notVerifiedError = false;
       })
       .addCase(userLoginFetch.fulfilled, (state, { payload }) => {
         state.login.loading = false;
@@ -115,6 +120,7 @@ export const userAuthSlice = createSlice({
         state.login.isLogin = true;
         state.login.emailError = false;
         state.login.requestError = false;
+        state.login.notVerifiedError = false;
       })
       .addCase(userLoginFetch.rejected, (state, action) => {
         state.login.loading = false;
@@ -143,6 +149,7 @@ export const {
   rememberLoginToggle: rememberLoginToggleAction,
   requestErrorToggle: requestErrorToggleAction,
   requestLimitErrorToggle: requestLimitErrorToggleAction,
+  notVerifiedErrorToggle: notVerifiedErrorToggleAction
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
