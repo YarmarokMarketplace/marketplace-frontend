@@ -27,6 +27,7 @@ import { Typography } from '@mui/material';
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
+
   useEffect(() => {
     localStorage.setItem(
       'regInput',

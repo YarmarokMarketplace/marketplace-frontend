@@ -63,7 +63,7 @@ export const addAdvertSchema = yup.object().shape({
   photos: yup.string(),
   goodtype: yup.string().when('category', {
     is: (value: string) => !categoryWithoutGoodtype.includes(value),
-    then: (schema) => schema.required('Не забудьте вказати тип товару'),
+    then: (schema) => schema.required('Вкажіть тип товару'),
   }),
   contactName: yup
     .string()

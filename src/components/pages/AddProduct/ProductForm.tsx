@@ -46,7 +46,7 @@ export const ProductForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     trigger,
     setValue,
   } = useForm({
@@ -116,7 +116,7 @@ export const ProductForm = () => {
     form.append('location', location);
     goodtype && form.append('goodtype', goodtype);
     selectedImage.length &&
-      selectedImage.reverse().forEach((img) => form.append('photos', img));
+      [...selectedImage].reverse().forEach((img) => form.append('photos', img));
     dispatch(addAdvertFetch(form));
   };
 
@@ -162,67 +162,80 @@ export const ProductForm = () => {
         </StyledFormControl>
         <StyledFormControl fullWidth>
           <StyledFormLabel>Ціна</StyledFormLabel>
-          <Stack direction="row" width="47.5rem" spacing={3}>
-            <PriceInput
-              control={control}
-              errors={errors}
-              loading={loading}
-              setValue={setValue}
-              category={category}
-              forFree={forFree}
-              trigger={trigger}
-            />
-            <StyledFormControl>
-              <Controller
+          <Stack alignItems="end">
+            <Stack
+              direction="row"
+              width="47.5rem"
+              spacing={3}
+              alignItems={'center'}
+            >
+              <PriceInput
                 control={control}
-                name="free"
-                defaultValue={false}
-                render={({ field: { onChange, value } }) => (
-                  <FormControlLabel
-                    label="Безкоштовно"
-                    control={
-                      <Checkbox
-                        onChange={(event) => {
-                          onChange(event);
-                          setForFree(event.target.checked);
-                        }}
-                        value={value}
-                        checked={value}
-                        disabled={category === 'for-free' || loading}
-                      />
-                    }
-                  />
-                )}
+                errors={errors}
+                loading={loading}
+                setValue={setValue}
+                category={category}
+                forFree={forFree}
+                trigger={trigger}
               />
-            </StyledFormControl>
-            {checkGoodtype() && (
               <StyledFormControl>
                 <Controller
                   control={control}
-                  name="goodtype"
-                  defaultValue=""
-                  render={({ field }) => (
-                    <RadioGroup row {...field}>
-                      <FormControlLabel
-                        value="new"
-                        control={<Radio disabled={loading} />}
-                        label="Нове"
-                      />
-                      <FormControlLabel
-                        value="used"
-                        control={<Radio disabled={loading} />}
-                        label="Вживане"
-                      />
-                    </RadioGroup>
+                  name="free"
+                  defaultValue={false}
+                  render={({ field: { onChange, value } }) => (
+                    <FormControlLabel
+                      label="Безкоштовно"
+                      sx={{ height: '1rem' }}
+                      control={
+                        <Checkbox
+                          onChange={(event) => {
+                            onChange(event);
+                            setForFree(event.target.checked);
+                          }}
+                          value={value}
+                          checked={value}
+                          disabled={category === 'for-free' || loading}
+                        />
+                      }
+                    />
                   )}
                 />
-                {errors.goodtype && (
-                  <Typography color="error" variant="subtitle2">
-                    {errors.goodtype?.message}
-                  </Typography>
-                )}
               </StyledFormControl>
-            )}
+              {checkGoodtype() && (
+                <StyledFormControl>
+                  <Controller
+                    control={control}
+                    name="goodtype"
+                    defaultValue=""
+                    render={({ field }) => (
+                      <RadioGroup
+                        {...field}
+                        sx={{ height: '2.5rem', flexWrap: 'unset' }}
+                      >
+                        <Stack direction="row">
+                          <FormControlLabel
+                            value="new"
+                            control={<Radio disabled={loading} />}
+                            label="Нове"
+                          />
+                          <FormControlLabel
+                            value="used"
+                            control={<Radio disabled={loading} />}
+                            label="Вживане"
+                          />
+                        </Stack>
+                        {errors.goodtype && (
+                          <Typography color="error" variant="subtitle2">
+                            {errors.goodtype?.message}
+                          </Typography>
+                        )}
+                      </RadioGroup>
+                    )}
+                  />
+                </StyledFormControl>
+              )}
+            </Stack>
           </Stack>
         </StyledFormControl>
         <StyledFormControl fullWidth>
@@ -320,7 +333,7 @@ export const ProductForm = () => {
           <StyledFormLabel></StyledFormLabel>
           <Stack width="47.5rem" spacing={2}>
             <Button
-              disabled={!isValid || loading}
+              disabled={loading}
               type="submit"
               variant="contained"
               sx={{ width: '10.5rem' }}
