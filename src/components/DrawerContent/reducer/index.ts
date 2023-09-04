@@ -1,6 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { userRegisterFetch, userLoginFetch, currentFetch } from "../thunk";
-import { emailErrorToggle, isAuthReset, isLoginReset, rememberLoginToggle, requestErrorToggle } from "../actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { userRegisterFetch, userLoginFetch, currentFetch } from '../thunk';
+import {
+  emailErrorToggle,
+  isAuthReset,
+  isLoginReset,
+  rememberLoginToggle,
+  requestErrorToggle,
+  requestLimitErrorToggle,
+} from '../actions';
 
 export interface UserAuthState {
   register: {
@@ -8,6 +15,7 @@ export interface UserAuthState {
     error: boolean;
     isAuth: boolean;
     emailError: boolean;
+    requestLimitError: boolean;
   };
   login: {
     user: {
@@ -30,7 +38,7 @@ export interface UserAuthState {
     error: boolean | null;
     isLogin: boolean;
     accessToken: string;
-  }
+  };
 }
 
 const initialState: UserAuthState = {
@@ -39,15 +47,16 @@ const initialState: UserAuthState = {
     error: false,
     isAuth: false,
     emailError: false,
+    requestLimitError: false,
   },
   login: {
     user: {
-      name: ''
+      name: '',
     },
     loading: false,
     error: null,
     isLogin: false,
-    refreshToken: "",
+    refreshToken: '',
     emailError: false,
     rememberLogin: false,
     requestError: false,
@@ -55,16 +64,16 @@ const initialState: UserAuthState = {
   resetPassword: {},
   current: {
     user: {
-      name: ''
+      name: '',
     },
     loading: false,
     error: null,
     isLogin: false,
-    accessToken: ''
-  }
-}
+    accessToken: '',
+  },
+};
 
-const name = "USER_AUTH";
+const name = 'USER_AUTH';
 
 export const userAuthSlice = createSlice({
   name,
@@ -74,7 +83,8 @@ export const userAuthSlice = createSlice({
     isAuthReset,
     isLoginReset,
     rememberLoginToggle,
-    requestErrorToggle
+    requestErrorToggle,
+    requestLimitErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -132,6 +142,7 @@ export const {
   isLoginReset: isLoginResetAction,
   rememberLoginToggle: rememberLoginToggleAction,
   requestErrorToggle: requestErrorToggleAction,
+  requestLimitErrorToggle: requestLimitErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

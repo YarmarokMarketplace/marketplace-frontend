@@ -1,5 +1,5 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { UserAuthState } from "../reducer";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { UserAuthState } from '../reducer';
 
 export const emailErrorToggle = (
   state: UserAuthState,
@@ -29,4 +29,11 @@ export const requestErrorToggle = (
   action: PayloadAction<boolean>
 ) => {
   state.login.requestError = action.payload;
+};
+
+export const requestLimitErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.register.requestLimitError = action.payload;
 };
