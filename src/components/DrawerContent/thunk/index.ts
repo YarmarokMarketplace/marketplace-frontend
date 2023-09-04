@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { RegisterBody, LoginBody, LoginResponse } from '../../../types';
-import { register, login, getCurrent } from '../../../api/user';
+import { RegisterBody, LoginBody, LoginResponse, ForgotPasswordBody } from "../../../types";
+import { register, login, getCurrent, forgotPassword } from "../../../api/user";
 import { AxiosError } from 'axios';
 import {
   emailErrorToggleAction,
@@ -11,9 +11,10 @@ import {
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
 
-const USER_REGISTER_THUNK_TYPE = 'USER_REGISTER_THUNK_TYPE';
-const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
-const USER_CURRENT_THUNK_TYPE = 'USER_CURRENT_THUNK_TYPE';
+const USER_REGISTER_THUNK_TYPE = "USER_REGISTER_THUNK_TYPE";
+const USER_LOGIN_THUNK_TYPE = "USER_LOGIN_THUNK_TYPE";
+const USER_CURRENT_THUNK_TYPE = "USER_CURRENT_THUNK_TYPE";
+const USER_FORGOT_PASSWORD_THUNK_TYPE = "USER_FORGOT_PASSWORD_THUNK_TYPE";
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -80,5 +81,22 @@ export const currentFetch = createAsyncThunk(
         return false;
       }
     },
+  }
+);
+
+export const forgotPasswordFetch = createAsyncThunk(
+  USER_FORGOT_PASSWORD_THUNK_TYPE,
+  async (data: ForgotPasswordBody, { rejectWithValue, dispatch }) => {
+    try {
+      return await forgotPassword(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.data.message == "User not found") {
+          dispatch(emailErrorToggleAction(true));
+        }
+        return rejectWithValue(error.response?.data);
+      }
+      return rejectWithValue(error);
+    }
   }
 );
