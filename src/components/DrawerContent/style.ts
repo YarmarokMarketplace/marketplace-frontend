@@ -97,3 +97,13 @@ export const StyledBackBtn = styled('p')(({ theme }) => ({
     color: theme.palette.primary.light,
   },
 }));
+
+export const GoogleButton = styled(Button)(({ theme }) => ({
+  minWidth: theme.spacing(5.5),
+  backgroundColor: theme.palette.white,
+  borderRadius: '12px',
+  boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.08);',
+  img: {
+    padding: theme.spacing(0.5),
+  },
+}));

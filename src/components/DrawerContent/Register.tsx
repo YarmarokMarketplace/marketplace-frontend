@@ -36,6 +36,7 @@ import {
   isAuthResetAction,
   requestLimitErrorToggleAction,
 } from 'redux/auth/reducer';
+import { SocialAuth } from './SocialAuth';
 
 const registerSchema = yup.object().shape({
   name: yup
@@ -200,8 +201,8 @@ const Register = () => {
                         emailError
                           ? 'Обліковий запис з такою електронною адресою вже існує. Будь ласка, виберіть іншу адресу або використайте опцію відновлення пароля.'
                           : requestLimitError
-                            ? 'Забагато запитів, повторіть спробу через 24 години'
-                            : errors.email?.message
+                          ? 'Забагато запитів, повторіть спробу через 24 години'
+                          : errors.email?.message
                       }
                       error={
                         Boolean(errors?.email) ||
@@ -216,11 +217,11 @@ const Register = () => {
                         endAdornment: (errors.email ||
                           emailError ||
                           requestLimitError) && (
-                            <InfoOutlinedIcon
-                              color="error"
-                              sx={{ fontSize: '1rem' }}
-                            />
-                          ),
+                          <InfoOutlinedIcon
+                            color="error"
+                            sx={{ fontSize: '1rem' }}
+                          />
+                        ),
                       }}
                     />
                   )}
@@ -348,7 +349,7 @@ const Register = () => {
               Зареєструватись
             </Button>
           </form>
-          {/* social media register */}
+          <SocialAuth />
           <Stack mt={2} direction="row" alignItems="center">
             <Typography variant="caption">Вже зареєстрований?</Typography>
 
