@@ -208,6 +208,7 @@ const Header = () => {
               <StyledButton
                 onClick={handleAddAdvert}
                 variant="contained"
+                id="add-advert-btn"
                 startIcon={<AddIcon />}
               >
                 Додати оголошення

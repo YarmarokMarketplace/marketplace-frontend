@@ -229,6 +229,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
             <Typography
               color={imgQuantityError ? 'error' : 'primary.main'}
               variant="subtitle2"
+              id={imgQuantityError ? 'photos-error' : ''}
             >
               {imgQuantityError
                 ? 'Ви не можете завантажити більше 6 фото'

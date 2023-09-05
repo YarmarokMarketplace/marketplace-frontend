@@ -36,12 +36,14 @@ export const DescriptionInput: React.FC<InputProps> = ({
               <Typography
                 color={errors.description ? 'error' : 'primary.main'}
                 variant="subtitle2"
+                id={errors.description ? 'description-error' : ''}
               >
                 {errors.description?.message || 'Додайте опис'}
               </Typography>
               <Typography
                 color={errors.description ? 'error' : 'primary.main'}
                 variant="subtitle2"
+                id={errors.description ? 'length-error' : ''}
               >
                 {`${description.length} / 1000`}
               </Typography>

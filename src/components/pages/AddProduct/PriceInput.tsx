@@ -51,6 +51,7 @@ export const PriceInput: React.FC<PriceInputProps> = ({
             <Typography
               color={errors.price ? 'error' : 'primary.main'}
               variant="subtitle2"
+              id="price-error"
             >
               {errors.price?.message || 'Наприклад: 99.99'}
             </Typography>

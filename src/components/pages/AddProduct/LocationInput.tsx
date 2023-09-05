@@ -67,7 +67,7 @@ export const LocationInput: React.FC<InputProps> = ({
                 })}
             </Select>
             {errors.location && (
-              <Typography color="error" variant="subtitle2">
+              <Typography id="location-error" color="error" variant="subtitle2">
                 {errors.location?.message}
               </Typography>
             )}

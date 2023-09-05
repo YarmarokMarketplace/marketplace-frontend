@@ -26,6 +26,7 @@ export const TitleInput: React.FC<InputProps> = ({
             />
             <Typography
               color={errors.title ? 'error' : 'primary.main'}
+              id={errors.title ? 'title-error' : ''}
               variant="subtitle2"
             >
               {errors.title?.message || 'Напишіть назву оголошення'}

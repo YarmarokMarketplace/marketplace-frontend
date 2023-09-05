@@ -226,7 +226,11 @@ export const ProductForm = () => {
                           />
                         </Stack>
                         {errors.goodtype && (
-                          <Typography color="error" variant="subtitle2">
+                          <Typography
+                            id="goodtype-error"
+                            color="error"
+                            variant="subtitle2"
+                          >
                             {errors.goodtype?.message}
                           </Typography>
                         )}
@@ -256,6 +260,7 @@ export const ProductForm = () => {
                 <Typography
                   color={errors.contactName ? 'error' : 'primary.main'}
                   variant="subtitle2"
+                  id={errors.contactName ? 'contactName-error' : ''}
                 >
                   {errors.contactName?.message ||
                     'Напишіть імʼя, наприклад: Андрій'}
@@ -285,7 +290,11 @@ export const ProductForm = () => {
                   size="small"
                 />
                 {errors.contactNumber && (
-                  <Typography color="error" variant="subtitle2">
+                  <Typography
+                    id="contactNumber-error"
+                    color="error"
+                    variant="subtitle2"
+                  >
                     {errors.contactNumber?.message}
                   </Typography>
                 )}
@@ -321,7 +330,11 @@ export const ProductForm = () => {
                   control={<Checkbox disabled={loading} {...field} />}
                 />
                 {errors.agree && (
-                  <Typography color="error" variant="subtitle2">
+                  <Typography
+                    id="terms-error"
+                    color="error"
+                    variant="subtitle2"
+                  >
                     {errors.agree?.message}
                   </Typography>
                 )}
@@ -341,7 +354,7 @@ export const ProductForm = () => {
               Опублікувати
             </Button>
             {error && (
-              <Typography color="error" variant="h6">
+              <Typography id="response-error" color="error" variant="h6">
                 На жаль сталася помилка. Спробуйте ще раз
               </Typography>
             )}

@@ -84,7 +84,7 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({
               ))}
             </Select>
             {errors.category && (
-              <Typography color="error" variant="subtitle2">
+              <Typography id="category-error" color="error" variant="subtitle2">
                 {errors.category?.message}
               </Typography>
             )}
