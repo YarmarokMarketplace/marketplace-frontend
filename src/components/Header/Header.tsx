@@ -73,8 +73,10 @@ const Header = () => {
   };
 
   const handlePathMatch = () => {
-    if (matchPath('/:categoryName/:id', pathname)) return true;
-    return false;
+    return (
+      matchPath('/add-advert', pathname) ||
+      (!matchPath('/:categoryName', pathname) && !matchPath('/', pathname))
+    );
   };
   return (
     <>
