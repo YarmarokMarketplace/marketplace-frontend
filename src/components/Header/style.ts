@@ -50,7 +50,8 @@ export const CustomDivider = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledLink = styled(NavLink)(({ theme }) => ({
-  width: "17%",
+  width: "55%",
+  display: "flex",
   "&.active": {
     pointerEvents: "none",
   },

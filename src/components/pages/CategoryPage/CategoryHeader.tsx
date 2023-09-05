@@ -1,18 +1,15 @@
-
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { productsStateSelector } from "./selector";
-
+import React from "react";
 import { Typography, Stack } from "@mui/material";
 
 import { StyledChip } from "./style";
+import { useParams } from "react-router-dom";
 import { categoryNames } from "../../../constants";
+import { useSelector } from "react-redux";
+import { productsStateSelector } from "./selector";
 
 const CategoryHeader: React.FC = () => {
+  const { categoryName } = useParams();
   const { products } = useSelector(productsStateSelector);
-  let { categoryName } = useParams();
-
   return (
     <Stack direction="row" alignItems="flex-end">
       <Typography
