@@ -195,6 +195,7 @@ export const ProductForm = () => {
                           }}
                           value={value}
                           checked={value}
+                          id="for-free"
                           disabled={category === 'for-free' || loading}
                         />
                       }
@@ -218,11 +219,13 @@ export const ProductForm = () => {
                             value="new"
                             control={<Radio disabled={loading} />}
                             label="Нове"
+                            id="new"
                           />
                           <FormControlLabel
                             value="used"
                             control={<Radio disabled={loading} />}
                             label="Вживане"
+                            id="used"
                           />
                         </Stack>
                         {errors.goodtype && (
@@ -350,6 +353,7 @@ export const ProductForm = () => {
               type="submit"
               variant="contained"
               sx={{ width: '10.5rem' }}
+              id="submit-btn"
             >
               Опублікувати
             </Button>
