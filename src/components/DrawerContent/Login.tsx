@@ -184,12 +184,12 @@ const Login = () => {
                     || emailError || requestError || notVerifiedError
                   }
                   InputProps={{
-                    endAdornment: (errors.email ||
-                      emailError ||
-                      requestError) && (
+                    endAdornment:
+                      (errors.email || emailError || requestError || notVerifiedError)
+                      && (
                         <InfoOutlinedIcon
                           color="error"
-                          sx={{ fontSize: '1rem' }}
+                          sx={{ fontSize: "1rem" }}
                         />
                       ),
                   }}
