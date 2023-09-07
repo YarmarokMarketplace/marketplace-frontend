@@ -1,13 +1,13 @@
-import React, { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import React, { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import Header from "../Header";
-import Footer from "../Footer";
-import { MainContainer } from "./style";
-import CustomDrawer from "../CustomDrawer";
-import CustomModal from "../CustomModal";
-import SnackbarSuccessMessage from "../SnackbarMessage/SnackbarSuccessMessage";
-import SnackbarErrorMessage from "../SnackbarMessage/SnackbarErrorMessage";
+import Header from '../Header';
+import Footer from '../Footer';
+import { MainContainer } from './style';
+import CustomDrawer from '../CustomDrawer';
+import CustomModal from '../CustomModal';
+import SnackbarSuccessMessage from '../SnackbarMessage/SnackbarSuccessMessage';
+import SnackbarErrorMessage from '../SnackbarMessage/SnackbarErrorMessage';
 
 const Layout: React.FC = ({ children }) => {
   return (
