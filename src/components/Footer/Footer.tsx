@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   FooterContainer,
@@ -7,10 +7,10 @@ import {
   LinksContainer,
   CustomLink,
   Text,
-} from "./style";
+} from './style';
 
-import logo from "../../img/logo.png";
-import { Container, Stack } from "@mui/material";
+import logo from '../../img/logo.png';
+import { Container, Stack } from '@mui/material';
 
 const Footer = () => {
   return (
@@ -22,7 +22,11 @@ const Footer = () => {
           </LogoContainer>
 
           <LinksContainer>
-            <CustomLink id="requirements-link" href="#">
+            <CustomLink
+              id="requirements-link"
+              href="#/general-requirements"
+              target="_blank"
+            >
               Умови використання
             </CustomLink>
             <CustomLink id="how-to-link" href="#">
