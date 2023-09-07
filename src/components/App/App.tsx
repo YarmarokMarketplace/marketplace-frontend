@@ -18,6 +18,7 @@ import {
   ProhibitedGoods,
   ProhibitedServices,
   Activities,
+  PrivacyPolicy,
 } from '../pages/Articles';
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
@@ -63,6 +64,7 @@ const App: React.FC = () => {
             />{' '}
             <Route path="/activities" element={<Activities />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

@@ -5,6 +5,7 @@ import InfoContent from './InfoContent';
 import ProhibitedGoods from './ProhibitedGoods';
 import ProhibitedServices from './ProhibitedServices';
 import Activities from './Activities';
+import PrivacyPolicy from './PrivacyPolicy';
 
 export {
   SecurityRules,
@@ -14,4 +15,5 @@ export {
   ProhibitedGoods,
   ProhibitedServices,
   Activities,
+  PrivacyPolicy,
 };

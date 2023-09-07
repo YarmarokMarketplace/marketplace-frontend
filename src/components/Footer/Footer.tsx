@@ -39,6 +39,13 @@ const Footer = () => {
             >
               Правила безпеки
             </CustomLink>
+            <CustomLink
+              id="requirements-link"
+              target="_blank"
+              href="#/privacy-policy"
+            >
+              Політика конфіденційності
+            </CustomLink>
           </LinksContainer>
         </Stack>
 

@@ -1,6 +1,6 @@
-import { ListItem, List, Typography } from "@mui/material";
-import React from "react";
-import { StyledListContentItem, StyledNavLink } from "./style";
+import { ListItem, List, Typography } from '@mui/material';
+import React from 'react';
+import { StyledListContentItem, StyledNavLink } from './style';
 
 export const Content = () => {
   return (
@@ -8,7 +8,7 @@ export const Content = () => {
       <Typography fontWeight={700} variant="h6">
         Зміст
       </Typography>
-      <List sx={{ listStyleType: "disc", paddingTop: 0, marginLeft: 2 }}>
+      <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
         <StyledListContentItem>Умови використання</StyledListContentItem>
         <ListItem>
           <StyledNavLink
@@ -47,7 +47,7 @@ export const Content = () => {
           </StyledNavLink>
         </ListItem>
       </List>
-      <List sx={{ listStyleType: "disc", paddingTop: 0, marginLeft: 2 }}>
+      <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
         <StyledListContentItem>
           Посібник з покупок на Yarmarok
         </StyledListContentItem>
@@ -62,11 +62,19 @@ export const Content = () => {
           </StyledNavLink>
         </ListItem>
       </List>
-      <List sx={{ listStyleType: "disc", paddingTop: 0, marginLeft: 2 }}>
+      <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
         <StyledListContentItem>Правила безпеки</StyledListContentItem>
         <ListItem>
           <StyledNavLink id="security-rules-link" to="/security-rules">
             Як захистити себе при купівлі товарів через Інтернет
+          </StyledNavLink>
+        </ListItem>
+      </List>
+      <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
+        <StyledListContentItem>Політика конфіденційності</StyledListContentItem>
+        <ListItem>
+          <StyledNavLink id="privacy-policy-link" to="/privacy-policy">
+            Загальні положення
           </StyledNavLink>
         </ListItem>
       </List>
