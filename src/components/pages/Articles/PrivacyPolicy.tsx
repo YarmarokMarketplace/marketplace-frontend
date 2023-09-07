@@ -7,14 +7,7 @@ const PrivacyPolicy = () => {
   return (
     <StyledContainer maxWidth="xl" disableGutters>
       <Stack spacing={3}>
-        <Typography variant="h4">Політика конфіденійності</Typography>
-        <Stack>
-          <Typography
-            fontWeight={600}
-            whiteSpace="pre-line"
-            variant="subtitle2"
-          ></Typography>
-        </Stack>
+        <Typography variant="h4">Політика конфіденційності</Typography>
         <Typography fontWeight={600} whiteSpace="pre-line" variant="subtitle2">
           {`1. Загальне
 Адміністрація маркетплейсу Yarmarok зобов'язується зберігати вашу конфіденційність в Інтернеті. Ми приділяємо велике значення для охорони даних. Наша політика конфіденційності базується на вимогах `}
