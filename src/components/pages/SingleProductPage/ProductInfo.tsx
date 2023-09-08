@@ -60,7 +60,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   };
 
   return (
-    <Stack width="37.5rem" spacing={2}>
+    <Stack spacing={2}>
       <StyledInfoBlock>
         <Stack direction="row" justifyContent="space-between">
           <Typography color="success.main" variant="body1">

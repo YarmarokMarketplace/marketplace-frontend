@@ -48,7 +48,7 @@ const SingleProductPage = () => {
             <StyledProductWrapper maxWidth={false} disableGutters>
               <CarouselImage photos={product.photos} />
               <ProductInfo product={product} />
-              <Stack width="43.5rem" spacing={4}>
+              <Stack spacing={4}>
                 <ProductDescription description={product.description} />
                 <ProductFeedback seller={product.contactName} />
               </Stack>
