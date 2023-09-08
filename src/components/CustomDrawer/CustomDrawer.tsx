@@ -10,7 +10,7 @@ import { openDrawerAction } from "./reducer";
 import { DrawerContent } from "../../types";
 import Register from "../DrawerContent";
 import Login from "../DrawerContent/Login";
-// import ResetPassword from "../DrawerContent/ResetPassword";
+import ResetPassword from "../DrawerContent/ResetPassword";
 
 const CustomDrawer = () => {
   const { open, content } = useSelector(drawerSelector);
@@ -37,7 +37,7 @@ const CustomDrawer = () => {
           {content == DrawerContent.login && <Login />}
           {/* {content == DrawerContent.chat && } */}
           {content == DrawerContent.register && <Register />}
-          {/* {content == DrawerContent.resetPassword && <ResetPassword />} */}
+          {content == DrawerContent.resetPassword && <ResetPassword />}
         </>
       </StyledCustomDrawer>
     </>

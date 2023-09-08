@@ -85,3 +85,8 @@ export interface CurrentResponse {
   }
   accessToken: string;
 }
+
+
+export interface ForgotPasswordBody {
+  email: string;
+}

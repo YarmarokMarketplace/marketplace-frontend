@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userRegisterFetch, userLoginFetch, currentFetch } from '../thunk';
+import {
+  userRegisterFetch,
+  userLoginFetch,
+  currentFetch,
+  forgotPasswordFetch,
+} from '../thunk';
 import {
   emailErrorToggle,
   isAuthReset,
@@ -8,6 +13,7 @@ import {
   requestErrorToggle,
   requestLimitErrorToggle,
   notVerifiedErrorToggle,
+  isEmailSendReset,
 } from '../actions';
 
 export interface UserAuthState {
@@ -31,7 +37,12 @@ export interface UserAuthState {
     requestError: boolean;
     notVerifiedError: boolean;
   };
-  resetPassword: unknown;
+  resetPassword: {
+    loading: boolean;
+    error: boolean | null;
+    emailError: boolean;
+    isEmailSend: boolean;
+  };
   current: {
     user: {
       name: string;
@@ -64,7 +75,12 @@ const initialState: UserAuthState = {
     requestError: false,
     notVerifiedError: false,
   },
-  resetPassword: {},
+  resetPassword: {
+    loading: false,
+    error: null,
+    emailError: false,
+    isEmailSend: false,
+  },
   current: {
     user: {
       name: '',
@@ -89,6 +105,7 @@ export const userAuthSlice = createSlice({
     requestErrorToggle,
     requestLimitErrorToggle,
     notVerifiedErrorToggle,
+    isEmailSendReset,
   },
   extraReducers(builder) {
     builder
@@ -139,9 +156,25 @@ export const userAuthSlice = createSlice({
       .addCase(currentFetch.rejected, (state, action) => {
         state.current.loading = false;
         state.current.error = true;
+      })
+      .addCase(forgotPasswordFetch.pending, (state, action) => {
+        state.resetPassword.loading = true;
+        state.resetPassword.error = false;
+        state.resetPassword.emailError = false;
+        state.resetPassword.isEmailSend = false;
+      })
+      .addCase(forgotPasswordFetch.fulfilled, (state, { payload }) => {
+        state.resetPassword.loading = false;
+        state.resetPassword.emailError = false;
+        state.resetPassword.isEmailSend = true;
+      })
+      .addCase(forgotPasswordFetch.rejected, (state, action) => {
+        state.resetPassword.loading = false;
+        state.resetPassword.error = true;
       });
   },
 });
+
 export const {
   emailErrorToggle: emailErrorToggleAction,
   isAuthReset: isAuthResetAction,
@@ -149,7 +182,8 @@ export const {
   rememberLoginToggle: rememberLoginToggleAction,
   requestErrorToggle: requestErrorToggleAction,
   requestLimitErrorToggle: requestLimitErrorToggleAction,
-  notVerifiedErrorToggle: notVerifiedErrorToggleAction
+  notVerifiedErrorToggle: notVerifiedErrorToggleAction,
+  isEmailSendReset: isEmailSendResetAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

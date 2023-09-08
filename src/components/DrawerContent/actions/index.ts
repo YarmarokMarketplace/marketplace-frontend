@@ -7,6 +7,7 @@ export const emailErrorToggle = (
 ) => {
   state.register.emailError = action.payload;
   state.login.emailError = action.payload;
+  state.resetPassword.emailError = action.payload;
 };
 
 export const isAuthReset = (state: UserAuthState) => {
@@ -43,4 +44,8 @@ export const notVerifiedErrorToggle = (
   action: PayloadAction<boolean>
 ) => {
   state.login.notVerifiedError = action.payload;
+};
+
+export const isEmailSendReset = (state: UserAuthState) => {
+  state.resetPassword.isEmailSend = false;
 };

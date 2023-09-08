@@ -78,3 +78,15 @@ export const StyledVector = styled(Box)(({ theme }) => ({
     padding: theme.spacing(4),
     borderRadius: "50%",
 }));
+
+export const StyledBackBtn = styled('p')(({ theme }) => ({
+    margin: theme.spacing(0, 0, 0, .75),
+    cursor: "pointer",
+    fontSize: "1rem",
+    fontWeight: 400,
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+    ":hover": {
+        color: theme.palette.primary.light,
+    },
+}));
