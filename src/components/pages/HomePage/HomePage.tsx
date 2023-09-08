@@ -15,7 +15,10 @@ import { categoriesStateSelector } from './selector';
 import { categoryListFetch } from './thunk';
 import { AppDispatch } from '../../../store';
 import { setToken } from '../../../api/client';
-import { isSocialLoginSetAction } from '../../DrawerContent/reducer';
+import {
+  isSocialLoginSetAction,
+  socialLoginUserSetAction,
+} from '../../DrawerContent/reducer';
 
 const HomePage = () => {
   const { categories, loading, error } = useSelector(categoriesStateSelector);
@@ -29,11 +32,16 @@ const HomePage = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     if (queryParams.size > 0) {
-      setToken(queryParams.get('accessToken')!);
-      localStorage.setItem('refreshToken', queryParams.get('refreshToken')!);
-      dispatch(isSocialLoginSetAction(true));
-      queryParams.delete('accessToken');
-      queryParams.delete('refreshToken');
+      const name = queryParams.get('name');
+      const email = queryParams.get('email');
+      const accessToken = queryParams.get('accessToken');
+      const refreshToken = queryParams.get('refreshToken');
+      if (name && email && refreshToken && accessToken) {
+        setToken(accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        dispatch(isSocialLoginSetAction(true));
+        dispatch(socialLoginUserSetAction({ name, email }));
+      }
       const newURL = `${window.location.origin}${window.location.pathname}`;
       window.history.replaceState({}, document.title, newURL);
     }
