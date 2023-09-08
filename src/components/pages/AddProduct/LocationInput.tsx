@@ -8,7 +8,7 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import { locations } from '../../../constants';
-import { menuStyles } from './style';
+import { StyledFormLabel, menuStyles } from './style';
 import { InputProps } from './utils';
 
 export const LocationInput: React.FC<InputProps> = ({
@@ -24,6 +24,7 @@ export const LocationInput: React.FC<InputProps> = ({
         defaultValue=""
         render={({ field }) => (
           <Stack width="47.5rem">
+            <StyledFormLabel required>Вкажіть локацію</StyledFormLabel>
             <Select
               displayEmpty
               defaultValue=""

@@ -19,7 +19,7 @@ export const DescriptionInput: React.FC<InputProps> = ({
         defaultValue=""
         render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="47.5rem">
-            <StyledFormLabel>Опис</StyledFormLabel>
+            <StyledFormLabel required>Опис</StyledFormLabel>
             <TextField
               multiline
               minRows={2}

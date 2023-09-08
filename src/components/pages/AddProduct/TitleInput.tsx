@@ -17,7 +17,7 @@ export const TitleInput: React.FC<InputProps> = ({
         defaultValue=""
         render={({ field }) => (
           <Stack width="47.5rem">
-            <StyledFormLabel> Назва</StyledFormLabel>
+            <StyledFormLabel required> Назва</StyledFormLabel>
             <TextField
               error={Boolean(errors.title)}
               {...field}

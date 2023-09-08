@@ -253,7 +253,7 @@ export const ProductForm = () => {
             defaultValue={''}
             render={({ field }) => (
               <Stack width="47.5rem">
-                <StyledFormLabel>Імʼя</StyledFormLabel>
+                <StyledFormLabel required>Імʼя</StyledFormLabel>
                 <TextField
                   {...field}
                   disabled={loading}
@@ -280,7 +280,7 @@ export const ProductForm = () => {
             defaultValue={phone}
             render={({ field: { onBlur, onChange } }) => (
               <Stack width="47.5rem">
-                <StyledFormLabel>Номер телефону</StyledFormLabel>
+                <StyledFormLabel required>Номер телефону</StyledFormLabel>
                 <TextField
                   onChange={(event) => {
                     onChange(event);

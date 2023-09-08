@@ -146,6 +146,20 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: '#E60019',
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: '#E60019',
+        },
+      },
+    },
   },
   spacing: (factor: number) => `${0.5 * factor}rem`,
 });

@@ -52,6 +52,8 @@ export const locations: Array<{ label: string; value: string; img?: string }> =
     { label: 'Тернопільська область', value: 'Ternopil-region' },
     { label: 'Чернівці', value: 'Chernivtsi' },
     { label: 'Чернівецька область', value: 'Chernivtsi-region' },
+    { label: 'Черкаси', value: 'Cherkasy' },
+    { label: 'Черкаська область', value: 'Cherkasy-region' },
     { label: 'Хмельницький', value: 'Khmelnytskyi' },
     { label: 'Хмельницька область', value: 'Khmelnytskyi-region' },
     { label: 'Чернігів', value: 'Chernigov' },
