@@ -28,11 +28,10 @@ export interface UserAuthState {
   login: {
     user: {
       name: string;
+      email: string;
     };
     loading: boolean;
     error: boolean | null;
-    isLogin: boolean;
-    refreshToken: string;
     emailError: boolean;
     rememberLogin: boolean;
     requestError: boolean;
@@ -45,14 +44,12 @@ export interface UserAuthState {
     isEmailSend: boolean;
   };
   current: {
-    user: {
-      name: string;
-    };
     loading: boolean;
     error: boolean | null;
-    isLogin: boolean;
-    accessToken: string;
   };
+  isLogin: boolean;
+  accessToken: string;
+  refreshToken: string;
 }
 
 const initialState: UserAuthState = {
@@ -66,11 +63,10 @@ const initialState: UserAuthState = {
   login: {
     user: {
       name: '',
+      email: '',
     },
     loading: false,
     error: null,
-    isLogin: false,
-    refreshToken: '',
     emailError: false,
     rememberLogin: false,
     requestError: false,
@@ -83,14 +79,12 @@ const initialState: UserAuthState = {
     isEmailSend: false,
   },
   current: {
-    user: {
-      name: '',
-    },
     loading: false,
     error: null,
-    isLogin: false,
-    accessToken: '',
   },
+  isLogin: false,
+  accessToken: '',
+  refreshToken: '',
 };
 
 const name = 'USER_AUTH';
@@ -134,8 +128,9 @@ export const userAuthSlice = createSlice({
       .addCase(userLoginFetch.fulfilled, (state, { payload }) => {
         state.login.loading = false;
         state.login.user = payload.user;
-        state.login.refreshToken = payload.refreshToken;
-        state.login.isLogin = true;
+        state.refreshToken = payload.refreshToken;
+        state.accessToken = payload.accessToken;
+        state.isLogin = true;
         state.login.emailError = false;
         state.login.requestError = false;
         state.login.notVerifiedError = false;
@@ -150,13 +145,14 @@ export const userAuthSlice = createSlice({
       })
       .addCase(currentFetch.fulfilled, (state, { payload }) => {
         state.current.loading = false;
-        state.current.user = payload.user;
-        state.current.accessToken = payload.accessToken;
-        state.current.isLogin = true;
+        state.login.user = payload.user;
+        state.accessToken = payload.accessToken;
+        state.isLogin = true;
       })
       .addCase(currentFetch.rejected, (state, action) => {
         state.current.loading = false;
         state.current.error = true;
+        state.accessToken = '';
       })
       .addCase(forgotPasswordFetch.pending, (state, action) => {
         state.resetPassword.loading = true;
@@ -179,11 +175,10 @@ export const userAuthSlice = createSlice({
       })
       .addCase(logoutFetch.fulfilled, (state) => {
         state.login.loading = false;
-        state.login.user = { name: '' };
-        state.login.refreshToken = '';
-        state.current.accessToken = '';
-        state.login.isLogin = false;
-        state.current.isLogin = false;
+        state.login.user = { name: '', email: '' };
+        state.refreshToken = '';
+        state.accessToken = '';
+        state.isLogin = false;
       })
       .addCase(logoutFetch.rejected, (state) => {
         state.login.loading = false;

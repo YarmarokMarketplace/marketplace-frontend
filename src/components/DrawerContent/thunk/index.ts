@@ -77,18 +77,19 @@ export const userLoginFetch = createAsyncThunk(
 export const currentFetch = createAsyncThunk(
   USER_CURRENT_THUNK_TYPE,
   async (_, { rejectWithValue, getState }) => {
+    const { accessToken } = (getState() as RootState).userAuth;
     try {
-      const { accessToken } = (getState() as RootState).userAuth.current;
-      console.log(accessToken);
+      setToken(accessToken);
       const data = await getCurrent(accessToken);
       return data;
     } catch ({ response }: any) {
+      setToken();
       return rejectWithValue(response);
     }
   },
   {
     condition: (_, { getState }) => {
-      const { accessToken } = (getState() as RootState).userAuth.current;
+      const { accessToken } = (getState() as RootState).userAuth;
       if (!accessToken) {
         return false;
       }

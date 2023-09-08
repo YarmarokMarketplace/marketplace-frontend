@@ -15,7 +15,7 @@ export const isAuthReset = (state: UserAuthState) => {
 };
 
 export const isLoginReset = (state: UserAuthState) => {
-  state.login.isLogin = false;
+  state.isLogin = false;
 };
 
 export const rememberLoginToggle = (

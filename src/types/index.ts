@@ -81,11 +81,8 @@ export interface LoginBody {
 }
 
 export interface CurrentResponse {
-  user: {
-    email: string;
-    name: string;
-  };
-  accessToken: string;
+  name: string;
+  email: string;
 }
 
 export interface ForgotPasswordBody {

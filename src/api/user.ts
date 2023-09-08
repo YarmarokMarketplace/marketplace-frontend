@@ -37,8 +37,17 @@ export const logout = async () => {
 export const getCurrent = async (token: string) => {
   try {
     setToken(token);
-    const data = await loginClient.get<never, CurrentResponse>('/auth/current');
-    return data;
+    const response = await loginClient.get<never, CurrentResponse>(
+      '/auth/current'
+    );
+    let accessToken: string = '';
+    if (
+      typeof loginClient.defaults.headers.common['Authorization'] === 'string'
+    ) {
+      accessToken =
+        loginClient.defaults.headers.common['Authorization'].split(' ')[1];
+    }
+    return { user: response, accessToken };
   } catch (error) {
     setToken();
     throw error;

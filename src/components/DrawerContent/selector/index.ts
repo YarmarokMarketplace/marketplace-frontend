@@ -1,5 +1,5 @@
-import { createSelector } from "reselect";
-import { RootState } from "../../../store";
+import { createSelector } from 'reselect';
+import { RootState } from '../../../store';
 
 export const userAuthStateSelector = (state: RootState) => state.userAuth;
 
@@ -9,8 +9,11 @@ export const userRegisterStateSelector = createSelector(
 );
 export const userLoginStateSelector = createSelector(
   userAuthStateSelector,
-  (userAuth) => userAuth.login
-)
+  (userAuth) => ({
+    ...userAuth.login,
+    isLogin: userAuth.isLogin,
+  })
+);
 
 export const getUserStateSelector = createSelector(
   userAuthStateSelector,
