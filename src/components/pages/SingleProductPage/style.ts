@@ -91,7 +91,7 @@ export const StyledCarouselWrapper = styled(Stack)(({ theme, hidden }) => ({
 export const StyledProductWrapper = styled(Container)(({ theme, hidden }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  gap: theme.spacing(3),
+  gridGap: theme.spacing(3),
 }));
 
 export const StyledCrumpsLink = styled(Link)(({ theme }) => ({

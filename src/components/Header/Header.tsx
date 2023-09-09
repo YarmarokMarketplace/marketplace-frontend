@@ -30,6 +30,7 @@ import {
   getUserStateSelector,
 } from '../DrawerContent/selector';
 import { matchPath, useLocation } from 'react-router-dom';
+import { resetAddAdvertStateAction } from '../pages/AddProduct/reducer';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Header = () => {
   const handleAddAdvert = () => {
     if (isLogin) {
       navigate('/add-advert');
+      dispatch(resetAddAdvertStateAction());
     } else {
       dispatch(openDrawerAction(true));
       dispatch(setDrawerContentAction(DrawerContent.login));
@@ -71,8 +73,10 @@ const Header = () => {
   };
 
   const handlePathMatch = () => {
-    if (matchPath('/:categoryName/:id', pathname)) return true;
-    return false;
+    return (
+      matchPath('/add-advert', pathname) ||
+      (!matchPath('/:categoryName', pathname) && !matchPath('/', pathname))
+    );
   };
   return (
     <>
@@ -204,6 +208,7 @@ const Header = () => {
               <StyledButton
                 onClick={handleAddAdvert}
                 variant="contained"
+                id="add-advert-btn"
                 startIcon={<AddIcon />}
               >
                 Додати оголошення
