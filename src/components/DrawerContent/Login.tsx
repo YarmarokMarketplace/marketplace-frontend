@@ -84,7 +84,7 @@ const Login = () => {
     if (isLogin) {
       reset();
       dispatch(openDrawerAction(false));
-      // dispatch(isLoginResetAction()); // Виклик екшену для зміни isLogin назад на false
+      // dispatch(isLoginResetAction());
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
       dispatch(notVerifiedErrorToggleAction(false));

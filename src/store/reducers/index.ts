@@ -13,9 +13,9 @@ import userAuthReducer from '../../components/DrawerContent/reducer';
 import addAdvert from '../../components/pages/AddProduct/reducer';
 
 const persistConfig = {
-  key: 'login',
+  key: 'accessToken',
   storage,
-  whitelist: ['login'],
+  whitelist: ['accessToken'],
   // serialize: true
 };
 

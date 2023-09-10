@@ -56,6 +56,7 @@ export interface RegisterBody {
 
 export enum ModalContent {
   exitProfile = 'exitProfile',
+  logout = 'logout',
   deleteProfile = 'deleteProfile',
   confirmPurchase = 'confirmPurchase',
   cancel = 'cancel',
@@ -80,11 +81,8 @@ export interface LoginBody {
 }
 
 export interface CurrentResponse {
-  user: {
-    email: string;
-    name: string;
-  };
-  accessToken: string;
+  name: string;
+  email: string;
 }
 
 export interface ForgotPasswordBody {
@@ -116,4 +114,8 @@ export interface FormDataAddAdvert {
   photos: string | undefined;
   free: boolean | undefined;
   agree: boolean | undefined;
+}
+
+export interface LogoutResponse {
+  accessToken: string;
 }
