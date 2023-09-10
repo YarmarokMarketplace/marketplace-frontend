@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { AppDispatch } from "../../../store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModalAction, setModalContentAction } from "../../CustomModal/reducer"
+import { userLoginStateSelector } from '../../DrawerContent/selector';
+import { useNavigate } from 'react-router-dom';
 
 import {
     Box, Typography,
@@ -18,6 +20,8 @@ import { ModalContent } from '../../../types';
 
 const ProfilePage = () => {
     const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
+    const { isLogin } = useSelector(userLoginStateSelector);
 
     const handleMenuClick = (event: React.MouseEvent<HTMLLIElement>) => {
     }
@@ -26,6 +30,12 @@ const ProfilePage = () => {
         dispatch(openModalAction(true));
         dispatch(setModalContentAction(ModalContent.logout));
     }
+
+    useEffect(() => {
+        if (!isLogin) {
+            navigate('/');
+        }
+    }, []);
 
     return (
         <Stack
