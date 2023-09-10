@@ -72,6 +72,10 @@ export interface LoginResponse {
     id: string;
     email: string;
     name: string;
+    lastname: string;
+    patronymic: string;
+    avatarURL: string;
+    phone: string;
   };
 }
 
@@ -118,4 +122,33 @@ export interface FormDataAddAdvert {
 
 export interface LogoutResponse {
   accessToken: string;
+}
+
+export interface UpdateUserResponse {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    lastname: string;
+    patronymic: string;
+    avatarURL: string;
+    phone: string;
+  };
+}
+
+export interface FormDataUpdateUser {
+  email: string;
+  name: string;
+  lastname: string;
+  patronymic: string;
+  avatarURL: string;
+  phone: string;
+}
+
+export interface UpdateUserInput {
+  name: string;
+  lastname?: string;
+  patronymic?: string;
+  avatarURL?: string | File;
+  phone?: string;
 }

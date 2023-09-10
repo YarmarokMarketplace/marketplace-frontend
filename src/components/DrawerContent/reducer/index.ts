@@ -5,6 +5,7 @@ import {
   currentFetch,
   forgotPasswordFetch,
   logoutFetch,
+  updateUserFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -15,6 +16,7 @@ import {
   requestLimitErrorToggle,
   notVerifiedErrorToggle,
   isEmailSendReset,
+  updateUserState,
 } from '../actions';
 
 export interface UserAuthState {
@@ -27,8 +29,13 @@ export interface UserAuthState {
   };
   login: {
     user: {
+      id: string;
       name: string;
       email: string;
+      lastname: string;
+      patronymic: string;
+      avatarURL: string;
+      phone: string;
     };
     loading: boolean;
     error: boolean | null;
@@ -50,6 +57,10 @@ export interface UserAuthState {
   isLogin: boolean;
   accessToken: string;
   refreshToken: string;
+  updateUser: {
+    loading: boolean;
+    error: boolean | null;
+  };
 }
 
 const initialState: UserAuthState = {
@@ -62,8 +73,13 @@ const initialState: UserAuthState = {
   },
   login: {
     user: {
+      id: '',
       name: '',
       email: '',
+      lastname: '',
+      patronymic: '',
+      avatarURL: '',
+      phone: '',
     },
     loading: false,
     error: null,
@@ -85,6 +101,10 @@ const initialState: UserAuthState = {
   isLogin: false,
   accessToken: '',
   refreshToken: '',
+  updateUser: {
+    loading: false,
+    error: null,
+  },
 };
 
 const name = 'USER_AUTH';
@@ -101,6 +121,7 @@ export const userAuthSlice = createSlice({
     requestLimitErrorToggle,
     notVerifiedErrorToggle,
     isEmailSendReset,
+    updateUserState,
   },
   extraReducers(builder) {
     builder
@@ -145,7 +166,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(currentFetch.fulfilled, (state, { payload }) => {
         state.current.loading = false;
-        state.login.user = payload.user;
+        // state.login.user = payload.user;
         state.accessToken = payload.accessToken;
         state.isLogin = true;
       })
@@ -175,7 +196,15 @@ export const userAuthSlice = createSlice({
       })
       .addCase(logoutFetch.fulfilled, (state) => {
         state.login.loading = false;
-        state.login.user = { name: '', email: '' };
+        state.login.user = {
+          id: '',
+          name: '',
+          email: '',
+          lastname: '',
+          patronymic: '',
+          avatarURL: '',
+          phone: '',
+        };
         state.refreshToken = '';
         state.accessToken = '';
         state.isLogin = false;
@@ -183,6 +212,18 @@ export const userAuthSlice = createSlice({
       .addCase(logoutFetch.rejected, (state) => {
         state.login.loading = false;
         state.login.error = true;
+      })
+      .addCase(updateUserFetch.pending, (state) => {
+        state.updateUser.loading = true;
+        state.updateUser.error = false;
+      })
+      .addCase(updateUserFetch.fulfilled, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.login.user = payload;
+      })
+      .addCase(updateUserFetch.rejected, (state) => {
+        state.updateUser.loading = false;
+        state.updateUser.error = true;
       });
   },
 });
@@ -196,6 +237,7 @@ export const {
   requestLimitErrorToggle: requestLimitErrorToggleAction,
   notVerifiedErrorToggle: notVerifiedErrorToggleAction,
   isEmailSendReset: isEmailSendResetAction,
+  updateUserState: updateUserStateAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

@@ -6,6 +6,7 @@ import {
   CurrentResponse,
   ForgotPasswordBody,
   LogoutResponse,
+  UpdateUserResponse,
 } from '../types';
 import { loginClient, setToken } from './client';
 import { client } from './client';
@@ -57,6 +58,18 @@ export const getCurrent = async (token: string) => {
 export const forgotPassword = async (data: ForgotPasswordBody) => {
   try {
     return await client.post('auth/forgot-password', data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const updateUser = async (data: FormData, id: string) => {
+  try {
+    return await loginClient.patch<never, UpdateUserResponse>(
+      `/user/${id}`,
+      data,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    );
   } catch (error) {
     return Promise.reject(error);
   }
