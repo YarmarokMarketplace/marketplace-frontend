@@ -16,7 +16,7 @@ const LogoutModal = () => {
 
     const handleLogout = () => {
         dispatch(logoutFetch());
-        navigate('/');
+        navigate('/', { replace: true });
         localStorage.removeItem("refreshToken");
         dispatch(openModalAction(false));
     }
