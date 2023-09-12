@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../store';
 import { getUserStateSelector } from '../../../DrawerContent/selector';
-import { RootState } from '../../../../store';
+
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import { Stack, FormLabel, TextField, IconButton } from '@mui/material';
 import {
@@ -21,6 +24,36 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { UpdateUserInput } from '../../../../types';
 import { updateUserFetch } from '../../../DrawerContent/thunk';
 
+const personalDataSchema = yup.object().shape({
+    name: yup
+        .string()
+        .min(2, 'Мінімальна довжина 2 символи')
+        .matches(
+            /^[^\s*!@#$%^&(),.]+$/g,
+            "Некоректне ім'я. Ім'я не може містити символи (!@#$%^&*.,) та пробіл."
+        )
+        .required('Не забудьте ввести ваше ім’я'),
+    lastname: yup
+        .string()
+        .matches(
+            /^(?:[^\s*!@#$%^&(),.]*)$/g,
+            "Не може містити символи (!@#$%^&*.,) та пробіл."
+        ),
+    patronymic: yup
+        .string()
+        .matches(
+            /^(?:[^\s*!@#$%^&(),.]*)$/g,
+            "Не може містити символи (!@#$%^&*.,) та пробіл."
+        ),
+    phone: yup
+        .string()
+        .max(13, 'Телефон повинен мати максимум 13 символів')
+        .matches(
+            /^(?:$|[\d()+]{10,13})$/,
+            'Невірний формат номеру'
+        ),
+});
+
 const PersonalData = () => {
     const dispatch: AppDispatch = useDispatch();
     const fileRef = useRef<HTMLInputElement>(null);
@@ -29,11 +62,31 @@ const PersonalData = () => {
         name: string;
         lastname?: string;
         patronymic?: string;
-        avatarURL?: string | File;
+        avatarURL?: string | any;
         phone?: string;
     };
     const user: UserType = useSelector(getUserStateSelector);
-    const [localUser, setLocalUser] = useState({ ...user });
+    const userCopy = { ...user }
+
+    const replaceInputSpaces = (obj: UserType) => {
+        const hasSpaces = Object.values(obj).some((value: any) => {
+            return value.includes(" ");
+        });
+        if (hasSpaces) {
+            if (obj.phone == ' ') {
+                obj.phone = obj.phone.replace(/\s+/, '');
+            }
+            if (obj.lastname == ' ') {
+                obj.lastname = obj.lastname.replace(/\s+/, '');
+            }
+            if (obj.patronymic == ' ') {
+                obj.patronymic = obj.patronymic.replace(/\s+/, '');
+            }
+        }
+    }
+    replaceInputSpaces(userCopy)
+
+    const [localUser, setLocalUser] = useState({ ...userCopy });
 
     // useEffect(() => {
     //     setLocalUser({ ...user })
@@ -41,9 +94,22 @@ const PersonalData = () => {
 
     const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
         const { name, value } = e.target;
-        // Оновити локальний стан при зміні значення в інпутах
         setLocalUser({ ...localUser, [name]: value });
     };
+
+    // const addGap = (inputName: string) => {
+    //     const form = new FormData();
+    //     inputName === 'name' && form.append('name', inputName);
+    //     inputName ? form.append(`${inputName}`, inputName) : form.append(`${inputName}`, inputName);
+    // }
+
+    const {
+        control,
+        formState: { errors, isValid },
+    } = useForm({
+        resolver: yupResolver(personalDataSchema),
+        mode: 'onChange',
+    });
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -62,9 +128,9 @@ const PersonalData = () => {
 
         const form = new FormData();
         form.append('name', name);
-        lastname && form.append('lastname', lastname);
-        patronymic && form.append('patronymic', patronymic);
-        phone && form.append('phone', phone);
+        lastname ? form.append('lastname', lastname) : form.append('lastname', ' ');
+        patronymic ? form.append('patronymic', patronymic) : form.append('patronymic', ' ');
+        phone ? form.append('phone', phone) : form.append('phone', ' ');
         selectedFile && form.append('avatarURL', selectedFile);
         console.log(user.id)
         // Відправити дані на сервер та отримати оновлені дані користувача
@@ -90,36 +156,77 @@ const PersonalData = () => {
                     Вкажіть ваші персональні дані
                 </DescriptionTypography>
 
-                <Stack direction="row" spacing={4}>
+                <Stack direction="row" spacing={4}
+                    sx={{
+                        '& .MuiFormHelperText-root': {
+                            maxWidth: "11.5rem"
+                        }
+                    }}>
                     <InputWrapper>
                         <StyledFormLabel>Ім'я
                             <StyledStar>*</StyledStar>
                         </StyledFormLabel>
-                        <TextField
-                            size="small"
+                        <Controller
+                            control={control}
                             name="name"
-                            value={localUser.name}
-                            onChange={handleInputChange}
+                            defaultValue={localUser.name}
+                            render={({ field: { onChange } }) => (
+                                <TextField
+                                    size="small"
+                                    name="name"
+                                    value={localUser.name}
+                                    onChange={(event) => {
+                                        onChange(event);
+                                        handleInputChange(event);
+                                    }}
+                                    helperText={errors.name?.message}
+                                    error={Boolean(errors.name)}
+                                />
+                            )}
                         />
                     </InputWrapper>
                     <InputWrapper>
                         <StyledFormLabel>Прізвище
                         </StyledFormLabel>
-                        <TextField
-                            size="small"
+                        <Controller
+                            control={control}
                             name="lastname"
-                            value={localUser.lastname}
-                            onChange={handleInputChange}
+                            defaultValue={localUser.lastname}
+                            render={({ field: { onChange } }) => (
+                                <TextField
+                                    size="small"
+                                    name="lastname"
+                                    value={localUser.lastname}
+                                    onChange={(event) => {
+                                        onChange(event);
+                                        handleInputChange(event);
+                                    }}
+                                    helperText={errors.lastname?.message}
+                                    error={Boolean(errors.lastname)}
+                                />
+                            )}
                         />
                     </InputWrapper>
                     <InputWrapper>
                         <StyledFormLabel>По батькові
                         </StyledFormLabel>
-                        <TextField
-                            size="small"
+                        <Controller
+                            control={control}
                             name="patronymic"
-                            value={localUser.patronymic}
-                            onChange={handleInputChange}
+                            defaultValue={localUser.patronymic}
+                            render={({ field: { onChange } }) => (
+                                <TextField
+                                    size="small"
+                                    name="patronymic"
+                                    value={localUser.patronymic}
+                                    onChange={(event) => {
+                                        onChange(event);
+                                        handleInputChange(event);
+                                    }}
+                                    helperText={errors.patronymic?.message}
+                                    error={Boolean(errors.patronymic)}
+                                />
+                            )}
                         />
                     </InputWrapper>
                 </Stack>
@@ -185,15 +292,28 @@ const PersonalData = () => {
                 <InputWrapper>
                     <StyledFormLabel>Номер телефону
                     </StyledFormLabel>
-                    <TextField
-                        size="small"
+                    <Controller
+                        control={control}
                         name="phone"
-                        value={localUser.phone}
-                        onChange={handleInputChange}
+                        defaultValue={localUser.phone}
+                        render={({ field: { onChange } }) => (
+                            <TextField
+                                size="small"
+                                name="phone"
+                                value={localUser.phone}
+                                onChange={(event) => {
+                                    onChange(event);
+                                    handleInputChange(event);
+                                }}
+                                helperText={errors.phone?.message}
+                                error={Boolean(errors.phone)}
+                            />
+                        )}
                     />
+
                 </InputWrapper>
 
-                <ActionButton sx={{ mb: "1rem" }} variant="contained" type="submit">Зберегти профіль</ActionButton>
+                <ActionButton sx={{ mb: "1rem" }} variant="contained" type="submit" disabled={!isValid}>Зберегти профіль</ActionButton>
             </form>
             <ActionButton variant="outlined" color="error">Видалити профіль</ActionButton>
         </>

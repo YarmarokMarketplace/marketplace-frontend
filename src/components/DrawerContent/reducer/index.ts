@@ -166,7 +166,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(currentFetch.fulfilled, (state, { payload }) => {
         state.current.loading = false;
-        // state.login.user = payload.user;
+        state.login.user = payload.user;
         state.accessToken = payload.accessToken;
         state.isLogin = true;
       })
@@ -220,6 +220,10 @@ export const userAuthSlice = createSlice({
       .addCase(updateUserFetch.fulfilled, (state, { payload }) => {
         state.updateUser.loading = false;
         state.login.user = payload;
+        state.login.user = {
+          ...payload,
+          id: payload._id,
+        };
       })
       .addCase(updateUserFetch.rejected, (state) => {
         state.updateUser.loading = false;

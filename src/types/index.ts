@@ -85,8 +85,13 @@ export interface LoginBody {
 }
 
 export interface CurrentResponse {
-  name: string;
+  id: string;
   email: string;
+  name: string;
+  lastname: string;
+  patronymic: string;
+  avatarURL: string;
+  phone: string;
 }
 
 export interface ForgotPasswordBody {
@@ -126,6 +131,7 @@ export interface LogoutResponse {
 
 export interface UpdateUserResponse {
   user: {
+    _id: string;
     id: string;
     email: string;
     name: string;
