@@ -33,7 +33,6 @@ export const PriceInput: React.FC<PriceInputProps> = ({
       <Controller
         control={control}
         name="price"
-        defaultValue=""
         render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="22rem">
             <StyledFormLabel required>Вкажіть ціну у гривнях</StyledFormLabel>

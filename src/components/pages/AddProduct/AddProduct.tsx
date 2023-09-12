@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Stack, Typography, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../../store';
-import { resetAddAdvertStateAction } from './reducer';
-import { userLoginStateSelector } from 'redux/auth/selector';
+import { resetAddSavedDataAction } from './reducer';
+import { userLoginStateSelector } from '../../../redux/auth/selector';
+import { advertInitialData } from './utils';
 
 const AddProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);
@@ -21,10 +22,14 @@ const AddProduct = () => {
     if (!isLogin) {
       navigate('/');
     }
-    return () => {
-      dispatch(resetAddAdvertStateAction());
-    };
-  }, []);
+  }, [isLogin]);
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('advertData', JSON.stringify(advertInitialData));
+      dispatch(resetAddSavedDataAction());
+    }
+  }, [data]);
 
   return (
     <StyledContainer maxWidth="xl" disableGutters>

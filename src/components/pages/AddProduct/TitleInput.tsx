@@ -14,7 +14,6 @@ export const TitleInput: React.FC<InputProps> = ({
       <Controller
         control={control}
         name="title"
-        defaultValue=""
         render={({ field }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required> Назва</StyledFormLabel>

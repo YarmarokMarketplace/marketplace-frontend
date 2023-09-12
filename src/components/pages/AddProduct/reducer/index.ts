@@ -1,27 +1,41 @@
-import { ProductItem } from "../../../../types";
-import { createSlice } from "@reduxjs/toolkit";
-import { resetAddAdvertState } from "../actions";
-import { addAdvertFetch } from "../thunk";
+import { ProductItem } from '../../../../types';
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  resetAddAdvertState,
+  saveAddAdvertImages,
+  resetAddSavedData,
+} from '../actions';
+import { addAdvertFetch } from '../thunk';
+
+export type Images = {
+  name: string;
+  type: string;
+  data: string | ArrayBuffer | null;
+};
 
 export interface AddAdvertState {
   loading: boolean;
   error: boolean | null;
   data: ProductItem | null;
+  images: Images[] | [];
 }
 
 export const initialState: AddAdvertState = {
   loading: false,
   error: null,
   data: null,
+  images: [],
 };
 
-const name = "ADD_ADVERT";
+const name = 'ADD_ADVERT';
 
 const addAdvertSlice = createSlice({
   name,
   initialState,
   reducers: {
     resetAddAdvertState,
+    saveAddAdvertImages,
+    resetAddSavedData,
   },
   extraReducers(builder) {
     builder
@@ -39,6 +53,9 @@ const addAdvertSlice = createSlice({
       });
   },
 });
-export const { resetAddAdvertState: resetAddAdvertStateAction } =
-  addAdvertSlice.actions;
+export const {
+  resetAddAdvertState: resetAddAdvertStateAction,
+  saveAddAdvertImages: saveAddAdvertImagesAction,
+  resetAddSavedData: resetAddSavedDataAction,
+} = addAdvertSlice.actions;
 export default addAdvertSlice.reducer;

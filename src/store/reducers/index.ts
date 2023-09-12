@@ -19,7 +19,12 @@ const persistConfig = {
   // serialize: true
 };
 
+const persistAdvertConfig = {
+  key: 'advert',
+  storage,
+};
 const persistedAuthReducer = persistReducer(persistConfig, userAuthReducer);
+const persistedAdvertReducer = persistReducer(persistAdvertConfig, addAdvert);
 
 export default combineReducers({
   categories,
@@ -28,5 +33,5 @@ export default combineReducers({
   drawer,
   userAuth: persistedAuthReducer,
   modal,
-  addAdvert,
+  addAdvert: persistedAdvertReducer,
 });

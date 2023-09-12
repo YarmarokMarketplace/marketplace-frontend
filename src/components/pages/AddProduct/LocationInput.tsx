@@ -21,13 +21,11 @@ export const LocationInput: React.FC<InputProps> = ({
       <Controller
         control={control}
         name="location"
-        defaultValue=""
         render={({ field }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required>Вкажіть локацію</StyledFormLabel>
             <Select
               displayEmpty
-              defaultValue=""
               disabled={loading}
               error={Boolean(errors.location)}
               input={<OutlinedInput />}

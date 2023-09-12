@@ -41,7 +41,6 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({
       <Controller
         control={control}
         name="category"
-        defaultValue=""
         render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required> Вкажіть категорію</StyledFormLabel>

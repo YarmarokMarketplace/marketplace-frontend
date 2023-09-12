@@ -1,5 +1,5 @@
 import { IconButton, Stack, Typography } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, UseFormSetValue } from 'react-hook-form';
 import {
   StyledFileInput,
@@ -11,12 +11,16 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { FormDataAddAdvert } from '../../../types';
 import { InputProps } from './utils';
+import { AppDispatch } from '../../../store';
+import { useDispatch } from 'react-redux';
+import { Images, saveAddAdvertImagesAction } from './reducer';
 
 interface ImageInputProps extends InputProps {
   setValue: UseFormSetValue<FormDataAddAdvert>;
   setSelectedImage: React.Dispatch<React.SetStateAction<[] | File[]>>;
   selectedImage: [] | File[];
 }
+
 export const ImageInput: React.FC<ImageInputProps> = ({
   control,
   setValue,
@@ -28,8 +32,37 @@ export const ImageInput: React.FC<ImageInputProps> = ({
 
   const [imgQuantityError, setImgQuantityError] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleSelectedImageSaving = (files: File[]) => {
+  const handleStorageImageSave = async (files: File[]) => {
+    const photoDataArray = await Promise.all(
+      files.map(async (photo) => {
+        return new Promise<Images>((resolve) => {
+          const reader = new FileReader(); // Create a FileReader to read the file as a Data URL.
+          reader.onload = (event) => {
+            if (event.target) {
+              const photoData = event.target.result; // Extract the Data URL containing the image data.
+
+              resolve({ name: photo.name, type: photo.type, data: photoData }); // Resolve a promise with an object containing the file name, type, and data.
+            }
+          };
+          reader.readAsDataURL(photo);
+        });
+      })
+    );
+
+    if (photoDataArray.length >= 0) {
+      dispatch(saveAddAdvertImagesAction(photoDataArray)); // Save images to the redux state
+    }
+  };
+  useEffect(() => {
+    const saveImagesAndHandle = async () => {
+      await handleStorageImageSave(selectedImage);
+    };
+    saveImagesAndHandle();
+  }, [selectedImage]);
+
+  const handleSelectedImageSaving = async (files: File[]) => {
     setSelectedImage((prevState) => {
       if (
         prevState.some((img) => files.some((file) => file.name == img.name))
@@ -45,6 +78,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
         return updated;
       }
       const updated = [...files, ...prevState];
+
       if (updated.length > 6) {
         setImgQuantityError(true);
         return prevState;
@@ -85,29 +119,35 @@ export const ImageInput: React.FC<ImageInputProps> = ({
 
   const handleImageRotate = (target: File) => {
     const image = document.getElementById(target.name) as HTMLImageElement;
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement('canvas'); // Create a new canvas element for image manipulation
     const context = canvas.getContext('2d');
     if (image && context) {
+      // Set the canvas dimensions to match the natural dimensions of the image
       canvas.width = image.naturalWidth;
       canvas.height = image.naturalHeight;
       context.translate(canvas.width / 2, canvas.height / 2);
-      context.rotate(90 * (Math.PI / 180)); // Convert degrees to radians
-      context.drawImage(image, -canvas.width / 2, -canvas.height / 2);
+      context.rotate(90 * (Math.PI / 180)); // Rotate the image by 90 degrees (converted to radians)
+      context.drawImage(image, -canvas.width / 2, -canvas.height / 2); // Draw the rotated image onto the canvas
     }
+
+    // Convert the canvas content to a Blob
     canvas.toBlob((blob) => {
       if (blob) {
         const rotatedFile = new File([blob], `${target.name}_rotated.jpg`, {
           type: target.type,
           lastModified: Date.now(),
         });
+        // Update the selectedImage state by replacing the original file with the rotated file
         setSelectedImage((prevState) => {
-          return prevState.map((file) => {
+          const rotatedImages = prevState.map((file) => {
             if (file == target) {
               return rotatedFile;
             } else {
               return file;
             }
           });
+
+          return rotatedImages;
         });
       }
     }, target.type);
@@ -118,7 +158,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
         control={control}
         name="photos"
         defaultValue=""
-        render={({ field: { onBlur, onChange, value } }) => (
+        render={({ field: { onBlur, onChange } }) => (
           <Stack width="47.5rem">
             <StyledFileInput
               onDrop={handleDrop}
@@ -145,7 +185,6 @@ export const ImageInput: React.FC<ImageInputProps> = ({
                 }}
                 onClick={() => setValue('photos', '')}
                 onBlur={onBlur}
-                value={value}
               />
               <StyledFileLable
                 sx={{

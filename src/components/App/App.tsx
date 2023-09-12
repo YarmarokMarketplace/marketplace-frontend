@@ -70,7 +70,10 @@ const App: React.FC = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-advert" element={<AddProduct />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
-            <Route path="/api/auth/reset-password/:resetId/:resetToken" element={<ResetPassword />} />
+            <Route
+              path="/api/auth/reset-password/:resetId/:resetToken"
+              element={<ResetPassword />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
