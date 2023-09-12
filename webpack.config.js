@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 dotenv.config();
 
@@ -30,6 +31,9 @@ module.exports = {
           },
           {
             loader: "ts-loader",
+            options: {
+              transpileOnly: true
+            }
           },
         ],
       },
@@ -54,6 +58,7 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -61,7 +66,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(process.env),
-    }),
+    })
   ],
 
   devServer: {

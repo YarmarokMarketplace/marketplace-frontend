@@ -3,7 +3,7 @@ import { StyledButton } from "./style";
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { userLoginStateSelector } from "../../components/DrawerContent/selector";
+import { userLoginStateSelector } from "redux/auth/selector";
 import { openDrawerAction, setDrawerContentAction } from "../CustomDrawer/reducer";
 import { DrawerContent } from "../../types";
 

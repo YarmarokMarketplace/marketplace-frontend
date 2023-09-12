@@ -24,21 +24,20 @@ import {
 } from './style';
 import { AppDispatch } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginStateSelector } from './selector';
+import { userLoginStateSelector } from 'redux/auth/selector';
 import {
   openDrawerAction,
   setDrawerContentAction,
 } from '../CustomDrawer/reducer';
-import { rememberLoginToggleAction } from './reducer';
-import { DrawerContent, LoginBody } from '../../types';
-import { userLoginFetch } from './thunk';
 import {
+  rememberLoginToggleAction,
   emailErrorToggleAction,
   requestErrorToggleAction,
   isLoginResetAction,
-  notVerifiedErrorToggleAction
-} from "./reducer";
-import { rememberLoginToggle } from "./actions";
+  notVerifiedErrorToggleAction,
+} from 'redux/auth/reducer';
+import { DrawerContent, LoginBody } from '../../types';
+import { userLoginFetch } from 'redux/auth/thunk';
 
 const loginSchema = yup.object().shape({
   email: yup

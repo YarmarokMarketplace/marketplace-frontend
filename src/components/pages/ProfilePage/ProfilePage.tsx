@@ -3,8 +3,7 @@ import { AppDispatch } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { openModalAction, setModalContentAction } from "../../CustomModal/reducer"
-import { userLoginStateSelector } from '../../DrawerContent/selector';
-import { getUserStateSelector } from '../../DrawerContent/selector';
+import { userLoginStateSelector, getUserStateSelector } from 'redux/auth/selector';
 import {
     Box, Typography,
     Stack, Divider
@@ -17,6 +16,7 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsTab from './SettingsTab/SettingsTab';
 import { ModalContent } from '../../../types';
+import ChatButton from 'src/components/ChatButton';
 
 const ProfilePage = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -88,6 +88,7 @@ const ProfilePage = () => {
                 </StyledButton>
             </MenuContainer>
             <SettingsTab />
+            <ChatButton />
         </Stack >
     )
 }

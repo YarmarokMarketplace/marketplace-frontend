@@ -2,7 +2,7 @@ import React from 'react';
 import { AppDispatch } from "../../store";
 import { useDispatch } from "react-redux";
 import { openModalAction, setModalContentAction } from "../CustomModal/reducer";
-import { logoutFetch } from '../DrawerContent/thunk';
+import { logoutFetch } from 'redux/auth/thunk';
 import { useNavigate } from 'react-router';
 
 import {

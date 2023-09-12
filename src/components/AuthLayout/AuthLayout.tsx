@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 
-import { currentFetch } from "../../components/DrawerContent/thunk";
+import { currentFetch } from "redux/auth/thunk";
 
 interface AuthLayoutProps {
   children: React.ReactNode;

@@ -27,15 +27,15 @@ import {
   setDrawerContentAction,
 } from '../CustomDrawer/reducer';
 import { DrawerContent, RegisterBody } from '../../types';
-import { userRegisterStateSelector } from './selector';
-import { userRegisterFetch } from './thunk';
+import { userRegisterStateSelector } from 'redux/auth/selector';
+import { userRegisterFetch } from 'redux/auth/thunk';
 
 import success from '../../img/success.svg';
 import {
   emailErrorToggleAction,
   isAuthResetAction,
   requestLimitErrorToggleAction,
-} from './reducer';
+} from 'redux/auth/reducer';
 
 const registerSchema = yup.object().shape({
   name: yup
@@ -200,8 +200,8 @@ const Register = () => {
                         emailError
                           ? 'Обліковий запис з такою електронною адресою вже існує. Будь ласка, виберіть іншу адресу або використайте опцію відновлення пароля.'
                           : requestLimitError
-                          ? 'Забагато запитів, повторіть спробу через 24 години'
-                          : errors.email?.message
+                            ? 'Забагато запитів, повторіть спробу через 24 години'
+                            : errors.email?.message
                       }
                       error={
                         Boolean(errors?.email) ||
@@ -216,11 +216,11 @@ const Register = () => {
                         endAdornment: (errors.email ||
                           emailError ||
                           requestLimitError) && (
-                          <InfoOutlinedIcon
-                            color="error"
-                            sx={{ fontSize: '1rem' }}
-                          />
-                        ),
+                            <InfoOutlinedIcon
+                              color="error"
+                              sx={{ fontSize: '1rem' }}
+                            />
+                          ),
                       }}
                     />
                   )}

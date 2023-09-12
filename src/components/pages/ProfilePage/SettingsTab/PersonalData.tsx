@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../store';
-import { getUserStateSelector } from '../../../DrawerContent/selector';
+import { getUserStateSelector } from 'redux/auth/selector';
 
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Stack, FormLabel, TextField, IconButton } from '@mui/material';
+import { Stack, TextField, IconButton } from '@mui/material';
 import {
     StyledFormLabel,
     StyledStar,
@@ -22,7 +22,7 @@ import Avatar from '../../../../img/profile-avatar-upload.png'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { UpdateUserInput } from '../../../../types';
-import { updateUserFetch } from '../../../DrawerContent/thunk';
+import { updateUserFetch } from 'redux/auth/thunk';
 
 const personalDataSchema = yup.object().shape({
     name: yup
@@ -88,20 +88,10 @@ const PersonalData = () => {
 
     const [localUser, setLocalUser] = useState({ ...userCopy });
 
-    // useEffect(() => {
-    //     setLocalUser({ ...user })
-    // }, [dispatch])
-
     const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
         const { name, value } = e.target;
         setLocalUser({ ...localUser, [name]: value });
     };
-
-    // const addGap = (inputName: string) => {
-    //     const form = new FormData();
-    //     inputName === 'name' && form.append('name', inputName);
-    //     inputName ? form.append(`${inputName}`, inputName) : form.append(`${inputName}`, inputName);
-    // }
 
     const {
         control,
@@ -132,15 +122,7 @@ const PersonalData = () => {
         patronymic ? form.append('patronymic', patronymic) : form.append('patronymic', ' ');
         phone ? form.append('phone', phone) : form.append('phone', ' ');
         selectedFile && form.append('avatarURL', selectedFile);
-        console.log(user.id)
-        // Відправити дані на сервер та отримати оновлені дані користувача
         dispatch(updateUserFetch({ data: form, id: user.id }));
-        // Оновити дані користувача в Redux стані з серверною відповіддю
-        // dispatch(updateUserProfile(updatedUser));
-        // Скинути локальний стан
-        // setLocalUser({ ...updatedUser });
-        // Оповістити користувача про успішне оновлення
-        alert('Дані користувача успішно оновлено');
     };
     return (
         <>

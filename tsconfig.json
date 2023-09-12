@@ -8,9 +8,13 @@
     "jsx": "preserve",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "img/*": [
         "./src/img"
+      ],
+      "redux/*": [
+        "src/redux/*"
       ]
     }
   }

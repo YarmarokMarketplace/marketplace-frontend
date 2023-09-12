@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getUserStateSelector } from '../../../DrawerContent/selector';
+import { getUserStateSelector } from 'redux/auth/selector';
 
 import {
     Stack, TextField, Typography,

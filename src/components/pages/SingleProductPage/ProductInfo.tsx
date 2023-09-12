@@ -13,7 +13,7 @@ import {
   locations,
 } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginStateSelector } from '../../DrawerContent/selector';
+import { userLoginStateSelector } from 'redux/auth/selector';
 import { AppDispatch } from '../../../store';
 import {
   openDrawerAction,
