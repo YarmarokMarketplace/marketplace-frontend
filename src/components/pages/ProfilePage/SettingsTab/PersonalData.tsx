@@ -23,6 +23,8 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { UpdateUserInput } from '../../../../types';
 import { updateUserFetch } from 'redux/auth/thunk';
+import SnackbarSuccessMessage from 'src/components/SnackbarMessage/SnackbarSuccessMessage';
+import SnackbarErrorMessage from 'src/components/SnackbarMessage/SnackbarErrorMessage';
 
 const personalDataSchema = yup.object().shape({
     name: yup
@@ -298,6 +300,12 @@ const PersonalData = () => {
                 <ActionButton sx={{ mb: "1rem" }} variant="contained" type="submit" disabled={!isValid}>Зберегти профіль</ActionButton>
             </form>
             <ActionButton variant="outlined" color="error">Видалити профіль</ActionButton>
+            <SnackbarSuccessMessage>
+                Дані успішно збережено!
+            </SnackbarSuccessMessage>
+            <SnackbarErrorMessage>
+                Помилка при збереженні
+            </SnackbarErrorMessage>
         </>
     )
 }

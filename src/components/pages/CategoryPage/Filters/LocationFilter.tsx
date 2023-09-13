@@ -31,7 +31,7 @@ const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
 
     const [locationOpen, setLocationOpen] = useState(true);
     const [inputValue, setInputValue] = React.useState('');
-    const filteredLocations = inputValue ? locations : locations.slice(0, 9);
+    const filteredLocations = inputValue ? locations : locations.slice(0, 10);
 
     useEffect(() => {
         const storedFilterByLocation = localStorage.getItem('location');

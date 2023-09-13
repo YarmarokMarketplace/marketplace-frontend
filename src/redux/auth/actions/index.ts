@@ -67,3 +67,17 @@ export const updateUserState = (
   console.log(action.payload);
   state.login.user = action.payload;
 };
+
+export const successMessageToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.statusMessages.successMessage = action.payload;
+};
+
+export const errorMessageToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.statusMessages.errorMessage = action.payload;
+};

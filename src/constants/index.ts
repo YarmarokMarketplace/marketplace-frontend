@@ -30,7 +30,7 @@ export const locations: Array<{ label: string; value: string; img?: string }> =
     { label: 'Київ', value: 'Kyiv', img: kyiv },
     { label: 'Київська область', value: 'Kyiv-region' },
     { label: 'Дніпро', value: 'Dnipro', img: dnipro },
-    { label: 'Дніпропетровська область', value: 'Dripro-region' },
+    { label: 'Дніпропетровська область', value: 'Dnipro-region' },
     { label: 'Харків', value: 'Kharkiv', img: kharkiv },
     { label: 'Харківська область', value: 'Kharkiv-region' },
     { label: 'Одеса', value: 'Odesa', img: odesa },

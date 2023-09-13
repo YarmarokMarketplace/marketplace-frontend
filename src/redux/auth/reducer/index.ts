@@ -17,6 +17,8 @@ import {
   notVerifiedErrorToggle,
   isEmailSendReset,
   updateUserState,
+  successMessageToggle,
+  errorMessageToggle,
 } from '../actions';
 
 export interface UserAuthState {
@@ -60,6 +62,10 @@ export interface UserAuthState {
   updateUser: {
     loading: boolean;
     error: boolean | null;
+  };
+  statusMessages: {
+    successMessage: boolean;
+    errorMessage: boolean;
   };
 }
 
@@ -105,6 +111,10 @@ const initialState: UserAuthState = {
     loading: false,
     error: null,
   },
+  statusMessages: {
+    successMessage: false,
+    errorMessage: false,
+  },
 };
 
 const name = 'USER_AUTH';
@@ -122,6 +132,8 @@ export const userAuthSlice = createSlice({
     notVerifiedErrorToggle,
     isEmailSendReset,
     updateUserState,
+    successMessageToggle,
+    errorMessageToggle,
   },
   extraReducers(builder) {
     builder
@@ -224,10 +236,12 @@ export const userAuthSlice = createSlice({
           ...payload,
           id: payload._id,
         };
+        state.statusMessages.successMessage = true;
       })
       .addCase(updateUserFetch.rejected, (state) => {
         state.updateUser.loading = false;
         state.updateUser.error = true;
+        state.statusMessages.errorMessage = true;
       });
   },
 });
@@ -242,6 +256,8 @@ export const {
   notVerifiedErrorToggle: notVerifiedErrorToggleAction,
   isEmailSendReset: isEmailSendResetAction,
   updateUserState: updateUserStateAction,
+  successMessageToggle: successMessageToggleAction,
+  errorMessageToggle: errorMessageToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
