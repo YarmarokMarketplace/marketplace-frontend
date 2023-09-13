@@ -20,7 +20,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigate('/');
+      // navigate('/');
     }
   }, [isLogin]);
 
