@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const RulesOfUse = () => {
   return (
@@ -26,7 +25,6 @@ const RulesOfUse = () => {
           
           1.9. Продаж товару особам, які не досягли віку, з якого згідно з нормами чинного законодавства України дозволено купівлю такого товару, забороняється.`}</Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

@@ -10,16 +10,8 @@ import NotFoundPage from '../NotFoundPage';
 import { useSelector } from 'react-redux';
 import { userRegisterStateSelector } from 'redux/auth/selector';
 import { logErrorToService } from '../../utils/utils';
-import {
-  SecurityRules,
-  RulesOfUse,
-  InfoPresentation,
-  InfoContent,
-  ProhibitedGoods,
-  ProhibitedServices,
-  Activities,
-  PrivacyPolicy,
-} from '../pages/Articles';
+import Articles from '../pages/Articles';
+
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
@@ -55,21 +47,10 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/profile/*" index element={<ProfilePage />} />
+            <Route path="/rules/*" index element={<Articles />} />
             <Route path="/:categoryName" element={<CategoryPage />} />
-            <Route path="/security-rules" element={<SecurityRules />} />
-            <Route path="/general-requirements" element={<RulesOfUse />} />
-            <Route path="/info-presentation" element={<InfoPresentation />} />
-            <Route path="/info-content" element={<InfoContent />} />
-            <Route path="/prohibited-goods" element={<ProhibitedGoods />} />
-            <Route
-              path="/prohibited-services"
-              element={<ProhibitedServices />}
-            />{' '}
-            <Route path="/activities" element={<Activities />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-advert" element={<AddProduct />} />
-            <Route path="/:categoryName/:id" element={<SingleProductPage />} />
             <Route
               path="/api/auth/reset-password/:resetId/:resetToken"
               element={<ResetPassword />}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const ProhibitedServices = () => {
   return (
@@ -25,7 +24,6 @@ const ProhibitedServices = () => {
 5.12. Послуги з перевезення та/або розмитнення товарів, що ввозяться/можуть бути ввезені на митну територію України в митному режимі імпорту товарів з Російської Федерації із порушенням норм чинного законодавства України, зокрема Постанови КМУ № 426 від 09.04.2022 р. «Про застосування заборони ввезення товарів з Російської Федерації».`}
         </Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

@@ -1,7 +1,6 @@
-import React from "react";
-import { StyledContainer, StyledListItem } from "./style";
-import { Stack, Typography, List, ListItem, Link } from "@mui/material";
-import { Content } from "./Content";
+import React from 'react';
+import { StyledContainer, StyledListItem } from './style';
+import { Stack, Typography, List, ListItem, Link } from '@mui/material';
 
 const SecurityRules = () => {
   return (
@@ -10,9 +9,9 @@ const SecurityRules = () => {
         <Typography variant="h4">
           Як захистити себе при купівлі товарів через Інтернет?
         </Typography>
-        <List sx={{ listStyleType: "disc", paddingTop: 2 }}>
+        <List sx={{ listStyleType: 'disc', paddingTop: 2 }}>
           <ListItem
-            sx={{ paddingLeft: 0, fontSize: "0.875rem", fontWeight: 600 }}
+            sx={{ paddingLeft: 0, fontSize: '0.875rem', fontWeight: 600 }}
           >
             Поради, які допоможуть робити покупки в інтернеті безпечно і
             захиститися від шахраїв:
@@ -53,14 +52,14 @@ const SecurityRules = () => {
           </StyledListItem>
           <StyledListItem>
             Перевіряйте номер телефону, банківську картку та посилання на
-            сумнівний сайт на сайті Кіберполіції у розділі{" "}
+            сумнівний сайт на сайті Кіберполіції у розділі{' '}
             <Link
-              sx={{ color: "text.primary" }}
+              sx={{ color: 'text.primary' }}
               target="_blank"
               href="https://cyberpolice.gov.ua/stopfraud/"
             >
               "Стоп-фрауд".
-            </Link>{" "}
+            </Link>{' '}
             Можливо, шахраї вже є у базі правоохоронців.
           </StyledListItem>
           <StyledListItem>
@@ -71,7 +70,6 @@ const SecurityRules = () => {
           </StyledListItem>
         </List>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

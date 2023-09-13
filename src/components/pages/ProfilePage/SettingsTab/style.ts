@@ -1,6 +1,6 @@
 import { Box, Typography, FormLabel, Tab, Button, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
-// import Avatar from '../../../../img/profile-avatar-upload.png'
+import Avatar from '../../../../img/profile-avatar-upload.png';
 
 export const SettingsContainer = styled(Box)(({ theme }) => ({
   width: theme.spacing(123),
@@ -66,7 +66,11 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const UploadButton = styled(Button)(({ theme }) => ({
+<<<<<<< HEAD
   // background: `center / contain no-repeat url(${Avatar})`,
+=======
+  background: `center / contain no-repeat url(${Avatar})`,
+>>>>>>> 2a34e4f (handled nested routes)
   height: theme.spacing(21),
   width: '100%',
   borderRadius: '100px',

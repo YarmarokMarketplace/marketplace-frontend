@@ -1,6 +1,6 @@
 import { Box, List, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export const MenuContainer = styled(Box)(({ theme }) => ({
   width: theme.spacing(39),

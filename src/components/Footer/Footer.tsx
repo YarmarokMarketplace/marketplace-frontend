@@ -24,17 +24,17 @@ const Footer = () => {
           <LinksContainer>
             <CustomLink
               id="requirements-link"
-              href="#/general-requirements"
+              href="#/rules/general-requirements"
               target="_blank"
             >
               Умови використання
             </CustomLink>
-            <CustomLink id="how-to-link" href="#">
+            <CustomLink id="how-to-link" href="#/rules">
               Як продавати й купувати?
             </CustomLink>
             <CustomLink
               id="security-rules-link"
-              href="#/security-rules"
+              href="#/rules/security-rules"
               target="_blank"
             >
               Правила безпеки
@@ -42,7 +42,7 @@ const Footer = () => {
             <CustomLink
               id="requirements-link"
               target="_blank"
-              href="#/privacy-policy"
+              href="#/rules/privacy-policy"
             >
               Політика конфіденційності
             </CustomLink>

@@ -353,7 +353,7 @@ export const ProductForm = () => {
                       color={errors.agree && 'error'}
                     >
                       Я погоджуюсь з{' '}
-                      <StyledLink target="_blank" to="/privacy-policy">
+                      <StyledLink target="_blank" to="/rules/privacy-policy">
                         Політикою конфіденційності
                       </StyledLink>
                     </Typography>

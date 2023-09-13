@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const ProhibitedGoods = () => {
   return (
@@ -84,7 +83,6 @@ const ProhibitedGoods = () => {
 4.3.38. Будь-яких інших товарів і послуг, заборонених для продажу та рекламування законодавством України або рішенням Адміністрації маркетплейсу. Будь-яких інших товарів і послуг, заборонених для продажу та рекламування законодавством України або рішенням Адміністрації маркетплейсу.`}
         </Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

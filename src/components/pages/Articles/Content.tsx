@@ -13,36 +13,33 @@ export const Content = () => {
         <ListItem>
           <StyledNavLink
             id="general-requirements-link"
-            to="/general-requirements"
+            to="general-requirements"
           >
             Загальні вимоги
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink id="info-presentation-link" to="/info-presentation">
+          <StyledNavLink id="info-presentation-link" to="info-presentation">
             Подача інформації
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink id="info-content-link" to="/info-content">
+          <StyledNavLink id="info-content-link" to="info-content">
             Зміст інформації
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink id="prohibited-goods-link" to="/prohibited-goods">
+          <StyledNavLink id="prohibited-goods-link" to="prohibited-goods">
             Заборонені товари
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink
-            id="prohibited-services-link"
-            to="/prohibited-services"
-          >
+          <StyledNavLink id="prohibited-services-link" to="prohibited-services">
             Заборонені послуги
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink id="activities-link" to="/activities">
+          <StyledNavLink id="activities-link" to="activities">
             Види діяльності
           </StyledNavLink>
         </ListItem>
@@ -52,12 +49,12 @@ export const Content = () => {
           Посібник з покупок на Yarmarok
         </StyledListContentItem>
         <ListItem>
-          <StyledNavLink id="how-to-buy-link" to="/how-to-buy">
+          <StyledNavLink id="how-to-buy-link" to="how-to-buy">
             Як купувати на Yarmarok
           </StyledNavLink>
         </ListItem>
         <ListItem>
-          <StyledNavLink id="how-to-sell-link" to="/how-to-sell">
+          <StyledNavLink id="how-to-sell-link" to="how-to-sell">
             Як продавати на Yarmarok
           </StyledNavLink>
         </ListItem>
@@ -65,7 +62,7 @@ export const Content = () => {
       <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
         <StyledListContentItem>Правила безпеки</StyledListContentItem>
         <ListItem>
-          <StyledNavLink id="security-rules-link" to="/security-rules">
+          <StyledNavLink id="security-rules-link" to="security-rules">
             Як захистити себе при купівлі товарів через Інтернет
           </StyledNavLink>
         </ListItem>
@@ -73,7 +70,7 @@ export const Content = () => {
       <List sx={{ listStyleType: 'disc', paddingTop: 0, marginLeft: 2 }}>
         <StyledListContentItem>Політика конфіденційності</StyledListContentItem>
         <ListItem>
-          <StyledNavLink id="privacy-policy-link" to="/privacy-policy">
+          <StyledNavLink id="privacy-policy-link" to="privacy-policy">
             Загальні положення
           </StyledNavLink>
         </ListItem>
