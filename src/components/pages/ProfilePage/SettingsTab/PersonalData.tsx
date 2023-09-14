@@ -50,6 +50,10 @@ const personalDataSchema = yup.object().shape({
     phone: yup
         .string()
         .max(13, 'Телефон повинен мати максимум 13 символів')
+        .transform((value, originalValue) => {
+            // Використовуйте метод .replace() для видалення нецифрових символів
+            return value.replace(/[^0-9+]/g, '');
+        })
         .matches(
             /^(?:$|[\d()+]{10,13})$/,
             'Невірний формат номеру'
@@ -92,7 +96,20 @@ const PersonalData = () => {
 
     const handleInputChange = (e: { target: { name: string; value: string; }; }) => {
         const { name, value } = e.target;
-        setLocalUser({ ...localUser, [name]: value });
+        if (name === 'phone') {
+            const phoneValue = value.replace(/[^0-9+]/g, '');
+            // e.target.value
+            console.log(phoneValue)
+            setLocalUser({
+                ...localUser,
+                'phone': phoneValue,
+            });
+        } else {
+            setLocalUser({
+                ...localUser,
+                [name]: value
+            });
+        }
     };
 
     const {
