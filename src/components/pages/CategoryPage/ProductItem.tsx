@@ -63,7 +63,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
           </StyledImgWrapper>
 
           <StyledCardContent>
-            <TitleTypography height="2.5rem" gutterBottom variant="h5">
+            <TitleTypography gutterBottom variant="h5">
               {title.length > 45 ? `${title.slice(0, 45)}...` : title}
             </TitleTypography>
             <Typography
