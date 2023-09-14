@@ -135,7 +135,6 @@ export interface LogoutResponse {
   accessToken: string;
 }
 
-<<<<<<< HEAD
 export interface UpdateUserResponse {
   user: {
     _id: string;
@@ -164,14 +163,13 @@ export interface UpdateUserInput {
   patronymic?: string;
   avatarURL?: string | File;
   phone?: string;
-=======
+}
 export interface UserProductsResponse {
   totalResult: number;
   totalPages: number;
   page: number;
   limit: number;
   notices: ProductItem[];
->>>>>>> 15a11a1 (feat: added own ads)
 }
 
 export enum SuccessMessageContent {
