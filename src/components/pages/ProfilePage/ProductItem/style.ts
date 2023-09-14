@@ -1,5 +1,6 @@
 import { Box, Button, Card, Chip, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 export const StyledProductContainer = styled(Card)(({ theme }) => ({
   borderRadius: 24,
@@ -45,5 +46,15 @@ export const StyledIconButton = styled(IconButton)(({ theme }) => ({
   padding: theme.spacing(1.5),
   ':hover': {
     borderColor: theme.palette.primary.main,
+  },
+}));
+
+export const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+  fontSize: '1rem',
+  height: theme.spacing(6),
+  ':hover': {
+    color: theme.palette.text.secondary,
   },
 }));

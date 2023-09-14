@@ -12,25 +12,27 @@ import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
 import { userProductsListFetch } from '../thunk';
 import { ProductItem } from '../../../../types';
+import ProfilePagination from '../ProfilePagination';
+import SkeletonAds from '../SkeletonAds';
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: string;
+  type: string;
   value: string;
 }
 
 const CustomTabPanel: React.FC<TabPanelProps> = (props) => {
-  const { children, value, index, ...other } = props;
+  const { children, value, type, ...other } = props;
 
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
-      id={`own-ads-tab-${index}`}
-      aria-labelledby={`own-ads-tab-${index}`}
+      hidden={value !== type}
+      id={`own-ads-tab-${type}`}
+      aria-labelledby={`own-ads-tab-${type}`}
       {...other}
     >
-      {value === index && <>{children}</>}
+      {value === type && <>{children}</>}
     </div>
   );
 };
@@ -39,7 +41,11 @@ const OwnAdsTab = () => {
   const [value, setValue] = React.useState<string>('active');
   const [active, setActive] = React.useState<ProductItem[] | []>([]);
   const [inactive, setInactive] = React.useState<ProductItem[] | []>([]);
-  const { loading, error, data } = useSelector(ownAdsStateSelector);
+  const {
+    loading,
+    error,
+    data: { totalPages, notices, page, limit },
+  } = useSelector(ownAdsStateSelector);
 
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -47,23 +53,16 @@ const OwnAdsTab = () => {
   };
 
   useEffect(() => {
-    dispatch(userProductsListFetch());
-  }, []);
+    dispatch(userProductsListFetch({ page, limit }));
+  }, [page, limit]);
 
   useEffect(() => {
-    if (data) {
-      setActive(data.notices.filter((product) => product.active));
-      setInactive(data.notices.filter((product) => !product.active));
+    if (notices.length > 0) {
+      setActive(notices.filter((product) => product.active));
+      setInactive(notices.filter((product) => !product.active));
     }
-  }, [data]);
+  }, [notices]);
 
-  const handleActiveFilter = (products: ProductItem[], type: string) => {
-    return type === 'active'
-      ? products.filter((product) => product.active)
-      : products.filter((product) => !product.active);
-  };
-
-  data?.notices && console.log(handleActiveFilter(data?.notices, 'inactive'));
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -97,8 +96,9 @@ const OwnAdsTab = () => {
           />
         </Tabs>
       </StyledTitleContainer>
-      <CustomTabPanel value={value} index="active">
-        {!loading && !error && data && active.length > 0 && (
+      <CustomTabPanel value={value} type="active">
+        {loading && <SkeletonAds limit={limit} />}
+        {!loading && !error && notices.length > 0 && active.length > 0 && (
           <Stack gap={3}>
             {active.map((product) => {
               return (
@@ -148,9 +148,13 @@ const OwnAdsTab = () => {
             </NoProductItem>
           </>
         )}
+        {!error && active.length > 0 && (
+          <ProfilePagination page={page} totalPages={totalPages} />
+        )}
       </CustomTabPanel>
-      <CustomTabPanel value={value} index="inactive">
-        {!loading && !error && data && inactive.length > 0 && (
+      <CustomTabPanel value={value} type="inactive">
+        {loading && <SkeletonAds limit={limit} />}
+        {!loading && !error && notices.length > 0 && inactive.length > 0 && (
           <Stack gap={3}>
             {inactive.map((product) => {
               return (
@@ -186,7 +190,7 @@ const OwnAdsTab = () => {
             })}
           </Stack>
         )}
-        {!loading && !error && inactive.length === 0 && (
+        {!error && inactive.length === 0 && (
           <>
             <NoProductItem>
               <Typography variant="h4" fontWeight={700} mt={3}>
@@ -203,6 +207,9 @@ const OwnAdsTab = () => {
               </Typography>
             </NoProductItem>
           </>
+        )}
+        {!loading && !error && inactive.length > 0 && (
+          <ProfilePagination page={page} totalPages={totalPages} />
         )}
       </CustomTabPanel>
     </StyledAdsContainer>

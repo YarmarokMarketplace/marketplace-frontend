@@ -58,10 +58,10 @@ export const addProduct = async (data: FormData) => {
   }
 };
 
-export const getUserOwnProducts = async () => {
+export const getUserOwnProducts = async (page: number, limit: number) => {
   try {
     return await loginClient.get<never, UserProductsResponse>(
-      `/notices/user/notices`
+      `/notices/user/notices?page=${page}&limit=${limit}`
     );
   } catch (error) {
     return Promise.reject(error);

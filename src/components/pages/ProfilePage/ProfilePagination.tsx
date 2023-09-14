@@ -29,7 +29,7 @@ const ProfilePagination: React.FC<PaginationProps> = ({
         count={totalPages}
         color="primary"
         page={page}
-        onChange={(event, page) => handlePageChange(event, page)}
+        onChange={handlePageChange}
         sx={{
           padding: 4,
           button: {
