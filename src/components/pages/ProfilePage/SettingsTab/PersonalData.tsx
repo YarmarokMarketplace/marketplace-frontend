@@ -26,6 +26,9 @@ import { updateUserFetch } from 'redux/auth/thunk';
 import SnackbarSuccessMessage from 'src/components/SnackbarMessage/SnackbarSuccessMessage';
 import SnackbarErrorMessage from 'src/components/SnackbarMessage/SnackbarErrorMessage';
 
+import { errorMessageToggleAction } from 'redux/auth/reducer';
+import { statusMessagesSelector } from 'redux/auth/selector';
+
 const personalDataSchema = yup.object().shape({
     name: yup
         .string()
@@ -51,12 +54,11 @@ const personalDataSchema = yup.object().shape({
         .string()
         .max(13, 'Телефон повинен мати максимум 13 символів')
         .transform((value, originalValue) => {
-            // Використовуйте метод .replace() для видалення нецифрових символів
             return value.replace(/[^0-9+]/g, '');
         })
         .matches(
             /^(?:$|[\d()+]{10,13})$/,
-            'Невірний формат номеру'
+            'Введіть номер у форматі +380XXXXXXXXX або 0XXXXXXXXX'
         ),
 });
 
@@ -98,8 +100,6 @@ const PersonalData = () => {
         const { name, value } = e.target;
         if (name === 'phone') {
             const phoneValue = value.replace(/[^0-9+]/g, '');
-            // e.target.value
-            console.log(phoneValue)
             setLocalUser({
                 ...localUser,
                 'phone': phoneValue,
@@ -143,6 +143,10 @@ const PersonalData = () => {
         selectedFile && form.append('avatarURL', selectedFile);
         dispatch(updateUserFetch({ data: form, id: user.id }));
     };
+
+    const deleteBtnMessage = () => {
+        dispatch(errorMessageToggleAction(true));
+    }
     return (
         <>
             <form
@@ -275,7 +279,8 @@ const PersonalData = () => {
                         <IconButton aria-label="edit" onClick={() => fileRef.current?.click()}>
                             <CreateOutlinedIcon />
                         </IconButton>
-                        <IconButton aria-label="delete">
+                        <IconButton aria-label="delete"
+                            onClick={deleteBtnMessage}>
                             <DeleteOutlineOutlinedIcon />
                         </IconButton>
                     </Stack>
@@ -290,7 +295,13 @@ const PersonalData = () => {
                 >
                     Вкажіть ваші контактні дані
                 </DescriptionTypography>
-                <InputWrapper>
+                <InputWrapper
+                    sx={{
+                        '& .MuiFormHelperText-root': {
+                            maxWidth: "11.5rem"
+                        }
+                    }}
+                >
                     <StyledFormLabel>Номер телефону
                     </StyledFormLabel>
                     <Controller
