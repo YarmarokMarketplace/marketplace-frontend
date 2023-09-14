@@ -66,11 +66,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const UploadButton = styled(Button)(({ theme }) => ({
-<<<<<<< HEAD
   // background: `center / contain no-repeat url(${Avatar})`,
-=======
-  background: `center / contain no-repeat url(${Avatar})`,
->>>>>>> 2a34e4f (handled nested routes)
   height: theme.spacing(21),
   width: '100%',
   borderRadius: '100px',

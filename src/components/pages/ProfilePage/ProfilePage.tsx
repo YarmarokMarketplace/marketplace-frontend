@@ -19,6 +19,7 @@ import SettingsTab from './SettingsTab/SettingsTab';
 import { ModalContent } from '../../../types';
 import ChatButton from 'src/components/ChatButton';
 import ViewedProducts from './ViewedProducts/ViewedProducts';
+import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();

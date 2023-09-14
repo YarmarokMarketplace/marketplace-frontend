@@ -1,4 +1,4 @@
-import { ProductItem } from '../types';
+import { ProductItem, UserProductsResponse } from '../types';
 import { client, loginClient } from './client';
 
 type ProductsResponse = {
@@ -52,6 +52,16 @@ export const addProduct = async (data: FormData) => {
       '/notices',
       (data = data),
       { headers: { 'Content-Type': 'multipart/ form-data' } }
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getUserOwnProducts = async () => {
+  try {
+    return await loginClient.get<never, UserProductsResponse>(
+      `/notices/user/notices`
     );
   } catch (error) {
     return Promise.reject(error);

@@ -1,0 +1,49 @@
+import { Box, Button, Card, Chip, IconButton } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+export const StyledProductContainer = styled(Card)(({ theme }) => ({
+  borderRadius: 24,
+  padding: theme.spacing(3),
+  backgroundColor: theme.palette.white,
+  boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
+  '.MuiCardActionArea-focusHighlight': {
+    background: theme.palette.primary.light,
+  },
+}));
+
+export const StyledChip = styled(Chip)(({ theme }) => ({
+  fontSize: '0.875rem',
+  fontWeight: '600',
+  width: 'fit-content',
+  marginTop: theme.spacing(2),
+}));
+
+export const StyledImgWrapper = styled(Box)(({ theme }) => ({
+  overflow: 'hidden',
+  width: theme.spacing(15),
+  height: theme.spacing(14.5),
+  borderRadius: 8,
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+}));
+
+export const StyledContrastButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.contrastText,
+  borderColor: theme.palette.primary.contrastText,
+  height: 'fit-content',
+  padding: theme.spacing(1, 2),
+}));
+
+export const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.contrastText,
+  border: '1px solid',
+  borderColor: theme.palette.primary.contrastText,
+  height: 'fit-content',
+  padding: theme.spacing(1.5),
+  ':hover': {
+    borderColor: theme.palette.primary.main,
+  },
+}));
