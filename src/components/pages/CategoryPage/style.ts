@@ -127,8 +127,8 @@ export const TitleTypography = styled(Typography)(({ theme }) => ({
   //   overflow: 'hidden',
   //   textOverflow: 'ellipsis',
   display: '-webkit-box',
-  '-webkit-box-orient': 'vertical',
-  '-webkit-line-clamp': '2',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '2',
   overflow: 'hidden',
 }));
 
