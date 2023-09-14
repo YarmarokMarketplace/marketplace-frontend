@@ -1,22 +1,29 @@
+<<<<<<< HEAD
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+=======
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+>>>>>>> 128439f (changed mode)
 
 dotenv.config();
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "js/main-[contenthash:8].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/main-[contenthash:8].js',
   },
-  mode: "development",
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
         include: /node_modules\/@mui/,
       },
       {
@@ -24,9 +31,9 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: ['@babel/preset-env', '@babel/preset-react'],
             },
           },
           {
@@ -49,9 +56,9 @@ module.exports = {
       // },
       {
         test: /\.(png|jpe?g|svg)$/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "img/[name].[ext]",
+          name: 'img/[name].[ext]',
         },
       },
     ],
@@ -62,7 +69,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "public/index.html",
+      template: 'public/index.html',
     }),
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(process.env),
