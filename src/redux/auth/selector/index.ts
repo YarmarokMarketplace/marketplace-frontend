@@ -24,3 +24,8 @@ export const forgotPasswordStateSelector = createSelector(
   userAuthStateSelector,
   (userAuth) => userAuth.resetPassword
 );
+
+export const statusMessagesSelector = createSelector(
+  userAuthStateSelector,
+  (userAuth) => userAuth.statusMessages
+);

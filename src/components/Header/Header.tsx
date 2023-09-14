@@ -28,7 +28,7 @@ import { useNavigate } from 'react-router';
 import {
   userLoginStateSelector,
   getUserStateSelector,
-} from '../DrawerContent/selector';
+} from 'redux/auth/selector';
 import { matchPath, useLocation } from 'react-router-dom';
 import { resetAddAdvertStateAction } from '../pages/AddProduct/reducer';
 

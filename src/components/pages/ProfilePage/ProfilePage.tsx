@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { AppDispatch } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { openModalAction, setModalContentAction } from "../../CustomModal/reducer"
-import { userLoginStateSelector } from '../../DrawerContent/selector';
 import { useNavigate } from 'react-router-dom';
-
+import { openModalAction, setModalContentAction } from "../../CustomModal/reducer"
+import { userLoginStateSelector, getUserStateSelector } from 'redux/auth/selector';
 import {
     Box, Typography,
     Stack, Divider
@@ -17,11 +16,13 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsTab from './SettingsTab/SettingsTab';
 import { ModalContent } from '../../../types';
+import ChatButton from 'src/components/ChatButton';
 
 const ProfilePage = () => {
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
     const { isLogin } = useSelector(userLoginStateSelector);
+    const { name, email } = useSelector(getUserStateSelector);
 
     const handleMenuClick = (event: React.MouseEvent<HTMLLIElement>) => {
     }
@@ -49,13 +50,13 @@ const ProfilePage = () => {
                         variant="body1"
                         fontWeight="700"
                     >
-                        Ольга
+                        {name}
                     </Typography>
                     <Typography
                         variant="body2"
                         color='#8D9092'
                     >
-                        test@ukr.net
+                        {email}
                     </Typography>
                 </Box>
                 <Divider sx={{ mt: ".5rem", mb: "1.5rem" }} />
@@ -87,6 +88,7 @@ const ProfilePage = () => {
                 </StyledButton>
             </MenuContainer>
             <SettingsTab />
+            <ChatButton />
         </Stack >
     )
 }

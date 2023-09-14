@@ -9,7 +9,7 @@ import { Stack, Typography, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../../store';
 import { resetAddAdvertStateAction } from './reducer';
-import { userLoginStateSelector } from '../../DrawerContent/selector';
+import { userLoginStateSelector } from 'redux/auth/selector';
 
 const AddProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);

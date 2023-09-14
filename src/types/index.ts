@@ -72,6 +72,10 @@ export interface LoginResponse {
     id: string;
     email: string;
     name: string;
+    lastname: string;
+    patronymic: string;
+    avatarURL: string;
+    phone: string;
   };
 }
 
@@ -81,8 +85,13 @@ export interface LoginBody {
 }
 
 export interface CurrentResponse {
-  name: string;
+  id: string;
   email: string;
+  name: string;
+  lastname: string;
+  patronymic: string;
+  avatarURL: string;
+  phone: string;
 }
 
 export interface ForgotPasswordBody {
@@ -118,4 +127,34 @@ export interface FormDataAddAdvert {
 
 export interface LogoutResponse {
   accessToken: string;
+}
+
+export interface UpdateUserResponse {
+  user: {
+    _id: string;
+    id: string;
+    email: string;
+    name: string;
+    lastname: string;
+    patronymic: string;
+    avatarURL: string;
+    phone: string;
+  };
+}
+
+export interface FormDataUpdateUser {
+  email: string;
+  name: string;
+  lastname: string;
+  patronymic: string;
+  avatarURL: string;
+  phone: string;
+}
+
+export interface UpdateUserInput {
+  name: string;
+  lastname?: string;
+  patronymic?: string;
+  avatarURL?: string | File;
+  phone?: string;
 }

@@ -8,7 +8,7 @@ import CategoryPage from '../pages/CategoryPage';
 import FallbackComponent from '../FallbackComponent';
 import NotFoundPage from '../NotFoundPage';
 import { useSelector } from 'react-redux';
-import { userRegisterStateSelector } from '../DrawerContent/selector';
+import { userRegisterStateSelector } from 'redux/auth/selector';
 import { logErrorToService } from '../../utils/utils';
 import {
   SecurityRules,

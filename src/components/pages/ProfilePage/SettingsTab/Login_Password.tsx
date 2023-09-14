@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserStateSelector } from 'redux/auth/selector';
 
 import {
     Stack, TextField, Typography,
@@ -10,7 +12,7 @@ import {
 } from "./style";
 
 const Login_Password = () => {
-
+    const { email } = useSelector(getUserStateSelector);
     const handleChangeEmail = () => {
 
     }
@@ -30,7 +32,7 @@ const Login_Password = () => {
                     Ваш поточний логін
                 </StyledFormLabel>
                 <EmailTypography variant='body2' >
-                    test@test.com
+                    {email}
                 </EmailTypography>
             </InputWrapper>
             <StyledButton

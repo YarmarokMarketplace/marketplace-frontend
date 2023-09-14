@@ -7,9 +7,9 @@ import categories from '../../components/pages/HomePage/reducer';
 import products from '../../components/pages/CategoryPage/reducer';
 import drawer from '../../components/CustomDrawer/reducer';
 import product from '../../components/pages/SingleProductPage/reducer';
-import userAuth from '../../components/DrawerContent/reducer';
+import userAuth from 'redux/auth/reducer';
 import modal from '../../components/CustomModal/reducer';
-import userAuthReducer from '../../components/DrawerContent/reducer';
+import userAuthReducer from 'redux/auth/reducer';
 import addAdvert from '../../components/pages/AddProduct/reducer';
 
 const persistConfig = {

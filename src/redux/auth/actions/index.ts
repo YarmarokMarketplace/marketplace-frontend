@@ -49,3 +49,35 @@ export const notVerifiedErrorToggle = (
 export const isEmailSendReset = (state: UserAuthState) => {
   state.resetPassword.isEmailSend = false;
 };
+
+interface UserUpdatePayload {
+  id: string;
+  email: string;
+  name: string;
+  lastname: string;
+  patronymic: string;
+  avatarURL: string;
+  phone: string;
+}
+
+export const updateUserState = (
+  state: UserAuthState,
+  action: PayloadAction<UserUpdatePayload>
+) => {
+  console.log(action.payload);
+  state.login.user = action.payload;
+};
+
+export const successMessageToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.statusMessages.successMessage = action.payload;
+};
+
+export const errorMessageToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.statusMessages.errorMessage = action.payload;
+};

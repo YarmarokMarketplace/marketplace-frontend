@@ -20,9 +20,9 @@ import {
     StyledVector,
 } from './style';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { forgotPasswordFetch } from './thunk';
-import { forgotPasswordStateSelector } from './selector';
-import { emailErrorToggleAction, isEmailSendResetAction } from './reducer';
+import { forgotPasswordFetch } from 'redux/auth/thunk';
+import { forgotPasswordStateSelector } from 'redux/auth/selector';
+import { emailErrorToggleAction, isEmailSendResetAction } from 'redux/auth/reducer';
 import success from '../../img/success.svg';
 
 const resetPasswordSchema = yup.object().shape({

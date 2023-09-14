@@ -11,6 +11,7 @@ import {
   getCurrent,
   forgotPassword,
   logout,
+  updateUser,
 } from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
@@ -27,6 +28,7 @@ const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
 const USER_CURRENT_THUNK_TYPE = 'USER_CURRENT_THUNK_TYPE';
 const USER_FORGOT_PASSWORD_THUNK_TYPE = 'USER_FORGOT_PASSWORD_THUNK_TYPE';
 const USER_LOGOUT_THUNK_TYPE = 'USER_LOGOUT_THUNK_TYPE';
+const UPDATE_USER_THUNK_TYPE = 'UPDATE_USER_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -126,6 +128,24 @@ export const logoutFetch = createAsyncThunk(
         status,
         message: data.message,
       };
+      return rejectWithValue(error);
+    }
+  }
+);
+
+type UserArgs = {
+  data: FormData;
+  id: string;
+};
+
+export const updateUserFetch = createAsyncThunk(
+  UPDATE_USER_THUNK_TYPE,
+  async (values: UserArgs, { rejectWithValue }) => {
+    try {
+      const res = await updateUser(values.data, values.id);
+      return res.user;
+    } catch (error) {
+      console.log(error);
       return rejectWithValue(error);
     }
   }
