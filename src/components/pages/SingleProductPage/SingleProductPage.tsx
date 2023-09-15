@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { productFetch } from './thunk';
 import BasicBreadcrumbs from '../../Breadcrumbs';
 import { categoryNames } from '../../../constants';
+import { ProductItem } from 'src/types';
 
 const SingleProductPage = () => {
   const { loading, error, product } = useSelector(productStateSelector);
@@ -29,6 +30,21 @@ const SingleProductPage = () => {
       dispatch(productFetch(id));
     }
   }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      const items: ProductItem[] =
+        JSON.parse(localStorage.getItem('viewedProducts')!) || [];
+      const viewedProducts = items.filter((item) => item._id !== product._id);
+      if (viewedProducts.length < 21) {
+        viewedProducts.unshift(product);
+      } else {
+        viewedProducts.pop();
+        viewedProducts.unshift(product);
+      }
+      localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+    }
+  }, [product]);
 
   return (
     <StyledContainer maxWidth={false} disableGutters>
