@@ -6,6 +6,7 @@ import {
   forgotPasswordFetch,
   logoutFetch,
   updateUserFetch,
+  deleteAccountFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -20,6 +21,7 @@ import {
   successMessageToggle,
   errorMessageToggle,
 } from '../actions';
+import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
 export interface UserAuthState {
   register: {
@@ -65,7 +67,13 @@ export interface UserAuthState {
   };
   statusMessages: {
     successMessage: boolean;
+    succMsgContent: SuccessMessageContent;
     errorMessage: boolean;
+    errMsgContent: ErrorMessageContent;
+  };
+  deleteAccount: {
+    loading: boolean;
+    error: boolean | null;
   };
 }
 
@@ -113,7 +121,13 @@ const initialState: UserAuthState = {
   },
   statusMessages: {
     successMessage: false,
+    succMsgContent: SuccessMessageContent.noContent,
     errorMessage: false,
+    errMsgContent: ErrorMessageContent.noContent,
+  },
+  deleteAccount: {
+    loading: false,
+    error: null,
   },
 };
 
@@ -237,11 +251,44 @@ export const userAuthSlice = createSlice({
           id: payload._id,
         };
         state.statusMessages.successMessage = true;
+        state.statusMessages.succMsgContent =
+          SuccessMessageContent.updateUserSuccess;
       })
       .addCase(updateUserFetch.rejected, (state) => {
         state.updateUser.loading = false;
         state.updateUser.error = true;
         state.statusMessages.errorMessage = true;
+        state.statusMessages.errMsgContent =
+          ErrorMessageContent.updateUserError;
+      })
+      .addCase(deleteAccountFetch.pending, (state) => {
+        state.updateUser.loading = true;
+        state.updateUser.error = false;
+      })
+      .addCase(deleteAccountFetch.fulfilled, (state, { payload }) => {
+        state.login.loading = false;
+        state.login.user = {
+          id: '',
+          name: '',
+          email: '',
+          lastname: '',
+          patronymic: '',
+          avatarURL: '',
+          phone: '',
+        };
+        state.refreshToken = '';
+        state.accessToken = '';
+        state.isLogin = false;
+        state.statusMessages.successMessage = true;
+        state.statusMessages.succMsgContent =
+          SuccessMessageContent.deleteAccountSuccess;
+      })
+      .addCase(deleteAccountFetch.rejected, (state) => {
+        state.updateUser.loading = false;
+        state.updateUser.error = true;
+        state.statusMessages.errorMessage = true;
+        state.statusMessages.errMsgContent =
+          ErrorMessageContent.deleteAccountError;
       });
   },
 });

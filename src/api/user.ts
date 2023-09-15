@@ -74,3 +74,9 @@ export const updateUser = async (data: FormData, id: string) => {
     return Promise.reject(error);
   }
 };
+
+export const deleteAccount = async (id: string) => {
+  const response = await loginClient.delete(`user/${id}`);
+  setToken();
+  return response;
+};

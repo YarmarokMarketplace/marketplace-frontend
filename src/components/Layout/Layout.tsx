@@ -6,6 +6,8 @@ import Footer from "../Footer";
 import { MainContainer } from "./style";
 import CustomDrawer from "../CustomDrawer";
 import CustomModal from "../CustomModal";
+import SnackbarSuccessMessage from "../SnackbarMessage/SnackbarSuccessMessage";
+import SnackbarErrorMessage from "../SnackbarMessage/SnackbarErrorMessage";
 
 const Layout: React.FC = ({ children }) => {
   return (
@@ -15,6 +17,8 @@ const Layout: React.FC = ({ children }) => {
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <CustomDrawer />
         <CustomModal />
+        <SnackbarSuccessMessage />
+        <SnackbarErrorMessage />
       </MainContainer>
       <Footer />
     </>

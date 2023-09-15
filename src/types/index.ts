@@ -57,7 +57,7 @@ export interface RegisterBody {
 export enum ModalContent {
   exitProfile = 'exitProfile',
   logout = 'logout',
-  deleteProfile = 'deleteProfile',
+  deleteAccount = 'deleteAccount',
   confirmPurchase = 'confirmPurchase',
   cancel = 'cancel',
   noContent = 'noContent',
@@ -157,4 +157,16 @@ export interface UpdateUserInput {
   patronymic?: string;
   avatarURL?: string | File;
   phone?: string;
+}
+
+export enum SuccessMessageContent {
+  updateUserSuccess = 'updateUserSuccess',
+  deleteAccountSuccess = 'deleteAccountSuccess',
+  noContent = 'noContent',
+}
+
+export enum ErrorMessageContent {
+  updateUserError = 'updateUserError',
+  deleteAccountError = 'deleteAccountError',
+  noContent = 'noContent',
 }

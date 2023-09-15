@@ -6,6 +6,7 @@ import { statusMessagesSelector } from 'redux/auth/selector';
 
 import { Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { ErrorMessageContent } from 'src/types';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -16,7 +17,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const SnackbarErrorMessage: React.FC = ({ children }) => {
     const dispatch: AppDispatch = useDispatch();
-    const { errorMessage } = useSelector(statusMessagesSelector);
+    const { errorMessage, errMsgContent } = useSelector(statusMessagesSelector);
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -29,7 +30,8 @@ const SnackbarErrorMessage: React.FC = ({ children }) => {
     return (
         <Snackbar open={errorMessage} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                {children}
+                {errMsgContent == ErrorMessageContent.updateUserError && 'Помилка при збереженні'}
+                {errMsgContent == ErrorMessageContent.deleteAccountError && 'Помилка при видаленні акаунту'}
             </Alert>
         </Snackbar>
     );
