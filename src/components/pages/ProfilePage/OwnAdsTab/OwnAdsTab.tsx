@@ -14,6 +14,7 @@ import { userProductsListFetch } from '../thunk';
 import { ProductItem } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
+import { currentPageSetAction } from '../reducer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,7 +63,9 @@ const OwnAdsTab = () => {
       setInactive(notices.filter((product) => !product.active));
     }
   }, [notices]);
-
+  const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
+    dispatch(currentPageSetAction(page));
+  };
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -149,7 +152,11 @@ const OwnAdsTab = () => {
           </>
         )}
         {!error && active.length > 0 && (
-          <ProfilePagination page={page} totalPages={totalPages} />
+          <ProfilePagination
+            handlePageChange={handlePageChange}
+            page={page}
+            totalPages={totalPages}
+          />
         )}
       </CustomTabPanel>
       <CustomTabPanel value={value} type="inactive">
@@ -209,7 +216,11 @@ const OwnAdsTab = () => {
           </>
         )}
         {!loading && !error && inactive.length > 0 && (
-          <ProfilePagination page={page} totalPages={totalPages} />
+          <ProfilePagination
+            handlePageChange={handlePageChange}
+            page={page}
+            totalPages={totalPages}
+          />
         )}
       </CustomTabPanel>
     </StyledAdsContainer>
