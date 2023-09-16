@@ -18,7 +18,7 @@ import { setToken } from '../../../api/client';
 import {
   isSocialLoginSetAction,
   socialLoginUserSetAction,
-} from '../../DrawerContent/reducer';
+} from '../../../redux/auth/reducer';
 
 const HomePage = () => {
   const { categories, loading, error } = useSelector(categoriesStateSelector);

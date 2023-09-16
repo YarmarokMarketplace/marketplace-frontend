@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
-const webpack = require("webpack");
-const dotenv = require("dotenv");
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-=======
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
->>>>>>> 128439f (changed mode)
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 dotenv.config();
 
@@ -18,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/main-[contenthash:8].js',
   },
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -37,10 +30,10 @@ module.exports = {
             },
           },
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
-              transpileOnly: true
-            }
+              transpileOnly: true,
+            },
           },
         ],
       },
@@ -64,16 +57,16 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
-    plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })]
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
     new webpack.DefinePlugin({
-      "process.env": JSON.stringify(process.env),
-    })
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 
   devServer: {
