@@ -1,4 +1,4 @@
-import { Box, Button, Card, Chip, IconButton } from '@mui/material';
+import { Box, Button, Card, Chip, Collapse, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
@@ -53,8 +53,19 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.text.primary,
   fontSize: '1rem',
+  fontWeight: 500,
   height: theme.spacing(6),
   ':hover': {
     color: theme.palette.text.secondary,
   },
+}));
+
+export const StyledInfoContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: theme.spacing(1),
+  borderTop: `1px solid ${theme.palette.lightGrey.dark}`,
+  marginTop: theme.spacing(3),
+  padding: theme.spacing(1, 0),
 }));

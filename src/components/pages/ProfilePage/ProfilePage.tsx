@@ -10,8 +10,13 @@ import {
   userLoginStateSelector,
   getUserStateSelector,
 } from 'redux/auth/selector';
-import { Box, Typography, Stack, Divider } from '@mui/material';
-import { MenuContainer, StyledLink, StyledButton } from './style';
+import { Box, Typography, Stack, Divider, Badge } from '@mui/material';
+import {
+  MenuContainer,
+  StyledLink,
+  StyledButton,
+  StyledNotification,
+} from './style';
 import { Routes, Route } from 'react-router-dom';
 
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -20,6 +25,7 @@ import { ModalContent } from '../../../types';
 import ChatButton from 'src/components/ChatButton';
 import ViewedProducts from './ViewedProducts/ViewedProducts';
 import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
+import SellProducts from './SellProducts/SellProducts';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -56,9 +62,12 @@ const ProfilePage = () => {
           <StyledLink id="profile-advert" to="own-ads">
             Оголошення
           </StyledLink>
-          <StyledLink id="profile-sell" to="sell">
-            Продаю
-          </StyledLink>
+          <Stack direction="row" gap={1} alignItems="center">
+            <StyledLink id="profile-sell" to="sell">
+              Продаю
+            </StyledLink>
+            <StyledNotification color="primary" variant="dot" />
+          </Stack>
           <StyledLink id="profile-buy" to="buy">
             Купую
           </StyledLink>
@@ -85,6 +94,7 @@ const ProfilePage = () => {
         <Route path="settings" element={<SettingsTab />} />
         <Route path="viewed" element={<ViewedProducts />} />
         <Route path="own-ads" element={<OwnAdsTab />} />
+        <Route path="sell" element={<SellProducts />} />
       </Routes>
     </Stack>
   );

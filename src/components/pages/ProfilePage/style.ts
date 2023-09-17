@@ -1,6 +1,6 @@
-import { Box, List, Button } from '@mui/material';
+import { Box, List, Button, Typography, Badge } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const MenuContainer = styled(Box)(({ theme }) => ({
   width: theme.spacing(39),
@@ -91,5 +91,12 @@ export const GridProductsWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr 1fr',
+  },
+}));
+
+export const StyledNotification = styled(Badge)(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  '.MuiBadge-badge': {
+    top: '50%',
   },
 }));
