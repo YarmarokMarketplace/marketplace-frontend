@@ -27,6 +27,7 @@ import {
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
 import { resetAddSavedDataAction } from 'src/components/pages/AddProduct/reducer';
+import { advertInitialData } from 'src/components/pages/AddProduct/utils';
 
 const USER_REGISTER_THUNK_TYPE = 'USER_REGISTER_THUNK_TYPE';
 const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
@@ -128,7 +129,7 @@ export const logoutFetch = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const result = await logout();
-      localStorage.removeItem('advertData');
+      localStorage.setItem('advertData', JSON.stringify(advertInitialData));
       dispatch(resetAddSavedDataAction());
       return result;
     } catch ({ response }: any) {

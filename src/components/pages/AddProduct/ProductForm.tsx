@@ -50,6 +50,7 @@ export const ProductForm = () => {
   const [category, setCategory] = useState<string>(inputValues?.category || '');
   const [forFree, setForFree] = useState<boolean>(inputValues?.free || false);
   const { categories } = useSelector(categoriesStateSelector);
+
   const dispatch: AppDispatch = useDispatch();
 
   const {
@@ -95,18 +96,10 @@ export const ProductForm = () => {
     }
   }, [category, forFree]);
 
-  useEffect(() => {
-    const saveDataToLocalStorage = () => {
-      const values = getValues();
-      localStorage.setItem('advertData', JSON.stringify(values));
-    };
-    window.addEventListener('beforeunload', saveDataToLocalStorage); // Save the form data when the user navigates away or refreshes the page
-
-    return () => {
-      window.removeEventListener('beforeunload', saveDataToLocalStorage);
-      localStorage.setItem('advertData', JSON.stringify(getValues())); //Save the form data before unmounting
-    };
-  }, []);
+  const saveDataToLocalStorage = () => {
+    const values = getValues();
+    localStorage.setItem('advertData', JSON.stringify(values));
+  };
 
   const handleChangePhone = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -156,7 +149,10 @@ export const ProductForm = () => {
       <Typography mb={3} variant="h4">
         Створити оголошення
       </Typography>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm
+        onSubmit={handleSubmit(onSubmit)}
+        onChange={saveDataToLocalStorage}
+      >
         <StyledFormControl fullWidth>
           <StyledFormLabel>Фотографії</StyledFormLabel>
           <ImageInput
@@ -188,6 +184,7 @@ export const ProductForm = () => {
             setCategory={setCategory}
             setForFree={setForFree}
             setValue={setValue}
+            getValue={getValues}
             categories={categories}
           />
         </StyledFormControl>
@@ -334,7 +331,12 @@ export const ProductForm = () => {
         </StyledFormControl>
         <StyledFormControl fullWidth>
           <StyledFormLabel>Місцезнаходження</StyledFormLabel>
-          <LocationInput control={control} errors={errors} loading={loading} />
+          <LocationInput
+            getValue={getValues}
+            control={control}
+            errors={errors}
+            loading={loading}
+          />
         </StyledFormControl>
         <StyledFormControl fullWidth>
           <StyledFormLabel></StyledFormLabel>
