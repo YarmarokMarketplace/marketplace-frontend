@@ -160,6 +160,18 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#fff',
+          color: '#1B2124',
+          boxShadow: '0px -4px 10px 0px rgba(190, 196, 222, 0.20)',
+          textAlign: 'center',
+          fontSize: '0.625rem',
+          width: '70%',
+        },
+      },
+    },
   },
   spacing: (factor: number) => `${0.5 * factor}rem`,
 });
