@@ -2,14 +2,12 @@ import {
   CardActionArea,
   Stack,
   Typography,
-  Button,
-  IconButton,
   Collapse,
+  Rating,
 } from '@mui/material';
 import React from 'react';
 import {
   StyledChip,
-  StyledContrastButton,
   StyledImgWrapper,
   StyledInfoContainer,
   StyledLink,
@@ -19,16 +17,26 @@ import {
 import placeholder from '../../../../img/placeholder-image.png';
 import { ProductItem } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { locations } from 'src/constants';
 
 interface SellProductProps {
   children?: React.ReactNode;
   product: ProductItem;
+  showMore?: boolean;
+  sell?: boolean;
 }
 
-const SellProductItem: React.FC<SellProductProps> = ({ children, product }) => {
+const SellProductItem: React.FC<SellProductProps> = ({
+  children,
+  product,
+  showMore,
+  sell,
+}) => {
   const navigate = useNavigate();
-  const [showMore, setShowMore] = React.useState<boolean>(false);
+
+  const location = locations.find(
+    (location) => location.value === product.location
+  );
 
   return (
     <StyledProductContainer>
@@ -41,7 +49,7 @@ const SellProductItem: React.FC<SellProductProps> = ({ children, product }) => {
             <img src={product.photos[0] ? product.photos[0] : placeholder} />
           </StyledImgWrapper>
         </CardActionArea>
-        <Stack width="32rem" gap={1}>
+        <Stack width="100%" gap={1}>
           <StyledLink to={`/${product.category}/${product._id}`}>
             {product.title}
           </StyledLink>
@@ -57,21 +65,7 @@ const SellProductItem: React.FC<SellProductProps> = ({ children, product }) => {
             variant="outlined"
           />
         </Stack>
-        <Stack direction="row" gap={3} height="fit-content">
-          <Button sx={{ paddingX: 2 }} variant="contained">
-            Підтвердити
-          </Button>
-          <StyledContrastButton variant="outlined">
-            Скасувати
-          </StyledContrastButton>
-          <IconButton onClick={() => setShowMore(!showMore)}>
-            {showMore ? (
-              <ExpandLess color="primary" fontSize="large" />
-            ) : (
-              <ExpandMore color="primary" fontSize="large" />
-            )}
-          </IconButton>
-        </Stack>
+        {children}
       </Stack>
       <Collapse in={showMore} timeout={'auto'}>
         <StyledInfoContainer>
@@ -116,6 +110,52 @@ const SellProductItem: React.FC<SellProductProps> = ({ children, product }) => {
           </Stack>
         </StyledInfoContainer>
       </Collapse>
+      {sell && (
+        <StyledInfoContainer sx={{ flexDirection: 'row' }}>
+          <Stack width="15%" gap={2} mt={2}>
+            <Typography width="100%" fontWeight={700} variant="h6">
+              Продавець
+            </Typography>
+            <Stack>
+              <Typography
+                fontWeight={500}
+                color="primary.main"
+                variant="subtitle2"
+              >
+                {product.contactName}
+              </Typography>
+              <Typography color="divider" variant="caption">
+                {location?.label}
+              </Typography>
+            </Stack>
+          </Stack>
+          <Stack mt={2} gap={2}>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Rating
+                color="info"
+                size="medium"
+                value={4.5}
+                precision={0.5}
+                readOnly
+              />
+              <Typography color="info.main" fontWeight={700} variant="h6">
+                4.5
+              </Typography>
+            </Stack>
+            <Stack spacing={1}>
+              <Typography variant="caption">
+                2 роки та 4 місяці на yarmarok.ua
+              </Typography>
+              <Typography color="primary.main" variant="caption">
+                {`• `}
+                <Typography color="primary.main" variant="caption">
+                  7 відгуків
+                </Typography>
+              </Typography>
+            </Stack>
+          </Stack>
+        </StyledInfoContainer>
+      )}
     </StyledProductContainer>
   );
 };
