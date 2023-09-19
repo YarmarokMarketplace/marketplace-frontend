@@ -23,7 +23,7 @@ import {
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
-import { Typography } from '@mui/material';
+import ResetPassword from '../pages/ResetPassword/ResetPassword';
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -70,6 +70,7 @@ const App: React.FC = () => {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-advert" element={<AddProduct />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
+            <Route path="/api/auth/reset-password/:resetId/:resetToken" element={<ResetPassword />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>

@@ -25,14 +25,14 @@ import { forgotPasswordStateSelector } from 'redux/auth/selector';
 import { emailErrorToggleAction, isEmailSendResetAction } from 'redux/auth/reducer';
 import success from '../../img/success.svg';
 
-const resetPasswordSchema = yup.object().shape({
+const forgotPasswordSchema = yup.object().shape({
     email: yup
         .string()
         .email('Введіть коректний email')
         .required('Не забудьте ввести ваш email'),
 });
 
-const ResetPassword = () => {
+const ForgotPassword = () => {
     const dispatch: AppDispatch = useDispatch();
     const { loading, error, isEmailSend, emailError } = useSelector(
         forgotPasswordStateSelector
@@ -41,7 +41,6 @@ const ResetPassword = () => {
     useEffect(() => {
         isEmailSend && reset();
         return () => {
-            // const values = getValues();
             dispatch(isEmailSendResetAction());
             dispatch(emailErrorToggleAction(false));
         };
@@ -60,10 +59,9 @@ const ResetPassword = () => {
         control,
         handleSubmit,
         formState: { errors, isValid },
-        getValues,
         reset,
     } = useForm({
-        resolver: yupResolver(resetPasswordSchema),
+        resolver: yupResolver(forgotPasswordSchema),
         defaultValues: { email: '' },
         mode: 'onChange',
     });
@@ -177,4 +175,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default ForgotPassword;

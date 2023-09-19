@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Skeleton, Stack, Box, Typography } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { CategoryProductsWrapper } from "./style";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,6 @@ import { productListFetch } from "./thunk";
 
 import ProductItem from "./ProductItem";
 import NoProductsMessage from "./NoProductsMessage";
-// import { ProductItem as ProductItemType } from "../../../types";
 
 const CategoryProducts = () => {
   const { loading, error, sort, filterBy } = useSelector(productsStateSelector);

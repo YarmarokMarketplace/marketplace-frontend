@@ -1,3 +1,5 @@
+import ResetPassword from 'src/components/pages/ResetPassword';
+
 export interface CategoryItem {
   _id: string;
   name: string;
@@ -169,4 +171,8 @@ export enum ErrorMessageContent {
   updateUserError = 'updateUserError',
   deleteAccountError = 'deleteAccountError',
   noContent = 'noContent',
+}
+
+export interface ResetPasswordBody {
+  password: string;
 }

@@ -4,6 +4,7 @@ import {
   LoginBody,
   LoginResponse,
   ForgotPasswordBody,
+  ResetPasswordBody,
 } from '../../../types';
 import {
   register,
@@ -13,6 +14,7 @@ import {
   logout,
   updateUser,
   deleteAccount,
+  resetPassword,
 } from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
@@ -20,6 +22,7 @@ import {
   requestErrorToggleAction,
   requestLimitErrorToggleAction,
   notVerifiedErrorToggleAction,
+  isTokenExpiredToggleAction,
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
@@ -31,6 +34,7 @@ const USER_FORGOT_PASSWORD_THUNK_TYPE = 'USER_FORGOT_PASSWORD_THUNK_TYPE';
 const USER_LOGOUT_THUNK_TYPE = 'USER_LOGOUT_THUNK_TYPE';
 const UPDATE_USER_THUNK_TYPE = 'UPDATE_USER_THUNK_TYPE';
 const DELETE_USER_THUNK_TYPE = 'DELETE_USER_THUNK_TYPE';
+const USER_RESET_PASSWORD_THUNK_TYPE = 'USER_RESET_PASSWORD_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -160,6 +164,30 @@ export const deleteAccountFetch = createAsyncThunk(
       const result = await deleteAccount(id);
       return result;
     } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+type resetPasswordArgs = {
+  data: ResetPasswordBody;
+  resetId: string;
+  resetToken: string;
+};
+
+export const resetPasswordFetch = createAsyncThunk(
+  USER_RESET_PASSWORD_THUNK_TYPE,
+  async (values: resetPasswordArgs, { rejectWithValue, dispatch }) => {
+    try {
+      const { data, resetId, resetToken } = values;
+      return await resetPassword(data, resetId, resetToken);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.data.message == 'Reset token is expired') {
+          dispatch(isTokenExpiredToggleAction(true));
+        }
+        return rejectWithValue(error.response?.data);
+      }
       return rejectWithValue(error);
     }
   }

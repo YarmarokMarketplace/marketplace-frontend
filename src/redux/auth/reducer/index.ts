@@ -7,6 +7,7 @@ import {
   logoutFetch,
   updateUserFetch,
   deleteAccountFetch,
+  resetPasswordFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -20,6 +21,8 @@ import {
   updateUserState,
   successMessageToggle,
   errorMessageToggle,
+  isResetPassReset,
+  isTokenExpiredToggle,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -48,7 +51,7 @@ export interface UserAuthState {
     requestError: boolean;
     notVerifiedError: boolean;
   };
-  resetPassword: {
+  forgotPassword: {
     loading: boolean;
     error: boolean | null;
     emailError: boolean;
@@ -74,6 +77,12 @@ export interface UserAuthState {
   deleteAccount: {
     loading: boolean;
     error: boolean | null;
+  };
+  resetPassword: {
+    loading: boolean;
+    error: boolean | null;
+    isReset: boolean;
+    isTokenExpired: boolean;
   };
 }
 
@@ -102,7 +111,7 @@ const initialState: UserAuthState = {
     requestError: false,
     notVerifiedError: false,
   },
-  resetPassword: {
+  forgotPassword: {
     loading: false,
     error: null,
     emailError: false,
@@ -129,6 +138,12 @@ const initialState: UserAuthState = {
     loading: false,
     error: null,
   },
+  resetPassword: {
+    loading: false,
+    error: null,
+    isReset: false,
+    isTokenExpired: false,
+  },
 };
 
 const name = 'USER_AUTH';
@@ -148,6 +163,8 @@ export const userAuthSlice = createSlice({
     updateUserState,
     successMessageToggle,
     errorMessageToggle,
+    isResetPassReset,
+    isTokenExpiredToggle,
   },
   extraReducers(builder) {
     builder
@@ -202,19 +219,19 @@ export const userAuthSlice = createSlice({
         state.accessToken = '';
       })
       .addCase(forgotPasswordFetch.pending, (state, action) => {
-        state.resetPassword.loading = true;
-        state.resetPassword.error = false;
-        state.resetPassword.emailError = false;
-        state.resetPassword.isEmailSend = false;
+        state.forgotPassword.loading = true;
+        state.forgotPassword.error = false;
+        state.forgotPassword.emailError = false;
+        state.forgotPassword.isEmailSend = false;
       })
       .addCase(forgotPasswordFetch.fulfilled, (state, { payload }) => {
-        state.resetPassword.loading = false;
-        state.resetPassword.emailError = false;
-        state.resetPassword.isEmailSend = true;
+        state.forgotPassword.loading = false;
+        state.forgotPassword.emailError = false;
+        state.forgotPassword.isEmailSend = true;
       })
       .addCase(forgotPasswordFetch.rejected, (state, action) => {
-        state.resetPassword.loading = false;
-        state.resetPassword.error = true;
+        state.forgotPassword.loading = false;
+        state.forgotPassword.error = true;
       })
       .addCase(logoutFetch.pending, (state, action) => {
         state.login.loading = true;
@@ -265,7 +282,7 @@ export const userAuthSlice = createSlice({
         state.updateUser.loading = true;
         state.updateUser.error = false;
       })
-      .addCase(deleteAccountFetch.fulfilled, (state, { payload }) => {
+      .addCase(deleteAccountFetch.fulfilled, (state) => {
         state.login.loading = false;
         state.login.user = {
           id: '',
@@ -289,6 +306,18 @@ export const userAuthSlice = createSlice({
         state.statusMessages.errorMessage = true;
         state.statusMessages.errMsgContent =
           ErrorMessageContent.deleteAccountError;
+      })
+      .addCase(resetPasswordFetch.pending, (state) => {
+        state.resetPassword.loading = true;
+        state.resetPassword.error = false;
+      })
+      .addCase(resetPasswordFetch.fulfilled, (state) => {
+        state.resetPassword.loading = false;
+        state.resetPassword.isReset = true;
+      })
+      .addCase(resetPasswordFetch.rejected, (state) => {
+        state.resetPassword.loading = false;
+        state.resetPassword.error = true;
       });
   },
 });
@@ -305,6 +334,8 @@ export const {
   updateUserState: updateUserStateAction,
   successMessageToggle: successMessageToggleAction,
   errorMessageToggle: errorMessageToggleAction,
+  isResetPassReset: isResetPassResetAction,
+  isTokenExpiredToggle: isTokenExpiredToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
