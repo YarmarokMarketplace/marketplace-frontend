@@ -132,7 +132,7 @@ const OwnAdsTab = () => {
             })}
           </Stack>
         )}
-        {!loading && !error && active.length === 0 && (
+        {!loading && active.length === 0 && (
           <>
             <NoProductItem>
               <Typography variant="h4" fontWeight={700} mt={3}>
@@ -197,7 +197,7 @@ const OwnAdsTab = () => {
             })}
           </Stack>
         )}
-        {!error && inactive.length === 0 && (
+        {!loading && inactive.length === 0 && (
           <>
             <NoProductItem>
               <Typography variant="h4" fontWeight={700} mt={3}>

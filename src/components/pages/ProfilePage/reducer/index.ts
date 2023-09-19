@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserProductsResponse } from '../../../../types';
 import { userProductsListFetch } from '../thunk';
-import { currentPageSet } from '../actions';
+import { currentPageSet, resetOwnAdsState } from '../actions';
 
 export interface ProfileState {
   own: {
@@ -32,6 +32,7 @@ const profileSlice = createSlice({
   initialState,
   reducers: {
     currentPageSet,
+    resetOwnAdsState,
   },
   extraReducers(builder) {
     builder
@@ -50,6 +51,9 @@ const profileSlice = createSlice({
   },
 });
 
-export const { currentPageSet: currentPageSetAction } = profileSlice.actions;
+export const {
+  currentPageSet: currentPageSetAction,
+  resetOwnAdsState: resetOwnAdsStateAction,
+} = profileSlice.actions;
 
 export default profileSlice.reducer;

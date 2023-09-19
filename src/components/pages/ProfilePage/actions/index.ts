@@ -7,3 +7,7 @@ export const currentPageSet = (
 ) => {
   state.own.data.page = action.payload;
 };
+
+export const resetOwnAdsState = (state: ProfileState) => {
+  state.own.data.notices = [];
+};
