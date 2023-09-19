@@ -36,7 +36,7 @@ const SingleProductPage = () => {
       const items: ProductItem[] =
         JSON.parse(localStorage.getItem('viewedProducts')!) || [];
       const viewedProducts = items.filter((item) => item._id !== product._id);
-      if (viewedProducts.length < 21) {
+      if (viewedProducts.length < 20) {
         viewedProducts.unshift(product);
       } else {
         viewedProducts.pop();
