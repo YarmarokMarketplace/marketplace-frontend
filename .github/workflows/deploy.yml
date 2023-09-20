@@ -3,7 +3,9 @@ name: Deploy to Netlify
 on:
   push:
     branches:
-      - main
+      - feature/MAR-348_initial-pipeline-setup
+  pull_request:
+    branches: feature/MAR-348_initial-pipeline-setup
 
 jobs:
   build:
