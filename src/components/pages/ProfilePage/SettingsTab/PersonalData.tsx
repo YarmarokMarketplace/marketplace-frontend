@@ -7,7 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Stack, TextField, IconButton } from '@mui/material';
+import { Stack, TextField, IconButton, Modal } from '@mui/material';
 import {
     StyledFormLabel,
     StyledStar,
@@ -21,13 +21,14 @@ import {
 import Avatar from '../../../../img/profile-avatar-upload.png'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { UpdateUserInput } from '../../../../types';
+import { ModalContent, UpdateUserInput } from '../../../../types';
 import { updateUserFetch } from 'redux/auth/thunk';
 import SnackbarSuccessMessage from 'src/components/SnackbarMessage/SnackbarSuccessMessage';
 import SnackbarErrorMessage from 'src/components/SnackbarMessage/SnackbarErrorMessage';
 
 import { errorMessageToggleAction } from 'redux/auth/reducer';
 import { statusMessagesSelector } from 'redux/auth/selector';
+import { openModalAction, setModalContentAction } from "../../../CustomModal/reducer"
 
 const personalDataSchema = yup.object().shape({
     name: yup
@@ -146,6 +147,11 @@ const PersonalData = () => {
 
     const deleteBtnMessage = () => {
         dispatch(errorMessageToggleAction(true));
+    }
+
+    const handleClickDeleteAccount = () => {
+        dispatch(openModalAction(true));
+        dispatch(setModalContentAction(ModalContent.deleteAccount));
     }
     return (
         <>
@@ -327,13 +333,9 @@ const PersonalData = () => {
 
                 <ActionButton sx={{ mb: "1rem" }} variant="contained" type="submit" disabled={!isValid}>Зберегти профіль</ActionButton>
             </form>
-            <ActionButton variant="outlined" color="error">Видалити профіль</ActionButton>
-            <SnackbarSuccessMessage>
-                Дані успішно збережено!
-            </SnackbarSuccessMessage>
-            <SnackbarErrorMessage>
-                Помилка при збереженні
-            </SnackbarErrorMessage>
+            <ActionButton
+                onClick={handleClickDeleteAccount}
+                variant="outlined" color="error">Видалити профіль</ActionButton>
         </>
     )
 }

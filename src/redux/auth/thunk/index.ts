@@ -12,6 +12,7 @@ import {
   forgotPassword,
   logout,
   updateUser,
+  deleteAccount,
 } from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
@@ -29,6 +30,7 @@ const USER_CURRENT_THUNK_TYPE = 'USER_CURRENT_THUNK_TYPE';
 const USER_FORGOT_PASSWORD_THUNK_TYPE = 'USER_FORGOT_PASSWORD_THUNK_TYPE';
 const USER_LOGOUT_THUNK_TYPE = 'USER_LOGOUT_THUNK_TYPE';
 const UPDATE_USER_THUNK_TYPE = 'UPDATE_USER_THUNK_TYPE';
+const DELETE_USER_THUNK_TYPE = 'DELETE_USER_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -146,6 +148,18 @@ export const updateUserFetch = createAsyncThunk(
       return res.user;
     } catch (error) {
       console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteAccountFetch = createAsyncThunk(
+  DELETE_USER_THUNK_TYPE,
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const result = await deleteAccount(id);
+      return result;
+    } catch (error) {
       return rejectWithValue(error);
     }
   }

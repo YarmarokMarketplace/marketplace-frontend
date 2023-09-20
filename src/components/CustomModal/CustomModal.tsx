@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { StyledIconButton, StyledBox } from './style';
 import LogoutModal from '../ModalContent/LogoutModal';
+import DeleteAccountModal from '../ModalContent/DeleteAccountModal';
 
 const CustomModal = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -36,6 +37,7 @@ const CustomModal = () => {
                     </StyledIconButton>
 
                     {content == ModalContent.logout && <LogoutModal />}
+                    {content == ModalContent.deleteAccount && <DeleteAccountModal />}
 
                 </StyledBox>
             </Modal>
