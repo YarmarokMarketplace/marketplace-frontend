@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - feature/MAR-348_initial-pipeline-setup
-  pull_request:
-    branches: feature/MAR-348_initial-pipeline-setup
 
 jobs:
   build:
