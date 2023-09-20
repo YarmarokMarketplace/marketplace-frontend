@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - feature/MAR-348_initial-pipeline-setup
-  pull_request:
-    branches: feature/MAR-348_initial-pipeline-setup
 
 jobs:
   build:
@@ -29,3 +27,4 @@ jobs:
           npx netlify-cli deploy --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
