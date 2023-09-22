@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller, UseFormSetValue } from 'react-hook-form';
+import { Controller, UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 import {
   Typography,
   Stack,
@@ -18,6 +18,7 @@ interface CategoryInputProps extends InputProps {
   setCategory: (value: React.SetStateAction<string>) => void;
   setForFree: (value: React.SetStateAction<boolean>) => void;
   setValue: UseFormSetValue<FormDataAddAdvert>;
+  getValue: UseFormGetValues<FormDataAddAdvert>;
   categories: CategoryItem[];
 }
 
@@ -27,6 +28,7 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({
   setCategory,
   setValue,
   setForFree,
+  getValue,
   categories,
   loading,
 }) => {
@@ -35,13 +37,14 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({
     setValue('goodtype', '');
     setValue('free', false);
     setForFree(false);
+    const values = getValue();
+    localStorage.setItem('advertData', JSON.stringify(values));
   };
   return (
     <>
       <Controller
         control={control}
         name="category"
-        defaultValue=""
         render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required> Вкажіть категорію</StyledFormLabel>

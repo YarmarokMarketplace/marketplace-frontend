@@ -15,11 +15,17 @@ import addAdvert from '../../components/pages/AddProduct/reducer';
 const persistConfig = {
   key: 'accessToken',
   storage,
-  whitelist: ['accessToken'],
+  whitelist: ['accessToken', 'isLogin'],
   // serialize: true
 };
 
+const persistAdvertConfig = {
+  key: 'advert',
+  storage,
+  whitelist: ['images'],
+};
 const persistedAuthReducer = persistReducer(persistConfig, userAuthReducer);
+const persistedAdvertReducer = persistReducer(persistAdvertConfig, addAdvert);
 
 export default combineReducers({
   categories,
@@ -28,5 +34,5 @@ export default combineReducers({
   drawer,
   userAuth: persistedAuthReducer,
   modal,
-  addAdvert,
+  addAdvert: persistedAdvertReducer,
 });

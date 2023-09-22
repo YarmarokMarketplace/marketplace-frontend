@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { categoryWithoutGoodtype } from '../../../constants';
-import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 import { FormDataAddAdvert } from '../../../types';
 
 export const formatPhoneNumber = (value: string) => {
@@ -80,3 +80,34 @@ export interface InputProps {
   errors: FieldErrors<FormDataAddAdvert>;
   loading: boolean;
 }
+
+export const dataURLtoBlob = (dataURL: string) => {
+  const parts = dataURL.split(','); // Split the dataURL into two parts: the data type and the data itself.
+
+  const byteCharacters = atob(parts[1]); // Decode the base64-encoded data to obtain binary data.
+  // Create an array of byte numbers to represent the binary data.
+  // Loop through each character in the base64-encoded data and convert it to a byte number.
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  // Create a Uint8Array to hold the byte data.
+  const byteArray = new Uint8Array(byteNumbers);
+
+  // Create a Blob object from the byte data with the specified data type.
+  return new Blob([byteArray], { type: parts[0].split(':')[1] });
+};
+
+export const advertInitialData = {
+  photos: '',
+  title: '',
+  description: '',
+  category: ``,
+  contactName: '',
+  contactNumber: '',
+  price: '',
+  location: ``,
+  goodtype: '',
+  free: false,
+  agree: false,
+};

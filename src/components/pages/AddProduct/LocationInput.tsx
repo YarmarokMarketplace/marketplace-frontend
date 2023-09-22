@@ -1,38 +1,52 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormGetValues } from 'react-hook-form';
 import {
   Typography,
   Stack,
   MenuItem,
   Select,
   OutlinedInput,
+  SelectChangeEvent,
 } from '@mui/material';
 import { locations } from '../../../constants';
 import { StyledFormLabel, menuStyles } from './style';
 import { InputProps } from './utils';
+import { FormDataAddAdvert } from 'src/types';
 
-export const LocationInput: React.FC<InputProps> = ({
+interface LocationInputProps extends InputProps {
+  getValue: UseFormGetValues<FormDataAddAdvert>;
+}
+
+export const LocationInput: React.FC<LocationInputProps> = ({
   control,
   errors,
   loading,
+  getValue,
 }) => {
+  const handleChangeLocation = (event: SelectChangeEvent<string>) => {
+    const values = getValue();
+    localStorage.setItem('advertData', JSON.stringify(values));
+  };
   return (
     <>
       <Controller
         control={control}
         name="location"
-        defaultValue=""
-        render={({ field }) => (
+        render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required>Вкажіть локацію</StyledFormLabel>
             <Select
               displayEmpty
-              defaultValue=""
               disabled={loading}
               error={Boolean(errors.location)}
               input={<OutlinedInput />}
               id="select-location"
-              {...field}
+              onChange={(event) => {
+                onChange(event);
+                handleChangeLocation(event);
+              }}
+              onBlur={onBlur}
+              value={value}
               MenuProps={{
                 sx: {
                   '.MuiPaper-root': menuStyles,

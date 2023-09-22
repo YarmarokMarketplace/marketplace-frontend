@@ -26,6 +26,8 @@ import {
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
+import { resetAddSavedDataAction } from 'src/components/pages/AddProduct/reducer';
+import { advertInitialData } from 'src/components/pages/AddProduct/utils';
 
 const USER_REGISTER_THUNK_TYPE = 'USER_REGISTER_THUNK_TYPE';
 const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
@@ -124,9 +126,11 @@ export const forgotPasswordFetch = createAsyncThunk(
 
 export const logoutFetch = createAsyncThunk(
   USER_LOGOUT_THUNK_TYPE,
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const result = await logout();
+      localStorage.setItem('advertData', JSON.stringify(advertInitialData));
+      dispatch(resetAddSavedDataAction());
       return result;
     } catch ({ response }: any) {
       const { status, data } = response;

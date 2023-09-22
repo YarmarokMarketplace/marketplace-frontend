@@ -16,7 +16,6 @@ export const DescriptionInput: React.FC<InputProps> = ({
       <Controller
         control={control}
         name="description"
-        defaultValue=""
         render={({ field: { onBlur, onChange, value } }) => (
           <Stack width="47.5rem">
             <StyledFormLabel required>Опис</StyledFormLabel>

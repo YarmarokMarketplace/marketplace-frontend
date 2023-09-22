@@ -23,7 +23,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { categoryListFetch } from '../HomePage/thunk';
 import { AppDispatch } from '../../../store';
 import { categoriesStateSelector } from '../HomePage/selector';
-import { addAdvertSchema, formatPhoneNumber } from './utils';
+import {
+  addAdvertSchema,
+  advertInitialData,
+  dataURLtoBlob,
+  formatPhoneNumber,
+} from './utils';
 import { AddAdvertInput } from '../../../types';
 import { addAdvertFetch } from './thunk';
 import { addAdvertStateSelector } from './selector';
@@ -35,12 +40,17 @@ import { PriceInput } from './PriceInput';
 import { LocationInput } from './LocationInput';
 
 export const ProductForm = () => {
+  const { loading, error, images, data } = useSelector(addAdvertStateSelector);
+  const inputValues = JSON.parse(localStorage.getItem('advertData')!);
+
   const [selectedImage, setSelectedImage] = useState<File[] | []>([]);
-  const { loading, error } = useSelector(addAdvertStateSelector);
-  const [phone, setPhone] = useState<string>('+38');
-  const [category, setCategory] = useState<string>('');
-  const [forFree, setForFree] = useState<boolean>(false);
+  const [phone, setPhone] = useState<string>(
+    inputValues?.contactNumber || '+38'
+  );
+  const [category, setCategory] = useState<string>(inputValues?.category || '');
+  const [forFree, setForFree] = useState<boolean>(inputValues?.free || false);
   const { categories } = useSelector(categoriesStateSelector);
+
   const dispatch: AppDispatch = useDispatch();
 
   const {
@@ -49,23 +59,23 @@ export const ProductForm = () => {
     formState: { errors },
     trigger,
     setValue,
+    getValues,
   } = useForm({
     resolver: yupResolver(addAdvertSchema),
     mode: 'all',
+    defaultValues:
+      JSON.parse(localStorage.getItem('advertData')!) || advertInitialData,
   });
 
   useEffect(() => {
     dispatch(categoryListFetch());
-  }, []);
-
-  useEffect(() => {
-    if (category === 'for-free' || forFree) {
-      setValue('price', '0');
-      setValue('free', true);
-      trigger('price');
-      setForFree(true);
+    if (images.length > 0) {
+      const restoredPhotos = images.map((photoData: any) => {
+        const blob = dataURLtoBlob(photoData.data); // Convert the base64-encoded data to a Blob.
+        return new File([blob], photoData.name, { type: photoData.type }); // Create a File object from the Blob with the original name and type.
+      });
+      setSelectedImage(restoredPhotos); // Set restored images to the state
     }
-
     const preventDefault = (event: DragEvent) => {
       event.preventDefault();
     };
@@ -75,7 +85,21 @@ export const ProductForm = () => {
       window.removeEventListener('drop', preventDefault);
       window.removeEventListener('dragover', preventDefault);
     };
+  }, []);
+
+  useEffect(() => {
+    if (category === 'for-free' || forFree) {
+      setValue('price', '0');
+      setValue('free', true);
+      trigger('price');
+      setForFree(true);
+    }
   }, [category, forFree]);
+
+  const saveDataToLocalStorage = () => {
+    const values = getValues();
+    localStorage.setItem('advertData', JSON.stringify(values));
+  };
 
   const handleChangePhone = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -125,7 +149,10 @@ export const ProductForm = () => {
       <Typography mb={3} variant="h4">
         Створити оголошення
       </Typography>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledForm
+        onSubmit={handleSubmit(onSubmit)}
+        onChange={saveDataToLocalStorage}
+      >
         <StyledFormControl fullWidth>
           <StyledFormLabel>Фотографії</StyledFormLabel>
           <ImageInput
@@ -157,6 +184,7 @@ export const ProductForm = () => {
             setCategory={setCategory}
             setForFree={setForFree}
             setValue={setValue}
+            getValue={getValues}
             categories={categories}
           />
         </StyledFormControl>
@@ -182,7 +210,6 @@ export const ProductForm = () => {
                 <Controller
                   control={control}
                   name="free"
-                  defaultValue={false}
                   render={({ field: { onChange, value } }) => (
                     <FormControlLabel
                       label="Безкоштовно"
@@ -208,7 +235,6 @@ export const ProductForm = () => {
                   <Controller
                     control={control}
                     name="goodtype"
-                    defaultValue=""
                     render={({ field }) => (
                       <RadioGroup
                         {...field}
@@ -250,7 +276,6 @@ export const ProductForm = () => {
           <Controller
             control={control}
             name="contactName"
-            defaultValue={''}
             render={({ field }) => (
               <Stack width="47.5rem">
                 <StyledFormLabel required>Імʼя</StyledFormLabel>
@@ -277,7 +302,6 @@ export const ProductForm = () => {
           <Controller
             control={control}
             name="contactNumber"
-            defaultValue={phone}
             render={({ field: { onBlur, onChange } }) => (
               <Stack width="47.5rem">
                 <StyledFormLabel required>Номер телефону</StyledFormLabel>
@@ -307,15 +331,19 @@ export const ProductForm = () => {
         </StyledFormControl>
         <StyledFormControl fullWidth>
           <StyledFormLabel>Місцезнаходження</StyledFormLabel>
-          <LocationInput control={control} errors={errors} loading={loading} />
+          <LocationInput
+            getValue={getValues}
+            control={control}
+            errors={errors}
+            loading={loading}
+          />
         </StyledFormControl>
         <StyledFormControl fullWidth>
           <StyledFormLabel></StyledFormLabel>
           <Controller
             control={control}
             name="agree"
-            defaultValue={false}
-            render={({ field }) => (
+            render={({ field: { value, onChange } }) => (
               <Stack width="47.5rem">
                 <FormControlLabel
                   sx={{ width: 'fit-content', alignItems: 'center' }}
@@ -330,7 +358,14 @@ export const ProductForm = () => {
                       </StyledLink>
                     </Typography>
                   }
-                  control={<Checkbox disabled={loading} {...field} />}
+                  control={
+                    <Checkbox
+                      disabled={loading}
+                      value={value}
+                      checked={value}
+                      onChange={onChange}
+                    />
+                  }
                 />
                 {errors.agree && (
                   <Typography
