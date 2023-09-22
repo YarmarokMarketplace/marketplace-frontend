@@ -23,10 +23,7 @@ import {
 import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
-<<<<<<< HEAD
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
-=======
->>>>>>> d6474d8 (feat: added viewed products block)
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
