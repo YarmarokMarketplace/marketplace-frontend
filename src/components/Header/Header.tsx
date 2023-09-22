@@ -69,7 +69,7 @@ const Header = () => {
   };
 
   const handleClickProfile = () => {
-    navigate('/profile');
+    navigate('/profile/settings');
   };
 
   const handlePathMatch = () => {

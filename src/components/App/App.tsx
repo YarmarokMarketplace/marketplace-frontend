@@ -54,9 +54,9 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/profile/*" index element={<ProfilePage />} />
             <Route path="/:categoryName" element={<CategoryPage />} />
             <Route path="/security-rules" element={<SecurityRules />} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/general-requirements" element={<RulesOfUse />} />
             <Route path="/info-presentation" element={<InfoPresentation />} />
             <Route path="/info-content" element={<InfoContent />} />

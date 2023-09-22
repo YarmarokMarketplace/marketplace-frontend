@@ -2,7 +2,9 @@ import { Box, Typography, FormLabel, Tab, Button, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 // import Avatar from '../../../../img/profile-avatar-upload.png'
 
-export const SettingsContainer = styled(Box)(({ theme }) => ({}));
+export const SettingsContainer = styled(Box)(({ theme }) => ({
+  width: theme.spacing(123),
+}));
 
 export const BoxShadowContainer = styled(Box)(({ theme }) => ({
   borderRadius: 20,
