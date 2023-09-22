@@ -84,7 +84,7 @@ const ProfilePage = () => {
       <Routes>
         <Route path="settings" element={<SettingsTab />} />
         <Route path="viewed" element={<ViewedProducts />} />
-        <Route path="own-ads" element={<Typography>hello</Typography>} />
+        <Route path="own-ads" element={<OwnAdsTab />} />
       </Routes>
     </Stack>
   );

@@ -12,6 +12,7 @@ import {
   ProhibitedServices,
   Activities,
 } from './';
+import { Typography } from '@mui/material';
 
 const Articles = () => {
   return (
@@ -25,8 +26,14 @@ const Articles = () => {
           path="prohibited-services"
           element={<ProhibitedServices />}
         ></Route>
-        {/* <Route path="how-to-buy" element={< />}></Route>
-        <Route path="how-to-sell" element={< />}></Route> */}
+        <Route
+          path="how-to-buy"
+          element={<Typography>how to buy</Typography>}
+        ></Route>
+        <Route
+          path="how-to-sell"
+          element={<Typography>how to sell</Typography>}
+        ></Route>
         <Route path="activities" element={<Activities />}></Route>
         <Route path="security-rules" element={<SecurityRules />}></Route>
         <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
