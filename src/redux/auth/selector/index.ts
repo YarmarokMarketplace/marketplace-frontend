@@ -22,10 +22,15 @@ export const getUserStateSelector = createSelector(
 
 export const forgotPasswordStateSelector = createSelector(
   userAuthStateSelector,
-  (userAuth) => userAuth.resetPassword
+  (userAuth) => userAuth.forgotPassword
 );
 
 export const statusMessagesSelector = createSelector(
   userAuthStateSelector,
   (userAuth) => userAuth.statusMessages
+);
+
+export const resetPasswordSelector = createSelector(
+  userAuthStateSelector,
+  (userAuth) => userAuth.resetPassword
 );

@@ -7,6 +7,7 @@ import {
   ForgotPasswordBody,
   LogoutResponse,
   UpdateUserResponse,
+  ResetPasswordBody,
 } from '../types';
 import { loginClient, setToken } from './client';
 import { client } from './client';
@@ -79,4 +80,12 @@ export const deleteAccount = async (id: string) => {
   const response = await loginClient.delete(`user/${id}`);
   setToken();
   return response;
+};
+
+export const resetPassword = async (
+  data: ResetPasswordBody,
+  id: string,
+  resetToken: string
+) => {
+  return await client.post(`/auth/reset-password/${id}/${resetToken}`, data);
 };

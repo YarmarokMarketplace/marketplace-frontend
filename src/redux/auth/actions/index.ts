@@ -7,7 +7,7 @@ export const emailErrorToggle = (
 ) => {
   state.register.emailError = action.payload;
   state.login.emailError = action.payload;
-  state.resetPassword.emailError = action.payload;
+  state.forgotPassword.emailError = action.payload;
 };
 
 export const isAuthReset = (state: UserAuthState) => {
@@ -47,7 +47,7 @@ export const notVerifiedErrorToggle = (
 };
 
 export const isEmailSendReset = (state: UserAuthState) => {
-  state.resetPassword.isEmailSend = false;
+  state.forgotPassword.isEmailSend = false;
 };
 
 interface UserUpdatePayload {
@@ -80,4 +80,15 @@ export const errorMessageToggle = (
   action: PayloadAction<boolean>
 ) => {
   state.statusMessages.errorMessage = action.payload;
+};
+
+export const isResetPassReset = (state: UserAuthState) => {
+  state.resetPassword.isReset = false;
+};
+
+export const isTokenExpiredToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.resetPassword.isTokenExpired = action.payload;
 };

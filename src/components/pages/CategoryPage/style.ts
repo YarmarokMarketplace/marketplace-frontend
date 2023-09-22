@@ -86,6 +86,9 @@ export const StyledChip = styled(Chip)(({ theme }) => ({
 // ProductItem
 export const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: '12px',
+  '&.MuiCard-root': {
+    boxShadow: 'none',
+  },
 }));
 
 export const StyledCardWrapper = styled(Box)(({ theme }) => ({
@@ -123,9 +126,6 @@ export const TitleTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   marginBottom: theme.spacing(2),
   height: '2.5rem',
-  //   whiteSpace: 'nowrap',
-  //   overflow: 'hidden',
-  //   textOverflow: 'ellipsis',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: '2',
