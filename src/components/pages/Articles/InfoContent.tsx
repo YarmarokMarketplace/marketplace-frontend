@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const InfoContent = () => {
   return (
@@ -54,7 +53,6 @@ const InfoContent = () => {
           3.21. будь-яку іншу інформацію, яка порушує законодавство України і ці Правила.
         `}</Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

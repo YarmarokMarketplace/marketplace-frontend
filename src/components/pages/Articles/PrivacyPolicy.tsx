@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Link, Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const PrivacyPolicy = () => {
   return (
@@ -47,7 +46,6 @@ const PrivacyPolicy = () => {
 `}
         </Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

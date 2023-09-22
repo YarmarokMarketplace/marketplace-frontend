@@ -6,6 +6,7 @@ import ProhibitedGoods from './ProhibitedGoods';
 import ProhibitedServices from './ProhibitedServices';
 import Activities from './Activities';
 import PrivacyPolicy from './PrivacyPolicy';
+import Articles from './Articles';
 
 export {
   SecurityRules,
@@ -17,3 +18,4 @@ export {
   Activities,
   PrivacyPolicy,
 };
+export default Articles;

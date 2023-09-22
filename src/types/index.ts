@@ -18,6 +18,10 @@ export interface ProductItem {
   location: string;
   price: number;
   comments?: string;
+  owner: {
+    _id: string;
+    email: string;
+  };
   createdAt: string;
   updatedAt: string;
   active?: boolean;
@@ -159,6 +163,13 @@ export interface UpdateUserInput {
   patronymic?: string;
   avatarURL?: string | File;
   phone?: string;
+}
+export interface UserProductsResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  notices: ProductItem[];
 }
 
 export enum SuccessMessageContent {

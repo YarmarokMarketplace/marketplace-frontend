@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Stack, Typography } from '@mui/material';
-import { Content } from './Content';
 
 const Activities = () => {
   return (
@@ -28,7 +27,6 @@ const Activities = () => {
           6.15. охоронна діяльність;
           6.16. діяльність у сфері страхування.`}</Typography>
       </Stack>
-      <Content />
     </StyledContainer>
   );
 };

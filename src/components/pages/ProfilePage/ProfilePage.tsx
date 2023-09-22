@@ -19,6 +19,7 @@ import SettingsTab from './SettingsTab/SettingsTab';
 import { ModalContent } from '../../../types';
 import ChatButton from 'src/components/ChatButton';
 import ViewedProducts from './ViewedProducts/ViewedProducts';
+import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -83,6 +84,7 @@ const ProfilePage = () => {
       <Routes>
         <Route path="settings" element={<SettingsTab />} />
         <Route path="viewed" element={<ViewedProducts />} />
+        <Route path="own-ads" element={<OwnAdsTab />} />
       </Routes>
     </Stack>
   );
