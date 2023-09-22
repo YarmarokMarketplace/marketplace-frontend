@@ -27,6 +27,7 @@ import ViewedProducts from './ViewedProducts/ViewedProducts';
 import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
 import SellProducts from './SellProducts/SellProducts';
 import BuyProducts from './BuyProducts/BuyProducts';
+import FavProducts from './FavProducts/FavProducts';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -100,6 +101,7 @@ const ProfilePage = () => {
         <Route path="own-ads" element={<OwnAdsTab />} />
         <Route path="sell" element={<SellProducts />} />
         <Route path="buy" element={<BuyProducts />} />
+        <Route path="favourites" element={<FavProducts />} />
       </Routes>
     </Stack>
   );

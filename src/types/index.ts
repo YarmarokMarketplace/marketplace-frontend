@@ -1,5 +1,3 @@
-import ResetPassword from 'src/components/pages/ResetPassword';
-
 export interface CategoryItem {
   _id: string;
   name: string;
@@ -82,6 +80,7 @@ export interface LoginResponse {
     patronymic: string;
     avatarURL: string;
     phone: string;
+    favorite: string[];
   };
 }
 
@@ -98,6 +97,7 @@ export interface CurrentResponse {
   patronymic: string;
   avatarURL: string;
   phone: string;
+  favorite: string[];
 }
 
 export interface ForgotPasswordBody {
@@ -145,6 +145,7 @@ export interface UpdateUserResponse {
     patronymic: string;
     avatarURL: string;
     phone: string;
+    favorite: string[];
   };
 }
 
@@ -186,4 +187,21 @@ export enum ErrorMessageContent {
 
 export interface ResetPasswordBody {
   password: string;
+}
+export interface UserProductsResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  notices: ProductItem[];
+}
+
+export interface UserFavProductsResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  result: {
+    favorite: ProductItem[];
+  };
 }

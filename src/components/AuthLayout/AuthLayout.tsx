@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../store';
 
-import { currentFetch } from "redux/auth/thunk";
+import { currentFetch } from 'redux/auth/thunk';
+import { userAuthStateSelector } from 'redux/auth/selector';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -10,16 +11,13 @@ interface AuthLayoutProps {
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   const dispatch: AppDispatch = useDispatch();
+  const { isLogin } = useSelector(userAuthStateSelector);
 
   useEffect(() => {
     dispatch(currentFetch());
-  }, [])
+  }, [isLogin]);
 
-  return (
-    <>
-      {children}
-    </>
-  )
-}
+  return <>{children}</>;
+};
 
 export default AuthLayout;

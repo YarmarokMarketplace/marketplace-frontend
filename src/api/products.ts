@@ -1,4 +1,8 @@
-import { ProductItem, UserProductsResponse } from '../types';
+import {
+  ProductItem,
+  UserFavProductsResponse,
+  UserProductsResponse,
+} from '../types';
 import { client, loginClient } from './client';
 
 type ProductsResponse = {
@@ -62,6 +66,48 @@ export const getUserOwnProducts = async (page: number, limit: number) => {
   try {
     return await loginClient.get<never, UserProductsResponse>(
       `/notices/user/notices?page=${page}&limit=${limit}`
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+type AddFavProductResponse = {
+  user: {
+    _id: string;
+    name: string;
+    lastname: string;
+    phone: string;
+    email: string;
+    favorite: string[];
+  };
+};
+
+export const addFavoriteProduct = async (id: string) => {
+  try {
+    return await loginClient.post<never, AddFavProductResponse>(
+      `/notices/favorites/${id}`
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const removeFavoriteProduct = async (id: string) => {
+  try {
+    return await loginClient.delete<
+      never,
+      { message: string; favorite: string[] }
+    >(`/notices/favorites/${id}`);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getUserFavoriteProducts = async (page: number, limit: number) => {
+  try {
+    return await loginClient.get<never, UserFavProductsResponse>(
+      `/notices/user/favorites?page=${page}&limit=${limit}`
     );
   } catch (error) {
     return Promise.reject(error);
