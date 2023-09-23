@@ -24,7 +24,7 @@ jobs:
       - name: Build and Deploy
         run: |
           npm run build
-          npx netlify-cli deploy --prod
+          npx netlify-cli deploy --prod --message "${{ github.event.head_commit.message }}"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
