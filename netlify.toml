@@ -3,4 +3,4 @@
   publish = "dist"
 
 [production]
-  command = "npx netlify-cli deploy --prod"
+  command = "npx netlify-cli deploy --prod --message '$BRANCH@$COMMIT_REF'"
