@@ -41,28 +41,6 @@ const BuyProducts = () => {
       </StyledTitleContainer>
       <Stack gap={3}>
         <SellProductItem product={product} sell>
-          <Stack
-            width="100%"
-            direction="row"
-            gap={2}
-            height="fit-content"
-            justifyContent="end"
-          >
-            <Button sx={{ paddingX: 2 }} variant="contained">
-              Я отримав
-            </Button>
-            <StyledContrastButton variant="outlined">
-              Я не отримав
-            </StyledContrastButton>
-
-            <Box>
-              <Tooltip title={infoText} placement="top">
-                <InfoOutlinedIcon fontSize="small" />
-              </Tooltip>
-            </Box>
-          </Stack>
-        </SellProductItem>
-        <SellProductItem product={product} sell>
           <Stack width="30%" textAlign="end">
             <Typography fontWeight={500} color="error.main" variant="h6">
               Скасовано
@@ -77,10 +55,13 @@ const BuyProducts = () => {
           </Stack>
         </SellProductItem>
         <SellProductItem product={product} sell>
-          <Stack width="50%" textAlign="end">
+          <Stack width="30%" textAlign="end" gap={3}>
             <Typography fontWeight={500} color="info.main" variant="h6">
               Очікується доставка
             </Typography>
+            <Button sx={{ paddingX: 2 }} variant="contained">
+              Я отримав
+            </Button>
           </Stack>
         </SellProductItem>
       </Stack>
