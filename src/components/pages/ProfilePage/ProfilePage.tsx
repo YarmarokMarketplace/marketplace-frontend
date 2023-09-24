@@ -26,6 +26,7 @@ import ChatButton from 'src/components/ChatButton';
 import ViewedProducts from './ViewedProducts/ViewedProducts';
 import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
 import SellProducts from './SellProducts/SellProducts';
+import BuyProducts from './BuyProducts/BuyProducts';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -68,9 +69,12 @@ const ProfilePage = () => {
             </StyledLink>
             <StyledNotification color="primary" variant="dot" />
           </Stack>
-          <StyledLink id="profile-buy" to="buy">
-            Купую
-          </StyledLink>
+          <Stack direction="row" gap={1} alignItems="center">
+            <StyledLink id="profile-buy" to="buy">
+              Купую
+            </StyledLink>
+            <StyledNotification color="primary" variant="dot" />
+          </Stack>
           <StyledLink id="profile-selected" to="favourites">
             Обране
           </StyledLink>
@@ -95,6 +99,7 @@ const ProfilePage = () => {
         <Route path="viewed" element={<ViewedProducts />} />
         <Route path="own-ads" element={<OwnAdsTab />} />
         <Route path="sell" element={<SellProducts />} />
+        <Route path="buy" element={<BuyProducts />} />
       </Routes>
     </Stack>
   );
