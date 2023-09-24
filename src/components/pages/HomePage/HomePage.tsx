@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import ChatButton from '../../ChatButton';
 import CategoryItem from './CategoryItem';
@@ -19,6 +19,7 @@ import {
   isSocialLoginSetAction,
   socialLoginUserSetAction,
 } from '../../../redux/auth/reducer';
+import { currentFetch } from 'redux/auth/thunk';
 
 const HomePage = () => {
   const { categories, loading, error } = useSelector(categoriesStateSelector);
@@ -32,15 +33,15 @@ const HomePage = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     if (queryParams.size > 0) {
-      const name = queryParams.get('name');
-      const email = queryParams.get('email');
+      // const name = queryParams.get('name');
+      // const email = queryParams.get('email');
       const accessToken = queryParams.get('accessToken');
       const refreshToken = queryParams.get('refreshToken');
-      if (name && email && refreshToken && accessToken) {
+      if (refreshToken && accessToken) {
         setToken(accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-        dispatch(isSocialLoginSetAction(true));
-        dispatch(socialLoginUserSetAction({ name, email }));
+        dispatch(isSocialLoginSetAction({ isLogin: true, accessToken }));
+        dispatch(currentFetch());
       }
       const newURL = `${window.location.origin}${window.location.pathname}`;
       window.history.replaceState({}, document.title, newURL);

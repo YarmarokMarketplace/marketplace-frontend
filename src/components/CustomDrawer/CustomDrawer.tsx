@@ -1,16 +1,17 @@
-import React from "react";
-import { IconButton } from "@mui/material";
-import { StyledCustomDrawer } from "./style";
+import React from 'react';
+import { IconButton } from '@mui/material';
+import { StyledCustomDrawer } from './style';
 
-import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
-import { drawerSelector } from "./selector";
-import { AppDispatch } from "../../store";
-import { openDrawerAction } from "./reducer";
-import { DrawerContent } from "../../types";
-import Register from "../DrawerContent";
-import Login from "../DrawerContent/Login";
-import ForgotPassword from "../DrawerContent/ForgotPassword";
+import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch, useSelector } from 'react-redux';
+import { drawerSelector } from './selector';
+import { AppDispatch } from '../../store';
+import { openDrawerAction } from './reducer';
+import { DrawerContent } from '../../types';
+import Register from '../DrawerContent';
+import Login from '../DrawerContent/Login';
+import ForgotPassword from '../DrawerContent/ForgotPassword';
+import GoogleAuthMessage from '../DrawerContent/GoogleAuthMessage';
 
 const CustomDrawer = () => {
   const { open, content } = useSelector(drawerSelector);
@@ -28,7 +29,7 @@ const CustomDrawer = () => {
       >
         <>
           <IconButton
-            sx={{ position: "absolute", top: "1.5rem", right: "1.5rem" }}
+            sx={{ position: 'absolute', top: '1.5rem', right: '1.5rem' }}
             color="inherit"
             onClick={handleToggleDrawer}
           >
@@ -38,6 +39,7 @@ const CustomDrawer = () => {
           {/* {content == DrawerContent.chat && } */}
           {content == DrawerContent.register && <Register />}
           {content == DrawerContent.resetPassword && <ForgotPassword />}
+          {content == DrawerContent.googleAuthMessage && <GoogleAuthMessage />}
         </>
       </StyledCustomDrawer>
     </>

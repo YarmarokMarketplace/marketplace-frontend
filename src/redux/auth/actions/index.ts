@@ -98,7 +98,8 @@ export const socialLoginUserSet = (
 
 export const isSocialLoginSet = (
   state: UserAuthState,
-  action: PayloadAction<boolean>
+  action: PayloadAction<{ isLogin: boolean; accessToken: string }>
 ) => {
-  state.isLogin = action.payload;
+  state.isLogin = action.payload.isLogin;
+  state.accessToken = action.payload.accessToken;
 };
