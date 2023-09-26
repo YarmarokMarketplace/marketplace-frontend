@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addProduct } from '../../../../api/products';
+import { addProduct, editProduct } from '../../../../api/products';
 
 const ADD_ADVERT_THUNK_TYPE = 'ADD_ADVERT_THUNK_TYPE';
 
@@ -8,6 +8,24 @@ export const addAdvertFetch = createAsyncThunk(
   async (data: FormData, { rejectWithValue, dispatch }) => {
     try {
       const res = await addProduct(data);
+      return res.result;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+const EDIT_ADVERT_THUNK_TYPE = 'EDIT_ADVERT_THUNK_TYPE';
+
+export const editAdvertFetch = createAsyncThunk(
+  EDIT_ADVERT_THUNK_TYPE,
+  async (
+    values: { data: FormData; id: string },
+    { rejectWithValue, dispatch }
+  ) => {
+    try {
+      const res = await editProduct(values.data, values.id);
       return res.result;
     } catch (error) {
       console.log(error);

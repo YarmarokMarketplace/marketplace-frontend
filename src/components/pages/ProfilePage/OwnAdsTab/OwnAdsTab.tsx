@@ -14,16 +14,18 @@ import {
   userProductsListFetch,
   activateOrDeactivateProductFetch,
   deleteProductFetch,
-} from '../../../../redux/profile/thunk';
+} from 'redux/profile/thunk';
 import { ModalContent } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
-import { currentPageSetAction } from '../../../../redux/profile/reducer';
+import { currentPageSetAction } from 'redux/profile/reducer';
+
 import {
   openModalAction,
   setModalContentAction,
 } from 'src/components/CustomModal/reducer';
-import { setProductIdAction } from '../../../../redux/profile/reducer';
+import { setProductIdAction } from 'redux/profile/reducer';
+import { useNavigate } from 'react-router-dom';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -63,6 +65,7 @@ const OwnAdsTab = () => {
       limit,
     },
   } = useSelector(ownAdsStateSelector);
+  const navigate = useNavigate();
 
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {

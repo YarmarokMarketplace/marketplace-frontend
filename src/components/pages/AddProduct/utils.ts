@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { categoryWithoutGoodtype } from '../../../constants';
 import { Control, FieldErrors } from 'react-hook-form';
-import { FormDataAddAdvert } from '../../../types';
+import { FormDataAddAdvert, ProductItem } from '../../../types';
 
 export const formatPhoneNumber = (value: string) => {
   const phoneNumber = value.replace(/[^0-9+]/g, '');
@@ -110,4 +110,26 @@ export const advertInitialData = {
   goodtype: '',
   free: false,
   agree: false,
+};
+
+export const createFile = async (product: ProductItem) => {
+  try {
+    const filePromises = product.photos.map(async (photo, i) => {
+      const response = await fetch(photo);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${photo}`);
+      }
+      const data = await response.blob();
+      const metadata = {
+        type: 'image/jpeg',
+      };
+      return new File([data], `${product.title}${i}.jpg`, metadata);
+    });
+
+    const files = await Promise.all(filePromises);
+
+    return files;
+  } catch (error) {
+    console.error('Error creating files:', error);
+  }
 };

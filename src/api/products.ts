@@ -64,6 +64,18 @@ export const addProduct = async (data: FormData) => {
   }
 };
 
+export const editProduct = async (data: FormData, id: string) => {
+  try {
+    return await loginClient.patch<never, AddProductResponse>(
+      `/notices/${id}`,
+      (data = data),
+      { headers: { 'Content-Type': 'multipart/ form-data' } }
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const getUserOwnProducts = async (page: number, limit: number) => {
   try {
     return await loginClient.get<never, UserProductsResponse>(

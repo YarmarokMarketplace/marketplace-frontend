@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -26,11 +26,12 @@ import { categoriesStateSelector } from '../HomePage/selector';
 import {
   addAdvertSchema,
   advertInitialData,
+  createFile,
   dataURLtoBlob,
   formatPhoneNumber,
 } from './utils';
-import { AddAdvertInput } from '../../../types';
-import { addAdvertFetch } from './thunk';
+import { AddAdvertInput, FormDataAddAdvert, ProductItem } from '../../../types';
+import { addAdvertFetch, editAdvertFetch } from './thunk';
 import { addAdvertStateSelector } from './selector';
 import { ImageInput } from './ImageInput';
 import { TitleInput } from './TitleInput';
@@ -39,7 +40,12 @@ import { CategoryInput } from './CategoryInput';
 import { PriceInput } from './PriceInput';
 import { LocationInput } from './LocationInput';
 
-export const ProductForm = () => {
+type ProductFormProps = {
+  edit?: boolean;
+  product?: ProductItem;
+};
+
+export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
   const { loading, error, images, data } = useSelector(addAdvertStateSelector);
   const inputValues = JSON.parse(localStorage.getItem('advertData')!);
 
@@ -63,13 +69,26 @@ export const ProductForm = () => {
   } = useForm({
     resolver: yupResolver(addAdvertSchema),
     mode: 'all',
-    defaultValues:
-      JSON.parse(localStorage.getItem('advertData')!) || advertInitialData,
+    defaultValues: edit
+      ? {
+          photos: '',
+          title: product?.title,
+          description: product?.description,
+          category: product?.category,
+          location: product?.location,
+          price: String(product?.price),
+          contactName: product?.contactName,
+          contactNumber: product?.contactNumber,
+          goodtype: product?.goodtype,
+          free: false,
+          agree: false,
+        }
+      : JSON.parse(localStorage.getItem('advertData')!) || advertInitialData,
   });
 
   useEffect(() => {
     dispatch(categoryListFetch());
-    if (images.length > 0) {
+    if (images.length > 0 && !edit) {
       const restoredPhotos = images.map((photoData: any) => {
         const blob = dataURLtoBlob(photoData.data); // Convert the base64-encoded data to a Blob.
         return new File([blob], photoData.name, { type: photoData.type }); // Create a File object from the Blob with the original name and type.
@@ -87,6 +106,22 @@ export const ProductForm = () => {
     };
   }, []);
 
+  const createFileMemo = useMemo(() => createFile, []);
+
+  useEffect(() => {
+    if (product && edit) {
+      setCategory(product.category);
+      setPhone(product.contactNumber);
+      if (product.photos.length > 0) {
+        createFileMemo(product).then((data) => {
+          if (data) {
+            setSelectedImage(data.reverse());
+          }
+        });
+      }
+    }
+  }, [product]);
+
   useEffect(() => {
     if (category === 'for-free' || forFree) {
       setValue('price', '0');
@@ -98,7 +133,7 @@ export const ProductForm = () => {
 
   const saveDataToLocalStorage = () => {
     const values = getValues();
-    localStorage.setItem('advertData', JSON.stringify(values));
+    !edit && localStorage.setItem('advertData', JSON.stringify(values));
   };
 
   const handleChangePhone = (
@@ -141,13 +176,18 @@ export const ProductForm = () => {
     goodtype && form.append('goodtype', goodtype);
     selectedImage.length &&
       [...selectedImage].reverse().forEach((img) => form.append('photos', img));
-    dispatch(addAdvertFetch(form));
+    if (edit) {
+      dispatch(editAdvertFetch({ data: form, id: product?._id! }));
+      console.log(selectedImage);
+    } else {
+      dispatch(addAdvertFetch(form));
+    }
   };
 
   return (
     <Stack alignItems="start" spacing={3} mb={8}>
       <Typography mb={3} variant="h4">
-        Створити оголошення
+        {edit ? 'Змінити оголошення' : 'Створити оголошення'}
       </Typography>
       <StyledForm
         onSubmit={handleSubmit(onSubmit)}
@@ -162,6 +202,7 @@ export const ProductForm = () => {
             setValue={setValue}
             loading={loading}
             errors={errors}
+            edit={edit}
           />
         </StyledFormControl>
         <StyledFormControl fullWidth>
@@ -387,10 +428,10 @@ export const ProductForm = () => {
               disabled={loading}
               type="submit"
               variant="contained"
-              sx={{ width: '10.5rem' }}
+              sx={{ width: '11.5rem' }}
               id="submit-btn"
             >
-              Опублікувати
+              {edit ? 'Зберегти зміни' : 'Опублікувати'}
             </Button>
             {error && (
               <Typography id="response-error" color="error" variant="h6">
