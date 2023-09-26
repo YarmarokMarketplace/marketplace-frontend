@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../../store";
-import { productFilterLocationAction } from "../reducer";
-import { productsStateSelector } from "../selector";
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../../../store';
+import { productFilterLocationAction } from '../../../../redux/products/reducer';
+import { productsStateSelector } from '../../../../redux/products/selector';
 
 import {
-    List, Autocomplete, Box, TextField, FormLabel,
-    ListItemButton,
-
-} from "@mui/material";
+  List,
+  Autocomplete,
+  Box,
+  TextField,
+  FormLabel,
+  ListItemButton,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -18,126 +21,140 @@ import { locations } from '../../../../constants'; // Translate
 
 import locationIcon from '../../../../img/locations/location.svg';
 
-import {
-    FilterText, LocationCollapse
-} from "../style";
+import { FilterText, LocationCollapse } from '../style';
 
 interface CategoryFilterProps {
-    value: { label: string; value: string; img?: string | undefined } | null;
-    setValue: (value: { label: string; value: string; img?: string | undefined } | null) => void;
+  value: { label: string; value: string; img?: string | undefined } | null;
+  setValue: (
+    value: { label: string; value: string; img?: string | undefined } | null
+  ) => void;
 }
 
 const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
-    const dispatch: AppDispatch = useDispatch();
-    const { filterBy } = useSelector(productsStateSelector);
-    const theme = useTheme();
+  const dispatch: AppDispatch = useDispatch();
+  const { filterBy } = useSelector(productsStateSelector);
+  const theme = useTheme();
 
-    const [locationOpen, setLocationOpen] = useState(true);
-    const [inputValue, setInputValue] = React.useState('');
-    const filteredLocations = inputValue ? locations : locations.slice(0, 10);
+  const [locationOpen, setLocationOpen] = useState(true);
+  const [inputValue, setInputValue] = React.useState('');
+  const filteredLocations = inputValue ? locations : locations.slice(0, 10);
 
-    useEffect(() => {
-        const storedFilterByLocation = localStorage.getItem('location');
-        if (storedFilterByLocation) {
-            const savedFilterLocation = /=(.+)/.exec(storedFilterByLocation);
-            if (savedFilterLocation) {
-                const locationAfterReload = locations.filter(obj => obj.value === savedFilterLocation[1])[0];
-                setValue(locationAfterReload);
-            }
-            dispatch(productFilterLocationAction(storedFilterByLocation));
-        } else {
-            const locationAfterReload = locations.filter(obj => obj.value === 'Ukraine')[0];
-            setValue(locationAfterReload);
-        }
-    }, [])
-
-    const locationHandleClick = () => {
-        setLocationOpen(!locationOpen);
+  useEffect(() => {
+    const storedFilterByLocation = localStorage.getItem('location');
+    if (storedFilterByLocation) {
+      const savedFilterLocation = /=(.+)/.exec(storedFilterByLocation);
+      if (savedFilterLocation) {
+        const locationAfterReload = locations.filter(
+          (obj) => obj.value === savedFilterLocation[1]
+        )[0];
+        setValue(locationAfterReload);
+      }
+      dispatch(productFilterLocationAction(storedFilterByLocation));
+    } else {
+      const locationAfterReload = locations.filter(
+        (obj) => obj.value === 'Ukraine'
+      )[0];
+      setValue(locationAfterReload);
     }
+  }, []);
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: { label: string; value: string; img?: string | undefined } | null) => {
-        setValue(newValue);
-        if (newValue) {
-            let newFilterByLocation = '';
-            newFilterByLocation = newValue.value === 'Ukraine' ? '' : `&location=${newValue.value}`;
+  const locationHandleClick = () => {
+    setLocationOpen(!locationOpen);
+  };
 
-            const newFilterBy = { ...filterBy, location: newFilterByLocation };
-            dispatch(productFilterLocationAction(newFilterBy.location))
-            localStorage.setItem("location", newFilterBy.location);
-        } else {
-            dispatch(productFilterLocationAction(''))
-            localStorage.removeItem("location");
-        }
+  const handleChange = (
+    event: React.ChangeEvent<{}>,
+    newValue: { label: string; value: string; img?: string | undefined } | null
+  ) => {
+    setValue(newValue);
+    if (newValue) {
+      let newFilterByLocation = '';
+      newFilterByLocation =
+        newValue.value === 'Ukraine' ? '' : `&location=${newValue.value}`;
+
+      const newFilterBy = { ...filterBy, location: newFilterByLocation };
+      dispatch(productFilterLocationAction(newFilterBy.location));
+      localStorage.setItem('location', newFilterBy.location);
+    } else {
+      dispatch(productFilterLocationAction(''));
+      localStorage.removeItem('location');
     }
+  };
 
-    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    return (
-        <List disablePadding>
-            {isMdScreen ?
-                <FilterText primary="Локація" />
-                :
-                <FormLabel>
-                    <ListItemButton onClick={locationHandleClick}>
-                        <FilterText primary="Локація" />
-                        {locationOpen ? <ExpandLess /> : <ExpandMore />}
-                    </ListItemButton>
-                </FormLabel>
-            }
-            <LocationCollapse in={locationOpen} timeout="auto" unmountOnExit>
-                <Autocomplete
-                    value={value}
-                    onChange={handleChange}
-                    inputValue={inputValue}
-                    onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue);
-                    }}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={filteredLocations}
-                    getOptionDisabled={(option) =>
-                        option === locations[1] ||
-                        option === locations[10] ||
-                        option === locations[45] ||
-                        option === locations[46] ||
-                        option === locations[47] ||
-                        option === locations[48] ||
-                        option === locations[49] ||
-                        option === locations[50] ||
-                        option === locations[51] ||
-                        option === locations[52]
-                    }
-                    sx={{
-                        maxWidth: 300,
-                        [theme.breakpoints.down('md')]: {
-                            maxWidth: '100%'
-                        }
-                    }}
-
-                    renderOption={(props, option: { value: string, img?: string, label: string }) => (
-                        <Box component="li"
-                            sx={{
-                                color: '#1B2124',
-                                backgroundColor: 'white',
-                                pt: '.5rem',
-                                pb: '.5rem',
-                                '& > img': { mr: 2, flexShrink: 0 }
-                            }} {...props}>
-                            <img
-                                loading="lazy"
-                                width="30"
-                                src={option.img || locationIcon}
-                                alt=""
-                            />
-                            {option.label}
-                        </Box>
-                    )}
-
-                    renderInput={(params) => <TextField {...params} placeholder="Вся Україна" />}
-                />
-            </LocationCollapse>
-        </List >
-    )
-}
+  return (
+    <List disablePadding>
+      {isMdScreen ? (
+        <FilterText primary="Локація" />
+      ) : (
+        <FormLabel>
+          <ListItemButton onClick={locationHandleClick}>
+            <FilterText primary="Локація" />
+            {locationOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        </FormLabel>
+      )}
+      <LocationCollapse in={locationOpen} timeout="auto" unmountOnExit>
+        <Autocomplete
+          value={value}
+          onChange={handleChange}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          disablePortal
+          id="combo-box-demo"
+          options={filteredLocations}
+          getOptionDisabled={(option) =>
+            option === locations[1] ||
+            option === locations[10] ||
+            option === locations[45] ||
+            option === locations[46] ||
+            option === locations[47] ||
+            option === locations[48] ||
+            option === locations[49] ||
+            option === locations[50] ||
+            option === locations[51] ||
+            option === locations[52]
+          }
+          sx={{
+            maxWidth: 300,
+            [theme.breakpoints.down('md')]: {
+              maxWidth: '100%',
+            },
+          }}
+          renderOption={(
+            props,
+            option: { value: string; img?: string; label: string }
+          ) => (
+            <Box
+              component="li"
+              sx={{
+                color: '#1B2124',
+                backgroundColor: 'white',
+                pt: '.5rem',
+                pb: '.5rem',
+                '& > img': { mr: 2, flexShrink: 0 },
+              }}
+              {...props}
+            >
+              <img
+                loading="lazy"
+                width="30"
+                src={option.img || locationIcon}
+                alt=""
+              />
+              {option.label}
+            </Box>
+          )}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="Вся Україна" />
+          )}
+        />
+      </LocationCollapse>
+    </List>
+  );
+};
 
 export default LocationFilter;

@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Typography, Stack, Link } from "@mui/material";
+import { Typography, Stack, Link, useTheme } from '@mui/material';
 
-import SearchBar from "../../SearchBar";
-import CategoryFilters from "./CategoryFilters";
+import SearchBar from '../../SearchBar';
+import CategoryFilters from './CategoryFilters';
 
-import { CategoryPageContainer } from "./style";
-import BasicBreadcrumbs from "../../Breadcrumbs";
-import CategorySort from "./CategorySort";
-import CategoryHeader from "./CategoryHeader";
-import CategoryPagination from "./CategoryPagination";
-import CategoryProducts from "./CategoryProducts";
-import ChatButton from "../../ChatButton";
-import { useDispatch, useSelector } from "react-redux";
-import { productsResultStateSelector } from "./selector";
-import { AppDispatch } from "../../../store";
-import { productSortAction } from "./reducer";
-import { useTheme } from '@mui/material/styles';
+import { CategoryPageContainer } from './style';
+import BasicBreadcrumbs from '../../Breadcrumbs';
+import CategorySort from './CategorySort';
+import CategoryHeader from './CategoryHeader';
+import CategoryPagination from './CategoryPagination';
+import CategoryProducts from './CategoryProducts';
+import ChatButton from '../../ChatButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { productsResultStateSelector } from '../../../redux/products/selector';
+import { AppDispatch } from '../../../store';
+import { productSortAction } from '../../../redux/products/reducer';
 
 const CategoryPage = () => {
   const { result } = useSelector(productsResultStateSelector);
@@ -25,7 +24,7 @@ const CategoryPage = () => {
   const theme = useTheme();
   useEffect(() => {
     return () => {
-      dispatch(productSortAction("newest"));
+      dispatch(productSortAction('newest'));
     };
   }, []);
 
@@ -42,18 +41,25 @@ const CategoryPage = () => {
         spacing={2}
       >
         <CategoryHeader />
-        <CategorySort openFilterModal={openFilterModal} setOpenFilterModal={setOpenFilterModal} />
+        <CategorySort
+          openFilterModal={openFilterModal}
+          setOpenFilterModal={setOpenFilterModal}
+        />
       </Stack>
       <Stack
         sx={{
-          mt: 3, mb: 3,
+          mt: 3,
+          mb: 3,
         }}
         direction="row"
         justifyContent="space-between"
         alignItems="flex-start"
         spacing={4}
       >
-        <CategoryFilters openFilterModal={openFilterModal} setOpenFilterModal={setOpenFilterModal} />
+        <CategoryFilters
+          openFilterModal={openFilterModal}
+          setOpenFilterModal={setOpenFilterModal}
+        />
         <CategoryProducts />
       </Stack>
       {result?.length > 0 && <CategoryPagination />}

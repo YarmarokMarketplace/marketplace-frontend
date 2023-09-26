@@ -1,9 +1,9 @@
-import React from "react";
-import { Stack, Pagination } from "@mui/material";
-import { AppDispatch } from "../../../store";
-import { useDispatch, useSelector } from "react-redux";
-import { currentPageSetAction } from "./reducer";
-import { productsResultStateSelector } from "./selector";
+import React from 'react';
+import { Stack, Pagination } from '@mui/material';
+import { AppDispatch } from '../../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentPageSetAction } from '../../../redux/products/reducer';
+import { productsResultStateSelector } from '../../../redux/products/selector';
 
 const CategoryPagination: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -24,7 +24,7 @@ const CategoryPagination: React.FC = () => {
             fontWeight: 700,
           },
           svg: {
-            fontSize: "2rem",
+            fontSize: '2rem',
           },
         }}
       />

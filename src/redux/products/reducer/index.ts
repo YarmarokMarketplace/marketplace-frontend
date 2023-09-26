@@ -1,14 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ProductItem } from "../../../../types";
-import { productListFetch } from "../thunk";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { productListFetch, searchProductListFetch } from '../thunk';
 import {
   currentPageSet,
   productSort,
   productFilterGoodtype,
   productFilterPrice,
   productStateReset,
-  productFilterLocation
-} from "../actions";
+  productFilterLocation,
+  searchValueSet,
+  currentSearchPageSet,
+  searchProductStateReset,
+  filterStateReset,
+} from '../actions';
+import { ProductItem, SearchResponse } from 'src/types';
 
 export type ResponseProducts = {
   totalResult: number;
@@ -23,23 +28,26 @@ export interface ProductsState {
   sort: string;
   loading: boolean;
   error: boolean | null;
+  search: string;
   products: ResponseProducts;
+  searchProducts: SearchResponse;
   filterBy: {
-    goodtype: string,
-    price: string,
-    location: string
-  }
+    goodtype: string;
+    price: string;
+    location: string;
+  };
 }
 
 export const initialState: ProductsState = {
   loading: false,
   error: null,
-  sort: localStorage.getItem("sort") || "newest",
+  sort: localStorage.getItem('sort') || 'newest',
   filterBy: {
-    goodtype: localStorage.getItem("goodtype") || '',
-    price: localStorage.getItem("price") || '',
-    location: localStorage.getItem("location") || ''
+    goodtype: localStorage.getItem('goodtype') || '',
+    price: localStorage.getItem('price') || '',
+    location: localStorage.getItem('location') || '',
   },
+  search: localStorage.getItem('search') || '',
   products: {
     totalPages: 1,
     totalResult: 0,
@@ -49,9 +57,16 @@ export const initialState: ProductsState = {
     maxPriceInCategory: 0,
     isGoodType: true,
   },
+  searchProducts: {
+    totalPages: 1,
+    totalResult: 0,
+    page: 1,
+    limit: 12,
+    notices: [],
+  },
 };
 
-const name = "PRODUCTS";
+const name = 'PRODUCTS';
 
 const productsSlice = createSlice({
   name,
@@ -62,7 +77,11 @@ const productsSlice = createSlice({
     productStateReset,
     productFilterGoodtype,
     productFilterPrice,
-    productFilterLocation
+    productFilterLocation,
+    searchValueSet,
+    currentSearchPageSet,
+    searchProductStateReset,
+    filterStateReset,
   },
   extraReducers(builder) {
     builder
@@ -77,6 +96,18 @@ const productsSlice = createSlice({
       .addCase(productListFetch.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
+      })
+      .addCase(searchProductListFetch.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(searchProductListFetch.fulfilled, (state, action) => {
+        state.loading = false;
+        state.searchProducts = action.payload;
+      })
+      .addCase(searchProductListFetch.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
       });
   },
 });
@@ -86,7 +117,11 @@ export const {
   productStateReset: productStateResetAction,
   productFilterGoodtype: productFilterGoodtypeAction,
   productFilterPrice: productFilterPriceAction,
-  productFilterLocation: productFilterLocationAction
+  productFilterLocation: productFilterLocationAction,
+  searchValueSet: searchValueSetAction,
+  currentSearchPageSet: currentSearchPageSetAction,
+  searchProductStateReset: searchProductStateResetAction,
+  filterStateReset: filterStateResetAction,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

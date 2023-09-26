@@ -4,6 +4,7 @@ import {
   ProductItem,
   UserFavProductsResponse,
   UserProductsResponse,
+  SearchResponse,
 } from '../types';
 import { client, loginClient } from './client';
 
@@ -146,4 +147,23 @@ export const deleteProduct = async (id: string) => {
 
 export const createOrder = async (id: string, data: CreateOrderData) => {
   return await loginClient.post(`/orders/${id}/order`, data);
+};
+export const getProductBySearch = async (
+  keywords: string,
+  sort: string,
+  page: number,
+  limit: number,
+  filterBy: {
+    goodtype: string;
+    price: string;
+    location: string;
+  }
+) => {
+  try {
+    return await client.get<never, SearchResponse>(
+      `/notices/search/search-notice/?keywords=${keywords}&page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };

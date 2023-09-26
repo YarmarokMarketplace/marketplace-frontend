@@ -202,9 +202,18 @@ export interface UserFavProductsResponse {
   result: ProductItem[];
 }
 
+export interface SearchResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  result: ProductItem[];
+}
+
 export interface ChangePasswordBody {
   password: string;
   newPassword: string;
+  notices: ProductItem[] | [];
 }
 
 export interface ChangeLoginBody {

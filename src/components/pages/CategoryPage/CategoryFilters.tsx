@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector } from "react-redux";
-import { productsResultStateSelector } from "./selector";
+import { useSelector } from 'react-redux';
+import { productsResultStateSelector } from '../../../redux/products/selector';
 
-import { FiltersContainer } from "./style";
+import { FiltersContainer } from './style';
 import CategoryFilter from './Filters/CategoryFilter';
 import GoodtypeFilter from './Filters/GoodtypeFilter';
 import PriceFilter from './Filters/PriceFilter';
@@ -12,77 +12,93 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CategoryFilterModal from './CategoryFilterModal';
 
 interface CategoryFiltersProps {
-    openFilterModal: boolean;
-    setOpenFilterModal: (value: boolean) => void;
+  openFilterModal: boolean;
+  setOpenFilterModal: (value: boolean) => void;
 }
 
-const CategoryFilters: React.FC<CategoryFiltersProps> = ({ openFilterModal, setOpenFilterModal }) => {
-    const [isCheckedNew, setIsCheckedNew] = useState(false);
-    const [isCheckedUsed, setIsCheckedUsed] = useState(false);
-    const [minPriceValue, setMinPriceValue] = useState('');
-    const [maxPriceValue, setMaxPriceValue] = useState('');
-    const [value, setValue] = useState<{ label: string; value: string; img?: string | undefined } | null>(null);
+const CategoryFilters: React.FC<CategoryFiltersProps> = ({
+  openFilterModal,
+  setOpenFilterModal,
+}) => {
+  const [isCheckedNew, setIsCheckedNew] = useState(false);
+  const [isCheckedUsed, setIsCheckedUsed] = useState(false);
+  const [minPriceValue, setMinPriceValue] = useState('');
+  const [maxPriceValue, setMaxPriceValue] = useState('');
+  const [value, setValue] = useState<{
+    label: string;
+    value: string;
+    img?: string | undefined;
+  } | null>(null);
 
-    const { isGoodType } = useSelector(productsResultStateSelector);
+  const { isGoodType } = useSelector(productsResultStateSelector);
 
-    const theme = useTheme();
-    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const theme = useTheme();
+  const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-    return (
-        <>
-            {!isMdScreen &&
-                <FiltersContainer>
+  return (
+    <>
+      {!isMdScreen && (
+        <FiltersContainer>
+          <CategoryFilter
+            setIsCheckedNew={setIsCheckedNew}
+            setIsCheckedUsed={setIsCheckedUsed}
+            setMinPriceValue={setMinPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+            setValue={setValue}
+          />
+          {isGoodType && (
+            <GoodtypeFilter
+              setIsCheckedNew={setIsCheckedNew}
+              setIsCheckedUsed={setIsCheckedUsed}
+              іsCheckedNew={isCheckedNew}
+              іsCheckedUsed={isCheckedUsed}
+            />
+          )}
 
-                    <CategoryFilter
-                        setIsCheckedNew={setIsCheckedNew}
-                        setIsCheckedUsed={setIsCheckedUsed}
-                        setMinPriceValue={setMinPriceValue}
-                        setMaxPriceValue={setMaxPriceValue}
-                        setValue={setValue} />
-                    {
-                        isGoodType &&
-                        <GoodtypeFilter
-                            setIsCheckedNew={setIsCheckedNew}
-                            setIsCheckedUsed={setIsCheckedUsed}
-                            іsCheckedNew={isCheckedNew}
-                            іsCheckedUsed={isCheckedUsed} />
-                    }
+          <PriceFilter
+            minPriceValue={minPriceValue}
+            setMinPriceValue={setMinPriceValue}
+            maxPriceValue={maxPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+          />
+          <LocationFilter value={value} setValue={setValue} />
+        </FiltersContainer>
+      )}
 
-                    <PriceFilter
-                        minPriceValue={minPriceValue} setMinPriceValue={setMinPriceValue}
-                        maxPriceValue={maxPriceValue} setMaxPriceValue={setMaxPriceValue} />
-                    <LocationFilter value={value} setValue={setValue} />
-
-                </FiltersContainer >
-            }
-
-            {isMdScreen &&
-                <CategoryFilterModal openFilterModal={openFilterModal} setOpenFilterModal={setOpenFilterModal}>
-                    <FiltersContainer>
-                        <CategoryFilter
-                            setIsCheckedNew={setIsCheckedNew}
-                            setIsCheckedUsed={setIsCheckedUsed}
-                            setMinPriceValue={setMinPriceValue}
-                            setMaxPriceValue={setMaxPriceValue}
-                            setValue={setValue} />
-                        <LocationFilter value={value} setValue={setValue} />
-                        <PriceFilter
-                            minPriceValue={minPriceValue} setMinPriceValue={setMinPriceValue}
-                            maxPriceValue={maxPriceValue} setMaxPriceValue={setMaxPriceValue} />
-                        {
-                            isGoodType &&
-                            <GoodtypeFilter
-                                setIsCheckedNew={setIsCheckedNew}
-                                setIsCheckedUsed={setIsCheckedUsed}
-                                іsCheckedNew={isCheckedNew}
-                                іsCheckedUsed={isCheckedUsed} />
-                        }
-                    </FiltersContainer>
-                </CategoryFilterModal>
-            }
-        </>
-    )
+      {isMdScreen && (
+        <CategoryFilterModal
+          openFilterModal={openFilterModal}
+          setOpenFilterModal={setOpenFilterModal}
+        >
+          <FiltersContainer>
+            <CategoryFilter
+              setIsCheckedNew={setIsCheckedNew}
+              setIsCheckedUsed={setIsCheckedUsed}
+              setMinPriceValue={setMinPriceValue}
+              setMaxPriceValue={setMaxPriceValue}
+              setValue={setValue}
+            />
+            <LocationFilter value={value} setValue={setValue} />
+            <PriceFilter
+              minPriceValue={minPriceValue}
+              setMinPriceValue={setMinPriceValue}
+              maxPriceValue={maxPriceValue}
+              setMaxPriceValue={setMaxPriceValue}
+            />
+            {isGoodType && (
+              <GoodtypeFilter
+                setIsCheckedNew={setIsCheckedNew}
+                setIsCheckedUsed={setIsCheckedUsed}
+                іsCheckedNew={isCheckedNew}
+                іsCheckedUsed={isCheckedUsed}
+              />
+            )}
+          </FiltersContainer>
+        </CategoryFilterModal>
+      )}
+    </>
+  );
 };
 
 export default CategoryFilters;

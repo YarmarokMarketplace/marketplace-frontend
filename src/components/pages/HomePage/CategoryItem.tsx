@@ -1,7 +1,11 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store";
-import { productFilterGoodtypeAction, productFilterPriceAction, productFilterLocationAction } from "../CategoryPage/reducer";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../store';
+import {
+  productFilterGoodtypeAction,
+  productFilterPriceAction,
+  productFilterLocationAction,
+} from '../../../redux/products/reducer';
 
 import {
   StyledCard,
@@ -10,13 +14,13 @@ import {
   StyledImage,
   StyledImgWrapper,
   StyledItemWrapper,
-} from "./style";
-import { CardActionArea } from "@mui/material";
+} from './style';
+import { CardActionArea } from '@mui/material';
 
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 
-import { CategoryItem } from "../../../types";
-import { categoryNames } from "../../../constants";
+import { CategoryItem } from '../../../types';
+import { categoryNames } from '../../../constants';
 
 interface CategotyItemProp {
   category: CategoryItem;
@@ -37,10 +41,10 @@ const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
   };
 
   const className: { [key: string]: string } = {
-    help: "help",
-    exchange: "exchange",
-    "for-free": "resize",
-    "home-and-garden": "resize",
+    help: 'help',
+    exchange: 'exchange',
+    'for-free': 'resize',
+    'home-and-garden': 'resize',
   };
 
   return (

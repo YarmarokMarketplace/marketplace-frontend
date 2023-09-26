@@ -16,6 +16,7 @@ import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+import SearchPage from '../pages/SearchPage';
 
 const EditProduct = lazy(() => import('../pages/AddProduct/EditProduct'));
 
@@ -51,6 +52,8 @@ const App: React.FC = () => {
             <Route path="/rules/*" index element={<Articles />} />
             <Route path="/:categoryName" element={<CategoryPage />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
+            <Route path="/search" element={<SearchPage />} />
+
             <Route path="/add-advert" element={<AddProduct />} />
             <Route path="/edit-advert/:id" element={<EditProduct />} />
 
