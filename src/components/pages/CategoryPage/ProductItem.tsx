@@ -57,11 +57,9 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setFav(favoriteList.some((notice) => notice === product._id));
-  }, [favoriteList, product._id]);
-
-  useEffect(() => {
-    setFav(favorites.some((notice) => notice === product._id));
+    if (favorites.length) {
+      setFav(favorites.some((notice) => notice === product._id));
+    }
   }, [favorites, product._id]);
 
   const { _id, photos, title, location, createdAt, price, category } = product;

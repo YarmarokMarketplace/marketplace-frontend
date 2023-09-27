@@ -44,11 +44,9 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   );
 
   useEffect(() => {
-    setFav(user.favorite.some((notice) => notice === product._id));
-  }, [user.favorite, product._id]);
-
-  useEffect(() => {
-    setFav(favorites.some((notice) => notice === product._id));
+    if (favorites.length) {
+      setFav(favorites.some((notice) => notice === product._id));
+    }
   }, [favorites, product._id]);
   const dispatch: AppDispatch = useDispatch();
 

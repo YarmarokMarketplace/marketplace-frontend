@@ -8,6 +8,7 @@ import {
   removeFavoriteProduct,
 } from 'src/api/products';
 import { resetFavAdsStateAction } from '../reducer';
+import { currentFetch } from 'redux/auth/thunk';
 
 const USER_PRODUCTS_FETCH_THUNK_TYPE = 'USER_PRODUCTS_FETCH_THUNK_TYPE';
 
@@ -45,6 +46,7 @@ export const userFavoritesProductsListFetch = createAsyncThunk(
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           dispatch(resetFavAdsStateAction());
+          dispatch(currentFetch());
         }
       }
       return rejectWithValue(error);

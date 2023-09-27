@@ -36,14 +36,6 @@ const FavProducts = () => {
     dispatch(userFavoritesProductsListFetch({ page, limit }));
   }, [page, limit, favoriteList]);
 
-  // useEffect(() => {
-  //   if (Math.ceil(totalResult / limit) !== page) {
-  //     dispatch(currentFavPageSetAction(page - 1));
-  //   }
-
-  //   console.log(Math.ceil(totalResult / limit));
-  // }, [totalResult]);
-
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     page: number
