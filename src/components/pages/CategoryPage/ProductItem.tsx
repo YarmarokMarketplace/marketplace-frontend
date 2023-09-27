@@ -31,6 +31,7 @@ import {
 } from '../ProfilePage/thunk';
 import { AppDispatch } from 'src/store';
 import { getUserStateSelector } from 'redux/auth/selector';
+import { currentFavPageSetAction } from '../ProfilePage/reducer';
 
 interface ProductItemProp {
   product: ProductItem;
@@ -41,7 +42,12 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
 
   const favoriteList = useSelector(getUserStateSelector).favorite;
 
-  const { favorites } = useSelector(profileStateSelector);
+  const {
+    favorites,
+    fav: {
+      data: { totalResult, limit, page },
+    },
+  } = useSelector(profileStateSelector);
 
   const [fav, setFav] = useState<boolean>(
     favoriteList.some((notice) => notice === product._id)
@@ -49,15 +55,13 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const navigate = useNavigate();
-  console.log(favoriteList);
+
   useEffect(() => {
     setFav(favoriteList.some((notice) => notice === product._id));
   }, [favoriteList, product._id]);
 
   useEffect(() => {
-    if (favorites.length) {
-      setFav(favorites.some((notice) => notice === product._id));
-    }
+    setFav(favorites.some((notice) => notice === product._id));
   }, [favorites, product._id]);
 
   const { _id, photos, title, location, createdAt, price, category } = product;
@@ -71,6 +75,9 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   ) => {
     event.stopPropagation();
     if (fav) {
+      if (totalResult % limit === 1) {
+        dispatch(currentFavPageSetAction(page - 1));
+      }
       dispatch(removeFavoriteProductFetch(_id));
     } else {
       dispatch(addFavoriteProductFetch(_id));

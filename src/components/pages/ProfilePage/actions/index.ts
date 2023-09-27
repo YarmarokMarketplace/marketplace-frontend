@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ProfileState } from '../reducer';
+import { ProfileState, initialState } from '../reducer';
 
 export const currentPageSet = (
   state: ProfileState,
@@ -13,7 +13,7 @@ export const resetOwnAdsState = (state: ProfileState) => {
 };
 
 export const resetFavAdsState = (state: ProfileState) => {
-  state.fav.data.result.favorite = [];
+  state.fav = initialState.fav;
 };
 
 export const currentFavPageSet = (
