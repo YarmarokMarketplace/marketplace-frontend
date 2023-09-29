@@ -10,7 +10,7 @@ import NoProductItem from './NoProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
-import { userProductsListFetch } from '../thunk';
+import { userProductsListFetch, activateOrDeactivateProductFetch } from '../thunk';
 import { ProductItem } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
@@ -70,9 +70,13 @@ const OwnAdsTab = () => {
     dispatch(currentPageSetAction(page));
   };
 
-  console.log(inactiveNotices);
-  console.log(notices);
-
+  const handleDeactivateClick = async (e: React.SyntheticEvent) => {
+    console.log(e.currentTarget.getAttribute('data-product-id'));
+    const productId = e.currentTarget.getAttribute('data-product-id');
+    const active: boolean = false;
+    productId && await dispatch(activateOrDeactivateProductFetch({ productId, active }));
+    dispatch(userProductsListFetch({ page, limit }));
+  }
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -120,8 +124,10 @@ const OwnAdsTab = () => {
                     height="fit-content"
                   >
                     <StyledContrastButton
+                      data-product-id={product._id}
                       id="deactivate-btn"
                       variant="outlined"
+                      onClick={handleDeactivateClick}
                     >
                       Деактивувати
                     </StyledContrastButton>

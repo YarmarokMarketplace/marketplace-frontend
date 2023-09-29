@@ -15,6 +15,7 @@ import {
   removeFavoriteProductFetch,
   userFavoritesProductsListFetch,
   userProductsListFetch,
+  activateOrDeactivateProductFetch,
 } from '../thunk';
 
 export interface ProfileState {
@@ -48,6 +49,9 @@ export const initialState: ProfileState = {
       limit: 3,
       activeNotices: [],
       inactiveNotices: [],
+      totalResult: 0,
+      totalPages: 0,
+      notices: [],
     },
   },
   favorites: [],
@@ -94,7 +98,6 @@ const profileSlice = createSlice({
         state.own.loading = false;
         state.own.error = true;
       })
-
       .addCase(userFavoritesProductsListFetch.pending, (state) => {
         state.fav.loading = true;
         state.fav.error = false;
@@ -130,6 +133,24 @@ const profileSlice = createSlice({
       .addCase(removeFavoriteProductFetch.rejected, (state) => {
         state.fav.toggle.loading = false;
         state.fav.toggle.error = true;
+      })
+      .addCase(activateOrDeactivateProductFetch.pending, (state) => {
+        state.own.loading = true;
+        state.own.error = false;
+      })
+      .addCase(
+        activateOrDeactivateProductFetch.fulfilled,
+        (state, { payload }) => {
+          state.own.loading = false;
+          const productId = payload.data.result._id;
+          state.own.data.notices = state.own.data.notices.filter(
+            (product) => product._id !== productId
+          );
+        }
+      )
+      .addCase(activateOrDeactivateProductFetch.rejected, (state) => {
+        state.own.loading = false;
+        state.own.error = true;
       });
   },
 });

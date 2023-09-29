@@ -113,3 +113,12 @@ export const getUserFavoriteProducts = async (page: number, limit: number) => {
     return Promise.reject(error);
   }
 };
+
+export const activateOrDeactivateProduct = async (
+  id: string,
+  active: boolean
+) => {
+  return await loginClient.patch(`/notices/notice/${id}/active`, {
+    active: active,
+  });
+};
