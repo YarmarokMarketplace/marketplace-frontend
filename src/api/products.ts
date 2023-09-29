@@ -122,3 +122,7 @@ export const activateOrDeactivateProduct = async (
     active: active,
   });
 };
+
+export const deleteProduct = async (id: string) => {
+  return await loginClient.delete(`/notices/notice/${id}`);
+};

@@ -10,7 +10,7 @@ import NoProductItem from './NoProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
-import { userProductsListFetch, activateOrDeactivateProductFetch } from '../thunk';
+import { userProductsListFetch, activateOrDeactivateProductFetch, deleteProductFetch } from '../thunk';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
 import { currentPageSetAction } from '../reducer';
@@ -92,6 +92,13 @@ const OwnAdsTab = () => {
         await dispatch(userProductsListFetch({ page, limit }));
       }
     }
+  }
+
+  const handleProductDelete = async (e: React.SyntheticEvent) => {
+    const productId = e.currentTarget.getAttribute('data-del-btn-id');
+    console.log(productId)
+    productId && await dispatch(deleteProductFetch(productId));
+    dispatch(userProductsListFetch({ page, limit }));
   }
   return (
     <StyledAdsContainer>
@@ -208,7 +215,12 @@ const OwnAdsTab = () => {
                       justifyContent="center"
                       height="fit-content"
                     >
-                      <StyledContrastButton id="delete-btn" variant="outlined">
+                      <StyledContrastButton
+                        data-del-btn-id={product._id}
+                        id="delete-btn"
+                        variant="outlined"
+                        onClick={handleProductDelete}
+                      >
                         Видалити
                       </StyledContrastButton>
                       <StyledIconButton id="edit-btn">
@@ -218,39 +230,43 @@ const OwnAdsTab = () => {
                         />
                       </StyledIconButton>
                     </Stack>
-                  </Stack>
-                </OwnProductItem>
+                  </Stack >
+                </OwnProductItem >
               );
             })}
-          </Stack>
+          </Stack >
         )}
-        {!loading && inactiveNotices.length === 0 && (
-          <>
-            <NoProductItem>
-              <Typography variant="h4" fontWeight={700} mt={3}>
-                Оголошення переміщуються сюди після закінчення терміну дії
-              </Typography>
-              <Typography
-                variant="body1"
-                fontWeight={500}
-                color="text.secondary"
-                mt={1}
-              >
-                Ви також можете деактивувати оголошення до закінчення терміну
-                його дії.
-              </Typography>
-            </NoProductItem>
-          </>
-        )}
-        {!loading && !error && inactiveNotices.length > 0 && (
-          <ProfilePagination
-            handlePageChange={handlePageChange}
-            page={page}
-            totalPages={totalPagesInactive}
-          />
-        )}
-      </CustomTabPanel>
-    </StyledAdsContainer>
+        {
+          !loading && inactiveNotices.length === 0 && (
+            <>
+              <NoProductItem>
+                <Typography variant="h4" fontWeight={700} mt={3}>
+                  Оголошення переміщуються сюди після закінчення терміну дії
+                </Typography>
+                <Typography
+                  variant="body1"
+                  fontWeight={500}
+                  color="text.secondary"
+                  mt={1}
+                >
+                  Ви також можете деактивувати оголошення до закінчення терміну
+                  його дії.
+                </Typography>
+              </NoProductItem>
+            </>
+          )
+        }
+        {
+          !loading && !error && inactiveNotices.length > 0 && (
+            <ProfilePagination
+              handlePageChange={handlePageChange}
+              page={page}
+              totalPages={totalPagesInactive}
+            />
+          )
+        }
+      </CustomTabPanel >
+    </StyledAdsContainer >
   );
 };
 

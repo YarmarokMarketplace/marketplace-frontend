@@ -16,6 +16,7 @@ import {
   userFavoritesProductsListFetch,
   userProductsListFetch,
   activateOrDeactivateProductFetch,
+  deleteProductFetch,
 } from '../thunk';
 
 export interface ProfileState {
@@ -153,6 +154,17 @@ const profileSlice = createSlice({
         }
       )
       .addCase(activateOrDeactivateProductFetch.rejected, (state) => {
+        state.own.loading = false;
+        state.own.error = true;
+      })
+      .addCase(deleteProductFetch.pending, (state) => {
+        state.own.loading = true;
+        state.own.error = false;
+      })
+      .addCase(deleteProductFetch.fulfilled, (state) => {
+        state.own.loading = false;
+      })
+      .addCase(deleteProductFetch.rejected, (state) => {
         state.own.loading = false;
         state.own.error = true;
       });
