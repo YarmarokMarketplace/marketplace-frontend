@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledContainer } from './style';
 import { Content } from './Content';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import {
   RulesOfUse,
   InfoPresentation,
@@ -12,7 +12,9 @@ import {
   ProhibitedServices,
   Activities,
 } from './';
-import { Typography } from '@mui/material';
+import HowToBuy from './HowToBuy';
+import HowToSell from './HowToSell';
+import NotFoundPage from 'src/components/NotFoundPage';
 
 const Articles = () => {
   return (
@@ -26,17 +28,12 @@ const Articles = () => {
           path="prohibited-services"
           element={<ProhibitedServices />}
         ></Route>
-        <Route
-          path="how-to-buy"
-          element={<Typography>how to buy</Typography>}
-        ></Route>
-        <Route
-          path="how-to-sell"
-          element={<Typography>how to sell</Typography>}
-        ></Route>
+        <Route path="how-to-buy" element={<HowToBuy />}></Route>
+        <Route path="how-to-sell" element={<HowToSell />}></Route>
         <Route path="activities" element={<Activities />}></Route>
         <Route path="security-rules" element={<SecurityRules />}></Route>
         <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
       <Content />
     </StyledContainer>

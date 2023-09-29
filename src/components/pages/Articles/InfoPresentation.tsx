@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Container } from '@mui/material';
 
 const InfoPresentation = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Подача інформації</Typography>
         <Typography whiteSpace="pre-line" variant="body1">{`ПОДАЧА ІНФОРМАЦІЇ
@@ -21,7 +20,7 @@ const InfoPresentation = () => {
           2.2.7. товарні позиції дублюються. Дублюванням вважаються ситуації, коли для одного товару або послуги створена більш ніж одна товарна позиція з однаковим або ідентичним зображенням (у т.ч. зображенням в різних ракурсах), назвою та/або описом, за винятком товарів з однаковими фото, але різними характеристиками та описом;
           2.2.8. оформлення товарних позицій вводить покупця в оману (ціна та наявність неактуальні; зображення та опис товару/послуги не відповідають дійсності; інформація містить суб'єктивну думку чи аргументи без підстави тощо).`}</Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 

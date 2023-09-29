@@ -29,7 +29,11 @@ const Footer = () => {
             >
               Умови використання
             </CustomLink>
-            <CustomLink id="how-to-link" href="#/rules">
+            <CustomLink
+              id="how-to-link"
+              href="#/rules/how-to-buy"
+              target="_blank"
+            >
               Як продавати й купувати?
             </CustomLink>
             <CustomLink

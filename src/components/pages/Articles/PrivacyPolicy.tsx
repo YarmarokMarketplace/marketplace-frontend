@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Link, Stack, Typography } from '@mui/material';
+import { Link, Stack, Typography, Container } from '@mui/material';
 
 const PrivacyPolicy = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Політика конфіденційності</Typography>
         <Typography fontWeight={600} whiteSpace="pre-line" variant="subtitle2">
@@ -46,7 +45,7 @@ const PrivacyPolicy = () => {
 `}
         </Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 
