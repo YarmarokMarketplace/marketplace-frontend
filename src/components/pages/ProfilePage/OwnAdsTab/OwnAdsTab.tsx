@@ -66,7 +66,6 @@ const OwnAdsTab = () => {
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
-
   };
 
   const handleDeactivateClick = async (e: React.SyntheticEvent) => {
