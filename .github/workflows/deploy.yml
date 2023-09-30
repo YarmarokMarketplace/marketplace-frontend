@@ -21,10 +21,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Get Latest Git Tag
+        id: version
+        run: echo ::set-output name=TAG::$(git describe --tags --abbrev=0)
+
       - name: Build and Deploy
         run: |
           npm run build
-          npx netlify-cli deploy --prod --message "${{ github.event.head_commit.message }}"
+          npx netlify-cli deploy --prod --message "${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
