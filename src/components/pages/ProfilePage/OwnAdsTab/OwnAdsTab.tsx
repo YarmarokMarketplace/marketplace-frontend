@@ -80,119 +80,65 @@ const OwnAdsTab = () => {
         await dispatch(userProductsListFetch({ page, limit }));
       }
     }
-  }
-  return (
-    <StyledAdsContainer>
-      <StyledTitleContainer>
-        <Typography variant="h4">Оголошення</Typography>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          sx={{
-            mt: 2,
-            minHeight: '2rem',
-            borderRadius: 3,
-            '& .MuiTabs-flexContainer': {
-              maxHeight: '100%',
-            },
-            '& .MuiTabs-indicator': {
-              background: 'none',
-            },
-          }}
-        >
-          <StyledTab
-            label="Активні"
-            id="own-ads-tab-0"
-            aria-controls="own-ads-tabpanel-0"
-            value="active"
-          />
-          <StyledTab
-            label="Неактивні"
-            id="own-ads-tab-1"
-            aria-controls="own-ads-tabpanel-1"
-            value="inactive"
-          />
-        </Tabs>
-      </StyledTitleContainer>
-      <CustomTabPanel value={value} type="active">
-        {loading && <SkeletonAds limit={limit} />}
-        {!loading && !error && activeNotices.length > 0 && (
-          <Stack gap={3}>
-            {activeNotices.map((product) => {
-              return (
-                <OwnProductItem product={product} key={product._id}>
-                  <Stack
-                    direction="row"
-                    gap={3}
-                    justifyContent="space-between"
-                    height="fit-content"
-                  >
-                    <StyledContrastButton
-                      data-product-id={product._id}
-                      id="deactivate-btn"
-                      variant="outlined"
-                      onClick={handleDeactivateClick}
-                    >
-                      Деактивувати
-                    </StyledContrastButton>
-                    <StyledIconButton id="edit-btn">
-                      <EditOutlinedIcon
-                        sx={{ fontSize: '1.5rem' }}
-                        color="primary"
-                      />
-                    </StyledIconButton>
-                  </Stack>
-                </OwnProductItem>
-              );
-            })}
-          </Stack>
-        )}
-        {!loading && activeNotices.length === 0 && (
-          <>
-            <NoProductItem>
-              <Typography variant="h4" fontWeight={700} mt={3}>
-                Активні оголошення відображаються тут до закінчення їх терміну
-                дії
-              </Typography>
-              <Typography
-                variant="body1"
-                fontWeight={500}
-                color="text.secondary"
-                mt={1}
-              >
-                Ці оголошення доступні для перегляду всім і стають неактивними
-                через 30 днів після їх активації.
-              </Typography>
-            </NoProductItem>
-          </>
-        )}
-        {!error && activeNotices.length > 0 && (
-          <ProfilePagination
-            handlePageChange={handlePageChange}
-            page={page}
-            totalPages={totalPagesActive}
-          />
-        )}
-      </CustomTabPanel>
-      <CustomTabPanel value={value} type="inactive">
-        {loading && <SkeletonAds limit={limit} />}
-        {!loading && !error && inactiveNotices.length > 0 && (
-          <Stack gap={3}>
-            {inactiveNotices.map((product) => {
-              return (
-                <OwnProductItem product={product} key={product._id}>
-                  <Stack gap={3} marginLeft={5.5}>
-                    <Button id="activate-btn" variant="outlined" fullWidth>
-                      Активувати
-                    </Button>
+    const handleActivateProductClick = async (e: React.SyntheticEvent) => {
+      const productId = e.currentTarget.getAttribute('data-product-id');
+      const active: boolean = true;
+      productId && await dispatch(activateOrDeactivateProductFetch({ productId, active }));
+      dispatch(userProductsListFetch({ page, limit }));
+    }
+    return (
+      <StyledAdsContainer>
+        <StyledTitleContainer>
+          <Typography variant="h4">Оголошення</Typography>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={{
+              mt: 2,
+              minHeight: '2rem',
+              borderRadius: 3,
+              '& .MuiTabs-flexContainer': {
+                maxHeight: '100%',
+              },
+              '& .MuiTabs-indicator': {
+                background: 'none',
+              },
+            }}
+          >
+            <StyledTab
+              label="Активні"
+              id="own-ads-tab-0"
+              aria-controls="own-ads-tabpanel-0"
+              value="active"
+            />
+            <StyledTab
+              label="Неактивні"
+              id="own-ads-tab-1"
+              aria-controls="own-ads-tabpanel-1"
+              value="inactive"
+            />
+          </Tabs>
+        </StyledTitleContainer>
+        <CustomTabPanel value={value} type="active">
+          {loading && <SkeletonAds limit={limit} />}
+          {!loading && !error && activeNotices.length > 0 && (
+            <Stack gap={3}>
+              {activeNotices.map((product) => {
+                return (
+                  <OwnProductItem product={product} key={product._id}>
                     <Stack
                       direction="row"
                       gap={3}
-                      justifyContent="center"
+                      justifyContent="space-between"
                       height="fit-content"
                     >
-                      <StyledContrastButton id="delete-btn" variant="outlined">
-                        Видалити
+                      <StyledContrastButton
+                        data-product-id={product._id}
+                        id="deactivate-btn"
+                        variant="outlined"
+                        onClick={handleDeactivateClick}
+                      >
+                        Деактивувати
                       </StyledContrastButton>
                       <StyledIconButton id="edit-btn">
                         <EditOutlinedIcon
@@ -201,40 +147,105 @@ const OwnAdsTab = () => {
                         />
                       </StyledIconButton>
                     </Stack>
-                  </Stack>
-                </OwnProductItem>
-              );
-            })}
-          </Stack>
-        )}
-        {!loading && inactiveNotices.length === 0 && (
-          <>
-            <NoProductItem>
-              <Typography variant="h4" fontWeight={700} mt={3}>
-                Оголошення переміщуються сюди після закінчення терміну дії
-              </Typography>
-              <Typography
-                variant="body1"
-                fontWeight={500}
-                color="text.secondary"
-                mt={1}
-              >
-                Ви також можете деактивувати оголошення до закінчення терміну
-                його дії.
-              </Typography>
-            </NoProductItem>
-          </>
-        )}
-        {!loading && !error && inactiveNotices.length > 0 && (
-          <ProfilePagination
-            handlePageChange={handlePageChange}
-            page={page}
-            totalPages={totalPagesInactive}
-          />
-        )}
-      </CustomTabPanel>
-    </StyledAdsContainer>
-  );
-};
+                  </OwnProductItem>
+                );
+              })}
+            </Stack>
+          )}
+          {!loading && activeNotices.length === 0 && (
+            <>
+              <NoProductItem>
+                <Typography variant="h4" fontWeight={700} mt={3}>
+                  Активні оголошення відображаються тут до закінчення їх терміну
+                  дії
+                </Typography>
+                <Typography
+                  variant="body1"
+                  fontWeight={500}
+                  color="text.secondary"
+                  mt={1}
+                >
+                  Ці оголошення доступні для перегляду всім і стають неактивними
+                  через 30 днів після їх активації.
+                </Typography>
+              </NoProductItem>
+            </>
+          )}
+          {!error && activeNotices.length > 0 && (
+            <ProfilePagination
+              handlePageChange={handlePageChange}
+              page={page}
+              totalPages={totalPagesActive}
+            />
+          )}
+        </CustomTabPanel>
+        <CustomTabPanel value={value} type="inactive">
+          {loading && <SkeletonAds limit={limit} />}
+          {!loading && !error && inactiveNotices.length > 0 && (
+            <Stack gap={3}>
+              {inactiveNotices.map((product) => {
+                return (
+                  <OwnProductItem product={product} key={product._id}>
+                    <Stack gap={3} marginLeft={5.5}>
+                      <Button
+                        data-product-id={product._id}
+                        onClick={handleActivateProductClick}
+                        id="activate-btn"
+                        variant="outlined"
+                        fullWidth
+                      >
+                        Активувати
+                      </Button>
+                      <Stack
+                        direction="row"
+                        gap={3}
+                        justifyContent="center"
+                        height="fit-content"
+                      >
+                        <StyledContrastButton id="delete-btn" variant="outlined">
+                          Видалити
+                        </StyledContrastButton>
+                        <StyledIconButton id="edit-btn">
+                          <EditOutlinedIcon
+                            sx={{ fontSize: '1.5rem' }}
+                            color="primary"
+                          />
+                        </StyledIconButton>
+                      </Stack>
+                    </Stack>
+                  </OwnProductItem>
+                );
+              })}
+            </Stack>
+          )}
+          {!loading && inactiveNotices.length === 0 && (
+            <>
+              <NoProductItem>
+                <Typography variant="h4" fontWeight={700} mt={3}>
+                  Оголошення переміщуються сюди після закінчення терміну дії
+                </Typography>
+                <Typography
+                  variant="body1"
+                  fontWeight={500}
+                  color="text.secondary"
+                  mt={1}
+                >
+                  Ви також можете деактивувати оголошення до закінчення терміну
+                  його дії.
+                </Typography>
+              </NoProductItem>
+            </>
+          )}
+          {!loading && !error && inactiveNotices.length > 0 && (
+            <ProfilePagination
+              handlePageChange={handlePageChange}
+              page={page}
+              totalPages={totalPagesInactive}
+            />
+          )}
+        </CustomTabPanel>
+      </StyledAdsContainer>
+    );
+  };
 
-export default OwnAdsTab;
+  export default OwnAdsTab;
