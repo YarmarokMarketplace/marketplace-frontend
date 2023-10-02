@@ -13,6 +13,7 @@ import { StyledIconButton, StyledBox } from './style';
 import LogoutModal from '../ModalContent/LogoutModal';
 import DeleteAccountModal from '../ModalContent/DeleteAccountModal';
 import ConfirmPurchase from '../ModalContent/ConfirmPurchase';
+import DeleteProductModal from '../ModalContent/DeleteProductModal';
 
 const CustomModal = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -37,6 +38,7 @@ const CustomModal = () => {
           {content == ModalContent.logout && <LogoutModal />}
           {content == ModalContent.deleteAccount && <DeleteAccountModal />}
           {content == ModalContent.confirmPurchase && <ConfirmPurchase />}
+          {content == ModalContent.deleteProduct && <DeleteProductModal />}
         </StyledBox>
       </Modal>
     </div>

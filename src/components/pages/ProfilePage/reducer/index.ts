@@ -9,6 +9,7 @@ import {
   resetFavAdsState,
   currentFavPageSet,
   resetFavoriteList,
+  setProductId,
 } from '../actions';
 import {
   addFavoriteProductFetch,
@@ -35,6 +36,7 @@ export interface ProfileState {
     error: boolean | null;
     data: UserFavProductsResponse;
   };
+  productId: string | null;
 }
 
 export const initialState: ProfileState = {
@@ -68,6 +70,7 @@ export const initialState: ProfileState = {
       result: [],
     },
   },
+  productId: null,
 };
 
 const name = 'PROFILE';
@@ -81,6 +84,7 @@ const profileSlice = createSlice({
     resetFavAdsState,
     currentFavPageSet,
     resetFavoriteList,
+    setProductId,
   },
   extraReducers(builder) {
     builder
@@ -177,6 +181,7 @@ export const {
   resetFavAdsState: resetFavAdsStateAction,
   currentFavPageSet: currentFavPageSetAction,
   resetFavoriteList: resetFavoriteListAction,
+  setProductId: setProductIdAction,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

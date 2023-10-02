@@ -11,9 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
 import { userProductsListFetch, activateOrDeactivateProductFetch, deleteProductFetch } from '../thunk';
+import { ProductItem, ModalContent } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
 import { currentPageSetAction } from '../reducer';
+import { openModalAction, setModalContentAction } from 'src/components/CustomModal/reducer';
+import { setProductIdAction } from '../reducer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -93,12 +96,15 @@ const OwnAdsTab = () => {
     }
   }
 
-  const handleProductDelete = async (e: React.SyntheticEvent) => {
+  const handleClickDeleteProduct = (e: React.SyntheticEvent) => {
     const productId = e.currentTarget.getAttribute('data-del-btn-id');
-    console.log(productId)
-    productId && await dispatch(deleteProductFetch(productId));
-    dispatch(userProductsListFetch({ page, limit }));
+    if (productId) {
+      dispatch(setProductIdAction(productId))
+      dispatch(openModalAction(true));
+      dispatch(setModalContentAction(ModalContent.deleteProduct));
+    }
   }
+
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -218,7 +224,7 @@ const OwnAdsTab = () => {
                         data-del-btn-id={product._id}
                         id="delete-btn"
                         variant="outlined"
-                        onClick={handleProductDelete}
+                        onClick={handleClickDeleteProduct}
                       >
                         Видалити
                       </StyledContrastButton>

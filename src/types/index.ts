@@ -62,6 +62,7 @@ export enum ModalContent {
   exitProfile = 'exitProfile',
   logout = 'logout',
   deleteAccount = 'deleteAccount',
+  deleteProduct = 'deleteProduct',
   confirmPurchase = 'confirmPurchase',
   cancel = 'cancel',
   noContent = 'noContent',
