@@ -1,9 +1,14 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../../store';
 
-export const profileSliceStateSelector = (state: RootState) => state.profile;
+export const profileStateSelector = (state: RootState) => state.profile;
 
 export const ownAdsStateSelector = createSelector(
-  profileSliceStateSelector,
+  profileStateSelector,
   (profile) => profile.own
+);
+
+export const favAdsStateSelector = createSelector(
+  profileStateSelector,
+  (profile) => profile.fav
 );

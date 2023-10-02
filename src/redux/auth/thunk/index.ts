@@ -28,6 +28,7 @@ import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
 import { resetAddSavedDataAction } from 'src/components/pages/AddProduct/reducer';
 import { advertInitialData } from 'src/components/pages/AddProduct/utils';
+import { resetFavoriteListAction } from 'src/components/pages/ProfilePage/reducer';
 
 const USER_REGISTER_THUNK_TYPE = 'USER_REGISTER_THUNK_TYPE';
 const USER_LOGIN_THUNK_TYPE = 'USER_LOGIN_THUNK_TYPE';
@@ -131,6 +132,7 @@ export const logoutFetch = createAsyncThunk(
       const result = await logout();
       localStorage.setItem('advertData', JSON.stringify(advertInitialData));
       dispatch(resetAddSavedDataAction());
+      dispatch(resetFavoriteListAction());
       return result;
     } catch ({ response }: any) {
       const { status, data } = response;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router';
 import {
@@ -18,10 +18,20 @@ import {
   StyledButton,
 } from './style';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Moment from 'react-moment';
 import { ProductItem } from '../../../types';
 import placeholderImg from '/src/img/placeholder-image.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { profileStateSelector } from '../ProfilePage/selector';
+import {
+  addFavoriteProductFetch,
+  removeFavoriteProductFetch,
+} from '../ProfilePage/thunk';
+import { AppDispatch } from 'src/store';
+import { getUserStateSelector } from 'redux/auth/selector';
+import { currentFavPageSetAction } from '../ProfilePage/reducer';
 
 interface ProductItemProp {
   product: ProductItem;
@@ -30,7 +40,27 @@ interface ProductItemProp {
 const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   const [error, setError] = useState(false);
 
+  const favoriteList = useSelector(getUserStateSelector).favorite;
+
+  const {
+    favorites,
+    fav: {
+      data: { totalResult, limit, page },
+    },
+  } = useSelector(profileStateSelector);
+
+  const [fav, setFav] = useState<boolean>(
+    favoriteList.some((notice) => notice === product._id)
+  );
+  const dispatch: AppDispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (favorites.length) {
+      setFav(favorites.some((notice) => notice === product._id));
+    }
+  }, [favorites, product._id]);
 
   const { _id, photos, title, location, createdAt, price, category } = product;
 
@@ -38,8 +68,18 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
     navigate(`/${category}/${product._id}`);
   };
 
-  const handleFavoriteClick = (e: any) => {
-    e.stopPropagation();
+  const handleFavoriteClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+    if (fav) {
+      if (totalResult % limit === 1) {
+        dispatch(currentFavPageSetAction(page - 1));
+      }
+      dispatch(removeFavoriteProductFetch(_id));
+    } else {
+      dispatch(addFavoriteProductFetch(_id));
+    }
   };
 
   const handleImageError = () => {
@@ -48,7 +88,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
 
   return (
     <StyledCard>
-      <CardActionArea onClick={handleItemClick}>
+      <CardActionArea disableRipple onClick={handleItemClick}>
         <StyledCardWrapper>
           <StyledImgWrapper>
             {error ? (
@@ -87,10 +127,14 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
               />
               <CardActions>
                 <StyledButton onClick={handleFavoriteClick}>
-                  <FavoriteBorderOutlinedIcon
-                    fontSize="small"
-                    color="primary"
-                  />
+                  {fav ? (
+                    <FavoriteIcon fontSize="small" color="primary" />
+                  ) : (
+                    <FavoriteBorderOutlinedIcon
+                      fontSize="small"
+                      color="primary"
+                    />
+                  )}
                 </StyledButton>
               </CardActions>
             </Stack>

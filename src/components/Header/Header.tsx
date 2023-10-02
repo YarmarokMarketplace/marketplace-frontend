@@ -57,7 +57,7 @@ const Header = () => {
   };
   const handleCheckFavourites = () => {
     if (isLogin) {
-      // navigate('/favourites');
+      navigate('profile/favourites');
     } else {
       dispatch(openDrawerAction(true));
       dispatch(setDrawerContentAction(DrawerContent.login));

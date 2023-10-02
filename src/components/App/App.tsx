@@ -32,7 +32,6 @@ const App: React.FC = () => {
       JSON.stringify({ email: '', password: '' })
     );
   }, []);
-
   return (
     <ErrorBoundary
       FallbackComponent={FallbackComponent}

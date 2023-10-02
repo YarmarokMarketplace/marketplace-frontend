@@ -43,6 +43,7 @@ export interface UserAuthState {
       patronymic: string;
       avatarURL: string;
       phone: string;
+      favorite: string[];
     };
     loading: boolean;
     error: boolean | null;
@@ -103,6 +104,7 @@ const initialState: UserAuthState = {
       patronymic: '',
       avatarURL: '',
       phone: '',
+      favorite: [],
     },
     loading: false,
     error: null,
@@ -247,6 +249,7 @@ export const userAuthSlice = createSlice({
           patronymic: '',
           avatarURL: '',
           phone: '',
+          favorite: [],
         };
         state.refreshToken = '';
         state.accessToken = '';

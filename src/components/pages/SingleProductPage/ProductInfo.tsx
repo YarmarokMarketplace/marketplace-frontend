@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Rating, Stack, Typography } from '@mui/material';
 import { StyledIconButton, StyledInfoBlock, StyledShowButton } from './style';
 import { StyledTextButton } from '../../Header/style';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import { DrawerContent, ProductItem } from '../../../types';
 import moment from 'moment';
@@ -19,6 +22,11 @@ import {
   openDrawerAction,
   setDrawerContentAction,
 } from '../../CustomDrawer/reducer';
+import { profileStateSelector } from '../ProfilePage/selector';
+import {
+  addFavoriteProductFetch,
+  removeFavoriteProductFetch,
+} from '../ProfilePage/thunk';
 
 type ProductInfoProps = {
   product: ProductItem;
@@ -29,7 +37,17 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     (location) => location.value === product.location
   );
   const [showNumber, setShowNumber] = useState(false);
-  const { isLogin } = useSelector(userLoginStateSelector);
+  const { isLogin, user } = useSelector(userLoginStateSelector);
+  const { favorites } = useSelector(profileStateSelector);
+  const [fav, setFav] = useState<boolean>(
+    user.favorite.some((notice) => notice === product._id)
+  );
+
+  useEffect(() => {
+    if (favorites.length) {
+      setFav(favorites.some((notice) => notice === product._id));
+    }
+  }, [favorites, product._id]);
   const dispatch: AppDispatch = useDispatch();
 
   const handleBuyClick = () => {
@@ -52,7 +70,11 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
 
   const handleFavClick = () => {
     if (isLogin) {
-      // handle chat action
+      if (fav) {
+        dispatch(removeFavoriteProductFetch(product._id));
+      } else {
+        dispatch(addFavoriteProductFetch(product._id));
+      }
     } else {
       dispatch(openDrawerAction(true));
       dispatch(setDrawerContentAction(DrawerContent.login));
@@ -101,10 +123,16 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
               id="fav-btn"
               size="small"
             >
-              <FavoriteBorderIcon color="primary" sx={{ fontSize: '1rem' }} />
+              {fav ? (
+                <FavoriteIcon color="primary" sx={{ fontSize: '1rem' }} />
+              ) : (
+                <FavoriteBorderOutlinedIcon
+                  color="primary"
+                  sx={{ fontSize: '1rem' }}
+                />
+              )}
             </StyledIconButton>
             <StyledTextButton onClick={handleFavClick} disableTouchRipple>
-              {' '}
               В обране
             </StyledTextButton>
           </Stack>
