@@ -8,7 +8,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
-import { DrawerContent, ProductItem } from '../../../types';
+import { DrawerContent, ModalContent, ProductItem } from '../../../types';
 import moment from 'moment';
 import {
   categoriesDeliveryAbsense,
@@ -27,6 +27,10 @@ import {
   addFavoriteProductFetch,
   removeFavoriteProductFetch,
 } from '../ProfilePage/thunk';
+import {
+  openModalAction,
+  setModalContentAction,
+} from 'src/components/CustomModal/reducer';
 
 type ProductInfoProps = {
   product: ProductItem;
@@ -52,7 +56,8 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
 
   const handleBuyClick = () => {
     if (isLogin) {
-      // handle buy action
+      dispatch(openModalAction(true));
+      dispatch(setModalContentAction(ModalContent.confirmPurchase));
     } else {
       dispatch(openDrawerAction(true));
       dispatch(setDrawerContentAction(DrawerContent.login));

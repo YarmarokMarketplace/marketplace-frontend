@@ -98,3 +98,9 @@ export const categoryWithoutGoodtype = [
   'business-and-services',
   'help',
 ];
+
+export const deliveryOption: Array<{ label: string; value: string }> = [
+  { label: 'Нова пошта', value: 'NovaPost' },
+  { label: 'Укр пошта', value: 'UkrPost' },
+  { label: 'Інше', value: 'Other' },
+];
