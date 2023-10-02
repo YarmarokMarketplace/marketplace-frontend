@@ -89,6 +89,10 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   '&.MuiCard-root': {
     boxShadow: 'none',
   },
+  '&.inactive': {
+    backgroundColor: '#90909070',
+    opacity: 0.5,
+  },
 }));
 
 export const StyledCardWrapper = styled(Box)(({ theme }) => ({

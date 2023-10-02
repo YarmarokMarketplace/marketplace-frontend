@@ -87,7 +87,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   };
 
   return (
-    <StyledCard>
+    <StyledCard className={product.active ? '' : 'inactive'}>
       <CardActionArea disableRipple onClick={handleItemClick}>
         <StyledCardWrapper>
           <StyledImgWrapper>
