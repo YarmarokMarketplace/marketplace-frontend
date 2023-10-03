@@ -45,27 +45,42 @@ const OwnAdsTab = () => {
   const {
     loading,
     error,
-    data: { totalPages, notices, page, limit },
+    data: {
+      totalPagesActive,
+      totalPagesInactive,
+      activeResult,
+      inactiveResult,
+      activeNotices,
+      inactiveNotices,
+      notices,
+      page,
+      limit,
+    },
   } = useSelector(ownAdsStateSelector);
 
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+    dispatch(currentPageSetAction(1));
   };
 
   useEffect(() => {
     dispatch(userProductsListFetch({ page, limit }));
   }, [page, limit]);
 
-  useEffect(() => {
-    if (notices.length > 0) {
-      setActive(notices.filter((product) => product.active));
-      setInactive(notices.filter((product) => !product.active));
-    }
-  }, [notices]);
+  // useEffect(() => {
+  //   if (notices.length > 0) {
+  //     setActive(notices.filter((product) => product.active));
+  //     setInactive(notices.filter((product) => !product.active));
+  //   }
+  // }, [notices]);
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
   };
+
+  console.log(inactiveNotices);
+  console.log(notices);
+
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -101,38 +116,36 @@ const OwnAdsTab = () => {
       </StyledTitleContainer>
       <CustomTabPanel value={value} type="active">
         {loading && <SkeletonAds limit={limit} />}
-        {!loading && !error && notices.length > 0 && active.length > 0 && (
+        {!loading && !error && activeNotices.length > 0 && (
           <Stack gap={3}>
-            {active.map((product) => {
+            {activeNotices.map((product) => {
               return (
-                <>
-                  <OwnProductItem key={product._id} product={product}>
-                    <Stack
-                      direction="row"
-                      gap={3}
-                      justifyContent="space-between"
-                      height="fit-content"
+                <OwnProductItem product={product} key={product._id}>
+                  <Stack
+                    direction="row"
+                    gap={3}
+                    justifyContent="space-between"
+                    height="fit-content"
+                  >
+                    <StyledContrastButton
+                      id="deactivate-btn"
+                      variant="outlined"
                     >
-                      <StyledContrastButton
-                        id="deactivate-btn"
-                        variant="outlined"
-                      >
-                        Деактивувати
-                      </StyledContrastButton>
-                      <StyledIconButton id="edit-btn">
-                        <EditOutlinedIcon
-                          sx={{ fontSize: '1.5rem' }}
-                          color="primary"
-                        />
-                      </StyledIconButton>
-                    </Stack>
-                  </OwnProductItem>
-                </>
+                      Деактивувати
+                    </StyledContrastButton>
+                    <StyledIconButton id="edit-btn">
+                      <EditOutlinedIcon
+                        sx={{ fontSize: '1.5rem' }}
+                        color="primary"
+                      />
+                    </StyledIconButton>
+                  </Stack>
+                </OwnProductItem>
               );
             })}
           </Stack>
         )}
-        {!loading && active.length === 0 && (
+        {!loading && activeNotices.length === 0 && (
           <>
             <NoProductItem>
               <Typography variant="h4" fontWeight={700} mt={3}>
@@ -151,53 +164,48 @@ const OwnAdsTab = () => {
             </NoProductItem>
           </>
         )}
-        {!error && active.length > 0 && (
+        {!error && activeNotices.length > 0 && (
           <ProfilePagination
             handlePageChange={handlePageChange}
             page={page}
-            totalPages={totalPages}
+            totalPages={totalPagesActive}
           />
         )}
       </CustomTabPanel>
       <CustomTabPanel value={value} type="inactive">
         {loading && <SkeletonAds limit={limit} />}
-        {!loading && !error && notices.length > 0 && inactive.length > 0 && (
+        {!loading && !error && inactiveNotices.length > 0 && (
           <Stack gap={3}>
-            {inactive.map((product) => {
+            {inactiveNotices.map((product) => {
               return (
-                <>
-                  <OwnProductItem product={product}>
-                    <Stack gap={3} marginLeft={5.5}>
-                      <Button id="activate-btn" variant="outlined" fullWidth>
-                        Активувати
-                      </Button>
-                      <Stack
-                        direction="row"
-                        gap={3}
-                        justifyContent="center"
-                        height="fit-content"
-                      >
-                        <StyledContrastButton
-                          id="delete-btn"
-                          variant="outlined"
-                        >
-                          Видалити
-                        </StyledContrastButton>
-                        <StyledIconButton id="edit-btn">
-                          <EditOutlinedIcon
-                            sx={{ fontSize: '1.5rem' }}
-                            color="primary"
-                          />
-                        </StyledIconButton>
-                      </Stack>
+                <OwnProductItem product={product} key={product._id}>
+                  <Stack gap={3} marginLeft={5.5}>
+                    <Button id="activate-btn" variant="outlined" fullWidth>
+                      Активувати
+                    </Button>
+                    <Stack
+                      direction="row"
+                      gap={3}
+                      justifyContent="center"
+                      height="fit-content"
+                    >
+                      <StyledContrastButton id="delete-btn" variant="outlined">
+                        Видалити
+                      </StyledContrastButton>
+                      <StyledIconButton id="edit-btn">
+                        <EditOutlinedIcon
+                          sx={{ fontSize: '1.5rem' }}
+                          color="primary"
+                        />
+                      </StyledIconButton>
                     </Stack>
-                  </OwnProductItem>
-                </>
+                  </Stack>
+                </OwnProductItem>
               );
             })}
           </Stack>
         )}
-        {!loading && inactive.length === 0 && (
+        {!loading && inactiveNotices.length === 0 && (
           <>
             <NoProductItem>
               <Typography variant="h4" fontWeight={700} mt={3}>
@@ -215,11 +223,11 @@ const OwnAdsTab = () => {
             </NoProductItem>
           </>
         )}
-        {!loading && !error && inactive.length > 0 && (
+        {!loading && !error && inactiveNotices.length > 0 && (
           <ProfilePagination
             handlePageChange={handlePageChange}
             page={page}
-            totalPages={totalPages}
+            totalPages={totalPagesInactive}
           />
         )}
       </CustomTabPanel>

@@ -38,7 +38,7 @@ export const logout = async () => {
 
 export const getCurrent = async (token: string) => {
   try {
-    setToken(token);
+    // setToken(token);
     const response = await loginClient.get<never, CurrentResponse>(
       '/auth/current'
     );

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  UserProductsResponse,
   UserFavProductsResponse,
+  UserProductsResponse,
 } from '../../../../types';
 import {
   currentPageSet,
@@ -40,11 +40,14 @@ export const initialState: ProfileState = {
     loading: false,
     error: null,
     data: {
-      totalPages: 0,
-      totalResult: 0,
+      totalPagesActive: 0,
+      totalPagesInactive: 0,
+      activeResult: 0,
+      inactiveResult: 0,
       page: 1,
       limit: 3,
-      notices: [],
+      activeNotices: [],
+      inactiveNotices: [],
     },
   },
   favorites: [],
@@ -60,9 +63,7 @@ export const initialState: ProfileState = {
       totalResult: 0,
       page: 1,
       limit: 8,
-      result: {
-        favorite: [],
-      },
+      result: [],
     },
   },
 };
