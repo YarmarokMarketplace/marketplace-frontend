@@ -90,8 +90,8 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     boxShadow: 'none',
   },
   '&.inactive': {
-    backgroundColor: '#90909070',
-    opacity: 0.5,
+    backgroundColor: 'rgb(206 205 205 / 47%)',
+    opacity: 0.4,
   },
 }));
 
