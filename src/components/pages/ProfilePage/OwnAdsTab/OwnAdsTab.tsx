@@ -40,8 +40,6 @@ const CustomTabPanel: React.FC<TabPanelProps> = (props) => {
 
 const OwnAdsTab = () => {
   const [value, setValue] = React.useState<string>('active');
-  const [active, setActive] = React.useState<ProductItem[] | []>([]);
-  const [inactive, setInactive] = React.useState<ProductItem[] | []>([]);
   const {
     loading,
     error,
@@ -68,12 +66,6 @@ const OwnAdsTab = () => {
     dispatch(userProductsListFetch({ page, limit }));
   }, [page, limit]);
 
-  // useEffect(() => {
-  //   if (notices.length > 0) {
-  //     setActive(notices.filter((product) => product.active));
-  //     setInactive(notices.filter((product) => !product.active));
-  //   }
-  // }, [notices]);
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
   };
