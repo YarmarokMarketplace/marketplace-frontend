@@ -295,6 +295,7 @@ export const userAuthSlice = createSlice({
           patronymic: '',
           avatarURL: '',
           phone: '',
+          favorite: [],
         };
         state.refreshToken = '';
         state.accessToken = '';

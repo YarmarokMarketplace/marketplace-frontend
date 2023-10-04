@@ -9,7 +9,7 @@ export const currentPageSet = (
 };
 
 export const resetOwnAdsState = (state: ProfileState) => {
-  state.own.data.notices = [];
+  state.own.data = initialState.own.data;
 };
 
 export const resetFavAdsState = (state: ProfileState) => {

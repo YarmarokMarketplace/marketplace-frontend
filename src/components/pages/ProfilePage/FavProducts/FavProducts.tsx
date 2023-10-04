@@ -20,13 +20,7 @@ const FavProducts = () => {
   const {
     loading,
     error,
-    data: {
-      totalPages,
-      totalResult,
-      page,
-      limit,
-      result: { favorite },
-    },
+    data: { totalPages, totalResult, page, limit, result },
   } = useSelector(favAdsStateSelector);
 
   const dispatch: AppDispatch = useDispatch();
@@ -51,8 +45,8 @@ const FavProducts = () => {
       <GridProductsWrapper>
         {!loading &&
           !error &&
-          favorite.length > 0 &&
-          favorite.map((product) => {
+          result.length > 0 &&
+          result.map((product) => {
             return <ProductItem key={product._id} product={product} />;
           })}
         {loading &&
@@ -86,14 +80,14 @@ const FavProducts = () => {
             );
           })}
       </GridProductsWrapper>
-      {favorite.length > 0 && !loading && (
+      {result.length > 0 && !loading && (
         <ProfilePagination
           page={page}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
         />
       )}
-      {favorite.length === 0 && !loading && (
+      {result.length === 0 && !loading && (
         <NoProductMessage src={placeholderImage}>
           <Typography variant="h4" fontWeight={700} mt={3}>
             Збережіть цікаві оголошення

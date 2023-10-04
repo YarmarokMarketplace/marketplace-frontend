@@ -189,11 +189,14 @@ export interface ResetPasswordBody {
   password: string;
 }
 export interface UserProductsResponse {
-  totalResult: number;
-  totalPages: number;
+  totalPagesActive: number;
+  totalPagesInactive: number;
+  activeResult: number;
+  inactiveResult: number;
   page: number;
   limit: number;
-  notices: ProductItem[];
+  activeNotices: ProductItem[];
+  inactiveNotices: ProductItem[];
 }
 
 export interface UserFavProductsResponse {
@@ -201,7 +204,5 @@ export interface UserFavProductsResponse {
   totalPages: number;
   page: number;
   limit: number;
-  result: {
-    favorite: ProductItem[];
-  };
+  result: ProductItem[];
 }
