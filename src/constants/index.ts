@@ -101,6 +101,6 @@ export const categoryWithoutGoodtype = [
 
 export const deliveryOption: Array<{ label: string; value: string }> = [
   { label: 'Нова пошта', value: 'NovaPost' },
-  { label: 'Укр пошта', value: 'UkrPost' },
+  { label: 'Укрпошта', value: 'UkrPost' },
   { label: 'Інше', value: 'Other' },
 ];
