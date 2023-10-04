@@ -106,7 +106,7 @@ const OwnAdsTab = () => {
             {active.map((product) => {
               return (
                 <>
-                  <OwnProductItem product={product}>
+                  <OwnProductItem key={product._id} product={product}>
                     <Stack
                       direction="row"
                       gap={3}
