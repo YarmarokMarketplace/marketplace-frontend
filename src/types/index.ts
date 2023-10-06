@@ -165,13 +165,6 @@ export interface UpdateUserInput {
   avatarURL?: string | File;
   phone?: string;
 }
-export interface UserProductsResponse {
-  totalResult: number;
-  totalPages: number;
-  page: number;
-  limit: number;
-  notices: ProductItem[];
-}
 
 export enum SuccessMessageContent {
   updateUserSuccess = 'updateUserSuccess',

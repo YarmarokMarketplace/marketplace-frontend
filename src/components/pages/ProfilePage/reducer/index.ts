@@ -49,9 +49,6 @@ export const initialState: ProfileState = {
       limit: 3,
       activeNotices: [],
       inactiveNotices: [],
-      totalResult: 0,
-      totalPages: 0,
-      notices: [],
     },
   },
   favorites: [],
@@ -143,9 +140,16 @@ const profileSlice = createSlice({
         (state, { payload }) => {
           state.own.loading = false;
           const productId = payload.data.result._id;
-          state.own.data.notices = state.own.data.notices.filter(
-            (product) => product._id !== productId
-          );
+          const isActive = payload.data.result.active;
+          isActive
+            ? (state.own.data.inactiveNotices =
+                state.own.data.inactiveNotices.filter(
+                  (product) => product._id !== productId
+                ))
+            : (state.own.data.activeNotices =
+                state.own.data.activeNotices.filter(
+                  (product) => product._id !== productId
+                ));
         }
       )
       .addCase(activateOrDeactivateProductFetch.rejected, (state) => {

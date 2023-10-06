@@ -8,7 +8,7 @@ import { StyledContrastButton, StyledIconButton } from '../ProductItem/style';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import NoProductItem from './NoProductItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { ownAdsStateSelector } from '../selector';
+import { ownAdsStateSelector, profileStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
 import { userProductsListFetch, activateOrDeactivateProductFetch } from '../thunk';
 import { ProductItem } from '../../../../types';
@@ -50,11 +50,12 @@ const OwnAdsTab = () => {
       inactiveResult,
       activeNotices,
       inactiveNotices,
-      notices,
       page,
       limit,
     },
   } = useSelector(ownAdsStateSelector);
+
+  const ownList = useSelector(profileStateSelector).own.data.activeNotices;
 
   const dispatch: AppDispatch = useDispatch();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -68,6 +69,7 @@ const OwnAdsTab = () => {
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
+
   };
 
   const handleDeactivateClick = async (e: React.SyntheticEvent) => {
@@ -75,6 +77,15 @@ const OwnAdsTab = () => {
     const productId = e.currentTarget.getAttribute('data-product-id');
     const active: boolean = false;
     productId && await dispatch(activateOrDeactivateProductFetch({ productId, active }));
+
+    // if (activeNotices.length % 3 === 1) {
+    // console.log('last')
+    // if (page > totalPagesActive) {
+    // console.log(1)
+    // dispatch(currentPageSetAction(page - 1));
+    // }
+    // }
+    console.log(page)
     dispatch(userProductsListFetch({ page, limit }));
   }
   return (
