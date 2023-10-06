@@ -76,6 +76,8 @@ const OwnAdsTab = () => {
       await dispatch(activateOrDeactivateProductFetch({ productId, active }));
       if (activeNotices.length % limit === 1) {
         dispatch(currentPageSetAction(page - 1));
+      } else {
+        await dispatch(userProductsListFetch({ page, limit }));
       }
     }
   }
