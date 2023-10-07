@@ -71,10 +71,10 @@ const OwnAdsTab = () => {
 
   const handleDeactivateClick = async (e: React.SyntheticEvent) => {
     const productId = e.currentTarget.getAttribute('data-product-id');
-    const active: boolean = true;
+    const active: boolean = false;
     if (productId) {
       await dispatch(activateOrDeactivateProductFetch({ productId, active }));
-      if (inactiveNotices.length % limit === 1) {
+      if (activeNotices.length % limit === 1) {
         dispatch(currentPageSetAction(page - 1));
       } else {
         await dispatch(userProductsListFetch({ page, limit }));
@@ -84,8 +84,14 @@ const OwnAdsTab = () => {
   const handleActivateProductClick = async (e: React.SyntheticEvent) => {
     const productId = e.currentTarget.getAttribute('data-product-id');
     const active: boolean = true;
-    productId && await dispatch(activateOrDeactivateProductFetch({ productId, active }));
-    dispatch(userProductsListFetch({ page, limit }));
+    if (productId) {
+      await dispatch(activateOrDeactivateProductFetch({ productId, active }));
+      if (inactiveNotices.length % limit === 1) {
+        dispatch(currentPageSetAction(page - 1));
+      } else {
+        await dispatch(userProductsListFetch({ page, limit }));
+      }
+    }
   }
   return (
     <StyledAdsContainer>
@@ -189,6 +195,7 @@ const OwnAdsTab = () => {
                 <OwnProductItem product={product} key={product._id}>
                   <Stack gap={3} marginLeft={5.5}>
                     <Button
+                      data-product-id={product._id}
                       onClick={handleActivateProductClick}
                       id="activate-btn"
                       variant="outlined"

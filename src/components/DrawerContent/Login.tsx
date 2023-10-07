@@ -3,7 +3,6 @@ import {
   Stack,
   FormControl,
   Typography,
-  Checkbox,
   InputAdornment,
   IconButton,
 } from '@mui/material';
@@ -20,7 +19,6 @@ import {
   StyledSubmitBtn,
   StyledResetBtn,
   StyledSignInBtn,
-  SaveDataControlLabel,
 } from './style';
 import { AppDispatch } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +31,6 @@ import {
   rememberLoginToggleAction,
   emailErrorToggleAction,
   requestErrorToggleAction,
-  isLoginResetAction,
   notVerifiedErrorToggleAction,
 } from 'redux/auth/reducer';
 import { DrawerContent, LoginBody } from '../../types';
@@ -72,7 +69,6 @@ const Login = () => {
     return () => {
       const values = getValues();
       localStorage.setItem("logInput", JSON.stringify({ ...values, password: "" }));
-      // dispatch(isLoginResetAction());
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
       dispatch(notVerifiedErrorToggleAction(false));
@@ -83,7 +79,6 @@ const Login = () => {
     if (isLogin) {
       reset();
       dispatch(openDrawerAction(false));
-      // dispatch(isLoginResetAction());
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
       dispatch(notVerifiedErrorToggleAction(false));
@@ -114,23 +109,6 @@ const Login = () => {
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(rememberLoginToggleAction(event.target.checked));
   };
-
-  const handleBeforeUnload = () => {
-    // Видалити значення з локального сховища
-    // if (!rememberLogin) {
-    // localStorage.removeItem('persist:login');
-    // localStorage.clear();
-    localStorage.removeItem('persist:login');
-    // }
-  };
-
-  // useEffect(() => {
-  //     window.addEventListener('unload', handleBeforeUnload);
-
-  //     return () => {
-  //         window.removeEventListener('unload', handleBeforeUnload);
-  //     };
-  // }, [])
 
   const setHelperText = () => {
     let helperText: any = "";
@@ -250,11 +228,6 @@ const Login = () => {
             Забули пароль?
           </StyledResetBtn>
         </StyledBox >
-
-        <SaveDataControlLabel
-          control={<Checkbox onChange={handleCheckboxChange} />}
-          label="Зберегти мої дані для входу"
-        />
 
         <StyledSubmitBtn
           id="login-btn"
