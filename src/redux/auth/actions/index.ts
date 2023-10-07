@@ -14,10 +14,6 @@ export const isAuthReset = (state: UserAuthState) => {
   state.register.isAuth = false;
 };
 
-export const isLoginReset = (state: UserAuthState) => {
-  state.isLogin = false;
-};
-
 export const rememberLoginToggle = (
   state: UserAuthState,
   action: PayloadAction<boolean>

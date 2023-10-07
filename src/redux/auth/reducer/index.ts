@@ -12,7 +12,6 @@ import {
 import {
   emailErrorToggle,
   isAuthReset,
-  isLoginReset,
   rememberLoginToggle,
   requestErrorToggle,
   requestLimitErrorToggle,
@@ -156,7 +155,6 @@ export const userAuthSlice = createSlice({
   reducers: {
     emailErrorToggle,
     isAuthReset,
-    isLoginReset,
     rememberLoginToggle,
     requestErrorToggle,
     requestLimitErrorToggle,
@@ -329,7 +327,6 @@ export const userAuthSlice = createSlice({
 export const {
   emailErrorToggle: emailErrorToggleAction,
   isAuthReset: isAuthResetAction,
-  isLoginReset: isLoginResetAction,
   rememberLoginToggle: rememberLoginToggleAction,
   requestErrorToggle: requestErrorToggleAction,
   requestLimitErrorToggle: requestLimitErrorToggleAction,
