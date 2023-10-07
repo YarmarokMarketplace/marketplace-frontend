@@ -10,8 +10,7 @@ import NoProductItem from './NoProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
-import { userProductsListFetch } from '../thunk';
-import { ProductItem } from '../../../../types';
+import { userProductsListFetch, activateOrDeactivateProductFetch } from '../thunk';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
 import { currentPageSetAction } from '../reducer';
@@ -50,7 +49,6 @@ const OwnAdsTab = () => {
       inactiveResult,
       activeNotices,
       inactiveNotices,
-      notices,
       page,
       limit,
     },
@@ -68,11 +66,21 @@ const OwnAdsTab = () => {
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
+
   };
 
-  console.log(inactiveNotices);
-  console.log(notices);
-
+  const handleDeactivateClick = async (e: React.SyntheticEvent) => {
+    const productId = e.currentTarget.getAttribute('data-product-id');
+    const active: boolean = false;
+    if (productId) {
+      await dispatch(activateOrDeactivateProductFetch({ productId, active }));
+      if (activeNotices.length % limit === 1) {
+        dispatch(currentPageSetAction(page - 1));
+      } else {
+        await dispatch(userProductsListFetch({ page, limit }));
+      }
+    }
+  }
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -120,8 +128,10 @@ const OwnAdsTab = () => {
                     height="fit-content"
                   >
                     <StyledContrastButton
+                      data-product-id={product._id}
                       id="deactivate-btn"
                       variant="outlined"
+                      onClick={handleDeactivateClick}
                     >
                       Деактивувати
                     </StyledContrastButton>
