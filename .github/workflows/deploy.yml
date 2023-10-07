@@ -23,7 +23,7 @@ jobs:
 
       - name: Get Latest Git Tag
         id: version
-        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+        run: echo "TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_OUTPUT
 
       - name: Build and Deploy
         run: |
