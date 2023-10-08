@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
 import { userProductsListFetch, activateOrDeactivateProductFetch, deleteProductFetch } from '../thunk';
-import { ProductItem, ModalContent } from '../../../../types';
+import { ModalContent } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
 import { currentPageSetAction } from '../reducer';

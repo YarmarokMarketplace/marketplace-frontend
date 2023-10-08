@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModalAction } from "../CustomModal/reducer";
 import { deleteProductFetch, userProductsListFetch } from 'src/components/pages/ProfilePage/thunk';
 import { ownAdsStateSelector, profileStateSelector } from '../pages/ProfilePage/selector';
+import { currentPageSetAction } from '../pages/ProfilePage/reducer';
 
 import {
     Typography,
@@ -13,13 +14,19 @@ import {
 const DeleteProductModal = () => {
     const dispatch: AppDispatch = useDispatch();
     const {
-        data: { page, limit },
+        data: { page, limit, inactiveNotices, },
     } = useSelector(ownAdsStateSelector);
     const { productId } = useSelector(profileStateSelector);
 
     const handleProductDelete = async (e: React.SyntheticEvent) => {
-        productId && await dispatch(deleteProductFetch(productId));
-        dispatch(userProductsListFetch({ page, limit }));
+        if (productId) {
+            await dispatch(deleteProductFetch(productId));
+            if (inactiveNotices.length % limit === 1) {
+                dispatch(currentPageSetAction(page - 1));
+            } else {
+                dispatch(userProductsListFetch({ page, limit }));
+            }
+        }
         dispatch(openModalAction(false));
     }
 
