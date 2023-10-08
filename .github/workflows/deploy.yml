@@ -31,7 +31,7 @@ jobs:
       - name: Build and Deploy
         run: |
           npm run build
-          npx netlify-cli deploy --prod --message "${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
+          npx netlify-cli deploy --prod --message "${{ steps.version.outputs.TAG }}: ${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -39,7 +39,7 @@ jobs:
 
       - name: Deploy to Production
         run: |
+          TAG=${TAG}
           echo "Deploying version $TAG to production..."
-          # Додайте тут команди для розгортання вашого додатку з використанням тегу $TAG
         env:
           TAG: ${{ steps.version.outputs.TAG }}
