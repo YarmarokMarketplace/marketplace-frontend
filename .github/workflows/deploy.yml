@@ -26,8 +26,10 @@ jobs:
 
       - name: Get Latest Git Tag
         id: version
-        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-
+        run: | 
+          "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo echo "TAG=$TAG" >> $GITHUB_ENV
+          
       - name: Build and Deploy
         run: |
           npm run build
