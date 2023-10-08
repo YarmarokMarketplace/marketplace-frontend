@@ -28,7 +28,7 @@ jobs:
         id: version
         run: | 
           "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-          echo echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
           
       - name: Build and Deploy
         run: |
