@@ -26,14 +26,12 @@ jobs:
 
       - name: Get Latest Git Tag
         id: version
-        run: | 
-          "TAG=$(git describe --tags --abbrev=0)"
-          echo "TAG=$TAG" >> $GITHUB_ENV
+        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
           
       - name: Build and Deploy
         run: |
           npm run build
-          npx netlify-cli deploy --prod --message "${{ steps.version.outputs.TAG }}: ${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
+          npx netlify-cli deploy --prod --message "${{ env.TAG }}: ${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -41,7 +39,6 @@ jobs:
 
       - name: Deploy to Production
         run: |
-          TAG=${TAG}
           echo "Deploying version $TAG to production..."
         env:
           TAG: ${{ steps.version.outputs.TAG }}
