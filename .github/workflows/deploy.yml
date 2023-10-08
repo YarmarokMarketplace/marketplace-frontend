@@ -26,7 +26,7 @@ jobs:
 
       - name: Get Latest Git Tag
         id: version
-        run: echo "TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_OUTPUT
+        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Build and Deploy
         run: |
@@ -36,3 +36,10 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           REACT_APP_API: ${{ secrets.REACT_APP_API }}
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying version $TAG to production..."
+          # Додайте тут команди для розгортання вашого додатку з використанням тегу $TAG
+        env:
+          TAG: ${{ steps.version.outputs.TAG }}
