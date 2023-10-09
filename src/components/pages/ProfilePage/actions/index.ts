@@ -26,3 +26,10 @@ export const currentFavPageSet = (
 export const resetFavoriteList = (state: ProfileState) => {
   state.favorites = [];
 };
+
+export const setProductId = (
+  state: ProfileState,
+  action: PayloadAction<string | null>
+) => {
+  state.productId = action.payload;
+};

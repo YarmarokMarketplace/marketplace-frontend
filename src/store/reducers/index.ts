@@ -17,7 +17,6 @@ const persistConfig = {
   key: 'accessToken',
   storage,
   whitelist: ['accessToken', 'isLogin'],
-  // serialize: true
 };
 
 const persistAdvertConfig = {

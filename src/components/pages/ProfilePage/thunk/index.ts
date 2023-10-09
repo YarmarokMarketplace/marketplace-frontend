@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getUserOwnProducts,
   activateOrDeactivateProduct,
+  deleteProduct,
 } from '../../../../api/products';
 import { AxiosError } from 'axios';
 import { resetOwnAdsStateAction } from '../reducer';
@@ -97,6 +98,19 @@ export const activateOrDeactivateProductFetch = createAsyncThunk(
   ) => {
     try {
       return await activateOrDeactivateProduct(values.productId, values.active);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+const DELETE_PRODUCT_FETCH_THUNK_TYPE = 'DELETE_PRODUCT_FETCH_THUNK_TYPE';
+
+export const deleteProductFetch = createAsyncThunk(
+  DELETE_PRODUCT_FETCH_THUNK_TYPE,
+  async (id: string, { rejectWithValue }) => {
+    try {
+      return await deleteProduct(id);
     } catch (error) {
       return rejectWithValue(error);
     }

@@ -9,6 +9,7 @@ import {
   resetFavAdsState,
   currentFavPageSet,
   resetFavoriteList,
+  setProductId,
 } from '../actions';
 import {
   addFavoriteProductFetch,
@@ -16,6 +17,7 @@ import {
   userFavoritesProductsListFetch,
   userProductsListFetch,
   activateOrDeactivateProductFetch,
+  deleteProductFetch,
 } from '../thunk';
 
 export interface ProfileState {
@@ -34,6 +36,7 @@ export interface ProfileState {
     error: boolean | null;
     data: UserFavProductsResponse;
   };
+  productId: string | null;
 }
 
 export const initialState: ProfileState = {
@@ -67,6 +70,7 @@ export const initialState: ProfileState = {
       result: [],
     },
   },
+  productId: null,
 };
 
 const name = 'PROFILE';
@@ -80,6 +84,7 @@ const profileSlice = createSlice({
     resetFavAdsState,
     currentFavPageSet,
     resetFavoriteList,
+    setProductId,
   },
   extraReducers(builder) {
     builder
@@ -155,6 +160,17 @@ const profileSlice = createSlice({
       .addCase(activateOrDeactivateProductFetch.rejected, (state) => {
         state.own.loading = false;
         state.own.error = true;
+      })
+      .addCase(deleteProductFetch.pending, (state) => {
+        state.own.loading = true;
+        state.own.error = false;
+      })
+      .addCase(deleteProductFetch.fulfilled, (state) => {
+        state.own.loading = false;
+      })
+      .addCase(deleteProductFetch.rejected, (state) => {
+        state.own.loading = false;
+        state.own.error = true;
       });
   },
 });
@@ -165,6 +181,7 @@ export const {
   resetFavAdsState: resetFavAdsStateAction,
   currentFavPageSet: currentFavPageSetAction,
   resetFavoriteList: resetFavoriteListAction,
+  setProductId: setProductIdAction,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

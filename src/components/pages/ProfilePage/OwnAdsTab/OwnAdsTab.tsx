@@ -10,10 +10,13 @@ import NoProductItem from './NoProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { ownAdsStateSelector } from '../selector';
 import { AppDispatch } from '../../../../store';
-import { userProductsListFetch, activateOrDeactivateProductFetch } from '../thunk';
+import { userProductsListFetch, activateOrDeactivateProductFetch, deleteProductFetch } from '../thunk';
+import { ModalContent } from '../../../../types';
 import ProfilePagination from '../ProfilePagination';
 import SkeletonAds from '../SkeletonAds';
 import { currentPageSetAction } from '../reducer';
+import { openModalAction, setModalContentAction } from 'src/components/CustomModal/reducer';
+import { setProductIdAction } from '../reducer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -66,7 +69,6 @@ const OwnAdsTab = () => {
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
     dispatch(currentPageSetAction(page));
-
   };
 
   const handleDeactivateClick = async (e: React.SyntheticEvent) => {
@@ -93,6 +95,16 @@ const OwnAdsTab = () => {
       }
     }
   }
+
+  const handleClickDeleteProduct = (e: React.SyntheticEvent) => {
+    const productId = e.currentTarget.getAttribute('data-del-btn-id');
+    if (productId) {
+      dispatch(setProductIdAction(productId))
+      dispatch(openModalAction(true));
+      dispatch(setModalContentAction(ModalContent.deleteProduct));
+    }
+  }
+
   return (
     <StyledAdsContainer>
       <StyledTitleContainer>
@@ -208,7 +220,12 @@ const OwnAdsTab = () => {
                       justifyContent="center"
                       height="fit-content"
                     >
-                      <StyledContrastButton id="delete-btn" variant="outlined">
+                      <StyledContrastButton
+                        data-del-btn-id={product._id}
+                        id="delete-btn"
+                        variant="outlined"
+                        onClick={handleClickDeleteProduct}
+                      >
                         Видалити
                       </StyledContrastButton>
                       <StyledIconButton id="edit-btn">
@@ -218,39 +235,43 @@ const OwnAdsTab = () => {
                         />
                       </StyledIconButton>
                     </Stack>
-                  </Stack>
-                </OwnProductItem>
+                  </Stack >
+                </OwnProductItem >
               );
             })}
-          </Stack>
+          </Stack >
         )}
-        {!loading && inactiveNotices.length === 0 && (
-          <>
-            <NoProductItem>
-              <Typography variant="h4" fontWeight={700} mt={3}>
-                Оголошення переміщуються сюди після закінчення терміну дії
-              </Typography>
-              <Typography
-                variant="body1"
-                fontWeight={500}
-                color="text.secondary"
-                mt={1}
-              >
-                Ви також можете деактивувати оголошення до закінчення терміну
-                його дії.
-              </Typography>
-            </NoProductItem>
-          </>
-        )}
-        {!loading && !error && inactiveNotices.length > 0 && (
-          <ProfilePagination
-            handlePageChange={handlePageChange}
-            page={page}
-            totalPages={totalPagesInactive}
-          />
-        )}
-      </CustomTabPanel>
-    </StyledAdsContainer>
+        {
+          !loading && inactiveNotices.length === 0 && (
+            <>
+              <NoProductItem>
+                <Typography variant="h4" fontWeight={700} mt={3}>
+                  Оголошення переміщуються сюди після закінчення терміну дії
+                </Typography>
+                <Typography
+                  variant="body1"
+                  fontWeight={500}
+                  color="text.secondary"
+                  mt={1}
+                >
+                  Ви також можете деактивувати оголошення до закінчення терміну
+                  його дії.
+                </Typography>
+              </NoProductItem>
+            </>
+          )
+        }
+        {
+          !loading && !error && inactiveNotices.length > 0 && (
+            <ProfilePagination
+              handlePageChange={handlePageChange}
+              page={page}
+              totalPages={totalPagesInactive}
+            />
+          )
+        }
+      </CustomTabPanel >
+    </StyledAdsContainer >
   );
 };
 
