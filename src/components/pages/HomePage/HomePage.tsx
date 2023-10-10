@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Stack, Typography } from '@mui/material';
 import ChatButton from '../../ChatButton';
 import CategoryItem from './CategoryItem';
@@ -15,10 +15,7 @@ import { categoriesStateSelector } from './selector';
 import { categoryListFetch } from './thunk';
 import { AppDispatch } from '../../../store';
 import { setToken } from '../../../api/client';
-import {
-  isSocialLoginSetAction,
-  socialLoginUserSetAction,
-} from '../../../redux/auth/reducer';
+import { isSocialLoginSetAction } from '../../../redux/auth/reducer';
 import { currentFetch } from 'redux/auth/thunk';
 
 const HomePage = () => {
@@ -33,8 +30,6 @@ const HomePage = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     if (queryParams.size > 0) {
-      // const name = queryParams.get('name');
-      // const email = queryParams.get('email');
       const accessToken = queryParams.get('accessToken');
       const refreshToken = queryParams.get('refreshToken');
       if (refreshToken && accessToken) {
