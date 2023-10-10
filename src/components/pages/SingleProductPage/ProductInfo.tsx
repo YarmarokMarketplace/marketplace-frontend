@@ -103,7 +103,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         <Typography mt={2} color="primary" variant="h4">
           {product.price} грн
         </Typography>
-        {product.active &&
+        {product.owner !== user.id && (
           <Stack mt={2} direction="row" justifyContent="space-between">
             <Stack spacing={2} direction="row">
               <Button
@@ -143,7 +143,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
               </StyledTextButton>
             </Stack>
           </Stack>
-        }
+        )}
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
           {location?.label}, Опубліковано{' '}
           {moment(product.createdAt).format('DD.MM.YYYY')}
@@ -191,7 +191,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           </Stack>
         </Stack>
       </StyledInfoBlock>
-      {product.active &&
+      {product.active && (
         <StyledInfoBlock>
           <Typography fontWeight={700} variant="h6">
             Контакти
@@ -216,7 +216,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             )}
           </Stack>
         </StyledInfoBlock>
-      }
+      )}
 
       {!categoriesDeliveryAbsense.includes(product.category) && (
         <Stack direction="row" spacing={2}>

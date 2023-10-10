@@ -16,10 +16,7 @@ export interface ProductItem {
   location: string;
   price: number;
   comments?: string;
-  owner: {
-    _id: string;
-    email: string;
-  };
+  owner: string;
   createdAt: string;
   updatedAt: string;
   active?: boolean;
