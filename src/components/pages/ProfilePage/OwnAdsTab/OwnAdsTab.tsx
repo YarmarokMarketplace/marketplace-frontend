@@ -169,7 +169,10 @@ const OwnAdsTab = () => {
                     >
                       Деактивувати
                     </StyledContrastButton>
-                    <StyledIconButton id="edit-btn">
+                    <StyledIconButton
+                      id="edit-btn"
+                      onClick={() => navigate(`/edit-advert/${product._id}`)}
+                    >
                       <EditOutlinedIcon
                         sx={{ fontSize: '1.5rem' }}
                         color="primary"
@@ -239,7 +242,10 @@ const OwnAdsTab = () => {
                       >
                         Видалити
                       </StyledContrastButton>
-                      <StyledIconButton id="edit-btn">
+                      <StyledIconButton
+                        id="edit-btn"
+                        onClick={() => navigate(`/edit-advert/${product._id}`)}
+                      >
                         <EditOutlinedIcon
                           sx={{ fontSize: '1.5rem' }}
                           color="primary"
