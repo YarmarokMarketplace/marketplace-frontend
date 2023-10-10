@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 
 const Activities = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Види діяльності</Typography>
         <Typography whiteSpace="pre-line" variant="body1">{`ВИДИ ДІЯЛЬНОСТІ
@@ -27,7 +26,7 @@ const Activities = () => {
           6.15. охоронна діяльність;
           6.16. діяльність у сфері страхування.`}</Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 

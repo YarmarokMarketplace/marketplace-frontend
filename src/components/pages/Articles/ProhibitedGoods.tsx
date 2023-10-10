@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Container } from '@mui/material';
 
 const ProhibitedGoods = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Заборонені товари</Typography>
         <Typography variant="body1">ЗАБОРОНЕНІ ТОВАРИ</Typography>
@@ -83,7 +82,7 @@ const ProhibitedGoods = () => {
 4.3.38. Будь-яких інших товарів і послуг, заборонених для продажу та рекламування законодавством України або рішенням Адміністрації маркетплейсу. Будь-яких інших товарів і послуг, заборонених для продажу та рекламування законодавством України або рішенням Адміністрації маркетплейсу.`}
         </Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 

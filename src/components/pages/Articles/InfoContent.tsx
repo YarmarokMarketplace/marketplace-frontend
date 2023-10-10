@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Container } from '@mui/material';
 
 const InfoContent = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Зміст інформації</Typography>
         <Typography whiteSpace="pre-line" variant="body1">{`ЗМІСТ ІНФОРМАЦІЇ
@@ -53,7 +52,7 @@ const InfoContent = () => {
           3.21. будь-яку іншу інформацію, яка порушує законодавство України і ці Правила.
         `}</Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 

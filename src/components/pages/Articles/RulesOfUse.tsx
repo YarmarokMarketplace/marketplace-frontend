@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledContainer } from './style';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Container } from '@mui/material';
 
 const RulesOfUse = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Загальні вимоги</Typography>
         <Typography whiteSpace="pre-line" variant="body1">{`ЗАГАЛЬНІ ВИМОГИ
@@ -25,7 +24,7 @@ const RulesOfUse = () => {
           
           1.9. Продаж товару особам, які не досягли віку, з якого згідно з нормами чинного законодавства України дозволено купівлю такого товару, забороняється.`}</Typography>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 

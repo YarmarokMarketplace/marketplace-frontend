@@ -1,10 +1,17 @@
 import React from 'react';
-import { StyledContainer, StyledListItem } from './style';
-import { Stack, Typography, List, ListItem, Link } from '@mui/material';
+import { StyledListItem } from './style';
+import {
+  Stack,
+  Typography,
+  List,
+  ListItem,
+  Link,
+  Container,
+} from '@mui/material';
 
 const SecurityRules = () => {
   return (
-    <StyledContainer maxWidth="xl" disableGutters>
+    <Container maxWidth="xl" disableGutters>
       <Stack>
         <Typography variant="h4">
           Як захистити себе при купівлі товарів через Інтернет?
@@ -70,7 +77,7 @@ const SecurityRules = () => {
           </StyledListItem>
         </List>
       </Stack>
-    </StyledContainer>
+    </Container>
   );
 };
 
