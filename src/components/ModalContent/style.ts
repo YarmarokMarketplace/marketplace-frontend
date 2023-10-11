@@ -36,15 +36,15 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
   color: theme.palette.text.primary,
   borderRadius: '8px',
   '&.Mui-selected': {
-    border: `1px solid ${theme.palette.primary.light}`,
+    border: `1px solid ${theme.palette.primary.main}`,
     color: theme.palette.white,
     zIndex: 1,
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 
 export const StyledTabContainer = styled(Tabs)(({ theme }) => ({
-  border: `1px solid ${theme.palette.primary.light}`,
+  border: `1px solid ${theme.palette.primary.main}`,
   borderRadius: 8,
   '& .MuiTabs-indicator': {
     background: 'none',
