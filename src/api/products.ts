@@ -1,8 +1,4 @@
-import {
-  ProductItem,
-  UserFavProductsResponse,
-  UserProductsResponse,
-} from '../types';
+import { ProductItem, UserProductsResponse } from '../types';
 import { client, loginClient } from './client';
 
 type ProductsResponse = {
@@ -104,10 +100,10 @@ export const removeFavoriteProduct = async (id: string) => {
   }
 };
 
-export const getUserFavoriteProducts = async (page: number, limit: number) => {
+export const getUserFavoriteProducts = async () => {
   try {
-    return await loginClient.get<never, UserFavProductsResponse>(
-      `/notices/user/favorites?page=${page}&limit=${limit}`
+    return await loginClient.get<never, { result: ProductItem[] }>(
+      `/notices/user/favorites`
     );
   } catch (error) {
     return Promise.reject(error);

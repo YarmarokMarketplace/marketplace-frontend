@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  UserFavProductsResponse,
-  UserProductsResponse,
-} from '../../../../types';
+import { ProductItem, UserProductsResponse } from '../../../../types';
 import {
   currentPageSet,
   resetOwnAdsState,
@@ -10,6 +7,7 @@ import {
   currentFavPageSet,
   resetFavoriteList,
   setProductId,
+  offsetFavSet,
 } from '../actions';
 import {
   addFavoriteProductFetch,
@@ -34,7 +32,10 @@ export interface ProfileState {
     };
     loading: boolean;
     error: boolean | null;
-    data: UserFavProductsResponse;
+    page: number;
+    offset: number;
+    itemsPerPage: number;
+    data: ProductItem[];
   };
   productId: string | null;
 }
@@ -62,13 +63,10 @@ export const initialState: ProfileState = {
     },
     loading: false,
     error: null,
-    data: {
-      totalPages: 0,
-      totalResult: 0,
-      page: 1,
-      limit: 8,
-      result: [],
-    },
+    page: 1,
+    offset: 0,
+    itemsPerPage: 8,
+    data: [],
   },
   productId: null,
 };
@@ -85,6 +83,7 @@ const profileSlice = createSlice({
     currentFavPageSet,
     resetFavoriteList,
     setProductId,
+    offsetFavSet,
   },
   extraReducers(builder) {
     builder
@@ -182,6 +181,7 @@ export const {
   currentFavPageSet: currentFavPageSetAction,
   resetFavoriteList: resetFavoriteListAction,
   setProductId: setProductIdAction,
+  offsetFavSet: offsetFavSetAction,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

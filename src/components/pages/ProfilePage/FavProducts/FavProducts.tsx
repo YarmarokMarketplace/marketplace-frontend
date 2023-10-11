@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GridProductsWrapper,
   StyledAdsContainer,
@@ -14,27 +14,43 @@ import { favAdsStateSelector, profileStateSelector } from '../selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/store';
 import { userFavoritesProductsListFetch } from '../thunk';
-import { currentFavPageSetAction } from '../reducer';
+import { currentFavPageSetAction, offsetFavSetAction } from '../reducer';
 
 const FavProducts = () => {
-  const {
-    loading,
-    error,
-    data: { totalPages, totalResult, page, limit, result },
-  } = useSelector(favAdsStateSelector);
+  const { loading, error, data, page, offset, itemsPerPage } =
+    useSelector(favAdsStateSelector);
+
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [endOffset, setEndOffset] = useState<number>(0);
+  const [products, setProducts] = useState<ProductItem[] | []>([]);
+  const [productList, setProductList] = useState<ProductItem[] | null>(null);
 
   const dispatch: AppDispatch = useDispatch();
   const favoriteList = useSelector(profileStateSelector).favorites;
 
   useEffect(() => {
-    dispatch(userFavoritesProductsListFetch({ page, limit }));
-  }, [page, limit, favoriteList]);
+    dispatch(userFavoritesProductsListFetch());
+  }, [favoriteList]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      setEndOffset(offset + itemsPerPage);
+      setTotalPages(Math.ceil(data.length / itemsPerPage));
+      setProducts(data);
+    }
+  }, [offset, itemsPerPage, data]);
+
+  useEffect(() => {
+    setProductList(products.slice(offset, endOffset));
+  }, [offset, endOffset, products]);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    page: number
+    currentPage: number
   ) => {
-    dispatch(currentFavPageSetAction(page));
+    const newOffset = ((currentPage - 1) * itemsPerPage) % products.length;
+    dispatch(offsetFavSetAction(newOffset));
+    dispatch(currentFavPageSetAction(currentPage));
   };
 
   return (
@@ -45,12 +61,18 @@ const FavProducts = () => {
       <GridProductsWrapper>
         {!loading &&
           !error &&
-          result.length > 0 &&
-          result.map((product) => {
-            return <ProductItem key={product._id} product={product} />;
+          productList &&
+          productList.map((product) => {
+            return (
+              <ProductItem
+                key={product._id}
+                product={product}
+                productList={productList}
+              />
+            );
           })}
         {loading &&
-          Array.from(Array(totalResult || 8).keys()).map((item, index) => {
+          Array.from(Array(8).keys()).map((item, index) => {
             return (
               <Stack key={index} gap={1} p={2}>
                 <Skeleton
@@ -80,14 +102,14 @@ const FavProducts = () => {
             );
           })}
       </GridProductsWrapper>
-      {result.length > 0 && !loading && (
+      {productList && productList.length > 0 && !loading && (
         <ProfilePagination
           page={page}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
         />
       )}
-      {result.length === 0 && !loading && (
+      {productList && productList.length === 0 && !loading && (
         <NoProductMessage src={placeholderImage}>
           <Typography variant="h4" fontWeight={700} mt={3}>
             Збережіть цікаві оголошення
