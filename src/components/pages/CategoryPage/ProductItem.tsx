@@ -24,17 +24,17 @@ import Moment from 'react-moment';
 import { ProductItem } from '../../../types';
 import placeholderImg from '/src/img/placeholder-image.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { profileStateSelector } from '../ProfilePage/selector';
+import { profileStateSelector } from '../../../redux/profile/selector';
 import {
   addFavoriteProductFetch,
   removeFavoriteProductFetch,
-} from '../ProfilePage/thunk';
+} from '../../../redux/profile/thunk';
 import { AppDispatch } from 'src/store';
 import { getUserStateSelector } from 'redux/auth/selector';
 import {
-  currentFavPageSetAction,
   offsetFavSetAction,
-} from '../ProfilePage/reducer';
+  currentFavPageSetAction,
+} from 'redux/profile/reducer';
 
 interface ProductItemProp {
   product: ProductItem;

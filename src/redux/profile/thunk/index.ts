@@ -3,7 +3,7 @@ import {
   getUserOwnProducts,
   activateOrDeactivateProduct,
   deleteProduct,
-} from '../../../../api/products';
+} from '../../../api/products';
 import { AxiosError } from 'axios';
 import { resetOwnAdsStateAction } from '../reducer';
 import {

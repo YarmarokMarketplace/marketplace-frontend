@@ -22,11 +22,11 @@ import {
   openDrawerAction,
   setDrawerContentAction,
 } from '../../CustomDrawer/reducer';
-import { profileStateSelector } from '../ProfilePage/selector';
+import { profileStateSelector } from '../../../redux/profile/selector';
 import {
   addFavoriteProductFetch,
   removeFavoriteProductFetch,
-} from '../ProfilePage/thunk';
+} from '../../../redux/profile/thunk';
 import {
   openModalAction,
   setModalContentAction,

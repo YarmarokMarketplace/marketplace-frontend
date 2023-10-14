@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductItem, UserProductsResponse } from '../../../../types';
+import {
+  UserFavProductsResponse,
+  UserProductsResponse,
+  ProductItem,
+} from '../../../types';
 import {
   currentPageSet,
   resetOwnAdsState,
