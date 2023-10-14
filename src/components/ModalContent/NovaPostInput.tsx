@@ -1,6 +1,5 @@
-import { Control, FieldErrors } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
 import React from 'react';
+import { Control, FieldErrors, Controller } from 'react-hook-form';
 import { FormControl, Stack, TextField, Typography } from '@mui/material';
 import { StyledLabel, StyledTab, StyledTabContainer } from './style';
 
@@ -8,6 +7,8 @@ export interface InputProps {
   control: Control<any>;
   errors: FieldErrors<any>;
   loading?: boolean;
+  tabValue: string;
+  handleTabValueChange: (event: React.SyntheticEvent, newValue: string) => void;
 }
 
 interface TabPanelProps {
@@ -32,28 +33,35 @@ const CustomTabPanel: React.FC<TabPanelProps> = (props) => {
   );
 };
 
-const NovaPostInput: React.FC<InputProps> = ({ control }) => {
-  const [value, setValue] = React.useState<string>('department');
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
+const NovaPostInput: React.FC<InputProps> = ({
+  control,
+  tabValue,
+  handleTabValueChange,
+}) => {
   return (
     <Stack gap={3}>
-      <StyledTabContainer
-        value={value}
-        onChange={handleChange}
-        variant="fullWidth"
-      >
-        <StyledTab id="department" label="Відділення" value="department" />
-        <StyledTab id="adress " label="Адреса" value="adress" />
-        <StyledTab id="postOffice" label="Поштомат" value="postOffice" />
-      </StyledTabContainer>
+      <Controller
+        control={control}
+        name="novaPostType"
+        render={() => (
+          <StyledTabContainer
+            value={tabValue}
+            onChange={handleTabValueChange}
+            variant="fullWidth"
+          >
+            <StyledTab id="department" label="Відділення" value="department" />
+            <StyledTab id="address " label="Адреса" value="address" />
+            <StyledTab id="postOffice" label="Поштомат" value="postOffice" />
+          </StyledTabContainer>
+        )}
+      />
 
-      <CustomTabPanel value={value} type="department">
+      <CustomTabPanel value={tabValue} type="department">
         <Stack direction="row" gap={3}>
           <FormControl>
             <StyledLabel required>Номер поштового відділення</StyledLabel>
             <Controller
+              defaultValue=""
               control={control}
               name="department"
               render={({ field }) => (
@@ -62,6 +70,8 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
                   placeholder="Введіть номер поштового відділення"
                   sx={{ width: '20.5rem' }}
                   size="small"
+                  type="number"
+                  InputProps={{ inputProps: { min: 0 } }}
                   {...field}
                 />
               )}
@@ -71,6 +81,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
             <StyledLabel required>Населений пункт</StyledLabel>
             <Controller
               control={control}
+              defaultValue=""
               name="city"
               render={({ field }) => (
                 <TextField
@@ -86,7 +97,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
         </Stack>
       </CustomTabPanel>
 
-      <CustomTabPanel value={value} type="adress">
+      <CustomTabPanel value={tabValue} type="address">
         <Stack gap={2}>
           <Typography variant="body1" fontWeight={700}>
             Адреса
@@ -97,6 +108,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
               <Controller
                 control={control}
                 name="city"
+                defaultValue=""
                 render={({ field }) => (
                   <TextField
                     id="city"
@@ -113,6 +125,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
               <Controller
                 control={control}
                 name="street"
+                defaultValue=""
                 render={({ field }) => (
                   <TextField
                     placeholder="Обовʼязково"
@@ -131,6 +144,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
               <Controller
                 control={control}
                 name="house"
+                defaultValue=""
                 render={({ field }) => (
                   <TextField
                     id="house"
@@ -147,12 +161,15 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
               <Controller
                 control={control}
                 name="flat"
+                defaultValue=""
                 render={({ field }) => (
                   <TextField
                     placeholder="Обовʼязково"
                     sx={{ width: '20.5rem' }}
                     id="flat"
                     size="small"
+                    type="number"
+                    InputProps={{ inputProps: { min: 0 } }}
                     {...field}
                   />
                 )}
@@ -162,13 +179,14 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
         </Stack>
       </CustomTabPanel>
 
-      <CustomTabPanel value={value} type="postOffice">
+      <CustomTabPanel value={tabValue} type="postOffice">
         <Stack direction="row" gap={3}>
           <FormControl>
             <StyledLabel required>Населений пункт</StyledLabel>
             <Controller
               control={control}
               name="city"
+              defaultValue=""
               render={({ field }) => (
                 <TextField
                   id="city"
@@ -185,6 +203,7 @@ const NovaPostInput: React.FC<InputProps> = ({ control }) => {
             <Controller
               control={control}
               name="postOffice"
+              defaultValue=""
               render={({ field }) => (
                 <TextField
                   placeholder="Введіть номер поштомату"

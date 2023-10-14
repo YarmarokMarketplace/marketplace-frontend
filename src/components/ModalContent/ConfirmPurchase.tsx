@@ -1,6 +1,7 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 import { useSelector } from 'react-redux';
 import { productStateSelector } from '../pages/SingleProductPage/selectors';
 import placeholder from '../../img/placeholder-image.png';
@@ -26,24 +27,69 @@ import {
 import { deliveryOption } from 'src/constants';
 import NovaPostInput from './NovaPostInput';
 import UkrPostInput from './UkrPostInput';
+import { formatPhoneNumber } from '../pages/AddProduct/utils';
+import { CreateOrderData, CreateOrderInput } from 'src/types';
+import {
+  createOrderDefaultValues,
+  createOrderSchema,
+  setDeliveryData,
+} from './utils';
 
 const ConfirmPurchase = () => {
   const { product } = useSelector(productStateSelector);
   const [deliveryType, setDeliveryType] = React.useState<string>('NovaPost');
+  const [phone, setPhone] = useState<string>('+38');
+
+  const [tabValue, setTabValue] = React.useState<string>('department');
 
   const {
     control,
     handleSubmit,
+    setValue,
+    trigger,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(createOrderSchema),
+    defaultValues: createOrderDefaultValues,
+  });
 
   const handleDeliverySelect = (event: SelectChangeEvent<string>) => {
+    setValue('deliveryType', event.target.value);
     setDeliveryType(event.target.value);
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const handleChangePhone = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = formatPhoneNumber(event.target.value);
+
+    setPhone(value);
+    setValue('phone', value);
+    trigger('phone');
   };
+
+  const handleTabValueChange = (
+    event: React.SyntheticEvent,
+    newValue: string
+  ) => {
+    setValue('novaPostType', newValue);
+    setTabValue(newValue);
+  };
+
+  const onSubmit = (values: CreateOrderInput) => {
+    const deliveryData = setDeliveryData(values);
+    const data: CreateOrderData = {
+      buyerName: values.firstName,
+      buyerLastname: values.lastName,
+      deliveryType: values.deliveryType,
+      buyerPhone: values.phone,
+      deliveryData: deliveryData,
+    };
+    console.log(data);
+  };
+
+  console.log(errors);
+
   return (
     <StyledContainer gap={3} width="42rem">
       <Typography variant="h4" fontWeight={700}>
@@ -76,6 +122,7 @@ const ConfirmPurchase = () => {
             <Controller
               control={control}
               name="firstName"
+              defaultValue=""
               render={({ field }) => (
                 <TextField
                   sx={{ width: '13.5rem' }}
@@ -91,6 +138,7 @@ const ConfirmPurchase = () => {
             <Controller
               control={control}
               name="lastName"
+              defaultValue=""
               render={({ field }) => (
                 <TextField
                   sx={{ width: '13.5rem' }}
@@ -122,12 +170,16 @@ const ConfirmPurchase = () => {
           <Controller
             control={control}
             name="phone"
-            render={({ field }) => (
+            render={({ field: { onBlur, onChange } }) => (
               <TextField
                 sx={{ width: '13.5rem' }}
                 id="phone"
                 size="small"
-                {...field}
+                onChange={(event) => {
+                  onChange(event);
+                  handleChangePhone(event);
+                }}
+                value={phone}
               />
             )}
           />
@@ -170,7 +222,12 @@ const ConfirmPurchase = () => {
           />
         </FormControl>
         {deliveryType === 'NovaPost' && (
-          <NovaPostInput control={control} errors={errors} />
+          <NovaPostInput
+            tabValue={tabValue}
+            handleTabValueChange={handleTabValueChange}
+            control={control}
+            errors={errors}
+          />
         )}
         {deliveryType === 'UkrPost' && (
           <UkrPostInput control={control} errors={errors} />

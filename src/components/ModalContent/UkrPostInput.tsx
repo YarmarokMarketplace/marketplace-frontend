@@ -88,6 +88,8 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
                 sx={{ width: '11rem' }}
                 id="flat"
                 size="small"
+                type="number"
+                InputProps={{ inputProps: { min: 0 } }}
                 {...field}
               />
             )}
