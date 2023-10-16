@@ -15,6 +15,8 @@ import {
     FormLabel, ListItemButton, FormControl, List,
     ListItem, Collapse
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 import { categoryNames } from '../../../../constants';
@@ -40,6 +42,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = (
     const { categories, loading, error } = useSelector(categoriesStateSelector);
     const navigate = useNavigate();
     let { categoryName } = useParams();
+    const theme = useTheme();
 
     const [categoryOpen, setCategoryOpen] = useState(true);
     const [categoryListOpen, setCategoryListOpen] = useState(false);
@@ -76,14 +79,20 @@ const CategoryFilter: React.FC<CategoryFilterProps> = (
         navigate(`/${categoryName}`);
     };
 
+    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     return (
         <List disablePadding>
-            <FormLabel>
-                <ListItemButton onClick={categoryHandleClick}>
-                    <FilterText primary="Категорія" />
-                    {categoryOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-            </FormLabel>
+            {isMdScreen ?
+                <FilterText primary="Категорія" />
+                :
+                <FormLabel>
+                    <ListItemButton onClick={categoryHandleClick}>
+                        <FilterText primary="Категорія" />
+                        {categoryOpen ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                </FormLabel>
+            }
             <CategoryCollapse in={categoryOpen} timeout="auto" unmountOnExit>
                 <FormLabel>
                     <ListItemButton onClick={categoryListHandleClick} >

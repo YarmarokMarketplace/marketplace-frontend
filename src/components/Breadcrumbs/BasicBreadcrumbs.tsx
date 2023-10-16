@@ -11,11 +11,18 @@ const BasicBreadcrumbs: React.FC = ({ children }) => {
     <Breadcrumbs
       separator={<NavigateNextIcon fontSize="small" color="primary" />}
       aria-label="breadcrumb"
-      sx={{ padding: theme.spacing(0, 0, 3) }}
+      sx={{
+        padding: theme.spacing(0, 0, 3),
+        [theme.breakpoints.down('md')]: {
+          '& a, & p': {
+            fontSize: '.875rem !important'
+          }
+        }
+      }}
     >
       <StyledLink to="/">Головна</StyledLink>
       {children}
-    </Breadcrumbs>
+    </Breadcrumbs >
   );
 };
 

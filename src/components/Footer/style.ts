@@ -9,6 +9,7 @@ export const FooterContainer = styled('footer')(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   color: theme.palette.white,
+  overflow: 'hidden',
 }));
 
 export const LogoContainer = styled(Box)({

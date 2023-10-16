@@ -9,6 +9,8 @@ import {
     ListItemButton,
 
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
@@ -28,6 +30,7 @@ interface CategoryFilterProps {
 const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
     const dispatch: AppDispatch = useDispatch();
     const { filterBy } = useSelector(productsStateSelector);
+    const theme = useTheme();
 
     const [locationOpen, setLocationOpen] = useState(true);
     const [inputValue, setInputValue] = React.useState('');
@@ -67,14 +70,20 @@ const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
         }
     }
 
+    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     return (
         <List disablePadding>
-            <FormLabel>
-                <ListItemButton onClick={locationHandleClick}>
-                    <FilterText primary="Локація" />
-                    {locationOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-            </FormLabel>
+            {isMdScreen ?
+                <FilterText primary="Локація" />
+                :
+                <FormLabel>
+                    <ListItemButton onClick={locationHandleClick}>
+                        <FilterText primary="Локація" />
+                        {locationOpen ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                </FormLabel>
+            }
             <LocationCollapse in={locationOpen} timeout="auto" unmountOnExit>
                 <Autocomplete
                     value={value}
@@ -94,9 +103,16 @@ const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
                         option === locations[47] ||
                         option === locations[48] ||
                         option === locations[49] ||
-                        option === locations[50]
+                        option === locations[50] ||
+                        option === locations[51] ||
+                        option === locations[52]
                     }
-                    sx={{ maxWidth: 300 }}
+                    sx={{
+                        maxWidth: 300,
+                        [theme.breakpoints.down('md')]: {
+                            maxWidth: '100%'
+                        }
+                    }}
 
                     renderOption={(props, option: { value: string, img?: string, label: string }) => (
                         <Box component="li"
@@ -107,15 +123,12 @@ const LocationFilter: React.FC<CategoryFilterProps> = ({ value, setValue }) => {
                                 pb: '.5rem',
                                 '& > img': { mr: 2, flexShrink: 0 }
                             }} {...props}>
-                            {/* {option.img && */}
                             <img
                                 loading="lazy"
                                 width="30"
                                 src={option.img || locationIcon}
-                                srcSet={`/w40/${option.value}.png 2x`}
                                 alt=""
                             />
-                            {/* // } */}
                             {option.label}
                         </Box>
                     )}

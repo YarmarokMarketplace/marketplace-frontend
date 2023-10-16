@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { Skeleton, Stack } from "@mui/material";
 import { CategoryProductsWrapper } from "./style";
+import { useTheme } from '@mui/material/styles';
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../store";
@@ -17,6 +18,7 @@ const CategoryProducts = () => {
   const { result, limit, page } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
   let { categoryName } = useParams();
+  const theme = useTheme();
 
   useEffect(() => {
     if (!categoryName || typeof categoryName !== 'string') return;
@@ -40,22 +42,28 @@ const CategoryProducts = () => {
                   <Skeleton
                     animation="wave"
                     variant="rounded"
-                    sx={{ height: "12.5rem", width: "12.5rem" }}
+                    sx={{
+                      height: "12.5rem", width: "100%rem",
+                      // [theme.breakpoints.down('md')]: {
+                      //   heigth: '80%',
+                      //   width: '80%'
+                      // }
+                    }}
                   />
                   <Skeleton
                     animation="wave"
-                    sx={{ height: "2.438rem", width: "12rem" }}
+                    sx={{ height: "2.438rem", width: "90%" }}
                     variant="rounded"
                   />
                   <Skeleton
                     animation="wave"
-                    sx={{ height: "0.875rem", width: "6rem" }}
+                    sx={{ height: "0.875rem", width: "50%" }}
                     variant="rounded"
                   />
-                  <Stack direction="row" justifyContent="space-between">
+                  <Stack direction="row" justifyContent="space-between" alignItems='center'>
                     <Skeleton
                       animation="wave"
-                      sx={{ height: "1.5em", width: "5.5rem" }}
+                      sx={{ height: "1.5em", width: "45%" }}
                       variant="rounded"
                     />
                     <Skeleton variant="circular" width={32} height={32} />
