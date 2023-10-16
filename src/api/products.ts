@@ -130,5 +130,5 @@ export const deleteProduct = async (id: string) => {
 };
 
 export const createOrder = async (id: string, data: CreateOrderData) => {
-  return await loginClient.post(`/notices/${id}/order`);
+  return await loginClient.post(`/notices/${id}/order`, data);
 };

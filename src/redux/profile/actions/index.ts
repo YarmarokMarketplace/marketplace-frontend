@@ -40,3 +40,7 @@ export const setProductId = (
 ) => {
   state.productId = action.payload;
 };
+
+export const resetOrderState = (state: ProfileState) => {
+  state.order.success = false;
+};

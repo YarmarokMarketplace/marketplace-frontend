@@ -12,6 +12,7 @@ import {
   resetFavoriteList,
   setProductId,
   offsetFavSet,
+  resetOrderState,
 } from '../actions';
 import {
   addFavoriteProductFetch,
@@ -20,6 +21,7 @@ import {
   userProductsListFetch,
   activateOrDeactivateProductFetch,
   deleteProductFetch,
+  createOrderFetch,
 } from '../thunk';
 
 export interface ProfileState {
@@ -42,6 +44,11 @@ export interface ProfileState {
     data: ProductItem[];
   };
   productId: string | null;
+  order: {
+    loading: boolean;
+    error: boolean | null;
+    success: boolean;
+  };
 }
 
 export const initialState: ProfileState = {
@@ -73,6 +80,11 @@ export const initialState: ProfileState = {
     data: [],
   },
   productId: null,
+  order: {
+    loading: false,
+    error: null,
+    success: false,
+  },
 };
 
 const name = 'PROFILE';
@@ -88,6 +100,7 @@ const profileSlice = createSlice({
     resetFavoriteList,
     setProductId,
     offsetFavSet,
+    resetOrderState,
   },
   extraReducers(builder) {
     builder
@@ -174,6 +187,20 @@ const profileSlice = createSlice({
       .addCase(deleteProductFetch.rejected, (state) => {
         state.own.loading = false;
         state.own.error = true;
+      })
+      .addCase(createOrderFetch.pending, (state) => {
+        state.order.loading = true;
+        state.order.success = false;
+        state.order.error = false;
+      })
+      .addCase(createOrderFetch.fulfilled, (state) => {
+        state.order.loading = false;
+        state.order.success = true;
+      })
+      .addCase(createOrderFetch.rejected, (state) => {
+        state.order.loading = false;
+        state.order.error = true;
+        state.order.success = false;
       });
   },
 });
@@ -186,6 +213,7 @@ export const {
   resetFavoriteList: resetFavoriteListAction,
   setProductId: setProductIdAction,
   offsetFavSet: offsetFavSetAction,
+  resetOrderState: resetOrderStateAction,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -2,10 +2,11 @@ import React from 'react';
 import { Control, FieldErrors, Controller } from 'react-hook-form';
 import { FormControl, Stack, TextField, Typography } from '@mui/material';
 import { StyledLabel, StyledTab, StyledTabContainer } from './style';
+import { CreateOrderInput } from 'src/types';
 
 export interface InputProps {
-  control: Control<any>;
-  errors: FieldErrors<any>;
+  control: Control<CreateOrderInput>;
+  errors: FieldErrors<CreateOrderInput>;
   loading?: boolean;
   tabValue: string;
   handleTabValueChange: (event: React.SyntheticEvent, newValue: string) => void;
@@ -37,6 +38,7 @@ const NovaPostInput: React.FC<InputProps> = ({
   control,
   tabValue,
   handleTabValueChange,
+  errors,
 }) => {
   return (
     <Stack gap={3}>
@@ -73,6 +75,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                   type="number"
                   InputProps={{ inputProps: { min: 0 } }}
                   {...field}
+                  error={Boolean(errors.department)}
+                  helperText={errors.department?.message}
                 />
               )}
             />
@@ -90,6 +94,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                   id="city"
                   size="small"
                   {...field}
+                  error={Boolean(errors.city)}
+                  helperText={errors.city?.message}
                 />
               )}
             />
@@ -116,6 +122,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                     sx={{ width: '20.5rem' }}
                     size="small"
                     {...field}
+                    error={Boolean(errors.city)}
+                    helperText={errors.city?.message}
                   />
                 )}
               />
@@ -133,6 +141,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                     id="street"
                     size="small"
                     {...field}
+                    error={Boolean(errors.street)}
+                    helperText={errors.street?.message}
                   />
                 )}
               />
@@ -152,6 +162,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                     sx={{ width: '20.5rem' }}
                     size="small"
                     {...field}
+                    error={Boolean(errors.house)}
+                    helperText={errors.house?.message}
                   />
                 )}
               />
@@ -171,6 +183,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                     type="number"
                     InputProps={{ inputProps: { min: 0 } }}
                     {...field}
+                    error={Boolean(errors.flat)}
+                    helperText={errors.flat?.message}
                   />
                 )}
               />
@@ -194,6 +208,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                   sx={{ width: '20.5rem' }}
                   size="small"
                   {...field}
+                  error={Boolean(errors.city)}
+                  helperText={errors.city?.message}
                 />
               )}
             />
@@ -211,6 +227,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                   id="postOffice"
                   size="small"
                   {...field}
+                  error={Boolean(errors.postOffice)}
+                  helperText={errors.postOffice?.message}
                 />
               )}
             />

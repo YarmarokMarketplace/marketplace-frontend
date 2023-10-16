@@ -9,7 +9,7 @@ export const createOrderSchema = yup.object().shape({
     .min(2, 'Мінімальна довжина - 2 символи'),
   lastName: yup
     .string()
-    .required('Не забудьте ввести призвіще')
+    .required('Не забудьте ввести прізвище')
     .max(30, 'Максимальна довжина - 30 символів')
     .min(2, 'Мінімальна довжина - 2 символи'),
   patronymic: yup.string(),
@@ -22,48 +22,71 @@ export const createOrderSchema = yup.object().shape({
     ),
   deliveryType: yup.string().required('Не забудьте обрати тип доставки'),
   novaPostType: yup.string(),
-  department: yup.string().when(['deliveryType', 'novaPostType'], {
-    is: (deliveryType: string, novaPostType: string) =>
-      deliveryType === 'NovaPost' && novaPostType === 'department',
-    then: (schema) => schema.required('Не забудьте вказати номер відділення'),
-  }),
+  department: yup
+    .string()
+
+    .when(['deliveryType', 'novaPostType'], {
+      is: (deliveryType: string, novaPostType: string) =>
+        deliveryType === 'new-post' && novaPostType === 'department',
+      then: (schema) =>
+        schema.required('Не забудьте вказати номер відділення').test({
+          name: 'isPositive',
+          message: 'Номер відділення має бути позитивним',
+          test: (value) => Number(value) >= 0,
+        }),
+    }),
   city: yup.string().when('deliveryType', {
     is: (deliveryType: string) =>
-      deliveryType === 'NovaPost' || deliveryType === 'UkrPost',
+      deliveryType === 'new-post' || deliveryType === 'ukr-post',
     then: (schema) => schema.required('Не забудьте вказати населений пункт'),
   }),
   street: yup.string().when(['deliveryType', 'novaPostType'], {
     is: (deliveryType: string, novaPostType: string) =>
-      deliveryType === 'NovaPost' && novaPostType === 'address',
+      deliveryType === 'new-post' && novaPostType === 'address',
     then: (schema) => schema.required('Не забудьте вказати вулицю'),
   }),
 
   house: yup.string().when(['deliveryType', 'novaPostType'], {
     is: (deliveryType: string, novaPostType: string) =>
-      deliveryType === 'NovaPost' && novaPostType === 'address',
+      deliveryType === 'new-post' && novaPostType === 'address',
     then: (schema) => schema.required('Не забудьте вказати номер будинку'),
   }),
 
   flat: yup.string().when(['deliveryType', 'novaPostType'], {
     is: (deliveryType: string, novaPostType: string) =>
-      deliveryType === 'NovaPost' && novaPostType === 'address',
-    then: (schema) => schema.required('Не забудьте вказати номер квартири'),
+      deliveryType === 'new-post' && novaPostType === 'address',
+    then: (schema) =>
+      schema.required('Не забудьте вказати номер квартири').test({
+        name: 'isPositive',
+        message: 'Номер квартири має бути позитивним',
+        test: (value) => Number(value) >= 0,
+      }),
   }),
 
   postOffice: yup.string().when(['deliveryType', 'novaPostType'], {
     is: (deliveryType: string, novaPostType: string) =>
-      deliveryType === 'NovaPost' && novaPostType === 'postOffice',
-    then: (schema) => schema.required('Не забудьте вказати номер поштомату'),
+      deliveryType === 'new-post' && novaPostType === 'postOffice',
+    then: (schema) =>
+      schema.required('Не забудьте вказати номер поштомату').test({
+        name: 'isPositive',
+        message: 'Номер поштомату має бути позитивним',
+        test: (value) => Number(value) >= 0,
+      }),
   }),
 
   postCode: yup.string().when('deliveryType', {
-    is: (deliveryType: string) => deliveryType === 'Ukrpost',
-    then: (schema) => schema.required('Не забудьте вказати поштовий індекс'),
+    is: (deliveryType: string) => deliveryType === 'ukr-post',
+    then: (schema) =>
+      schema.required('Не забудьте вказати поштовий індекс').test({
+        name: 'isPositive',
+        message: 'Індекс має бути позитивним',
+        test: (value) => Number(value) >= 0,
+      }),
   }),
 
-  saveData: yup.boolean(),
+  saveData: yup.boolean().required(),
   comment: yup.string().when('deliveryType', {
-    is: (deliveryType: string) => deliveryType === 'Other',
+    is: (deliveryType: string) => deliveryType === 'other',
     then: (schema) => schema.required('Вкажіть бажаний спосіб доставки').min(3),
   }),
 });
@@ -73,7 +96,7 @@ export const createOrderDefaultValues = {
   lastName: '',
   patronymic: '',
   phone: '',
-  deliveryType: 'NovaPost',
+  deliveryType: 'new-post',
   department: '',
   city: '',
   street: '',
@@ -88,12 +111,12 @@ export const createOrderDefaultValues = {
 
 export const setDeliveryData = (values: CreateOrderInput) => {
   const deliveryData: DeliveryData = {};
-  if (values.deliveryType === 'Other') {
+  if (values.deliveryType === 'other') {
     deliveryData.otherSchema = {
       typeOfOtherDelivery: values.comment,
     };
   }
-  if (values.deliveryType === 'UkrPost') {
+  if (values.deliveryType === 'ukr-post') {
     deliveryData.ukrPostSchema = {
       city: values.city,
       index: values.postCode,
@@ -102,7 +125,7 @@ export const setDeliveryData = (values: CreateOrderInput) => {
       apartments: values.flat,
     };
   }
-  if (values.deliveryType === 'NovaPost') {
+  if (values.deliveryType === 'new-post') {
     const novaPostTypeDelivery: NovaPostSchema = {
       typeOfNovaPostDelivery: {},
     };

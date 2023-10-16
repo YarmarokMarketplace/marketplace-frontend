@@ -244,9 +244,12 @@ export interface DeliveryData {
 export interface CreateOrderData {
   buyerName: string;
   buyerLastname: string;
+  buyerPatronymic?: string;
   deliveryType: string;
   buyerPhone: string;
   deliveryData: DeliveryData;
+  comment?: string;
+  saveData: boolean;
 }
 
 export interface CreateOrderInput {
@@ -262,7 +265,7 @@ export interface CreateOrderInput {
   flat?: string;
   postOffice?: string;
   postCode?: string;
-  saveData?: boolean;
+  saveData: boolean;
   comment?: string;
   novaPostType?: string;
 }

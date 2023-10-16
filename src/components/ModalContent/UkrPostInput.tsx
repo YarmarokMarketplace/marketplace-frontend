@@ -3,10 +3,11 @@ import { Control, FieldErrors } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { FormControl, Stack, TextField } from '@mui/material';
 import { StyledLabel } from './style';
+import { CreateOrderInput } from 'src/types';
 
 interface InputProps {
-  control: Control<any>;
-  errors: FieldErrors<any>;
+  control: Control<CreateOrderInput>;
+  errors: FieldErrors<CreateOrderInput>;
   loading?: boolean;
 }
 
@@ -26,6 +27,8 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
                 sx={{ width: '20.5rem' }}
                 size="small"
                 {...field}
+                error={Boolean(errors.city)}
+                helperText={errors.city?.message}
               />
             )}
           />
@@ -42,6 +45,10 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
                 id="postCode"
                 size="small"
                 {...field}
+                error={Boolean(errors.postCode)}
+                helperText={errors.postCode?.message}
+                type="number"
+                InputProps={{ inputProps: { min: 0 } }}
               />
             )}
           />

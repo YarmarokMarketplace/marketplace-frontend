@@ -41,17 +41,24 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     (location) => location.value === product.location
   );
   const [showNumber, setShowNumber] = useState(false);
-  const { isLogin, user } = useSelector(userLoginStateSelector);
+  const {
+    isLogin,
+    user: { favorite },
+  } = useSelector(userLoginStateSelector);
   const { favorites } = useSelector(profileStateSelector);
-  const [fav, setFav] = useState<boolean>(
-    user.favorite.some((notice) => notice === product._id)
-  );
+  const [fav, setFav] = useState<boolean>(false);
 
   useEffect(() => {
     if (favorites.length) {
       setFav(favorites.some((notice) => notice === product._id));
     }
   }, [favorites, product._id]);
+
+  useEffect(() => {
+    if (favorite.length) {
+      setFav(favorite.some((notice) => notice === product._id));
+    }
+  }, [favorite, product._id]);
   const dispatch: AppDispatch = useDispatch();
 
   const handleBuyClick = () => {
