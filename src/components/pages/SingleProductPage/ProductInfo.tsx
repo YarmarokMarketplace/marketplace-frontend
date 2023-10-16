@@ -100,9 +100,32 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         <Typography variant="h4" mt={1} minHeight="4rem">
           {product.title}
         </Typography>
-        <Typography mt={2} color="primary" variant="h4">
-          {product.price} грн
-        </Typography>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography mt={2} color="primary" variant="h4">
+            {product.price} грн
+          </Typography>
+          {product.owner == user.id && (
+            <Stack direction="row" alignItems="center">
+              <StyledIconButton
+                onClick={handleFavClick}
+                id="fav-btn"
+                size="small"
+              >
+                {fav ? (
+                  <FavoriteIcon color="primary" sx={{ fontSize: '1rem' }} />
+                ) : (
+                  <FavoriteBorderOutlinedIcon
+                    color="primary"
+                    sx={{ fontSize: '1rem' }}
+                  />
+                )}
+              </StyledIconButton>
+              <StyledTextButton onClick={handleFavClick} disableTouchRipple>
+                В обране
+              </StyledTextButton>
+            </Stack>
+          )}
+        </Stack>
         {product.owner !== user.id && (
           <Stack mt={2} direction="row" justifyContent="space-between">
             <Stack spacing={2} direction="row">
