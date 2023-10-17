@@ -101,3 +101,9 @@ export const StyledCrumpsLink = styled(Link)(({ theme }) => ({
     textDecoration: 'underline',
   },
 }));
+
+export const StyledInfoProductWrapper = styled(Stack)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.light,
+  padding: theme.spacing(2, 0, 2, 2.5),
+  marginBottom: theme.spacing(4),
+}));
