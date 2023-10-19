@@ -49,13 +49,13 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [fav, setFav] = useState<boolean>(false);
 
   useEffect(() => {
-    if (favorites.length) {
+    if (favorites?.length) {
       setFav(favorites.some((notice) => notice === product._id));
     }
   }, [favorites, product._id]);
 
   useEffect(() => {
-    if (favorite.length) {
+    if (favorite?.length) {
       setFav(favorite.some((notice) => notice === product._id));
     }
   }, [favorite, product._id]);
