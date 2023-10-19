@@ -157,11 +157,12 @@ export const getProductBySearch = async (
     goodtype: string;
     price: string;
     location: string;
+    category: string;
   }
 ) => {
   try {
     return await client.get<never, SearchResponse>(
-      `/notices/search/search-notice/?keywords=${keywords}&page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
+      `/notices/search/search-notice/?keywords=${keywords}&page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}${filterBy.category}`
     );
   } catch (error) {
     return Promise.reject(error);

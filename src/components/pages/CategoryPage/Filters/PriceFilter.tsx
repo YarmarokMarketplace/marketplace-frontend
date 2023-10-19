@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { debounce } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store';
-import { productFilterPriceAction } from '../../../../redux/products/reducer';
-import {
-  productsStateSelector,
-  productsResultStateSelector,
-} from '../../../../redux/products/selector';
+import { productFilterPriceAction } from 'redux/products/reducer';
+import { productsStateSelector } from 'redux/products/selector';
 
 import {
   Typography,
@@ -28,6 +25,7 @@ interface CategoryFilterProps {
   maxPriceValue: string;
   setMinPriceValue: (value: string) => void;
   setMaxPriceValue: (value: string) => void;
+  maxPrice: number;
 }
 
 const PriceFilter: React.FC<CategoryFilterProps> = ({
@@ -35,14 +33,14 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
   maxPriceValue,
   setMinPriceValue,
   setMaxPriceValue,
+  maxPrice,
 }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const [maxPriceError, setMaxPriceError] = useState(false);
 
-  const { maxPriceInCategory } = useSelector(productsResultStateSelector);
-  const minPrice = useRef<HTMLInputElement>();
-  const maxPrice = useRef<HTMLInputElement>();
+  const minPriceRef = useRef<HTMLInputElement>();
+  const maxPriceRef = useRef<HTMLInputElement>();
 
   const [priceOpen, setPriceOpen] = React.useState(true);
   const theme = useTheme();
@@ -76,9 +74,10 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
   ).current;
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (minPrice.current?.value && maxPrice.current?.value) {
+    if (minPriceRef.current?.value && maxPriceRef.current?.value) {
       if (
-        parseFloat(minPrice.current.value) >= parseFloat(maxPrice.current.value)
+        parseFloat(minPriceRef.current.value) >=
+        parseFloat(maxPriceRef.current.value)
       ) {
         setMaxPriceError(true);
       } else {
@@ -90,21 +89,21 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
 
     let newFilterByPrice = '';
 
-    console.log('min: ' + minPrice.current?.value);
-    console.log('max: ' + maxPrice.current?.value);
-    console.log(maxPriceInCategory);
+    console.log('min: ' + minPriceRef.current?.value);
+    console.log('max: ' + maxPriceRef.current?.value);
+    console.log(maxPrice);
 
-    if (minPrice.current?.value && maxPrice.current?.value) {
-      newFilterByPrice = `&priceRange=${minPrice.current?.value}-${maxPrice.current?.value}`;
-    } else if (!minPrice.current?.value && maxPrice.current?.value) {
-      newFilterByPrice = `&priceRange=0-${maxPrice.current?.value}`;
+    if (minPriceRef.current?.value && maxPriceRef.current?.value) {
+      newFilterByPrice = `&priceRange=${minPriceRef.current?.value}-${maxPriceRef.current?.value}`;
+    } else if (!minPriceRef.current?.value && maxPriceRef.current?.value) {
+      newFilterByPrice = `&priceRange=0-${maxPriceRef.current?.value}`;
     } else if (
-      minPrice.current?.value &&
-      !maxPrice.current?.value &&
-      maxPriceInCategory
+      minPriceRef.current?.value &&
+      !maxPriceRef.current?.value &&
+      maxPrice
     ) {
-      newFilterByPrice = `&priceRange=${minPrice.current?.value}-${maxPriceInCategory}`;
-    } else if (!minPrice.current?.value && !maxPrice.current?.value) {
+      newFilterByPrice = `&priceRange=${minPriceRef.current?.value}-${maxPrice}`;
+    } else if (!minPriceRef.current?.value && !maxPriceRef.current?.value) {
       setMaxPriceError(false);
       newFilterByPrice = '';
     }
@@ -154,7 +153,7 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
               variant="outlined"
               name="min"
               value={minPriceValue}
-              inputRef={minPrice}
+              inputRef={minPriceRef}
             />
             <TextField
               sx={{ flexGrow: '1' }}
@@ -165,7 +164,7 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
               variant="outlined"
               name="max"
               value={maxPriceValue}
-              inputRef={maxPrice}
+              inputRef={maxPriceRef}
             />
           </Box>
         </Collapse>

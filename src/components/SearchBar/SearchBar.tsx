@@ -6,7 +6,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'src/store';
-import { searchValueSetAction } from '../../redux/products/reducer';
+import {
+  productFilterPriceAction,
+  searchValueSetAction,
+} from 'redux/products/reducer';
 
 const SearchBar = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -29,13 +32,15 @@ const SearchBar = () => {
 
   const handleSearchClick = () => {
     dispatch(searchValueSetAction(search));
+    dispatch(productFilterPriceAction(''));
+    localStorage.removeItem('price');
     navigate('/search');
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!search) return;
     if (event.key === 'Enter') {
-      dispatch(searchValueSetAction(search));
-      navigate('/search');
+      handleSearchClick();
     }
   };
   return (
@@ -57,6 +62,7 @@ const SearchBar = () => {
                 id="search-btn"
                 onClick={handleSearchClick}
                 variant="outlined"
+                disabled={!search}
               >
                 Пошук
               </SearchButton>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { matchPath, useLocation, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store';
@@ -7,7 +7,8 @@ import {
   productFilterGoodtypeAction,
   productFilterPriceAction,
   productFilterLocationAction,
-} from '../../../../redux/products/reducer';
+  productFilterCategoryAction,
+} from 'redux/products/reducer';
 import { categoriesStateSelector } from '../../HomePage/selector';
 import { categoryListFetch } from '../../HomePage/thunk';
 
@@ -54,6 +55,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   const navigate = useNavigate();
   let { categoryName } = useParams();
   const theme = useTheme();
+  const { pathname } = useLocation();
 
   const [categoryOpen, setCategoryOpen] = useState(true);
   const [categoryListOpen, setCategoryListOpen] = useState(false);
@@ -87,7 +89,22 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     localStorage.removeItem('location');
     const categoryName = event.currentTarget.getAttribute('value');
     setSelectedCategory(categoryName ? categoryName : '');
-    navigate(`/${categoryName}`);
+    if (matchPath('/search', pathname)) {
+      console.log('search', categoryName);
+      dispatch(
+        productFilterCategoryAction(
+          categoryName ? `&category=${categoryName}` : ''
+        )
+      );
+    } else {
+      navigate(`/${categoryName}`);
+    }
+  };
+
+  const handleCategorySearchClick = (
+    event: React.MouseEvent<HTMLLIElement>
+  ) => {
+    console.log('search', categoryName);
   };
 
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));

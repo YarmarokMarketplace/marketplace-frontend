@@ -61,3 +61,10 @@ export const searchProductStateReset = (state: ProductsState) => {
 export const filterStateReset = (state: ProductsState) => {
   state.filterBy = initialState.filterBy;
 };
+
+export const productFilterCategory = (
+  state: ProductsState,
+  action: PayloadAction<string>
+) => {
+  state.filterBy.category = action.payload;
+};

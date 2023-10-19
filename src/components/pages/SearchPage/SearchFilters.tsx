@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { productsResultStateSelector } from "./selector";
 
 import { FiltersContainer } from '../CategoryPage/style';
-// import CategoryFilter from './Filters/CategoryFilter';
 import GoodtypeFilter from '../CategoryPage/Filters/GoodtypeFilter';
 import PriceFilter from '../CategoryPage/Filters/PriceFilter';
 import LocationFilter from '../CategoryPage/Filters/LocationFilter';
+import { productsStateSelector } from 'redux/products/selector';
+import CategoryFilter from '../CategoryPage/Filters/CategoryFilter';
 
 const SearchFilters: React.FC = () => {
+  const {
+    searchProducts: { maxPriceInSearchResult },
+  } = useSelector(productsStateSelector);
   const [isCheckedNew, setIsCheckedNew] = useState(false);
   const [isCheckedUsed, setIsCheckedUsed] = useState(false);
   const [minPriceValue, setMinPriceValue] = useState('');
@@ -21,6 +24,13 @@ const SearchFilters: React.FC = () => {
 
   return (
     <FiltersContainer>
+      <CategoryFilter
+        setIsCheckedNew={setIsCheckedNew}
+        setIsCheckedUsed={setIsCheckedUsed}
+        setMinPriceValue={setMinPriceValue}
+        setMaxPriceValue={setMaxPriceValue}
+        setValue={setValue}
+      />
       <GoodtypeFilter
         setIsCheckedNew={setIsCheckedNew}
         setIsCheckedUsed={setIsCheckedUsed}
@@ -33,6 +43,7 @@ const SearchFilters: React.FC = () => {
         setMinPriceValue={setMinPriceValue}
         maxPriceValue={maxPriceValue}
         setMaxPriceValue={setMaxPriceValue}
+        maxPrice={maxPriceInSearchResult}
       />
       <LocationFilter value={value} setValue={setValue} />
     </FiltersContainer>

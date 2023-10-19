@@ -207,13 +207,13 @@ export interface SearchResponse {
   totalPages: number;
   page: number;
   limit: number;
-  result: ProductItem[];
+  maxPriceInSearchResult: number;
+  notices: ProductItem[] | [];
 }
 
 export interface ChangePasswordBody {
   password: string;
   newPassword: string;
-  notices: ProductItem[] | [];
 }
 
 export interface ChangeLoginBody {

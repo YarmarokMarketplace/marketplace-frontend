@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { productsResultStateSelector } from '../../../redux/products/selector';
+import { productsResultStateSelector } from 'redux/products/selector';
 
 import { FiltersContainer } from './style';
 import CategoryFilter from './Filters/CategoryFilter';
@@ -30,7 +30,9 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
     img?: string | undefined;
   } | null>(null);
 
-  const { isGoodType } = useSelector(productsResultStateSelector);
+  const { isGoodType, maxPriceInCategory } = useSelector(
+    productsResultStateSelector
+  );
 
   const theme = useTheme();
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -38,34 +40,6 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
 
   return (
     <>
-      {!isMdScreen && (
-        <FiltersContainer>
-          <CategoryFilter
-            setIsCheckedNew={setIsCheckedNew}
-            setIsCheckedUsed={setIsCheckedUsed}
-            setMinPriceValue={setMinPriceValue}
-            setMaxPriceValue={setMaxPriceValue}
-            setValue={setValue}
-          />
-          {isGoodType && (
-            <GoodtypeFilter
-              setIsCheckedNew={setIsCheckedNew}
-              setIsCheckedUsed={setIsCheckedUsed}
-              іsCheckedNew={isCheckedNew}
-              іsCheckedUsed={isCheckedUsed}
-            />
-          )}
-
-          <PriceFilter
-            minPriceValue={minPriceValue}
-            setMinPriceValue={setMinPriceValue}
-            maxPriceValue={maxPriceValue}
-            setMaxPriceValue={setMaxPriceValue}
-          />
-          <LocationFilter value={value} setValue={setValue} />
-        </FiltersContainer>
-      )}
-
       {isMdScreen && (
         <CategoryFilterModal
           openFilterModal={openFilterModal}
@@ -85,6 +59,7 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
               setMinPriceValue={setMinPriceValue}
               maxPriceValue={maxPriceValue}
               setMaxPriceValue={setMaxPriceValue}
+              maxPrice={maxPriceInCategory}
             />
             {isGoodType && (
               <GoodtypeFilter

@@ -49,6 +49,7 @@ type SearchArgs = {
     goodtype: string;
     price: string;
     location: string;
+    category: string;
   };
 };
 

@@ -12,6 +12,7 @@ import {
   currentSearchPageSet,
   searchProductStateReset,
   filterStateReset,
+  productFilterCategory,
 } from '../actions';
 import { ProductItem, SearchResponse } from 'src/types';
 
@@ -35,6 +36,7 @@ export interface ProductsState {
     goodtype: string;
     price: string;
     location: string;
+    category: string;
   };
 }
 
@@ -46,6 +48,7 @@ export const initialState: ProductsState = {
     goodtype: localStorage.getItem('goodtype') || '',
     price: localStorage.getItem('price') || '',
     location: localStorage.getItem('location') || '',
+    category: '',
   },
   search: localStorage.getItem('search') || '',
   products: {
@@ -62,6 +65,7 @@ export const initialState: ProductsState = {
     totalResult: 0,
     page: 1,
     limit: 12,
+    maxPriceInSearchResult: 0,
     notices: [],
   },
 };
@@ -82,6 +86,7 @@ const productsSlice = createSlice({
     currentSearchPageSet,
     searchProductStateReset,
     filterStateReset,
+    productFilterCategory,
   },
   extraReducers(builder) {
     builder
@@ -122,6 +127,7 @@ export const {
   currentSearchPageSet: currentSearchPageSetAction,
   searchProductStateReset: searchProductStateResetAction,
   filterStateReset: filterStateResetAction,
+  productFilterCategory: productFilterCategoryAction,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
