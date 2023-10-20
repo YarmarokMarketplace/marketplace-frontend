@@ -12,6 +12,7 @@ import Register from '../DrawerContent';
 import Login from '../DrawerContent/Login';
 import ForgotPassword from '../DrawerContent/ForgotPassword';
 import GoogleAuthMessage from '../DrawerContent/GoogleAuthMessage';
+import ChangePassword from "../DrawerContent/ChangePassword";
 
 const CustomDrawer = () => {
   const { open, content } = useSelector(drawerSelector);
@@ -40,6 +41,7 @@ const CustomDrawer = () => {
           {content == DrawerContent.register && <Register />}
           {content == DrawerContent.resetPassword && <ForgotPassword />}
           {content == DrawerContent.googleAuthMessage && <GoogleAuthMessage />}
+          {content == DrawerContent.changePassword && <ChangePassword />}
         </>
       </StyledCustomDrawer>
     </>

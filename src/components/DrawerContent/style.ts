@@ -107,3 +107,9 @@ export const GoogleButton = styled(Button)(({ theme }) => ({
     padding: theme.spacing(0.5),
   },
 }));
+
+export const StyledChangePassBtn = styled(Button)(({ theme }) => ({
+  fontSize: '0.875rem',
+  fontWeight: 600,
+  width: '50%',
+}));
