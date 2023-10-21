@@ -61,6 +61,7 @@ const ChangePassword = () => {
     const { name } = useSelector(getUserStateSelector);
 
     const [showPassword, setShowPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
 
     useEffect(() => {
         isChanged && reset();
@@ -200,16 +201,16 @@ const ChangePassword = () => {
                                     name="newPassword"
                                     render={({ field }) => (
                                         <StyledInput
-                                            type={showPassword ? 'text' : 'password'}
+                                            type={showNewPassword ? 'text' : 'password'}
                                             helperText={errors.newPassword?.message}
                                             error={Boolean(errors.newPassword)}
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <IconButton
-                                                            onClick={() => setShowPassword(!showPassword)}
+                                                            onClick={() => setShowNewPassword(!showNewPassword)}
                                                         >
-                                                            {showPassword ? (
+                                                            {showNewPassword ? (
                                                                 <Visibility
                                                                     color={
                                                                         Boolean(errors.newPassword) ? 'error' : 'inherit'
