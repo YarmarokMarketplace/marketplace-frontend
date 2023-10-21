@@ -103,45 +103,47 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         <Typography mt={2} color="primary" variant="h4">
           {product.price} грн
         </Typography>
-        <Stack mt={2} direction="row" justifyContent="space-between">
-          <Stack spacing={2} direction="row">
-            <Button
-              id="buy-btn"
-              sx={{ width: '7rem' }}
-              onClick={handleBuyClick}
-              variant="contained"
-            >
-              Купити
-            </Button>
-            <Button
-              id="chat-btn"
-              startIcon={<ChatOutlinedIcon />}
-              variant="outlined"
-              onClick={handleChatClick}
-            >
-              Чат з продавцем
-            </Button>
+        {product.active &&
+          <Stack mt={2} direction="row" justifyContent="space-between">
+            <Stack spacing={2} direction="row">
+              <Button
+                id="buy-btn"
+                sx={{ width: '7rem' }}
+                onClick={handleBuyClick}
+                variant="contained"
+              >
+                Купити
+              </Button>
+              <Button
+                id="chat-btn"
+                startIcon={<ChatOutlinedIcon />}
+                variant="outlined"
+                onClick={handleChatClick}
+              >
+                Чат з продавцем
+              </Button>
+            </Stack>
+            <Stack direction="row" alignItems="center">
+              <StyledIconButton
+                onClick={handleFavClick}
+                id="fav-btn"
+                size="small"
+              >
+                {fav ? (
+                  <FavoriteIcon color="primary" sx={{ fontSize: '1rem' }} />
+                ) : (
+                  <FavoriteBorderOutlinedIcon
+                    color="primary"
+                    sx={{ fontSize: '1rem' }}
+                  />
+                )}
+              </StyledIconButton>
+              <StyledTextButton onClick={handleFavClick} disableTouchRipple>
+                В обране
+              </StyledTextButton>
+            </Stack>
           </Stack>
-          <Stack direction="row" alignItems="center">
-            <StyledIconButton
-              onClick={handleFavClick}
-              id="fav-btn"
-              size="small"
-            >
-              {fav ? (
-                <FavoriteIcon color="primary" sx={{ fontSize: '1rem' }} />
-              ) : (
-                <FavoriteBorderOutlinedIcon
-                  color="primary"
-                  sx={{ fontSize: '1rem' }}
-                />
-              )}
-            </StyledIconButton>
-            <StyledTextButton onClick={handleFavClick} disableTouchRipple>
-              В обране
-            </StyledTextButton>
-          </Stack>
-        </Stack>
+        }
         <Typography mt={2} textAlign="center" color="divider" variant="body1">
           {location?.label}, Опубліковано{' '}
           {moment(product.createdAt).format('DD.MM.YYYY')}
@@ -189,30 +191,32 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
           </Stack>
         </Stack>
       </StyledInfoBlock>
-      <StyledInfoBlock>
-        <Typography fontWeight={700} variant="h6">
-          Контакти
-        </Typography>
-        <Stack direction="row" alignItems="center" spacing={2} mt={1}>
-          <LocalPhoneOutlinedIcon color="primary" />
-          <Typography variant="h6">
-            {showNumber && product.contactNumber
-              ? product.contactNumber.slice(3)
-              : 'xxx xxx xxxx'}{' '}
+      {product.active &&
+        <StyledInfoBlock>
+          <Typography fontWeight={700} variant="h6">
+            Контакти
           </Typography>
-          {!showNumber && (
-            <StyledShowButton
-              id="show-btn"
-              variant="outlined"
-              color="secondary"
-              size="small"
-              onClick={() => setShowNumber(!showNumber)}
-            >
-              Показати
-            </StyledShowButton>
-          )}
-        </Stack>
-      </StyledInfoBlock>
+          <Stack direction="row" alignItems="center" spacing={2} mt={1}>
+            <LocalPhoneOutlinedIcon color="primary" />
+            <Typography variant="h6">
+              {showNumber && product.contactNumber
+                ? product.contactNumber.slice(3)
+                : 'xxx xxx xxxx'}{' '}
+            </Typography>
+            {!showNumber && (
+              <StyledShowButton
+                id="show-btn"
+                variant="outlined"
+                color="secondary"
+                size="small"
+                onClick={() => setShowNumber(!showNumber)}
+              >
+                Показати
+              </StyledShowButton>
+            )}
+          </Stack>
+        </StyledInfoBlock>
+      }
 
       {!categoriesDeliveryAbsense.includes(product.category) && (
         <Stack direction="row" spacing={2}>
