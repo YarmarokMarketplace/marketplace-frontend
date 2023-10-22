@@ -36,6 +36,8 @@ import {
 import { DrawerContent, LoginBody } from '../../types';
 import { userLoginFetch } from 'redux/auth/thunk';
 
+import { SocialAuth } from './SocialAuth';
+
 const loginSchema = yup.object().shape({
   email: yup
     .string()
@@ -49,9 +51,15 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { loading, error, isLogin, emailError, rememberLogin, requestError, notVerifiedError } = useSelector(
-    userLoginStateSelector
-  );
+  const {
+    loading,
+    error,
+    isLogin,
+    emailError,
+    rememberLogin,
+    requestError,
+    notVerifiedError,
+  } = useSelector(userLoginStateSelector);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -68,7 +76,10 @@ const Login = () => {
   useEffect(() => {
     return () => {
       const values = getValues();
-      localStorage.setItem("logInput", JSON.stringify({ ...values, password: "" }));
+      localStorage.setItem(
+        'logInput',
+        JSON.stringify({ ...values, password: '' })
+      );
       dispatch(emailErrorToggleAction(false));
       dispatch(requestErrorToggleAction(false));
       dispatch(notVerifiedErrorToggleAction(false));
@@ -87,7 +98,7 @@ const Login = () => {
 
   useEffect(() => {
     localStorage.setItem('rememberLogin', JSON.stringify(rememberLogin));
-  }, [rememberLogin])
+  }, [rememberLogin]);
 
   const onSubmit = (data: LoginBody) => {
     dispatch(userLoginFetch(data));
@@ -111,18 +122,18 @@ const Login = () => {
   };
 
   const setHelperText = () => {
-    let helperText: any = "";
+    let helperText: any = '';
     if (emailError) {
-      helperText = "Email або пароль невірні";
+      helperText = 'Email або пароль невірні';
     } else if (requestError) {
-      helperText = "Забагато запитів, повторіть спробу через 1 хвилину";
+      helperText = 'Забагато запитів, повторіть спробу через 1 хвилину';
     } else if (notVerifiedError) {
-      helperText = "Email не підтверджено. Підтвердіть свою електронну пошту"
+      helperText = 'Email не підтверджено. Підтвердіть свою електронну пошту';
     } else {
       helperText = errors.email?.message;
     }
     return helperText;
-  }
+  };
 
   return (
     <Stack alignItems="center">
@@ -144,8 +155,8 @@ const Login = () => {
               Увійти в кабінет
             </Typography>
             <Typography variant="subtitle2">
-              Увійдіть, щоб купувати та продавати, додавати
-              товари до обраних та листуватись з продавцем
+              Увійдіть, щоб купувати та продавати, додавати товари до обраних та
+              листуватись з продавцем
             </Typography>
           </Stack>
           <FormControl fullWidth>
@@ -157,18 +168,21 @@ const Login = () => {
                 <StyledInput
                   helperText={setHelperText()}
                   error={
-                    Boolean(errors?.email)
-                    || emailError || requestError || notVerifiedError
+                    Boolean(errors?.email) ||
+                    emailError ||
+                    requestError ||
+                    notVerifiedError
                   }
                   InputProps={{
-                    endAdornment:
-                      (errors.email || emailError || requestError || notVerifiedError)
-                      && (
-                        <InfoOutlinedIcon
-                          color="error"
-                          sx={{ fontSize: "1rem" }}
-                        />
-                      ),
+                    endAdornment: (errors.email ||
+                      emailError ||
+                      requestError ||
+                      notVerifiedError) && (
+                      <InfoOutlinedIcon
+                        color="error"
+                        sx={{ fontSize: '1rem' }}
+                      />
+                    ),
                   }}
                   id="email"
                   {...field}
@@ -227,7 +241,7 @@ const Login = () => {
           <StyledResetBtn onClick={handleResetPasswordRedirect}>
             Забули пароль?
           </StyledResetBtn>
-        </StyledBox >
+        </StyledBox>
 
         <StyledSubmitBtn
           id="login-btn"
@@ -238,8 +252,8 @@ const Login = () => {
         >
           Увійти
         </StyledSubmitBtn>
-      </form >
-
+      </form>
+      <SocialAuth />
       <Stack mt={2} direction="row" alignItems="center">
         <Typography variant="caption">Немає профілю?</Typography>
         <StyledSignInBtn
@@ -253,7 +267,7 @@ const Login = () => {
           Зареєструйтесь
         </StyledSignInBtn>
       </Stack>
-    </Stack >
+    </Stack>
   );
 };
 

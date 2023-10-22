@@ -22,6 +22,8 @@ import {
   errorMessageToggle,
   isResetPassReset,
   isTokenExpiredToggle,
+  socialLoginUserSet,
+  isSocialLoginSet,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -165,6 +167,8 @@ export const userAuthSlice = createSlice({
     errorMessageToggle,
     isResetPassReset,
     isTokenExpiredToggle,
+    socialLoginUserSet,
+    isSocialLoginSet,
   },
   extraReducers(builder) {
     builder
@@ -337,6 +341,8 @@ export const {
   errorMessageToggle: errorMessageToggleAction,
   isResetPassReset: isResetPassResetAction,
   isTokenExpiredToggle: isTokenExpiredToggleAction,
+  socialLoginUserSet: socialLoginUserSetAction,
+  isSocialLoginSet: isSocialLoginSetAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

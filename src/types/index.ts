@@ -44,6 +44,7 @@ export enum DrawerContent {
   chat = 'chat',
   password = 'password',
   noContent = 'noContent',
+  googleAuthMessage = 'googleAuthMessage',
 }
 
 export interface RegisterResponse {
