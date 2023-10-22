@@ -30,7 +30,7 @@ const EditProduct = () => {
     }
     dispatch(resetAddAdvertStateAction());
     return () => {
-      // dispatch(resetAddAdvertStateAction());
+      dispatch(resetAddAdvertStateAction());
     };
   }, [isLogin]);
 
