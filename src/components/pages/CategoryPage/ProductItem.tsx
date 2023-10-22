@@ -31,28 +31,34 @@ import {
 } from '../ProfilePage/thunk';
 import { AppDispatch } from 'src/store';
 import { getUserStateSelector } from 'redux/auth/selector';
-import { currentFavPageSetAction } from '../ProfilePage/reducer';
+import {
+  currentFavPageSetAction,
+  offsetFavSetAction,
+} from '../ProfilePage/reducer';
 
 interface ProductItemProp {
   product: ProductItem;
+  productList?: ProductItem[];
 }
 
-const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
+const ProductItem: React.FC<ProductItemProp> = ({ product, productList }) => {
   const [error, setError] = useState(false);
 
   const favoriteList = useSelector(getUserStateSelector).favorite;
 
   const {
     favorites,
-    fav: {
-      data: { totalResult, limit, page },
-    },
+    fav: { page, itemsPerPage, offset },
   } = useSelector(profileStateSelector);
 
-  const [fav, setFav] = useState<boolean>(
-    favoriteList.some((notice) => notice === product._id)
-  );
+  const [fav, setFav] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    if (favoriteList.length) {
+      setFav(favoriteList.some((notice) => notice === product._id));
+    }
+  }, [favoriteList, product._id]);
 
   const navigate = useNavigate();
 
@@ -73,8 +79,9 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   ) => {
     event.stopPropagation();
     if (fav) {
-      if (totalResult % limit === 1) {
+      if (productList?.length === 1) {
         dispatch(currentFavPageSetAction(page - 1));
+        dispatch(offsetFavSetAction(offset - itemsPerPage));
       }
       dispatch(removeFavoriteProductFetch(_id));
     } else {
@@ -87,7 +94,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product }) => {
   };
 
   return (
-    <StyledCard>
+    <StyledCard className={product.active ? '' : 'inactive'}>
       <CardActionArea disableRipple onClick={handleItemClick}>
         <StyledCardWrapper>
           <StyledImgWrapper>

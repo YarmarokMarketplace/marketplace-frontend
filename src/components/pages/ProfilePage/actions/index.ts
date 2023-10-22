@@ -20,7 +20,14 @@ export const currentFavPageSet = (
   state: ProfileState,
   action: PayloadAction<number>
 ) => {
-  state.fav.data.page = action.payload;
+  state.fav.page = action.payload;
+};
+
+export const offsetFavSet = (
+  state: ProfileState,
+  action: PayloadAction<number>
+) => {
+  state.fav.offset = action.payload;
 };
 
 export const resetFavoriteList = (state: ProfileState) => {

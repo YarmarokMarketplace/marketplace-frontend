@@ -40,12 +40,10 @@ const USER_FAVORITES_PRODUCTS_FETCH_THUNK_TYPE =
 
 export const userFavoritesProductsListFetch = createAsyncThunk(
   USER_FAVORITES_PRODUCTS_FETCH_THUNK_TYPE,
-  async (
-    values: { page: number; limit: number },
-    { rejectWithValue, dispatch }
-  ) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
-      return await getUserFavoriteProducts(values.page, values.limit);
+      const res = await getUserFavoriteProducts();
+      return res.result;
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
