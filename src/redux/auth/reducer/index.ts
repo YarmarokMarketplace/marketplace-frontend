@@ -8,6 +8,7 @@ import {
   updateUserFetch,
   deleteAccountFetch,
   resetPasswordFetch,
+  changePasswordFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -24,6 +25,8 @@ import {
   isTokenExpiredToggle,
   socialLoginUserSet,
   isSocialLoginSet,
+  isPassChangedReset,
+  passWrongErrorToggle,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -86,6 +89,12 @@ export interface UserAuthState {
     isReset: boolean;
     isTokenExpired: boolean;
   };
+  changePassword: {
+    loading: boolean;
+    error: boolean | null;
+    isChanged: boolean;
+    passWrongError: boolean;
+  };
 }
 
 const initialState: UserAuthState = {
@@ -147,6 +156,12 @@ const initialState: UserAuthState = {
     isReset: false,
     isTokenExpired: false,
   },
+  changePassword: {
+    loading: false,
+    error: null,
+    isChanged: false,
+    passWrongError: false,
+  },
 };
 
 const name = 'USER_AUTH';
@@ -169,6 +184,8 @@ export const userAuthSlice = createSlice({
     isTokenExpiredToggle,
     socialLoginUserSet,
     isSocialLoginSet,
+    isPassChangedReset,
+    passWrongErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -324,6 +341,18 @@ export const userAuthSlice = createSlice({
       .addCase(resetPasswordFetch.rejected, (state) => {
         state.resetPassword.loading = false;
         state.resetPassword.error = true;
+      })
+      .addCase(changePasswordFetch.pending, (state) => {
+        state.changePassword.loading = true;
+        state.changePassword.error = false;
+      })
+      .addCase(changePasswordFetch.fulfilled, (state) => {
+        state.changePassword.loading = false;
+        state.changePassword.isChanged = true;
+      })
+      .addCase(changePasswordFetch.rejected, (state) => {
+        state.changePassword.loading = false;
+        state.changePassword.error = true;
       });
   },
 });
@@ -343,6 +372,8 @@ export const {
   isTokenExpiredToggle: isTokenExpiredToggleAction,
   socialLoginUserSet: socialLoginUserSetAction,
   isSocialLoginSet: isSocialLoginSetAction,
+  isPassChangedReset: isPassChangedResetAction,
+  passWrongErrorToggle: passWrongErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

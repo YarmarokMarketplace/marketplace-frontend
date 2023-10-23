@@ -5,6 +5,7 @@ import {
   LoginResponse,
   ForgotPasswordBody,
   ResetPasswordBody,
+  ChangePasswordBody,
 } from '../../../types';
 import {
   register,
@@ -15,6 +16,7 @@ import {
   updateUser,
   deleteAccount,
   resetPassword,
+  changePassword,
 } from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
@@ -23,6 +25,7 @@ import {
   requestLimitErrorToggleAction,
   notVerifiedErrorToggleAction,
   isTokenExpiredToggleAction,
+  passWrongErrorToggleAction,
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
@@ -38,6 +41,7 @@ const USER_LOGOUT_THUNK_TYPE = 'USER_LOGOUT_THUNK_TYPE';
 const UPDATE_USER_THUNK_TYPE = 'UPDATE_USER_THUNK_TYPE';
 const DELETE_USER_THUNK_TYPE = 'DELETE_USER_THUNK_TYPE';
 const USER_RESET_PASSWORD_THUNK_TYPE = 'USER_RESET_PASSWORD_THUNK_TYPE';
+const USER_CHANGE_PASSWORD_THUNK_TYPE = 'USER_CHANGE_PASSWORD_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -191,6 +195,23 @@ export const resetPasswordFetch = createAsyncThunk(
       if (error instanceof AxiosError) {
         if (error.response?.data.message == 'Reset token is expired') {
           dispatch(isTokenExpiredToggleAction(true));
+        }
+        return rejectWithValue(error.response?.data);
+      }
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const changePasswordFetch = createAsyncThunk(
+  USER_CHANGE_PASSWORD_THUNK_TYPE,
+  async (data: ChangePasswordBody, { rejectWithValue, dispatch }) => {
+    try {
+      return await changePassword(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.data.message == 'Password is wrong') {
+          dispatch(passWrongErrorToggleAction(true));
         }
         return rejectWithValue(error.response?.data);
       }

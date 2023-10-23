@@ -38,6 +38,7 @@ export enum DrawerContent {
   login = 'login',
   register = 'register',
   resetPassword = 'resetPassword',
+  changePassword = 'changePassword',
   chat = 'chat',
   password = 'password',
   noContent = 'noContent',
@@ -197,4 +198,9 @@ export interface UserFavProductsResponse {
   page: number;
   limit: number;
   result: ProductItem[];
+}
+
+export interface ChangePasswordBody {
+  password: string;
+  newPassword: string;
 }

@@ -34,3 +34,8 @@ export const resetPasswordSelector = createSelector(
   userAuthStateSelector,
   (userAuth) => userAuth.resetPassword
 );
+
+export const changePasswordSelector = createSelector(
+  userAuthStateSelector,
+  (userAuth) => userAuth.changePassword
+);

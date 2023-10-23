@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppDispatch } from 'src/store';
 import { getUserStateSelector } from 'redux/auth/selector';
+
+import {
+    openDrawerAction,
+    setDrawerContentAction,
+} from '../../../CustomDrawer/reducer';
+import { DrawerContent } from 'src/types';
 
 import {
     Stack, TextField, Typography,
@@ -12,13 +19,15 @@ import {
 } from "./style";
 
 const Login_Password = () => {
+    const dispatch: AppDispatch = useDispatch();
     const { email } = useSelector(getUserStateSelector);
     const handleChangeEmail = () => {
 
     }
 
     const handleChangePassword = () => {
-
+        dispatch(openDrawerAction(true));
+        dispatch(setDrawerContentAction(DrawerContent.changePassword));
     }
 
     return (

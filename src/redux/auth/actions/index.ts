@@ -88,6 +88,7 @@ export const isTokenExpiredToggle = (
 ) => {
   state.resetPassword.isTokenExpired = action.payload;
 };
+
 export const socialLoginUserSet = (
   state: UserAuthState,
   action: PayloadAction<{ name: string; email: string }>
@@ -102,4 +103,15 @@ export const isSocialLoginSet = (
 ) => {
   state.isLogin = action.payload.isLogin;
   state.accessToken = action.payload.accessToken;
+};
+
+export const isPassChangedReset = (state: UserAuthState) => {
+  state.changePassword.isChanged = false;
+};
+
+export const passWrongErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.changePassword.passWrongError = action.payload;
 };
