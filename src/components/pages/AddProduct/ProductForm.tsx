@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -26,7 +26,6 @@ import { categoriesStateSelector } from '../HomePage/selector';
 import {
   addAdvertSchema,
   advertInitialData,
-  createFile,
   dataURLtoBlob,
   formatPhoneNumber,
 } from './utils';
@@ -106,19 +105,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
     };
   }, []);
 
-  const createFileMemo = useMemo(() => createFile, []);
-
   useEffect(() => {
     if (product && edit) {
       setCategory(product.category);
       setPhone(product.contactNumber);
-      if (product.photos.length > 0) {
-        createFileMemo(product).then((data) => {
-          if (data) {
-            setSelectedImage(data.reverse());
-          }
-        });
-      }
     }
   }, [product]);
 
@@ -166,6 +156,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
     } = values;
 
     const form = new FormData();
+    const editData: Partial<AddAdvertInput> = {
+      price,
+      contactName,
+      title,
+      description,
+      category,
+      contactNumber,
+      location,
+      goodtype,
+    };
     form.append('title', title);
     form.append('description', description);
     form.append('category', category);
@@ -174,11 +174,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
     price && form.append('price', price);
     form.append('location', location);
     goodtype && form.append('goodtype', goodtype);
-    selectedImage.length &&
+    selectedImage.length > 0 &&
       [...selectedImage].reverse().forEach((img) => form.append('photos', img));
     if (edit) {
-      dispatch(editAdvertFetch({ data: form, id: product?._id! }));
-      console.log(selectedImage);
+      dispatch(editAdvertFetch({ data: editData, id: product?._id! }));
     } else {
       dispatch(addAdvertFetch(form));
     }
@@ -193,18 +192,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         onSubmit={handleSubmit(onSubmit)}
         onChange={saveDataToLocalStorage}
       >
-        <StyledFormControl fullWidth>
-          <StyledFormLabel>Фотографії</StyledFormLabel>
-          <ImageInput
-            control={control}
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-            setValue={setValue}
-            loading={loading}
-            errors={errors}
-            edit={edit}
-          />
-        </StyledFormControl>
+        {!edit && (
+          <StyledFormControl fullWidth>
+            <StyledFormLabel>Фотографії</StyledFormLabel>
+            <ImageInput
+              control={control}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              setValue={setValue}
+              loading={loading}
+              errors={errors}
+              edit={edit}
+            />
+          </StyledFormControl>
+        )}
+
         <StyledFormControl fullWidth>
           <StyledFormLabel>Назва та опис</StyledFormLabel>
           <Stack spacing={3}>

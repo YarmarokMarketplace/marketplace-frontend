@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addProduct, editProduct } from '../../../../api/products';
+import { AddAdvertInput } from 'src/types';
 
 const ADD_ADVERT_THUNK_TYPE = 'ADD_ADVERT_THUNK_TYPE';
 
@@ -21,7 +22,7 @@ const EDIT_ADVERT_THUNK_TYPE = 'EDIT_ADVERT_THUNK_TYPE';
 export const editAdvertFetch = createAsyncThunk(
   EDIT_ADVERT_THUNK_TYPE,
   async (
-    values: { data: FormData; id: string },
+    values: { data: Partial<AddAdvertInput>; id: string },
     { rejectWithValue, dispatch }
   ) => {
     try {
