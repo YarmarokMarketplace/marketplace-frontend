@@ -249,7 +249,7 @@ export interface CreateOrderData {
   buyerPhone: string;
   deliveryData: DeliveryData;
   comment?: string;
-  saveData: boolean;
+  saveData?: boolean;
 }
 
 export interface CreateOrderInput {

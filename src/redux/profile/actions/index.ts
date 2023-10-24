@@ -42,5 +42,5 @@ export const setProductId = (
 };
 
 export const resetOrderState = (state: ProfileState) => {
-  state.order.success = false;
+  state.order = initialState.order;
 };
