@@ -9,20 +9,19 @@ import {
 } from '../../../CustomDrawer/reducer';
 import { DrawerContent } from 'src/types';
 
+import { Stack } from '@mui/material';
 import {
-    Stack, TextField, Typography,
-} from '@mui/material';
-import {
-    StyledFormLabel, StyledStar,
+    StyledFormLabel,
     InputWrapper, HeaderTypography,
-    DescriptionTypography, StyledButton, EmailTypography
+    StyledButton, EmailTypography
 } from "./style";
 
 const Login_Password = () => {
     const dispatch: AppDispatch = useDispatch();
     const { email } = useSelector(getUserStateSelector);
     const handleChangeEmail = () => {
-
+        dispatch(openDrawerAction(true));
+        dispatch(setDrawerContentAction(DrawerContent.changeLogin));
     }
 
     const handleChangePassword = () => {

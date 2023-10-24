@@ -9,6 +9,7 @@ import {
   deleteAccountFetch,
   resetPasswordFetch,
   changePasswordFetch,
+  changeLoginFetch,
 } from '../thunk';
 import {
   emailErrorToggle,
@@ -27,6 +28,7 @@ import {
   isSocialLoginSet,
   isPassChangedReset,
   passWrongErrorToggle,
+  emailInUseErrorToggle,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -95,6 +97,12 @@ export interface UserAuthState {
     isChanged: boolean;
     passWrongError: boolean;
   };
+  changeLogin: {
+    loading: boolean;
+    error: boolean | null;
+    isEmailSend: boolean;
+    emailInUseError: boolean;
+  };
 }
 
 const initialState: UserAuthState = {
@@ -162,6 +170,12 @@ const initialState: UserAuthState = {
     isChanged: false,
     passWrongError: false,
   },
+  changeLogin: {
+    loading: false,
+    error: null,
+    isEmailSend: false,
+    emailInUseError: false,
+  },
 };
 
 const name = 'USER_AUTH';
@@ -186,6 +200,7 @@ export const userAuthSlice = createSlice({
     isSocialLoginSet,
     isPassChangedReset,
     passWrongErrorToggle,
+    emailInUseErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -353,6 +368,18 @@ export const userAuthSlice = createSlice({
       .addCase(changePasswordFetch.rejected, (state) => {
         state.changePassword.loading = false;
         state.changePassword.error = true;
+      })
+      .addCase(changeLoginFetch.pending, (state) => {
+        state.changeLogin.loading = true;
+        state.changeLogin.error = false;
+      })
+      .addCase(changeLoginFetch.fulfilled, (state) => {
+        state.changeLogin.loading = false;
+        state.changeLogin.isEmailSend = true;
+      })
+      .addCase(changeLoginFetch.rejected, (state) => {
+        state.changeLogin.loading = false;
+        state.changeLogin.error = true;
       });
   },
 });
@@ -374,6 +401,7 @@ export const {
   isSocialLoginSet: isSocialLoginSetAction,
   isPassChangedReset: isPassChangedResetAction,
   passWrongErrorToggle: passWrongErrorToggleAction,
+  emailInUseErrorToggle: emailInUseErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

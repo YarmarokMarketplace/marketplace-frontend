@@ -39,3 +39,8 @@ export const changePasswordSelector = createSelector(
   userAuthStateSelector,
   (userAuth) => userAuth.changePassword
 );
+
+export const changeLoginSelector = createSelector(
+  userAuthStateSelector,
+  (userAuth) => userAuth.changeLogin
+);
