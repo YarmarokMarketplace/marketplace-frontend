@@ -99,7 +99,7 @@ const ConfirmPurchase = () => {
       deliveryType: values.deliveryType,
       buyerPhone: values.phone,
       deliveryData: deliveryData,
-      // saveData: values.saveData,
+      saveData: values.saveData,
     };
     dispatch(createOrderFetch({ id: product?._id!, data }));
   };
