@@ -25,7 +25,7 @@ import {
   StyledImageWrapper,
   StyledLabel,
 } from './style';
-import { deliveryOption } from 'src/constants';
+import { categoriesDeliveryAbsense, deliveryOption } from 'src/constants';
 import NovaPostInput from './NovaPostInput';
 import UkrPostInput from './UkrPostInput';
 import { formatPhoneNumber } from '../pages/AddProduct/utils';
@@ -45,6 +45,8 @@ const ConfirmPurchase = () => {
   const [deliveryType, setDeliveryType] = React.useState<string>('new-post');
   const [phone, setPhone] = useState<string>('+38');
   const [tabValue, setTabValue] = React.useState<string>('department');
+  const [deliveryDisabled, setDeliveryDisabled] =
+    React.useState<boolean>(false);
   const {
     order: { loading, error, success },
   } = useSelector(profileStateSelector);
@@ -54,6 +56,18 @@ const ConfirmPurchase = () => {
   useEffect(() => {
     dispatch(resetOrderStateAction());
   }, []);
+
+  useEffect(() => {
+    if (
+      categoriesDeliveryAbsense.some(
+        (category) => category === product?.category
+      )
+    ) {
+      setDeliveryType('other');
+      setValue('deliveryType', 'other');
+      setDeliveryDisabled(true);
+    }
+  }, [product]);
 
   const {
     control,
@@ -241,7 +255,7 @@ const ConfirmPurchase = () => {
                     sx={{ width: '20.5rem' }}
                     id="deliveryType"
                     size="small"
-                    disabled={loading}
+                    disabled={loading || deliveryDisabled}
                     value={deliveryType}
                     input={<OutlinedInput />}
                     onBlur={onBlur}
@@ -293,12 +307,7 @@ const ConfirmPurchase = () => {
             )}
             <FormControl>
               {deliveryType === 'other' && (
-                <Stack gap={2}>
-                  <Typography variant="body1" fontWeight={700}>
-                    Дані для відправки
-                  </Typography>
-                  <StyledLabel>Напишіть бажаний варіант доставки</StyledLabel>
-                </Stack>
+                <StyledLabel>Напишіть бажаний варіант</StyledLabel>
               )}
               <Controller
                 control={control}
