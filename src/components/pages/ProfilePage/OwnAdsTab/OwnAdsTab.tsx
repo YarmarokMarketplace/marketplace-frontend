@@ -26,6 +26,7 @@ import {
 } from 'src/components/CustomModal/reducer';
 import { setProductIdAction } from 'redux/profile/reducer';
 import { useNavigate } from 'react-router-dom';
+import Moment from 'react-moment';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -155,29 +156,31 @@ const OwnAdsTab = () => {
             {activeNotices.map((product) => {
               return (
                 <OwnProductItem product={product} key={product._id}>
-                  <Stack
-                    direction="row"
-                    gap={3}
-                    justifyContent="space-between"
-                    height="fit-content"
-                  >
-                    <StyledContrastButton
-                      data-product-id={product._id}
-                      id="deactivate-btn"
-                      variant="outlined"
-                      onClick={handleDeactivateClick}
+                  <Stack justifyContent="space-between" alignItems="flex-end">
+                    <Stack
+                      direction="row"
+                      gap={3}
+                      justifyContent="space-between"
+                      height="fit-content"
                     >
-                      Деактивувати
-                    </StyledContrastButton>
-                    <StyledIconButton
-                      id="edit-btn"
-                      onClick={() => navigate(`/edit-advert/${product._id}`)}
-                    >
-                      <EditOutlinedIcon
-                        sx={{ fontSize: '1.5rem' }}
-                        color="primary"
-                      />
-                    </StyledIconButton>
+                      <StyledContrastButton
+                        data-product-id={product._id}
+                        id="deactivate-btn"
+                        variant="outlined"
+                        onClick={handleDeactivateClick}
+                      >
+                        Деактивувати
+                      </StyledContrastButton>
+                      <StyledIconButton id="edit-btn">
+                        <EditOutlinedIcon
+                          sx={{ fontSize: '1.5rem' }}
+                          color="primary"
+                        />
+                      </StyledIconButton>
+                    </Stack>
+                    <Typography variant="body1" color="text.secondary">
+                      {<Moment format="DD/MM/YY">{product.createdAt}</Moment>}
+                    </Typography>
                   </Stack>
                 </OwnProductItem>
               );
