@@ -1,3 +1,4 @@
+import { changeOrderStatus } from 'src/api/orders';
 export interface CategoryItem {
   _id: string;
   name: string;
@@ -268,4 +269,55 @@ export interface CreateOrderInput {
   saveData: boolean;
   comment?: string;
   novaPostType?: string;
+}
+export interface sellOrdersResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  result: SellOrder[];
+}
+
+export interface changeOrderStatusResponse {
+  result: SellOrder;
+}
+
+export interface SellOrder {
+  _id: string;
+  buyerName: string;
+  buyerLastname: string;
+  buyerPatronymic: string;
+  buyerPhone: string;
+  deliveryData: {
+    newPostSchema: {
+      typeOfNovaPostDelivery: {
+        postOfficeSchema: {
+          postOfficeNumber: string;
+          city: string;
+        };
+        addressSchema: {
+          city: string;
+          street: string;
+          house: string;
+          apartments: string;
+        };
+        postBoxSchema: {
+          postBoxNumber: string;
+          city: string;
+        };
+      };
+    };
+    ukrPostSchema: {
+      city: string;
+      index: string;
+      street: string;
+      house: string;
+      apartments: string;
+    };
+    otherSchema: {
+      typeOfOtherDelivery: string;
+    };
+  };
+  product: ProductItem;
+  status: string;
 }

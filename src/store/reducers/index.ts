@@ -11,7 +11,8 @@ import userAuth from 'redux/auth/reducer';
 import modal from '../../components/CustomModal/reducer';
 import userAuthReducer from 'redux/auth/reducer';
 import addAdvert from '../../components/pages/AddProduct/reducer';
-import profile from '../../redux/profile/reducer';
+import profile from 'redux/profile/reducer';
+import orders from 'redux/orders/reducer';
 
 const persistConfig = {
   key: 'authData',
@@ -36,4 +37,5 @@ export default combineReducers({
   modal,
   addAdvert: persistedAdvertReducer,
   profile,
+  orders,
 });

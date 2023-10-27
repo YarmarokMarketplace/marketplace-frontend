@@ -79,7 +79,9 @@ const PersonalData = () => {
 
     const replaceInputSpaces = (obj: UserType) => {
         const hasSpaces = Object.values(obj).some((value: any) => {
-            return value.includes(" ");
+            if (typeof value === 'string') {
+                return value.includes(" ");
+            }
         });
         if (hasSpaces) {
             if (obj.phone == ' ') {

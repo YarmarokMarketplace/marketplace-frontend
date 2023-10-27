@@ -15,28 +15,35 @@ import {
 } from './style';
 
 import placeholder from '../../../../img/placeholder-image.png';
-import { ProductItem } from '../../../../types';
+import { ProductItem, SellOrder } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
 import { locations } from 'src/constants';
 
 interface SellProductProps {
   children?: React.ReactNode;
-  product: ProductItem;
-  showMore?: boolean;
+  order: SellOrder;
+  // showMore?: boolean;
+  isExpanded?: boolean,
   sell?: boolean;
+  onToggle?: () => void;
 }
 
 const SellProductItem: React.FC<SellProductProps> = ({
   children,
-  product,
-  showMore,
+  order,
+  isExpanded,
+  // showMore,
   sell,
 }) => {
   const navigate = useNavigate();
-
+  const { product } = order;
   const location = locations.find(
     (location) => location.value === product.location
   );
+
+  // console.log(order)
+  // console.log(order.deliveryData?.otherSchema?.typeOfOtherDelivery)
+  // console.log(order.deliveryData?.newPostSchema.typeOfNovaPostDelivery?.postOfficeSchema)
 
   return (
     <StyledProductContainer>
@@ -46,7 +53,7 @@ const SellProductItem: React.FC<SellProductProps> = ({
           onClick={() => navigate(`/${product.category}/${product._id}`)}
         >
           <StyledImgWrapper>
-            <img src={product.photos[0] ? product.photos[0] : placeholder} />
+            <img src={product.photos?.[0] ? product.photos[0] : placeholder} />
           </StyledImgWrapper>
         </CardActionArea>
         <Stack width="100%" gap={1}>
@@ -54,7 +61,7 @@ const SellProductItem: React.FC<SellProductProps> = ({
             {product.title}
           </StyledLink>
           <Typography variant="body1" color="text.secondary">
-            {product.description.length > 53
+            {product.description?.length > 53
               ? `${product.description.slice(0, 53)}...`
               : product.description}
           </Typography>
@@ -67,7 +74,7 @@ const SellProductItem: React.FC<SellProductProps> = ({
         </Stack>
         {children}
       </Stack>
-      <Collapse in={showMore} timeout={'auto'}>
+      <Collapse in={isExpanded} timeout={'auto'}>
         <StyledInfoContainer>
           <Typography variant="body1" fontWeight={500} mt={1}>
             Отримувач
@@ -77,9 +84,11 @@ const SellProductItem: React.FC<SellProductProps> = ({
               <Typography variant="body1" color="text.secondary">
                 Прізвище та імʼя
               </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Населений пункт
-              </Typography>
+              {!order.deliveryData?.otherSchema &&
+                <Typography variant="body1" color="text.secondary">
+                  Населений пункт
+                </Typography>
+              }
               <Typography variant="body1" color="text.secondary">
                 Номер поштового відділення
               </Typography>
@@ -92,20 +101,27 @@ const SellProductItem: React.FC<SellProductProps> = ({
             </Stack>
             <Stack gap={1}>
               <Typography variant="body1" color="text.secondary">
-                Покутна Олена
+                {order.buyerName} {order.buyerLastname}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Київ
+                {product.location}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                2
+                {/* {order.deliveryData.newPostSchema.typeOfNovaPostDelivery.postOfficeSchema?.postOfficeNumber} */}
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 02121
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                0930647516
+                {order.buyerPhone}
               </Typography>
+
+              {order.deliveryData?.otherSchema?.typeOfOtherDelivery &&
+                <Typography variant="body1" color="text.secondary">
+                  Коментарі:
+                  {order.deliveryData.otherSchema?.typeOfOtherDelivery}
+                </Typography>
+              }
             </Stack>
           </Stack>
         </StyledInfoContainer>
