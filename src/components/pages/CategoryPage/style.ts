@@ -77,6 +77,18 @@ export const FiltersContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const CategoryNameTypography = styled(Typography)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  textAlign: 'left',
+  marginBottom: 0,
+  fontSize: '1.5rem',
+  fontWeight: 700,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1rem',
+    fontWeight: 600,
+  },
+}));
+
 export const FilterText = styled(ListItemText)(({ theme }) => ({
   color: theme.palette.text.primary,
   span: {
@@ -91,6 +103,9 @@ export const StyledChip = styled(Chip)(({ theme }) => ({
   fontWeight: 400,
   color: theme.palette.secondary.dark,
   backgroundColor: theme.palette.primary.contrastText,
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(0.3),
+  },
 }));
 
 // ProductItem
@@ -291,13 +306,6 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   maxHeight: '100vh',
   width: '100vw',
   overflowY: 'auto',
-  // position: 'absolute',
-  // top: '50%',
-  // left: '50%',
-  // transform: 'translate(-50%, -50%)',
-  // minWidth: '36.75rem',
   backgroundColor: theme.palette.white,
-  // borderRadius: '32px',
-  // boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
   padding: theme.spacing(2, 3, 6),
 }));
