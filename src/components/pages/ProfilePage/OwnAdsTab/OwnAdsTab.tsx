@@ -178,7 +178,7 @@ const OwnAdsTab = () => {
                         />
                       </StyledIconButton>
                     </Stack>
-                    <Typography variant="body1" color="text.secondary">
+                    <Typography variant="body1" color="secondary.dark">
                       {<Moment format="DD/MM/YY">{product.createdAt}</Moment>}
                     </Typography>
                   </Stack>
