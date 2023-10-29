@@ -17,26 +17,6 @@ import SkeletonAds from '../SkeletonAds';
 
 import NoProductMessage from '../NoProductMessage';
 import placeholder from '../../../../img/no-fav-product.png';
-import { SellOrder } from 'src/types';
-
-const product = {
-  _id: '650304d8decca38863ee2202',
-  category: 'auto',
-  goodtype: 'new',
-  title: 'scscs sssssssssssssssssss sssssssqwewqewe qwe',
-  description: 'wewwe',
-  photos: [
-    'https://yarmarok-bucket.s3.eu-central-1.amazonaws.com/bTLtz2MLDwai1zvaYdHKB.jpg',
-  ],
-  location: 'Kyiv',
-  price: 1212,
-  contactName: 'dsdsd',
-  contactNumber: '+38 (765) 654 54 54',
-  active: true,
-  owner: '64fe1bb562725c8460a940d0',
-  createdAt: '2023-09-14T13:04:24.842Z',
-  updatedAt: '2023-09-14T13:04:24.842Z',
-};
 
 const SellProducts = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -44,16 +24,8 @@ const SellProducts = () => {
   const {
     loading,
     error,
-    orders: {
-      // totalResult,
-      totalPages,
-      page,
-      limit,
-      result
-    },
+    orders: { totalPages, page, limit, result },
   } = useSelector(ordersStateSelector);
-
-  // console.log(result)
 
   const [cardStates, setCardStates] = React.useState(result.map(() => false));
   const handleToggleCard = (index: number) => {
@@ -65,7 +37,6 @@ const SellProducts = () => {
   useEffect(() => {
     dispatch(getSellOrdersFetch(page));
     setCardStates(result.map(() => false));
-
   }, [page]);
 
   const handlePageChange = (e: React.ChangeEvent<unknown>, page: number) => {
@@ -75,96 +46,121 @@ const SellProducts = () => {
   const handleChangeStatus = (e: React.SyntheticEvent) => {
     const btnName = (e.currentTarget as HTMLButtonElement).name;
     const _id = e.currentTarget.getAttribute('data-order-id');
-    const status: string = btnName === 'approve' ? 'await-delivery' : 'cancelled-by-seller';
+    const status: string =
+      btnName === 'approve' ? 'await-delivery' : 'cancelled-by-seller';
     _id && dispatch(changeOrderStatusFetch({ status, _id }));
-  }
+  };
 
   const orderStatusChange = (status: string, _id: string, i: number) => {
-    // console.log(status)
     if (status === 'await-confirm') {
-      return (<Stack direction="row" gap={3} height="fit-content">
-        <Button
-          data-order-id={_id}
-          onClick={handleChangeStatus}
-          sx={{ paddingX: 2 }}
-          name='approve'
-          variant="contained">
-          Підтвердити
-        </Button>
-        <StyledContrastButton
-          data-order-id={_id}
-          name='cancel'
-          onClick={handleChangeStatus}
-          variant="outlined">
-          Скасувати
-        </StyledContrastButton>
-        <IconButton onClick={() => handleToggleCard(i)}>
-          {cardStates[i] ? (
-            <ExpandLess color="primary" fontSize="large" />
-          ) : (
-            <ExpandMore color="primary" fontSize="large" />
-          )}
-        </IconButton>
-      </Stack>
-      )
+      return (
+        <>
+          <Button
+            data-order-id={_id}
+            onClick={handleChangeStatus}
+            sx={{ paddingX: 2 }}
+            name='approve'
+            variant='contained'
+          >
+            Підтвердити
+          </Button>
+          <StyledContrastButton
+            data-order-id={_id}
+            name='cancel'
+            onClick={handleChangeStatus}
+            variant='outlined'
+          >
+            Скасувати
+          </StyledContrastButton>
+        </>
+      );
     } else if (status === 'cancelled-by-seller') {
-      return (<Stack>
-        <Typography fontWeight={500} color="error.main" variant="h6">
+      return (
+        <Typography fontWeight={500} color='error.main' variant='h6'>
           Скасовано
         </Typography>
-      </Stack>)
+      );
     } else if (status === 'received') {
       return (
-        <Typography fontWeight={500} color="success.main" variant="h6">
+        <Typography fontWeight={500} color='success.main' variant='h6'>
           Отримано
         </Typography>
-      )
+      );
     } else if (status === 'await-delivery') {
       return (
-        <Typography fontWeight={500} color="info.main" variant="h6" sx={{ whiteSpace: 'nowrap' }}>
+        <Typography
+          fontWeight={500}
+          color='info.main'
+          variant='h6'
+          sx={{ whiteSpace: 'nowrap' }}
+        >
           Очікується відправка
         </Typography>
-      )
+      );
     }
-  }
+  };
 
   return (
     <StyledAdsContainer sx={{ width: '100%' }}>
       <StyledTitleContainer>
-        <Typography variant="h4">Продаю</Typography>
+        <Typography variant='h4'>Продаю</Typography>
       </StyledTitleContainer>
       {loading && <SkeletonAds limit={limit} />}
       {!loading && !error && result.length > 0 && (
         <Stack gap={3}>
           {result.map((order, i) => {
-            // console.log(order)
             return (
-              <SellProductItem order={order} key={order._id} isExpanded={cardStates[i]}
+              <SellProductItem
+                order={order}
+                key={order._id}
+                isExpanded={cardStates[i]}
                 onToggle={() => handleToggleCard(i)}
               >
-                <Stack>
+                <Stack
+                  direction='row'
+                  gap={3}
+                  height='fit-content'
+                  alignItems='center'
+                >
                   {orderStatusChange(order.status, order._id, i)}
+                  <IconButton onClick={() => handleToggleCard(i)}>
+                    {cardStates[i] ? (
+                      <ExpandLess color='primary' fontSize='large' />
+                    ) : (
+                      <ExpandMore color='primary' fontSize='large' />
+                    )}
+                  </IconButton>
                 </Stack>
               </SellProductItem>
-            )
+            );
           })}
         </Stack>
       )}
-      <ProfilePagination page={page} totalPages={totalPages} handlePageChange={handlePageChange} />
-      {/* <NoProductMessage src={placeholder}>
-          <Typography variant="h4" fontWeight={700} mt={3}>
+
+      {!loading && result.length === 0 && (
+        <NoProductMessage src={placeholder}>
+          <Typography variant='h4' fontWeight={700} mt={3}>
             Тут будуть відображатись товари, які хтось у Вас купує.
           </Typography>
           <Typography
-            variant="body1"
+            variant='body1'
             fontWeight={500}
-            color="text.secondary"
+            color='text.secondary'
             mt={1}
           >
             Щойно покупець натисне кнопку “Купити” і оформить замовлення, воно
             відобразиться тут.
           </Typography>
-        </NoProductMessage> */}
+        </NoProductMessage>
+      )}
+
+      {!loading && !error && result.length > 0 && (
+        <ProfilePagination
+          page={page}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </StyledAdsContainer>
   );
 };

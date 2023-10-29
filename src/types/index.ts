@@ -289,7 +289,7 @@ export interface SellOrder {
   buyerPatronymic: string;
   buyerPhone: string;
   deliveryData: {
-    newPostSchema: {
+    newPostSchema?: {
       typeOfNovaPostDelivery: {
         postOfficeSchema: {
           postOfficeNumber: string;
@@ -307,17 +307,19 @@ export interface SellOrder {
         };
       };
     };
-    ukrPostSchema: {
+    ukrPostSchema?: {
       city: string;
       index: string;
       street: string;
       house: string;
       apartments: string;
     };
-    otherSchema: {
+    otherSchema?: {
       typeOfOtherDelivery: string;
     };
+    deliveryType: string;
   };
+  comments: string;
   product: ProductItem;
   status: string;
 }
