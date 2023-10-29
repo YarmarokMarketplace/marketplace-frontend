@@ -11,10 +11,13 @@ const InputGlobalStyles = () => {
             ':root': {
                 fontSize: 16,
                 [theme.breakpoints.down('lg')]: {
-                    fontSize: 14,
+                    fontSize: 16,
                 },
                 [theme.breakpoints.down('md')]: {
-                    fontSize: 11,
+                    fontSize: 16,
+                },
+                [theme.breakpoints.down('sm')]: {
+                    fontSize: 16,
                 },
             },
             body: {
