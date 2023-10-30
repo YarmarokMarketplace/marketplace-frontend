@@ -33,6 +33,16 @@ import {
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
 export interface UserAuthState {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    lastname: string;
+    patronymic: string;
+    avatarURL: string;
+    phone: string;
+    favorite: string[];
+  };
   register: {
     loading: boolean;
     error: boolean;
@@ -41,16 +51,6 @@ export interface UserAuthState {
     requestLimitError: boolean;
   };
   login: {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      lastname: string;
-      patronymic: string;
-      avatarURL: string;
-      phone: string;
-      favorite: string[];
-    };
     loading: boolean;
     error: boolean | null;
     emailError: boolean;
@@ -106,6 +106,16 @@ export interface UserAuthState {
 }
 
 const initialState: UserAuthState = {
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    lastname: '',
+    patronymic: '',
+    avatarURL: '',
+    phone: '',
+    favorite: [],
+  },
   register: {
     loading: false,
     error: false,
@@ -114,16 +124,6 @@ const initialState: UserAuthState = {
     requestLimitError: false,
   },
   login: {
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      lastname: '',
-      patronymic: '',
-      avatarURL: '',
-      phone: '',
-      favorite: [],
-    },
     loading: false,
     error: null,
     emailError: false,
@@ -227,7 +227,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(userLoginFetch.fulfilled, (state, { payload }) => {
         state.login.loading = false;
-        state.login.user = payload.user;
+        state.user = payload.user;
         state.refreshToken = payload.refreshToken;
         state.accessToken = payload.accessToken;
         state.isLogin = true;
@@ -245,7 +245,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(currentFetch.fulfilled, (state, { payload }) => {
         state.current.loading = false;
-        state.login.user = payload.user;
+        state.user = payload.user;
         state.accessToken = payload.accessToken;
         state.isLogin = true;
       })
@@ -275,7 +275,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(logoutFetch.fulfilled, (state) => {
         state.login.loading = false;
-        state.login.user = {
+        state.user = {
           id: '',
           name: '',
           email: '',
@@ -299,8 +299,8 @@ export const userAuthSlice = createSlice({
       })
       .addCase(updateUserFetch.fulfilled, (state, { payload }) => {
         state.updateUser.loading = false;
-        state.login.user = payload;
-        state.login.user = {
+        state.user = payload;
+        state.user = {
           ...payload,
           id: payload._id,
         };
@@ -321,7 +321,7 @@ export const userAuthSlice = createSlice({
       })
       .addCase(deleteAccountFetch.fulfilled, (state) => {
         state.login.loading = false;
-        state.login.user = {
+        state.user = {
           id: '',
           name: '',
           email: '',

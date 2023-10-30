@@ -17,7 +17,7 @@ export const userLoginStateSelector = createSelector(
 
 export const getUserStateSelector = createSelector(
   userAuthStateSelector,
-  (userAuth) => userAuth.login.user
+  (userAuth) => userAuth.user
 );
 
 export const forgotPasswordStateSelector = createSelector(
