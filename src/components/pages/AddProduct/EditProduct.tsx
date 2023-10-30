@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Stack, Typography, Button } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch } from '../../../store';
-import { resetAddAdvertStateAction, resetAddSavedDataAction } from './reducer';
+import { resetAddAdvertStateAction, resetAddSavedDataAction } from './reducer/';
 import { userLoginStateSelector } from '../../../redux/auth/selector';
 import { advertInitialData } from './utils';
 import { productFetch } from '../SingleProductPage/thunk';
@@ -69,7 +69,7 @@ const EditProduct = () => {
         <>
           {!productLoading && product && (
             <>
-              <ProductForm edit product={product} />
+              <ProductForm edit product={product.notice} />
               <InfoBlock />
             </>
           )}
