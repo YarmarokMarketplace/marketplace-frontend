@@ -320,6 +320,7 @@ export interface SellOrder {
     deliveryType: string;
   };
   comments: string;
+  createdAt: string;
   product: ProductItem;
   status: string;
 }

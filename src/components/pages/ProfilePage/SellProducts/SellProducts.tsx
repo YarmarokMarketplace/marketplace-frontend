@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store';
+import Moment from 'react-moment';
 
 import { ordersStateSelector } from 'redux/orders/selector';
 import { getSellOrdersFetch, changeOrderStatusFetch } from 'redux/orders/thunk';
@@ -116,20 +117,25 @@ const SellProducts = () => {
                 isExpanded={cardStates[i]}
                 onToggle={() => handleToggleCard(i)}
               >
-                <Stack
-                  direction='row'
-                  gap={3}
-                  height='fit-content'
-                  alignItems='center'
-                >
-                  {orderStatusChange(order.status, order._id, i)}
-                  <IconButton onClick={() => handleToggleCard(i)}>
-                    {cardStates[i] ? (
-                      <ExpandLess color='primary' fontSize='large' />
-                    ) : (
-                      <ExpandMore color='primary' fontSize='large' />
-                    )}
-                  </IconButton>
+                <Stack alignItems='flex-end' justifyContent='space-between'>
+                  <Stack
+                    direction='row'
+                    gap={3}
+                    height='fit-content'
+                    alignItems='center'
+                  >
+                    {orderStatusChange(order.status, order._id, i)}
+                    <IconButton onClick={() => handleToggleCard(i)}>
+                      {cardStates[i] ? (
+                        <ExpandLess color='primary' fontSize='large' />
+                      ) : (
+                        <ExpandMore color='primary' fontSize='large' />
+                      )}
+                    </IconButton>
+                  </Stack>
+                  <Typography variant='body1' color='secondary.dark'>
+                    {<Moment format='DD/MM/YYYY'>{order.createdAt}</Moment>}
+                  </Typography>
                 </Stack>
               </SellProductItem>
             );
