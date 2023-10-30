@@ -9,6 +9,7 @@ import {
   UpdateUserResponse,
   ResetPasswordBody,
   ChangePasswordBody,
+  ChangeLoginBody,
 } from '../types';
 import { loginClient, setToken } from './client';
 import { client } from './client';
@@ -93,4 +94,8 @@ export const resetPassword = async (
 
 export const changePassword = async (data: ChangePasswordBody) => {
   return await loginClient.patch('/user/user/change-password', data);
+};
+
+export const changeLogin = async (data: ChangeLoginBody) => {
+  return await loginClient.post(`/user/email`, data);
 };

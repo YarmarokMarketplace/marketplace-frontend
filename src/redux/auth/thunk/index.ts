@@ -6,6 +6,7 @@ import {
   ForgotPasswordBody,
   ResetPasswordBody,
   ChangePasswordBody,
+  ChangeLoginBody,
 } from '../../../types';
 import {
   register,
@@ -17,6 +18,7 @@ import {
   deleteAccount,
   resetPassword,
   changePassword,
+  changeLogin,
 } from '../../../api/user';
 import { AxiosError } from 'axios';
 import {
@@ -26,6 +28,7 @@ import {
   notVerifiedErrorToggleAction,
   isTokenExpiredToggleAction,
   passWrongErrorToggleAction,
+  emailInUseErrorToggleAction,
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
@@ -42,6 +45,7 @@ const UPDATE_USER_THUNK_TYPE = 'UPDATE_USER_THUNK_TYPE';
 const DELETE_USER_THUNK_TYPE = 'DELETE_USER_THUNK_TYPE';
 const USER_RESET_PASSWORD_THUNK_TYPE = 'USER_RESET_PASSWORD_THUNK_TYPE';
 const USER_CHANGE_PASSWORD_THUNK_TYPE = 'USER_CHANGE_PASSWORD_THUNK_TYPE';
+const USER_CHANGE_LOGIN_THUNK_TYPE = 'USER_CHANGE_LOGIN_THUNK_TYPE';
 
 export const userRegisterFetch = createAsyncThunk(
   USER_REGISTER_THUNK_TYPE,
@@ -212,6 +216,26 @@ export const changePasswordFetch = createAsyncThunk(
       if (error instanceof AxiosError) {
         if (error.response?.data.message == 'Password is wrong') {
           dispatch(passWrongErrorToggleAction(true));
+        }
+        return rejectWithValue(error.response?.data);
+      }
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const changeLoginFetch = createAsyncThunk(
+  USER_CHANGE_LOGIN_THUNK_TYPE,
+  async (data: ChangeLoginBody, { rejectWithValue, dispatch }) => {
+    try {
+      return await changeLogin(data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (
+          error.response?.data.message == 'This email already exists' ||
+          error.response?.data.message == 'You have entered current email'
+        ) {
+          dispatch(emailInUseErrorToggleAction(true));
         }
         return rejectWithValue(error.response?.data);
       }

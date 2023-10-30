@@ -44,6 +44,7 @@ export const notVerifiedErrorToggle = (
 
 export const isEmailSendReset = (state: UserAuthState) => {
   state.forgotPassword.isEmailSend = false;
+  state.changeLogin.isEmailSend = false;
 };
 
 interface UserUpdatePayload {
@@ -54,6 +55,7 @@ interface UserUpdatePayload {
   patronymic: string;
   avatarURL: string;
   phone: string;
+  favorite: string[];
 }
 
 export const updateUserState = (
@@ -114,4 +116,11 @@ export const passWrongErrorToggle = (
   action: PayloadAction<boolean>
 ) => {
   state.changePassword.passWrongError = action.payload;
+};
+
+export const emailInUseErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.changeLogin.emailInUseError = action.payload;
 };
