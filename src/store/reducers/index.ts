@@ -14,9 +14,9 @@ import addAdvert from '../../components/pages/AddProduct/reducer';
 import profile from '../../components/pages/ProfilePage/reducer';
 
 const persistConfig = {
-  key: 'accessToken',
+  key: 'authData',
   storage,
-  whitelist: ['accessToken', 'isLogin'],
+  whitelist: ['accessToken', 'isLogin', 'user'],
 };
 
 const persistAdvertConfig = {
