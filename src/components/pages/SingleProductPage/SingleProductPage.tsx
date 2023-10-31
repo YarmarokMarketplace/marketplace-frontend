@@ -4,7 +4,7 @@ import {
   StyledContainer,
   StyledCrumpsLink,
   StyledProductWrapper,
-  StyledInfoProductWrapper
+  StyledInfoProductWrapper,
 } from './style';
 import { CarouselImage } from './Carousel';
 import { ProductInfo } from './ProductInfo';
@@ -36,12 +36,14 @@ const SingleProductPage = () => {
     if (product) {
       const items: ProductItem[] =
         JSON.parse(localStorage.getItem('viewedProducts')!) || [];
-      const viewedProducts = items.filter((item) => item._id !== product._id);
+      const viewedProducts = items.filter(
+        (item) => item._id !== product.notice._id
+      );
       if (viewedProducts.length < 20) {
-        viewedProducts.unshift(product);
+        viewedProducts.unshift(product.notice);
       } else {
         viewedProducts.pop();
-        viewedProducts.unshift(product);
+        viewedProducts.unshift(product.notice);
       }
       localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
     }
@@ -54,32 +56,35 @@ const SingleProductPage = () => {
         <>
           <BasicBreadcrumbs>
             <StyledCrumpsLink
-              id={`${product.category}-link`}
-              to={`/${product.category}`}
+              id={`${product.notice.category}-link`}
+              to={`/${product.notice.category}`}
             >
-              {categoryNames[product.category]}
+              {categoryNames[product.notice.category]}
             </StyledCrumpsLink>
-            <Typography color="text.primary">{product.title}</Typography>
+            <Typography color="text.primary">{product.notice.title}</Typography>
           </BasicBreadcrumbs>
-          {!product.active &&
+          {!product.notice.active && (
             <StyledInfoProductWrapper
-              direction='row'
-              alignItems='center'
+              direction="row"
+              alignItems="center"
               spacing={2}
             >
               <InfoOutlinedIcon />
-              <Typography variant='h4'>Оголошення не активне</Typography>
+              <Typography variant="h4">Оголошення не активне</Typography>
             </StyledInfoProductWrapper>
-          }
-          <Stack spacing={4} sx={{ opacity: !product.active ? '0.3' : '1' }}>
+          )}
+          <Stack
+            spacing={4}
+            sx={{ opacity: !product.notice.active ? '0.3' : '1' }}
+          >
             <StyledProductWrapper maxWidth={false} disableGutters>
-              {product.active &&
-                <CarouselImage photos={product.photos} />
-              }
-              <ProductInfo product={product} />
+              {product.notice.active && (
+                <CarouselImage photos={product.notice.photos} />
+              )}
+              <ProductInfo product={product.notice} />
               <Stack spacing={4}>
-                <ProductDescription description={product.description} />
-                <ProductFeedback seller={product.contactName} />
+                <ProductDescription description={product.notice.description} />
+                <ProductFeedback seller={product.notice.contactName} />
               </Stack>
             </StyledProductWrapper>
 

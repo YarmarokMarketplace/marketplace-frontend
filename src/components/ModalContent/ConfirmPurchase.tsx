@@ -51,9 +51,15 @@ const ConfirmPurchase = () => {
       </Typography>
       <Stack direction="row" gap={2}>
         <StyledImageWrapper>
-          <img src={product?.photos[0] ? product?.photos[0] : placeholder} />
+          <img
+            src={
+              product?.notice?.photos[0]
+                ? product?.notice?.photos[0]
+                : placeholder
+            }
+          />
         </StyledImageWrapper>
-        <Typography variant="h6">{product?.title}</Typography>
+        <Typography variant="h6">{product?.notice?.title}</Typography>
       </Stack>
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <Stack>
