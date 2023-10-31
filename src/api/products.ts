@@ -12,7 +12,8 @@ type ProductsResponse = {
 };
 
 type ProductResponse = {
-  data: ProductItem;
+  notice: ProductItem;
+  sellerRating: number;
 };
 type AddProductResponse = {
   result: ProductItem;

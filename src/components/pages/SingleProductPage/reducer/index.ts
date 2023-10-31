@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ProductItem } from "../../../../types";
-import { productFetch } from "../thunk";
+import { createSlice } from '@reduxjs/toolkit';
+import { ProductItem } from '../../../../types';
+import { productFetch } from '../thunk';
 
 export interface ProductState {
   loading: boolean;
   error: boolean | null;
-  product: ProductItem | null;
+  product: { notice: ProductItem; sellerRating: number } | null;
 }
 
 export const initialState: ProductState = {
@@ -14,7 +14,7 @@ export const initialState: ProductState = {
   product: null,
 };
 
-const name = "PRODUCT";
+const name = 'PRODUCT';
 
 const productSlice = createSlice({
   name,
