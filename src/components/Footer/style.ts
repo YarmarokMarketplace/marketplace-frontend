@@ -11,9 +11,12 @@ export const FooterContainer = styled('footer')(({ theme }) => ({
   color: theme.palette.white,
 }));
 
-export const LogoContainer = styled(Box)({
+export const LogoContainer = styled(Box)(({ theme }) => ({
   maxWidth: '17%',
-});
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '30%',
+  },
+}));
 
 export const Logo = styled('img')({
   maxWidth: '100%',
@@ -23,6 +26,12 @@ export const LinksContainer = styled(Box)(({ theme }) => ({
   maxWidth: '85%',
   display: 'flex',
   gap: theme.spacing(3),
+  flexDirection: 'row',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export const CustomLink = styled(Link)(({ theme }) => ({

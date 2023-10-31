@@ -22,6 +22,7 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   borderRadius: 16,
   padding: theme.spacing(2, 3),
   backgroundColor: theme.palette.background.paper,
+  overflow: 'hidden',
 }));
 export const StyledLogo = styled('img')(({ theme }) => ({
   width: '100%',
@@ -30,7 +31,8 @@ export const StyledLogo = styled('img')(({ theme }) => ({
 export const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 2),
   [theme.breakpoints.down('md')]: {
-    fontSize: '1rem',
+    fontSize: '0.875rem',
+    width: theme.spacing(26),
   },
   ':hover': {
     backgroundColor: theme.palette.primary.light,
@@ -61,6 +63,9 @@ export const StyledTextButton = styled(Button)(({ theme }) => ({
   fontSize: '1rem',
   color: theme.palette.text.primary,
   fontWeight: 400,
+  [theme.breakpoints.down('md')]: {
+    display: 'none',
+  },
   ':hover': {
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',

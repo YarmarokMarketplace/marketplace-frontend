@@ -83,7 +83,7 @@ const Header = () => {
       <StyledAppBar position="static">
         <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
-            <Stack direction="row" alignItems="center" spacing={4} width="30%">
+            <Stack direction="row" alignItems="center" spacing={4} width="20%">
               <StyledLink to="/">
                 <StyledLogo src={logo} alt="logo" />
               </StyledLink>
@@ -141,7 +141,12 @@ const Header = () => {
                   </StyledTextButton>
                 </Stack>
               ) : (
-                <Stack direction="row" spacing={1} alignItems="center">
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  width="100%"
+                >
                   <StyledIconButton
                     onClick={handleClickAccount}
                     size="small"
@@ -162,7 +167,7 @@ const Header = () => {
                   </StyledTextButton>
                 </Stack>
               )}
-              <ButtonGroup size="small" sx={{ alignItems: 'center', gap: 1 }}>
+              {/* <ButtonGroup size="small" sx={{ alignItems: 'center', gap: 1 }}>
                 <Button
                   value="ua"
                   sx={{
@@ -204,7 +209,7 @@ const Header = () => {
                 >
                   EN
                 </Button>
-              </ButtonGroup>
+              </ButtonGroup> */}
               <StyledButton
                 onClick={handleAddAdvert}
                 variant="contained"
