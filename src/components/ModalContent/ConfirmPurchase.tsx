@@ -60,7 +60,7 @@ const ConfirmPurchase = () => {
   useEffect(() => {
     if (
       categoriesDeliveryAbsense.some(
-        (category) => category === product?.category
+        (category) => category === product?.notice?.category
       )
     ) {
       setDeliveryType('other');
@@ -102,6 +102,7 @@ const ConfirmPurchase = () => {
   ) => {
     setValue('novaPostType', newValue);
     setTabValue(newValue);
+    trigger();
   };
 
   const onSubmit = (values: CreateOrderInput) => {
@@ -115,7 +116,7 @@ const ConfirmPurchase = () => {
       deliveryData: deliveryData,
       saveData: values.saveData,
     };
-    dispatch(createOrderFetch({ id: product?._id!, data }));
+    dispatch(createOrderFetch({ id: product?.notice?._id!, data }));
   };
 
   return (
@@ -307,7 +308,9 @@ const ConfirmPurchase = () => {
             )}
             <FormControl>
               {deliveryType === 'other' && (
-                <StyledLabel>Напишіть бажаний варіант</StyledLabel>
+                <StyledLabel required={deliveryType === 'other'}>
+                  Напишіть бажаний варіант
+                </StyledLabel>
               )}
               <Controller
                 control={control}
