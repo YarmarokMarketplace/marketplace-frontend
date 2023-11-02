@@ -9,6 +9,8 @@ import {
   Collapse,
   List,
   FormControlLabel,
+  Drawer,
+  IconButton,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -23,6 +25,8 @@ export const CategoryProductsWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: '1fr 1fr 1fr',
+    gap: theme.spacing(1),
+    marginLeft: '0 !important',
   },
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr 1fr',
@@ -45,12 +49,14 @@ export const FiltersContainer = styled(Box)(({ theme }) => ({
   '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
     background: '#555',
   },
+  [theme.breakpoints.up('md')]: {
+    width: theme.spacing(39),
+    borderRadius: 20,
+    padding: theme.spacing(3),
+    backgroundColor: '#FFF',
+    boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
+  },
 
-  width: theme.spacing(39),
-  borderRadius: 20,
-  padding: theme.spacing(3),
-  backgroundColor: '#FFF',
-  boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
   '& div.MuiButtonBase-root': {
     padding: 0,
   },
@@ -64,6 +70,22 @@ export const FiltersContainer = styled(Box)(({ theme }) => ({
   },
   '& p.MuiTypography-root': {
     margin: 0,
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    // display: 'none',
+  },
+}));
+
+export const CategoryNameTypography = styled(Typography)(({ theme }) => ({
+  marginRight: theme.spacing(2),
+  textAlign: 'left',
+  marginBottom: 0,
+  fontSize: '1.5rem',
+  fontWeight: 700,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1rem',
+    fontWeight: 600,
   },
 }));
 
@@ -81,6 +103,9 @@ export const StyledChip = styled(Chip)(({ theme }) => ({
   fontWeight: 400,
   color: theme.palette.secondary.dark,
   backgroundColor: theme.palette.primary.contrastText,
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: theme.spacing(0.3),
+  },
 }));
 
 // ProductItem
@@ -134,6 +159,10 @@ export const TitleTypography = styled(Typography)(({ theme }) => ({
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: '2',
   overflow: 'hidden',
+  [theme.breakpoints.down('md')]: {},
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+  },
 }));
 
 export const StyledButton = styled('div')(({ theme }) => ({
@@ -164,6 +193,9 @@ export const NoProductsContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   gap: theme.spacing(3),
+  [theme.breakpoints.down('md')]: {
+    marginLeft: '0 !important',
+  },
 }));
 
 export const NoProductsImg = styled('img')(({ theme }) => ({
@@ -176,6 +208,9 @@ export const NoProductsTypography = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   lineHeight: '1.8rem',
   color: theme.palette.text.primary,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1.1rem',
+  },
 }));
 // Filters
 // CategoryFilter
@@ -209,6 +244,9 @@ export const CategoryList = styled(List)(({ theme }) => ({
   paddingTop: 0,
   paddingBottom: 0,
   borderTop: '1px solid #F3F3F3',
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%',
+  },
 }));
 
 export const CategoryListItemText = styled(ListItemText)(({ theme }) => ({
@@ -223,6 +261,23 @@ export const GoodtypeFormControlLabel = styled(FormControlLabel)(
   })
 );
 
+export const GoodtypeFormControlLabelMobile = styled(FormControlLabel)(
+  ({ theme }) => ({
+    fontSize: '0.875rem',
+    // color: theme.palette.text.primary,
+    border: '1px solid',
+    borderRadius: '12px',
+    padding: theme.spacing(1),
+    margin: 0,
+    [theme.breakpoints.down('md')]: {
+      marginLeft: theme.spacing(3),
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(2),
+    },
+  })
+);
+
 // LocationFilter
 export const LocationCollapse = styled(Collapse)(({ theme }) => ({
   '& .MuiFormControl-root': {
@@ -230,4 +285,27 @@ export const LocationCollapse = styled(Collapse)(({ theme }) => ({
   },
   marginTop: '1rem',
   marginBottom: '1.5rem',
+}));
+
+export const StyledSortDrawer = styled(Drawer)(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderTopLeftRadius: '12px',
+    borderTopRightRadius: '12px',
+    padding: theme.spacing(3, 0),
+  },
+}));
+
+export const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  top: '.8rem',
+  right: '.8rem',
+}));
+
+export const StyledBox = styled(Box)(({ theme }) => ({
+  minHeight: '100vh',
+  maxHeight: '100vh',
+  width: '100vw',
+  overflowY: 'auto',
+  backgroundColor: theme.palette.white,
+  padding: theme.spacing(2, 3, 6),
 }));

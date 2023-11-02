@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Typography, Stack, Link } from "@mui/material";
 
@@ -16,10 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { productsResultStateSelector } from "./selector";
 import { AppDispatch } from "../../../store";
 import { productSortAction } from "./reducer";
+import { useTheme } from '@mui/material/styles';
 
 const CategoryPage = () => {
   const { result } = useSelector(productsResultStateSelector);
   const dispatch: AppDispatch = useDispatch();
+  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const theme = useTheme();
   useEffect(() => {
     return () => {
       dispatch(productSortAction("newest"));
@@ -39,16 +42,18 @@ const CategoryPage = () => {
         spacing={2}
       >
         <CategoryHeader />
-        <CategorySort />
+        <CategorySort openFilterModal={openFilterModal} setOpenFilterModal={setOpenFilterModal} />
       </Stack>
       <Stack
-        sx={{ mt: 3, mb: 3 }}
+        sx={{
+          mt: 3, mb: 3,
+        }}
         direction="row"
         justifyContent="space-between"
         alignItems="flex-start"
-        gap={4}
+        spacing={4}
       >
-        <CategoryFilters />
+        <CategoryFilters openFilterModal={openFilterModal} setOpenFilterModal={setOpenFilterModal} />
         <CategoryProducts />
       </Stack>
       {result?.length > 0 && <CategoryPagination />}

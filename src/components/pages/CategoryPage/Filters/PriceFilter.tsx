@@ -9,6 +9,8 @@ import {
     Typography, Box, TextField, FormLabel,
     ListItemButton,
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -34,6 +36,7 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
     const maxPrice = useRef<HTMLInputElement>();
 
     const [priceOpen, setPriceOpen] = React.useState(true);
+    const theme = useTheme();
 
     const { filterBy } = useSelector(productsStateSelector);
 
@@ -57,12 +60,9 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
 
     const debouncedHandlePriceChange = useRef(
         debounce((newFilterByPrice: string) => {
-            // const filterPrice = /=(\d*)-?(\d*)/g.exec(newFilterByPrice);
             const newFilterBy = { ...filterBy, price: newFilterByPrice };
-            // if (filterPrice && (parseInt(filterPrice[1]) < parseInt(filterPrice[2]))) {
             dispatch(productFilterPriceAction(newFilterBy.price));
             localStorage.setItem("price", newFilterBy.price);
-            // }
         }, 500)
     ).current;
 
@@ -101,33 +101,42 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({ minPriceValue, setMinPrice
         debouncedHandlePriceChange(newFilterByPrice);
     }
 
+    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+
     return (
         <>
-            <FormLabel>
-                <ListItemButton onClick={priceHandleClick}>
-                    <FilterText primary="За ціною" />
-                    {priceOpen ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-            </FormLabel>
+            {isMdScreen ?
+                <FilterText primary="За ціною" />
+                :
+                <FormLabel>
+                    <ListItemButton onClick={priceHandleClick}>
+                        <FilterText primary="За ціною" />
+                        {priceOpen ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
+                </FormLabel>
+            }
             <Collapse in={priceOpen} timeout="auto" unmountOnExit onChange={handlePriceChange}>
                 <Box
                     component="form"
                     sx={{
                         '& > :not(style)': { m: .5 },
                         display: "flex",
-                        alignItems: "baseline",
+                        alignItems: "center",
                         mt: 2,
                         mb: 3
                     }}
                     noValidate
                     autoComplete="off"
                 >
-                    <Typography className="filters">Ціна:</Typography>
-                    <TextField
+                    {!isMdScreen &&
+                        <Typography className="filters" mr='.3rem !important'>Ціна:</Typography>
+                    }
+                    <TextField sx={{ flexGrow: '1' }}
                         size="small" id="minPrice-textfield" label="Від" variant="outlined" name="min"
                         value={minPriceValue}
                         inputRef={minPrice} />
-                    <TextField error={maxPriceError}
+                    <TextField sx={{ flexGrow: '1' }}
+                        error={maxPriceError}
                         size="small" id="maxPrice-textfield" label="До" variant="outlined" name="max"
                         value={maxPriceValue}
                         inputRef={maxPrice} />
