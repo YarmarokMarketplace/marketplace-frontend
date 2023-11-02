@@ -291,17 +291,17 @@ export interface SellOrder {
   deliveryData: {
     newPostSchema?: {
       typeOfNovaPostDelivery: {
-        postOfficeSchema: {
+        postOfficeSchema?: {
           postOfficeNumber: string;
           city: string;
         };
-        addressSchema: {
+        addressSchema?: {
           city: string;
           street: string;
           house: string;
           apartments: string;
         };
-        postBoxSchema: {
+        postBoxSchema?: {
           postBoxNumber: string;
           city: string;
         };
