@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -16,6 +16,8 @@ import SingleProductPage from '../pages/SingleProductPage';
 import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
+
+const EditProduct = lazy(() => import('../pages/AddProduct/EditProduct'));
 
 const App: React.FC = () => {
   const { isAuth } = useSelector(userRegisterStateSelector);
@@ -50,6 +52,8 @@ const App: React.FC = () => {
             <Route path="/:categoryName" element={<CategoryPage />} />
             <Route path="/:categoryName/:id" element={<SingleProductPage />} />
             <Route path="/add-advert" element={<AddProduct />} />
+            <Route path="/edit-advert/:id" element={<EditProduct />} />
+
             <Route
               path="/api/auth/reset-password/:resetId/:resetToken"
               element={<ResetPassword />}

@@ -1,5 +1,6 @@
 import {
   CreateOrderData,
+  AddAdvertInput,
   ProductItem,
   UserFavProductsResponse,
   UserProductsResponse,
@@ -58,6 +59,20 @@ export const addProduct = async (data: FormData) => {
       '/notices',
       (data = data),
       { headers: { 'Content-Type': 'multipart/ form-data' } }
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const editProduct = async (
+  data: Partial<AddAdvertInput>,
+  id: string
+) => {
+  try {
+    return await loginClient.patch<never, AddProductResponse>(
+      `/notices/${id}`,
+      data
     );
   } catch (error) {
     return Promise.reject(error);

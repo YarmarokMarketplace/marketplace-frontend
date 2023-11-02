@@ -18,7 +18,8 @@ import { Images, saveAddAdvertImagesAction } from './reducer';
 interface ImageInputProps extends InputProps {
   setValue: UseFormSetValue<FormDataAddAdvert>;
   setSelectedImage: React.Dispatch<React.SetStateAction<[] | File[]>>;
-  selectedImage: [] | File[];
+  selectedImage: File[] | [];
+  edit?: boolean;
 }
 
 export const ImageInput: React.FC<ImageInputProps> = ({
@@ -27,6 +28,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
   loading,
   setSelectedImage,
   selectedImage,
+  edit,
 }) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -59,7 +61,9 @@ export const ImageInput: React.FC<ImageInputProps> = ({
     const saveImagesAndHandle = async () => {
       await handleStorageImageSave(selectedImage);
     };
-    saveImagesAndHandle();
+    if (!edit) {
+      saveImagesAndHandle();
+    }
   }, [selectedImage]);
 
   const handleSelectedImageSaving = async (files: File[]) => {
@@ -202,10 +206,10 @@ export const ImageInput: React.FC<ImageInputProps> = ({
               </StyledFileLable>
 
               {selectedImage.length > 0 &&
-                selectedImage.map((img) => {
+                selectedImage.map((img: any) => {
                   return (
                     <Stack
-                      key={img.name}
+                      key={typeof img === 'string' ? img : img.name}
                       width="6.5rem"
                       height="7.3rem"
                       position="relative"

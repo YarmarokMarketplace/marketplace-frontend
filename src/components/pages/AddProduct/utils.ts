@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { categoryWithoutGoodtype } from '../../../constants';
 import { Control, FieldErrors } from 'react-hook-form';
-import { FormDataAddAdvert } from '../../../types';
+import { FormDataAddAdvert, ProductItem } from '../../../types';
 
 export const formatPhoneNumber = (value: string) => {
   const phoneNumber = value.replace(/[^0-9+]/g, '');

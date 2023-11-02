@@ -5,7 +5,7 @@ import {
   saveAddAdvertImages,
   resetAddSavedData,
 } from '../actions';
-import { addAdvertFetch } from '../thunk';
+import { addAdvertFetch, editAdvertFetch } from '../thunk';
 
 export type Images = {
   name: string;
@@ -48,6 +48,18 @@ const addAdvertSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(addAdvertFetch.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(editAdvertFetch.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(editAdvertFetch.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(editAdvertFetch.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });
