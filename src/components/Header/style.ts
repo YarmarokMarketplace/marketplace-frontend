@@ -22,7 +22,6 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   borderRadius: 16,
   padding: theme.spacing(2, 3),
   backgroundColor: theme.palette.background.paper,
-  overflow: 'hidden',
 }));
 export const StyledLogo = styled('img')(({ theme }) => ({
   width: '100%',
