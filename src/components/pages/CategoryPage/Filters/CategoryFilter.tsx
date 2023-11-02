@@ -90,7 +90,6 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     const categoryName = event.currentTarget.getAttribute('value');
     setSelectedCategory(categoryName ? categoryName : '');
     if (matchPath('/search', pathname)) {
-      console.log('search', categoryName);
       dispatch(
         productFilterCategoryAction(
           categoryName ? `&category=${categoryName}` : ''
@@ -134,6 +133,29 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
         <Collapse in={categoryListOpen} timeout="auto" unmountOnExit>
           <FormControl sx={{ m: 1, minWidth: 120, width: '100%' }} size="small">
             <CategoryList>
+              {matchPath('/search', pathname) && (
+                <ListItem
+                  value={''}
+                  onClick={handleCategoryClick}
+                  disablePadding
+                >
+                  <ListItemButton
+                    sx={{
+                      backgroundColor:
+                        selectedCategory === '' ? '#F8F8FD' : 'initial',
+                    }}
+                  >
+                    <CategoryListItemText
+                      primary={'Всі категорії'}
+                      primaryTypographyProps={{
+                        color: selectedCategory === '' ? '#3860E2' : '#1B2124',
+                        fontWeight: selectedCategory === '' ? '700' : '500',
+                        variant: 'body1',
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              )}
               {!loading &&
                 !error &&
                 categories.map(({ name, _id }) => {
