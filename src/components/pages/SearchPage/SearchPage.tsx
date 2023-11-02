@@ -38,6 +38,7 @@ const SearchPage = () => {
       localStorage.removeItem('location');
       localStorage.removeItem('price');
       localStorage.removeItem('search');
+      localStorage.removeItem('sort');
       dispatch(filterStateResetAction());
       dispatch(productSortAction('newest'));
     };
