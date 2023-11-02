@@ -90,6 +90,7 @@ export const categoriesDeliveryAbsense = [
   'repair',
   'realty',
   'work',
+  'animals',
 ];
 export const categoryWithoutGoodtype = [
   'animals',
@@ -100,7 +101,7 @@ export const categoryWithoutGoodtype = [
 ];
 
 export const deliveryOption: Array<{ label: string; value: string }> = [
-  { label: 'Нова пошта', value: 'NovaPost' },
-  { label: 'Укрпошта', value: 'UkrPost' },
-  { label: 'Інше', value: 'Other' },
+  { label: 'Нова пошта', value: 'new-post' },
+  { label: 'Укрпошта', value: 'ukr-post' },
+  { label: 'Інше', value: 'other' },
 ];

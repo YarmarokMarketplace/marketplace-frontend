@@ -11,7 +11,7 @@ import userAuth from 'redux/auth/reducer';
 import modal from '../../components/CustomModal/reducer';
 import userAuthReducer from 'redux/auth/reducer';
 import addAdvert from '../../components/pages/AddProduct/reducer';
-import profile from '../../components/pages/ProfilePage/reducer';
+import profile from '../../redux/profile/reducer';
 
 const persistConfig = {
   key: 'authData',

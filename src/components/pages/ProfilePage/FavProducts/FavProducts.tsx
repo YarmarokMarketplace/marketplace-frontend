@@ -10,11 +10,17 @@ import ProfilePagination from '../ProfilePagination';
 import NoProductMessage from '../NoProductMessage';
 
 import placeholderImage from '../../../../img/no-fav-product.png';
-import { favAdsStateSelector, profileStateSelector } from '../selector';
+import {
+  favAdsStateSelector,
+  profileStateSelector,
+} from '../../../../redux/profile/selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/store';
-import { userFavoritesProductsListFetch } from '../thunk';
-import { currentFavPageSetAction, offsetFavSetAction } from '../reducer';
+import { userFavoritesProductsListFetch } from 'redux/profile/thunk';
+import {
+  currentFavPageSetAction,
+  offsetFavSetAction,
+} from 'redux/profile/reducer';
 
 const FavProducts = () => {
   const { loading, error, data, page, offset, itemsPerPage } =

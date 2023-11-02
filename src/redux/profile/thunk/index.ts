@@ -3,7 +3,8 @@ import {
   getUserOwnProducts,
   activateOrDeactivateProduct,
   deleteProduct,
-} from '../../../../api/products';
+  createOrder,
+} from '../../../api/products';
 import { AxiosError } from 'axios';
 import { resetOwnAdsStateAction } from '../reducer';
 import {
@@ -13,6 +14,7 @@ import {
 } from 'src/api/products';
 import { resetFavAdsStateAction } from '../reducer';
 import { currentFetch } from 'redux/auth/thunk';
+import { CreateOrderData } from 'src/types';
 
 const USER_PRODUCTS_FETCH_THUNK_TYPE = 'USER_PRODUCTS_FETCH_THUNK_TYPE';
 
@@ -109,6 +111,22 @@ export const deleteProductFetch = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       return await deleteProduct(id);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+const CREATE_ORDER_FETCH_THUNK_TYPE = 'CREATE_ORDER_FETCH_THUNK_TYPE';
+
+export const createOrderFetch = createAsyncThunk(
+  CREATE_ORDER_FETCH_THUNK_TYPE,
+  async (
+    values: { id: string; data: CreateOrderData },
+    { rejectWithValue }
+  ) => {
+    try {
+      return await createOrder(values.id, values.data);
     } catch (error) {
       return rejectWithValue(error);
     }

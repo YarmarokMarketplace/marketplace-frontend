@@ -16,17 +16,17 @@ import {
   locations,
 } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginStateSelector } from 'redux/auth/selector';
+import { userAuthStateSelector } from 'redux/auth/selector';
 import { AppDispatch } from '../../../store';
 import {
   openDrawerAction,
   setDrawerContentAction,
 } from '../../CustomDrawer/reducer';
-import { profileStateSelector } from '../ProfilePage/selector';
+import { profileStateSelector } from 'redux/profile/selector';
 import {
   addFavoriteProductFetch,
   removeFavoriteProductFetch,
-} from '../ProfilePage/thunk';
+} from 'redux/profile/thunk';
 import {
   openModalAction,
   setModalContentAction,
@@ -41,11 +41,13 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     (location) => location.value === product.location
   );
   const [showNumber, setShowNumber] = useState(false);
-  const { isLogin, user } = useSelector(userLoginStateSelector);
+  const { isLogin, user } = useSelector(userAuthStateSelector);
   const { favorites } = useSelector(profileStateSelector);
   const [fav, setFav] = useState<boolean>(
     user.favorite.some((notice) => notice === product._id)
   );
+
+  console.log(user.favorite);
 
   useEffect(() => {
     if (favorites.length) {

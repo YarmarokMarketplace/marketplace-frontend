@@ -1,4 +1,9 @@
-import { ProductItem, UserProductsResponse } from '../types';
+import {
+  CreateOrderData,
+  ProductItem,
+  UserFavProductsResponse,
+  UserProductsResponse,
+} from '../types';
 import { client, loginClient } from './client';
 
 type ProductsResponse = {
@@ -122,4 +127,8 @@ export const activateOrDeactivateProduct = async (
 
 export const deleteProduct = async (id: string) => {
   return await loginClient.delete(`/notices/notice/${id}`);
+};
+
+export const createOrder = async (id: string, data: CreateOrderData) => {
+  return await loginClient.post(`/orders/${id}/order`, data);
 };

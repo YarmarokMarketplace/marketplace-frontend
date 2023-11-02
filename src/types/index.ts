@@ -209,3 +209,63 @@ export interface ChangePasswordBody {
 export interface ChangeLoginBody {
   email: string;
 }
+export interface NovaPostSchema {
+  typeOfNovaPostDelivery: {
+    postOfficeSchema?: {
+      postOfficeNumber?: string;
+      city?: string;
+    };
+    addressSchema?: {
+      city?: string;
+      street?: string;
+      house?: string;
+      apartments?: string;
+    };
+    postBoxSchema?: {
+      postBoxNumber?: string;
+      city?: string;
+    };
+  };
+}
+export interface DeliveryData {
+  otherSchema?: {
+    typeOfOtherDelivery?: string;
+  };
+  ukrPostSchema?: {
+    city?: string;
+    index?: string;
+    street?: string;
+    house?: string;
+    apartments?: string;
+  };
+  newPostSchema?: NovaPostSchema;
+}
+
+export interface CreateOrderData {
+  buyerName: string;
+  buyerLastname: string;
+  buyerPatronymic?: string;
+  deliveryType: string;
+  buyerPhone: string;
+  deliveryData: DeliveryData;
+  comment?: string;
+  saveData?: boolean;
+}
+
+export interface CreateOrderInput {
+  firstName: string;
+  lastName: string;
+  patronymic?: string;
+  phone: string;
+  deliveryType: string;
+  department?: string;
+  city?: string;
+  street?: string;
+  house?: string;
+  flat?: string;
+  postOffice?: string;
+  postCode?: string;
+  saveData: boolean;
+  comment?: string;
+  novaPostType?: string;
+}
