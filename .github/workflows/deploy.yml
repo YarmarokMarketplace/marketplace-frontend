@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -27,18 +27,41 @@ jobs:
       - name: Get Latest Git Tag
         id: version
         run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-          
+
       - name: Build and Deploy
         run: |
+          start_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
           npm run build
           npx netlify-cli deploy --prod --message "${{ env.TAG }}: ${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
+
+          end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          duration=$((end_time - start_time))
+
+          echo "Build started at: $start_time"
+          echo "Build finished at: $end_time"
+          echo "Build duration: $duration seconds"
+
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           REACT_APP_API: ${{ secrets.REACT_APP_API }}
 
+      - name: Get Last Commit Info
+        run: |
+          LAST_COMMIT_DATE=$(git --no-pager log -1 --format="%cd %H")
+          echo "Last commit info: $LAST_COMMIT_DATE"
+        shell: bash
+
       - name: Deploy to Production
         run: |
+          deploy_start_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
           echo "Deploying version $TAG to production..."
+
+          deploy_end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          echo "Deployment started at: $deploy_start_time"
+          echo "Deployment finished at: $deploy_end_time"
         env:
           TAG: ${{ env.TAG }}
