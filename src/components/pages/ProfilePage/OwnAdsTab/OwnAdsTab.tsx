@@ -175,6 +175,9 @@ const OwnAdsTab = () => {
                         <EditOutlinedIcon
                           sx={{ fontSize: '1.5rem' }}
                           color="primary"
+                          onClick={() =>
+                            navigate(`/edit-advert/${product._id}`)
+                          }
                         />
                       </StyledIconButton>
                     </Stack>
