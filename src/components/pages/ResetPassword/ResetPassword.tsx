@@ -61,7 +61,6 @@ const ResetPassword = () => {
     });
 
     const onSubmit = (data: ResetPasswordBody) => {
-        console.log(resetId, resetToken)
         if (resetId && resetToken) {
             dispatch(resetPasswordFetch({ data: data, resetId, resetToken: resetToken }));
         }
