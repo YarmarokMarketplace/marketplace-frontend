@@ -202,6 +202,15 @@ export interface UserFavProductsResponse {
   result: ProductItem[];
 }
 
+export interface SearchResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  maxPriceInSearchResult: number;
+  notices: ProductItem[] | [];
+}
+
 export interface ChangePasswordBody {
   password: string;
   newPassword: string;

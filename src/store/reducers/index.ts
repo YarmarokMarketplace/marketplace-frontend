@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import categories from '../../components/pages/HomePage/reducer';
-import products from '../../components/pages/CategoryPage/reducer';
+import products from '../../redux/products/reducer';
 import drawer from '../../components/CustomDrawer/reducer';
 import product from '../../components/pages/SingleProductPage/reducer';
 import userAuth from 'redux/auth/reducer';
