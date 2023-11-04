@@ -85,7 +85,10 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
       }
     }
 
-    const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const filterNumbers = event.target.value.replace(/\D/g, '');
+    event.target.name === 'min'
+      ? setMinPriceValue(filterNumbers)
+      : setMaxPriceValue(filterNumbers);
 
     let newFilterByPrice = '';
 
@@ -109,68 +112,69 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
     }
 
     debouncedHandlePriceChange(newFilterByPrice);
-
-    return (
-      <>
-        {isMdScreen ? (
-          <FilterText primary="За ціною" />
-        ) : (
-          <FormLabel>
-            <ListItemButton onClick={priceHandleClick}>
-              <FilterText primary="За ціною" />
-              {priceOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-          </FormLabel>
-        )}
-        <Collapse
-          in={priceOpen}
-          timeout="auto"
-          unmountOnExit
-          onChange={handlePriceChange}
-        >
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 0.5 },
-              display: 'flex',
-              alignItems: 'center',
-              mt: 2,
-              mb: 3,
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            {!isMdScreen && (
-              <Typography className="filters" mr=".3rem !important">
-                Ціна:
-              </Typography>
-            )}
-            <TextField
-              sx={{ flexGrow: '1' }}
-              size="small"
-              id="minPrice-textfield"
-              label="Від"
-              variant="outlined"
-              name="min"
-              value={minPriceValue}
-              inputRef={minPriceRef}
-            />
-            <TextField
-              sx={{ flexGrow: '1' }}
-              error={maxPriceError}
-              size="small"
-              id="maxPrice-textfield"
-              label="До"
-              variant="outlined"
-              name="max"
-              value={maxPriceValue}
-              inputRef={maxPriceRef}
-            />
-          </Box>
-        </Collapse>
-      </>
-    );
   };
+
+  const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
+  return (
+    <>
+      {isMdScreen ? (
+        <FilterText primary="За ціною" />
+      ) : (
+        <FormLabel>
+          <ListItemButton onClick={priceHandleClick}>
+            <FilterText primary="За ціною" />
+            {priceOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        </FormLabel>
+      )}
+      <Collapse
+        in={priceOpen}
+        timeout="auto"
+        unmountOnExit
+        onChange={handlePriceChange}
+      >
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': { m: 0.5 },
+            display: 'flex',
+            alignItems: 'center',
+            mt: 2,
+            mb: 3,
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          {!isMdScreen && (
+            <Typography className="filters" mr=".3rem !important">
+              Ціна:
+            </Typography>
+          )}
+          <TextField
+            sx={{ flexGrow: '1' }}
+            size="small"
+            id="minPrice-textfield"
+            label="Від"
+            variant="outlined"
+            name="min"
+            value={minPriceValue}
+            inputRef={minPriceRef}
+          />
+          <TextField
+            sx={{ flexGrow: '1' }}
+            error={maxPriceError}
+            size="small"
+            id="maxPrice-textfield"
+            label="До"
+            variant="outlined"
+            name="max"
+            value={maxPriceValue}
+            inputRef={maxPriceRef}
+          />
+        </Box>
+      </Collapse>
+    </>
+  );
 };
 
 export default PriceFilter;

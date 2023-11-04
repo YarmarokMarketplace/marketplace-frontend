@@ -40,6 +40,34 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
 
   return (
     <>
+      {!isMdScreen && (
+        <FiltersContainer>
+          <CategoryFilter
+            setIsCheckedNew={setIsCheckedNew}
+            setIsCheckedUsed={setIsCheckedUsed}
+            setMinPriceValue={setMinPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+            setValue={setValue}
+          />
+          {isGoodType && (
+            <GoodtypeFilter
+              setIsCheckedNew={setIsCheckedNew}
+              setIsCheckedUsed={setIsCheckedUsed}
+              іsCheckedNew={isCheckedNew}
+              іsCheckedUsed={isCheckedUsed}
+            />
+          )}
+
+          <PriceFilter
+            minPriceValue={minPriceValue}
+            setMinPriceValue={setMinPriceValue}
+            maxPriceValue={maxPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+            maxPrice={maxPriceInCategory}
+          />
+          <LocationFilter value={value} setValue={setValue} />
+        </FiltersContainer>
+      )}
       {isMdScreen && (
         <CategoryFilterModal
           openFilterModal={openFilterModal}
