@@ -17,6 +17,7 @@ import ProfilePage from '../pages/ProfilePage';
 import AddProduct from '../pages/AddProduct';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
 import SearchPage from '../pages/SearchPage';
+import { CategoryListPage } from '../pages/HomePage/CategoryListModal';
 
 const EditProduct = lazy(() => import('../pages/AddProduct/EditProduct'));
 
@@ -48,6 +49,7 @@ const App: React.FC = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/all-categories" element={<CategoryListPage />} />
             <Route path="/profile/*" index element={<ProfilePage />} />
             <Route path="/rules/*" index element={<Articles />} />
             <Route path="/:categoryName" element={<CategoryPage />} />

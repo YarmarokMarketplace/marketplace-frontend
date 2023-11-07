@@ -12,9 +12,12 @@ export const FooterContainer = styled('footer')(({ theme }) => ({
 }));
 
 export const LogoContainer = styled(Box)(({ theme }) => ({
-  maxWidth: '17%',
+  width: '17%',
   [theme.breakpoints.down('md')]: {
-    maxWidth: '30%',
+    width: '30%',
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '50%',
   },
 }));
 
@@ -47,7 +50,15 @@ export const CustomLink = styled(Link)(({ theme }) => ({
 
 export const Text = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(4),
+  marginLeft: 'auto',
+  marginRight: 'auto',
   width: '100%',
   textAlign: 'center',
   color: theme.palette.white,
+  [theme.breakpoints.down('md')]: {
+    width: '50%',
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
 }));

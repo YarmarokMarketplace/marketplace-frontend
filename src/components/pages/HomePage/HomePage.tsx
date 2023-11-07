@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ChatButton from '../../ChatButton';
 import CategoryItem from './CategoryItem';
 import SearchBar from '../../SearchBar';
@@ -18,10 +18,16 @@ import { setToken } from '../../../api/client';
 import { isSocialLoginSetAction } from '../../../redux/auth/reducer';
 import { currentFetch } from 'redux/auth/thunk';
 
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
+
 const HomePage = () => {
   const { categories, loading, error } = useSelector(categoriesStateSelector);
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
 
   const dispatch: AppDispatch = useDispatch();
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     dispatch(categoryListFetch());
@@ -48,7 +54,12 @@ const HomePage = () => {
       <SearchBar />
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h4">Головні рубрики</Typography>
-        <StyledLink to="/categories">Всі</StyledLink>
+        <StyledLink
+          onClick={() => setOpenModal(!openModal)}
+          to="/all-categories"
+        >
+          Всі
+        </StyledLink>
       </Stack>
       <StyledCategoryContainer>
         {loading &&
@@ -66,7 +77,7 @@ const HomePage = () => {
             return <CategoryItem key={category._id} category={category} />;
           })}
       </StyledCategoryContainer>
-      <ChatButton />
+      {isSmScreen ? <CustomBottomNavigation pathname="main" /> : <ChatButton />}
     </StyledContainer>
   );
 };

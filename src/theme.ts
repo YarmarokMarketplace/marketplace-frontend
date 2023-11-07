@@ -1,4 +1,6 @@
 import { createTheme } from '@mui/material';
+import { createBreakpoints } from '@mui/system';
+const breakpoints = createBreakpoints({});
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -36,6 +38,9 @@ export const theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: 700,
       lineHeight: '2rem',
+      [breakpoints.down('sm')]: {
+        fontSize: '1rem',
+      },
     },
     caption: {
       fontSize: '0.75rem',

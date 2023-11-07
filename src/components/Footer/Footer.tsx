@@ -9,7 +9,7 @@ import {
   Text,
 } from './style';
 
-import logo from '../../img/logo.png';
+import logo from '../../img/logo-footer.png';
 import { Container, Stack } from '@mui/material';
 
 const Footer = () => {

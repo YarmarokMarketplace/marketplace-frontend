@@ -105,3 +105,26 @@ export const deliveryOption: Array<{ label: string; value: string }> = [
   { label: 'Укрпошта', value: 'ukr-post' },
   { label: 'Інше', value: 'other' },
 ];
+
+export const categoryListColors = [
+  '#F2F3F5',
+  '#FFEDEA',
+  '#EBF0FD',
+  '#E9FBFA',
+  '#FEFCEF',
+  '#F2F3F5',
+  '#FFEDEA',
+  '#EBF0FD',
+  '#E9FBFA',
+  '#FEFCEF',
+  '#F2F3F5',
+  '#FFEDEA',
+  '#EBF0FD',
+  '#E9FBFA',
+  '#FEFCEF',
+  '#F2F3F5',
+  '#FFEDEA',
+  '#EBF0FD',
+  '#E9FBFA',
+  '#FEFCEF',
+];

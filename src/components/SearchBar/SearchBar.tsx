@@ -1,6 +1,16 @@
 import React, { useEffect } from 'react';
-import { SearchButton, SearchWrapper, StyledInput } from './style';
-import { InputAdornment } from '@mui/material';
+import {
+  SearchButton,
+  SearchSmButton,
+  SearchWrapper,
+  StyledInput,
+} from './style';
+import {
+  InputAdornment,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
@@ -10,10 +20,15 @@ import {
   productFilterPriceAction,
   searchValueSetAction,
 } from 'redux/products/reducer';
+import SearchModal from './SearchModal';
 
 const SearchBar = () => {
   const dispatch: AppDispatch = useDispatch();
   const [search, setSearch] = React.useState('');
+  const [openModal, setOpenModal] = React.useState<boolean>(false);
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const search = localStorage.getItem('search');
@@ -35,40 +50,61 @@ const SearchBar = () => {
     dispatch(productFilterPriceAction(''));
     localStorage.removeItem('price');
     navigate('/search');
+    setOpenModal(false);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (!search) return;
     if (event.key === 'Enter') {
       handleSearchClick();
+      event.preventDefault();
+      if (openModal) {
+        setOpenModal(false);
+      }
     }
   };
   return (
     <SearchWrapper direction="row" spacing={3}>
-      <StyledInput
-        fullWidth
-        placeholder="Що шукаєте?"
-        size="small"
-        value={search}
+      {isSmScreen ? (
+        <SearchSmButton
+          startIcon={<SearchIcon />}
+          fullWidth
+          color="secondary"
+          onClick={() => setOpenModal(!openModal)}
+        />
+      ) : (
+        <StyledInput
+          fullWidth
+          placeholder="Що шукаєте?"
+          size="small"
+          value={search}
+          onChange={handleSearchChange}
+          variant="outlined"
+          id="search"
+          onKeyDown={handleKeyPress}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+                <SearchButton
+                  id="search-btn"
+                  onClick={handleSearchClick}
+                  variant="outlined"
+                  disabled={!search}
+                >
+                  Пошук
+                </SearchButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      )}
+      <SearchModal
+        open={openModal}
         onChange={handleSearchChange}
-        variant="outlined"
-        id="search"
-        onKeyDown={handleKeyPress}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-              <SearchButton
-                id="search-btn"
-                onClick={handleSearchClick}
-                variant="outlined"
-                disabled={!search}
-              >
-                Пошук
-              </SearchButton>
-            </InputAdornment>
-          ),
-        }}
+        onPress={handleKeyPress}
+        onClose={setOpenModal}
+        search={search}
       />
     </SearchWrapper>
   );
