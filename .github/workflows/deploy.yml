@@ -52,8 +52,8 @@ jobs:
 
       - name: Get Last Commit Info
         run: |
-          LAST_COMMIT_DATE=$(git --no-pager log -1 --format="%cd %H")
-          echo "Last commit info: $LAST_COMMIT_DATE"
+          LAST_COMMIT_INFO=$(git --no-pager log -1 --format="%cd %H %s")
+          echo "Last commit info: $LAST_COMMIT_INFO"
         shell: bash
 
       - name: Deploy to Production
