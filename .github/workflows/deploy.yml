@@ -43,7 +43,7 @@ jobs:
 
           echo "Build started at: $start_time"
           echo "Build finished at: $end_time"
-          echo "Build duration: ${duration_minunes} min ${duretion_seconds} sec"
+          echo "Build duration: ${duration_minutes} min ${duration_seconds} sec"
 
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
