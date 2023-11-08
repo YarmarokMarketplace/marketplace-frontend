@@ -38,11 +38,12 @@ jobs:
           end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           start_seconds=$(date -d "$start_time" +%s)
           end_seconds=$(date -d "$end_time" +%s)
-          duration=$((end_seconds - start_seconds))
+          duration_minutes=$((duration_seconds / 60))
+          duration_seconds=$((duration_seconds % 60))
 
           echo "Build started at: $start_time"
           echo "Build finished at: $end_time"
-          echo "Build duration: ${duration} seconds"
+          echo "Build duration: ${duration_minunes} min ${duretion_seconds} sec"
 
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
