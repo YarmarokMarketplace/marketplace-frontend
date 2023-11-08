@@ -36,7 +36,9 @@ jobs:
           npx netlify-cli deploy --prod --message "${{ env.TAG }}: ${{ github.event.head_commit.message }}" --version ${{ steps.version.outputs.TAG }}
 
           end_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          duration=$((end_time - start_time))
+          start_seconds=$(date -d "$start_time" +%s)
+          end_seconds=$(date -d "$end_time" +%s)
+          duration=$((end_seconds - start_seconds))
 
           echo "Build started at: $start_time"
           echo "Build finished at: $end_time"
