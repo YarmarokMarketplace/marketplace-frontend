@@ -55,10 +55,10 @@ export const StyledItemWrapper = styled(Stack)(({ theme }) => ({
     gap: theme.spacing(1),
     justifyContent: 'flex-start',
     borderRadius: theme.spacing(2),
-  },
-  ':hover': {
-    cursor: 'pointer',
-    backgroundColor: theme.palette.secondary.light,
+    ':hover': {
+      cursor: 'pointer',
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
 }));
 

@@ -24,7 +24,7 @@ export const StyledToolBar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   overflow: 'hidden',
   [theme.breakpoints.down('sm')]: {
-    visibility: 'hidden',
+    display: 'none',
   },
 }));
 export const StyledLogo = styled('img')(({ theme }) => ({
