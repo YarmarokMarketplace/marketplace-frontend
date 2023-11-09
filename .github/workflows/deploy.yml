@@ -56,6 +56,9 @@ jobs:
           echo "Last commit info: $LAST_COMMIT_INFO"
         shell: bash
 
+      - name: Show Installed Dependencies
+        run: npm list --depth=0
+
       - name: Deploy to Production
         run: |
           deploy_start_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
