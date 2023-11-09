@@ -81,7 +81,10 @@ const SingleProductPage = () => {
               {product.notice.active && (
                 <CarouselImage photos={product.notice.photos} />
               )}
-              <ProductInfo product={product.notice} />
+              <ProductInfo
+                product={product.notice}
+                sellerRating={product.sellerRating}
+              />
               <Stack spacing={4}>
                 <ProductDescription description={product.notice.description} />
                 <ProductFeedback seller={product.notice.contactName} />

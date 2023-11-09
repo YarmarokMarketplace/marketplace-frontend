@@ -34,9 +34,13 @@ import {
 
 type ProductInfoProps = {
   product: ProductItem;
+  sellerRating: number;
 };
 
-export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+export const ProductInfo: React.FC<ProductInfoProps> = ({
+  product,
+  sellerRating,
+}) => {
   const location = locations.find(
     (location) => location.value === product.location
   );
@@ -46,8 +50,6 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [fav, setFav] = useState<boolean>(
     user.favorite.some((notice) => notice === product._id)
   );
-
-  console.log(user.favorite);
 
   useEffect(() => {
     if (favorites.length) {
@@ -87,6 +89,8 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
       dispatch(setDrawerContentAction(DrawerContent.login));
     }
   };
+
+  console.log(product);
 
   return (
     <Stack spacing={2}>
@@ -195,12 +199,12 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             <Rating
               color="info"
               size="medium"
-              value={4.5}
+              value={sellerRating}
               precision={0.5}
               readOnly
             />
             <Typography color="info.main" fontWeight={700} variant="h6">
-              4.5
+              {sellerRating}
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1}>
