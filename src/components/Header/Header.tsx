@@ -63,13 +63,14 @@ const Header = () => {
       dispatch(setDrawerContentAction(DrawerContent.login));
     }
   };
-  const handleClickAccount = () => {
-    dispatch(openDrawerAction(true));
-    dispatch(setDrawerContentAction(DrawerContent.login));
-  };
 
   const handleClickProfile = () => {
-    navigate('/profile/settings');
+    if (isLogin) {
+      navigate('/profile/settings');
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+    }
   };
 
   const handlePathMatch = () => {
@@ -83,11 +84,11 @@ const Header = () => {
       <StyledAppBar position="static">
         <Container maxWidth="xl" disableGutters>
           <StyledToolBar disableGutters>
-            <Stack direction="row" alignItems="center" spacing={4} width="30%">
+            <Stack direction="row" alignItems="center" spacing={4} width="22%">
               <StyledLink to="/">
                 <StyledLogo src={logo} alt="logo" />
               </StyledLink>
-              {handlePathMatch() && (
+              {/* {handlePathMatch() && (
                 <Button
                   id="catalog-btn"
                   endIcon={<ExpandMoreIcon />}
@@ -95,10 +96,10 @@ const Header = () => {
                 >
                   Каталог
                 </Button>
-              )}
+              )} */}
             </Stack>
 
-            <Stack direction="row" spacing={7}>
+            <Stack direction="row" spacing={{ sm: 7, md: 3, lg: 7 }}>
               <Stack direction="row" spacing={1} alignItems="center">
                 <StyledIconButton
                   onClick={handleCheckFavourites}
@@ -119,50 +120,27 @@ const Header = () => {
                   Обране
                 </StyledTextButton>
               </Stack>
-              {isLogin ? (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <StyledIconButton
-                    onClick={handleClickProfile}
-                    size="small"
-                    color="primary"
-                    id="acc-btn"
-                  >
-                    <PersonIcon sx={{ fontSize: '1rem' }} />
-                  </StyledIconButton>
-                  <StyledTextButton
-                    onClick={handleClickProfile}
-                    disableTouchRipple
-                    id="acc-text-btn"
-                    color="inherit"
-                    variant="text"
-                    size="small"
-                  >
-                    {name}
-                  </StyledTextButton>
-                </Stack>
-              ) : (
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <StyledIconButton
-                    onClick={handleClickAccount}
-                    size="small"
-                    color="primary"
-                    id="acc-btn"
-                  >
-                    <PersonIcon sx={{ fontSize: '1rem' }} />
-                  </StyledIconButton>
-                  <StyledTextButton
-                    onClick={handleClickAccount}
-                    disableTouchRipple
-                    id="acc-text-btn"
-                    color="inherit"
-                    variant="text"
-                    size="small"
-                  >
-                    Увійти
-                  </StyledTextButton>
-                </Stack>
-              )}
-              <ButtonGroup size="small" sx={{ alignItems: 'center', gap: 1 }}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <StyledIconButton
+                  onClick={handleClickProfile}
+                  size="small"
+                  color="primary"
+                  id="acc-btn"
+                >
+                  <PersonIcon sx={{ fontSize: '1rem' }} />
+                </StyledIconButton>
+                <StyledTextButton
+                  onClick={handleClickProfile}
+                  disableTouchRipple
+                  id="acc-text-btn"
+                  color="inherit"
+                  variant="text"
+                  size="small"
+                >
+                  {isLogin ? name : 'Увійти'}
+                </StyledTextButton>
+              </Stack>
+              {/* <ButtonGroup size="small" sx={{ alignItems: 'center', gap: 1 }}>
                 <Button
                   value="ua"
                   sx={{
@@ -204,7 +182,7 @@ const Header = () => {
                 >
                   EN
                 </Button>
-              </ButtonGroup>
+              </ButtonGroup> */}
               <StyledButton
                 onClick={handleAddAdvert}
                 variant="contained"

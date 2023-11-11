@@ -21,12 +21,19 @@ import { useNavigate } from 'react-router';
 
 import { CategoryItem } from '../../../types';
 import { categoryNames } from '../../../constants';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 interface CategotyItemProp {
   category: CategoryItem;
+  color?: string;
+  list?: boolean;
 }
 
-const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
+const CategoryItem: React.FC<CategotyItemProp> = ({
+  category,
+  list,
+  color,
+}) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
@@ -45,16 +52,22 @@ const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
     exchange: 'exchange',
     'for-free': 'resize',
     'home-and-garden': 'resize',
+    list: 'list',
   };
 
   return (
-    <StyledItemWrapper spacing={2}>
+    <StyledItemWrapper
+      spacing={list ? 0 : 2}
+      className={list ? className['list'] : ''}
+      sx={{ backgroundColor: color ? color : '' }}
+      onClick={list ? handleItemClick : undefined}
+    >
       <StyledCard>
         <CardActionArea
           id={`btn-${category._id.slice(20)}`}
           onClick={handleItemClick}
         >
-          <StyledCardContent>
+          <StyledCardContent className={list ? className['list'] : ''}>
             <StyledImgWrapper>
               <StyledImage
                 id={`category-${category._id.slice(20)}`}
@@ -66,9 +79,13 @@ const CategoryItem: React.FC<CategotyItemProp> = ({ category }) => {
           </StyledCardContent>
         </CardActionArea>
       </StyledCard>
-      <StyledCategoryLink to={`/${category.name}`}>
+      <StyledCategoryLink
+        to={`/${category.name}`}
+        className={list ? className['list'] : ''}
+      >
         {categoryNames[category.name]}
       </StyledCategoryLink>
+      {list && <ArrowForwardIosIcon sx={{ margin: '0 8px 0 auto' }} />}
     </StyledItemWrapper>
   );
 };

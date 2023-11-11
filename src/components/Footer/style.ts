@@ -11,9 +11,15 @@ export const FooterContainer = styled('footer')(({ theme }) => ({
   color: theme.palette.white,
 }));
 
-export const LogoContainer = styled(Box)({
-  maxWidth: '17%',
-});
+export const LogoContainer = styled(Box)(({ theme }) => ({
+  width: '17%',
+  [theme.breakpoints.down('md')]: {
+    width: '30%',
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '50%',
+  },
+}));
 
 export const Logo = styled('img')({
   maxWidth: '100%',
@@ -23,6 +29,12 @@ export const LinksContainer = styled(Box)(({ theme }) => ({
   maxWidth: '85%',
   display: 'flex',
   gap: theme.spacing(3),
+  flexDirection: 'row',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export const CustomLink = styled(Link)(({ theme }) => ({
@@ -38,7 +50,15 @@ export const CustomLink = styled(Link)(({ theme }) => ({
 
 export const Text = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(4),
+  marginLeft: 'auto',
+  marginRight: 'auto',
   width: '100%',
   textAlign: 'center',
   color: theme.palette.white,
+  [theme.breakpoints.down('md')]: {
+    width: '50%',
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
 }));

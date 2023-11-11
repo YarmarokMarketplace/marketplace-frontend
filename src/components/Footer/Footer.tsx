@@ -9,14 +9,18 @@ import {
   Text,
 } from './style';
 
-import logo from '../../img/logo.png';
+import logo from '../../img/logo-footer.png';
 import { Container, Stack } from '@mui/material';
 
 const Footer = () => {
   return (
     <FooterContainer>
       <Container maxWidth={false} disableGutters sx={{ maxWidth: 1320 }}>
-        <Stack direction="row" justifyContent="space-between">
+        <Stack
+          direction={{ sm: 'column', md: 'row' }}
+          justifyContent={{ sm: 'center', md: 'space-between' }}
+          alignItems="center"
+        >
           <LogoContainer>
             <Logo src={logo} alt="Логотип" />
           </LogoContainer>
