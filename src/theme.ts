@@ -33,6 +33,9 @@ export const theme = createTheme({
     h6: {
       fontSize: '1.125rem',
       fontWeight: 400,
+      [breakpoints.down('sm')]: {
+        fontSize: '1rem',
+      },
     },
     h4: {
       fontSize: '1.5rem',

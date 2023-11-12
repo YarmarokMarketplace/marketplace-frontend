@@ -1,7 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Rating, Stack, Typography } from '@mui/material';
-import { StyledIconButton, StyledInfoBlock, StyledShowButton } from './style';
-import { StyledTextButton } from '../../Header/style';
+import {
+  Button,
+  IconButton,
+  Rating,
+  Stack,
+  Theme,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
+import {
+  StyledBuyButton,
+  StyledChatButton,
+  StyledIconButton,
+  StyledInfoBlock,
+  StyledShowButton,
+  StyledTextButton,
+} from './style';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -50,6 +65,8 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   const [fav, setFav] = useState<boolean>(
     user.favorite.some((notice) => notice === product._id)
   );
+  const theme: Theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (favorites.length) {
@@ -89,8 +106,6 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
       dispatch(setDrawerContentAction(DrawerContent.login));
     }
   };
-
-  console.log(product);
 
   return (
     <Stack spacing={2}>
@@ -133,24 +148,30 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
           )}
         </Stack>
         {product.owner !== user.id && (
-          <Stack mt={2} direction="row" justifyContent="space-between">
+          <Stack mt={2} direction="row" justifyContent="space-between" gap={2}>
             <Stack spacing={2} direction="row">
-              <Button
+              <StyledBuyButton
                 id="buy-btn"
-                sx={{ width: '7rem' }}
                 onClick={handleBuyClick}
                 variant="contained"
               >
                 Купити
-              </Button>
-              <Button
-                id="chat-btn"
-                startIcon={<ChatOutlinedIcon />}
-                variant="outlined"
-                onClick={handleChatClick}
-              >
-                Чат з продавцем
-              </Button>
+              </StyledBuyButton>
+              {isSmScreen ? (
+                <StyledChatButton onClick={handleChatClick}>
+                  <ChatOutlinedIcon color="primary" fontSize="small" />
+                </StyledChatButton>
+              ) : (
+                <Button
+                  id="chat-btn"
+                  startIcon={<ChatOutlinedIcon />}
+                  variant="outlined"
+                  onClick={handleChatClick}
+                  sx={{ fontSize: '1.125rem' }}
+                >
+                  Чат з продавцем
+                </Button>
+              )}
             </Stack>
             <Stack direction="row" alignItems="center">
               <StyledIconButton
@@ -159,7 +180,10 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
                 size="small"
               >
                 {fav ? (
-                  <FavoriteIcon color="primary" sx={{ fontSize: '1rem' }} />
+                  <FavoriteIcon
+                    color="primary"
+                    sx={{ fontSize: isSmScreen ? 'small' : '1rem' }}
+                  />
                 ) : (
                   <FavoriteBorderOutlinedIcon
                     color="primary"
@@ -173,7 +197,12 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             </Stack>
           </Stack>
         )}
-        <Typography mt={2} textAlign="center" color="divider" variant="body1">
+        <Typography
+          mt={2}
+          textAlign="center"
+          color="divider"
+          variant={isSmScreen ? 'subtitle2' : 'body1'}
+        >
           {location?.label}, Опубліковано{' '}
           {moment(product.createdAt).format('DD.MM.YYYY')}
         </Typography>
@@ -248,15 +277,15 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
       )}
 
       {!categoriesDeliveryAbsense.includes(product.category) && (
-        <Stack direction="row" spacing={2}>
-          <StyledInfoBlock sx={{ width: '50%' }}>
+        <Stack direction={{ sm: 'row' }} gap={2}>
+          <StyledInfoBlock sx={{ width: { sm: '50%' } }}>
             <Typography fontWeight={700} variant="h6" mb={1}>
               Способи доставки
             </Typography>
             <Typography variant="body1">Доставка “Нова Пошта”</Typography>
             <Typography variant="body1">Доставка “Укрпошта”</Typography>
           </StyledInfoBlock>
-          <StyledInfoBlock sx={{ width: '50%' }}>
+          <StyledInfoBlock sx={{ width: { sm: '50%' } }}>
             <Stack spacing={1}>
               <Typography fontWeight={700} variant="h6">
                 Умови повернення
