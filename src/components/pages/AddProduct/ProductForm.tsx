@@ -189,8 +189,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
   };
 
   return (
-    <Stack alignItems="start" spacing={3} mb={{ md: 0, lg: 8 }}>
-      <Typography mb={3} variant="h4">
+    <Stack alignItems="start" gap={1} spacing={{ lg: 3 }} mb={{ md: 0, lg: 8 }}>
+      <Typography mb={{ lg: 3 }} variant="h4">
         {edit ? 'Змінити оголошення' : 'Створити оголошення'}
       </Typography>
       <StyledForm
