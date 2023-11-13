@@ -58,7 +58,8 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
           <StyledNavigationButton
             className={navigationValue === 'add-advert' ? 'Mui-selected' : ''}
             component={Link}
-            to="add-advert"
+            disabled={navigationValue === 'add-advert'}
+            to="/add-advert"
           >
             <AddIcon />
           </StyledNavigationButton>

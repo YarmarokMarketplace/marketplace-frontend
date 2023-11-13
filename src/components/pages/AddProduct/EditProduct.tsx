@@ -4,7 +4,14 @@ import { InfoBlock } from './InfoBlock';
 import { StyledContainer } from './style';
 import { addAdvertStateSelector } from './selector';
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack, Typography, Button } from '@mui/material';
+import {
+  Stack,
+  Typography,
+  Button,
+  useMediaQuery,
+  useTheme,
+  Theme,
+} from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppDispatch } from '../../../store';
 import { resetAddAdvertStateAction, resetAddSavedDataAction } from './reducer/';
@@ -14,6 +21,7 @@ import { productFetch } from '../SingleProductPage/thunk';
 import { productStateSelector } from '../SingleProductPage/selectors';
 import { ProductForm } from './ProductForm';
 import { resetAddAdvertState } from './actions';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const EditProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);
@@ -21,6 +29,9 @@ const EditProduct = () => {
   const { isLogin } = useSelector(userLoginStateSelector);
   const { product } = useSelector(productStateSelector);
   const productLoading = useSelector(productStateSelector).loading;
+
+  const theme: Theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -45,13 +56,16 @@ const EditProduct = () => {
       {!loading && !error && data ? (
         <Stack spacing={3} paddingTop={3}>
           <Typography variant="h4">
-            Вітаємо! Ваше оголошення успішно збережено
+            Вітаємо! Ваше оголошення успішно опубліковано
           </Typography>
-          <Stack width="50%" direction="row" spacing={3}>
+          <Stack width="100%" direction={{ sm: 'row' }} spacing={3} gap={2}>
             <Button
               to={'/'}
               component={Link}
-              sx={{ width: '10rem' }}
+              sx={{
+                width: { sm: '10rem' },
+                fontSize: { xs: '1rem', sm: '1.25rem' },
+              }}
               variant="contained"
             >
               На головну
@@ -60,6 +74,9 @@ const EditProduct = () => {
               to={`/${data?.category}/${data?._id}`}
               component={Link}
               variant="outlined"
+              sx={{
+                fontSize: { xs: '1rem', sm: '1.25rem' },
+              }}
             >
               Переглянути оголошення
             </Button>
@@ -75,6 +92,7 @@ const EditProduct = () => {
           )}
         </>
       )}
+      {isSmScreen && <CustomBottomNavigation pathname="edit-advert" />}
     </StyledContainer>
   );
 };

@@ -5,18 +5,28 @@ import { StyledContainer } from './style';
 import { ProductForm } from './ProductForm';
 import { addAdvertStateSelector } from './selector';
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack, Typography, Button } from '@mui/material';
+import {
+  Stack,
+  Typography,
+  Button,
+  Theme,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../../store';
 import { resetAddSavedDataAction } from './reducer';
 import { userLoginStateSelector } from '../../../redux/auth/selector';
 import { advertInitialData } from './utils';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const AddProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);
   const dispatch: AppDispatch = useDispatch();
   const { isLogin } = useSelector(userLoginStateSelector);
   const navigate = useNavigate();
+  const theme: Theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (!isLogin) {
@@ -38,11 +48,14 @@ const AddProduct = () => {
           <Typography variant="h4">
             Вітаємо! Ваше оголошення успішно опубліковано
           </Typography>
-          <Stack width="50%" direction="row" spacing={3}>
+          <Stack width="100%" direction={{ sm: 'row' }} spacing={3} gap={2}>
             <Button
               to={'/'}
               component={Link}
-              sx={{ width: '10rem' }}
+              sx={{
+                width: { sm: '10rem' },
+                fontSize: { xs: '1rem', sm: '1.25rem' },
+              }}
               variant="contained"
             >
               На головну
@@ -51,6 +64,9 @@ const AddProduct = () => {
               to={`/${data?.category}/${data?._id}`}
               component={Link}
               variant="outlined"
+              sx={{
+                fontSize: { xs: '1rem', sm: '1.25rem' },
+              }}
             >
               Переглянути оголошення
             </Button>
@@ -62,6 +78,7 @@ const AddProduct = () => {
           <InfoBlock />
         </>
       )}
+      {isSmScreen && <CustomBottomNavigation pathname="add-advert" />}
     </StyledContainer>
   );
 };

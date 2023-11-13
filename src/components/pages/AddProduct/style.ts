@@ -11,15 +11,25 @@ import upload from '../../../img/upload-file.png';
 
 export const StyledContainer = styled(Container)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'minmax(61.5rem, 1fr) minmax(19.5rem, 1fr)',
+  gridTemplateColumns: 'minmax(53rem, 2fr) minmax(15rem, 0.8fr)',
   gap: theme.spacing(3),
   padding: theme.spacing(2, 0),
+  [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: '1fr',
+  },
+
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: '1fr',
+  },
 }));
 
 export const StyledFormControl = styled(FormControl)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  [theme.breakpoints.down('lg')]: {
+    flexDirection: 'column',
+  },
 }));
 
 export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
@@ -30,15 +40,25 @@ export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
 
 export const StyledFileInput = styled(Box)(({ theme }) => ({
   border: `1px solid`,
-  width: '47.5rem',
+  width: '100%',
   padding: theme.spacing(3),
-  display: 'flex',
-  flexDirection: 'row-reverse',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(6.5rem, 1fr))',
+  '&.empty': {
+    gridTemplateColumns: '1fr',
+  },
   gap: theme.spacing(2),
   borderRadius: 12,
   ':hover': {
     borderColor: theme.palette.text.primary,
   },
+  [theme.breakpoints.down('lg')]: {
+    width: '100%',
+  },
+  [theme.breakpoints.down('lg')]: {
+    flexWrap: 'wrap',
+  },
+
   // ":active": {
   //   borderWidth: 2,
   //   borderColor: theme.palette.primary.main,
@@ -64,9 +84,12 @@ export const StyledPreview = styled('img')(({ theme }) => ({
 
 export const StyledForm = styled('form')(({ theme }) => ({
   width: '100%',
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '1fr',
   gap: theme.spacing(4),
-  flexDirection: 'column',
+  [theme.breakpoints.down('lg')]: {
+    gap: theme.spacing(3),
+  },
 }));
 
 export const menuStyles = {

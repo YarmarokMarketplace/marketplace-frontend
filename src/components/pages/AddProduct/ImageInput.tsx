@@ -157,130 +157,127 @@ export const ImageInput: React.FC<ImageInputProps> = ({
     }, target.type);
   };
   return (
-    <>
-      <Controller
-        control={control}
-        name="photos"
-        defaultValue=""
-        render={({ field: { onBlur, onChange } }) => (
-          <Stack width="47.5rem">
-            <StyledFileInput
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={() => setDragActive(false)}
-              sx={{
-                justifyContent: selectedImage.length ? 'start' : 'center',
-                position: 'relative',
-                borderColor: imgQuantityError
-                  ? 'error.main'
-                  : 'secondary.light',
-                backgroundColor: dragActive ? 'primary.contrastText' : '',
+    <Controller
+      control={control}
+      name="photos"
+      defaultValue=""
+      render={({ field: { onBlur, onChange } }) => (
+        <Stack width={{ md: '100%', lg: '47.5rem' }}>
+          <StyledFileInput
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={() => setDragActive(false)}
+            className={selectedImage.length === 0 ? 'empty' : ''}
+            sx={{
+              justifyContent: selectedImage.length ? 'start' : 'center',
+              position: 'relative',
+              borderColor: imgQuantityError ? 'error.main' : 'secondary.light',
+              backgroundColor: dragActive ? 'primary.contrastText' : '',
+            }}
+          >
+            <input
+              ref={fileRef}
+              type="file"
+              multiple
+              accept="image/png, image/jpeg"
+              style={{ display: 'none' }}
+              onChange={(event) => {
+                onChange(event);
+                handleImageUpload(event);
               }}
-            >
-              <input
-                ref={fileRef}
-                type="file"
-                multiple
-                accept="image/png, image/jpeg"
-                style={{ display: 'none' }}
-                onChange={(event) => {
-                  onChange(event);
-                  handleImageUpload(event);
-                }}
-                onClick={() => setValue('photos', '')}
-                onBlur={onBlur}
-              />
-              <StyledFileLable
-                sx={{
-                  width: `calc(100% - ${selectedImage.length} * (6.5rem + 16px))`,
-                  display: selectedImage.length < 6 ? '' : 'none',
-                  border: selectedImage.length ? '1px solid #D4D7DF' : '',
-                }}
-                htmlFor="upload-photo"
-              >
-                <StyledUploadButton
-                  id="upload-photo-btn"
-                  onClick={() => fileRef.current?.click()}
-                  disabled={loading}
-                />
-              </StyledFileLable>
+              onClick={() => setValue('photos', '')}
+              onBlur={onBlur}
+            />
 
-              {selectedImage.length > 0 &&
-                selectedImage.map((img: any) => {
-                  return (
+            {selectedImage.length > 0 &&
+              selectedImage.map((img: any) => {
+                return (
+                  <Stack
+                    key={typeof img === 'string' ? img : img.name}
+                    width="6.5rem"
+                    height="7.3rem"
+                    position="relative"
+                    overflow="hidden"
+                    borderRadius={1.5}
+                  >
+                    <StyledPreview
+                      id={img.name}
+                      src={URL.createObjectURL(img)}
+                    />
                     <Stack
-                      key={typeof img === 'string' ? img : img.name}
-                      width="6.5rem"
-                      height="7.3rem"
-                      position="relative"
-                      overflow="hidden"
-                      borderRadius={1.5}
+                      width="100%"
+                      direction="row"
+                      justifyContent="space-between"
+                      position="absolute"
+                      bottom={0}
+                      left={0}
                     >
-                      <StyledPreview
-                        id={img.name}
-                        src={URL.createObjectURL(img)}
-                      />
-                      <Stack
-                        width="100%"
-                        direction="row"
-                        justifyContent="space-between"
-                        position="absolute"
-                        bottom={0}
-                        left={0}
+                      <IconButton onClick={() => handleImageRotate(img)}>
+                        <RefreshOutlinedIcon
+                          sx={{
+                            color: 'white',
+                            backgroundColor: '#00000033',
+                            borderRadius: '50%',
+                            ':hover': {
+                              backgroundColor: 'secondary.dark',
+                            },
+                          }}
+                          fontSize="small"
+                        />
+                      </IconButton>
+                      <IconButton
+                        color="secondary"
+                        onClick={() => handleImageDelete(img)}
                       >
-                        <IconButton onClick={() => handleImageRotate(img)}>
-                          <RefreshOutlinedIcon
-                            sx={{
-                              color: 'white',
-                              backgroundColor: '#00000033',
-                              borderRadius: '50%',
-                              ':hover': {
-                                backgroundColor: 'secondary.dark',
-                              },
-                            }}
-                            fontSize="small"
-                          />
-                        </IconButton>
-                        <IconButton
-                          color="secondary"
-                          onClick={() => handleImageDelete(img)}
-                        >
-                          <DeleteOutlineOutlinedIcon
-                            sx={{
-                              color: 'white',
-                              backgroundColor: '#00000033',
-                              borderRadius: '50%',
-                              ':hover': {
-                                backgroundColor: 'secondary.dark',
-                              },
-                            }}
-                            fontSize="small"
-                          />
-                        </IconButton>
-                      </Stack>
+                        <DeleteOutlineOutlinedIcon
+                          sx={{
+                            color: 'white',
+                            backgroundColor: '#00000033',
+                            borderRadius: '50%',
+                            ':hover': {
+                              backgroundColor: 'secondary.dark',
+                            },
+                          }}
+                          fontSize="small"
+                        />
+                      </IconButton>
                     </Stack>
-                  );
-                })}
-              <Typography
-                sx={{ position: 'absolute', bottom: 2, right: '48.5%' }}
-                color="secondary.dark"
-                variant="caption"
-              >
-                {selectedImage.length} з 6
-              </Typography>
-            </StyledFileInput>
-            <Typography
-              color={imgQuantityError ? 'error' : 'primary.main'}
-              variant="subtitle2"
-              id={imgQuantityError ? 'photos-error' : ''}
+                  </Stack>
+                );
+              })}
+            <StyledFileLable
+              sx={{
+                minWidth: `calc(100% - ${selectedImage.length} * (6.5rem))`,
+                display: selectedImage.length < 6 ? '' : 'none',
+                border: selectedImage.length ? '1px solid #D4D7DF' : '',
+              }}
+              htmlFor="upload-photo"
             >
-              {imgQuantityError
-                ? 'Ви не можете завантажити більше 6 фото'
-                : 'Перше фото - обкладинка. Оберіть найкраще фото для вашого товару.'}
+              <StyledUploadButton
+                id="upload-photo-btn"
+                onClick={() => fileRef.current?.click()}
+                disabled={loading}
+              />
+            </StyledFileLable>
+            <Typography
+              sx={{ position: 'absolute', bottom: 2, right: '48.5%' }}
+              color="secondary.dark"
+              variant="caption"
+            >
+              {selectedImage.length} з 6
             </Typography>
-          </Stack>
-        )}
-      />
-    </>
+          </StyledFileInput>
+          <Typography
+            color={imgQuantityError ? 'error' : 'primary.main'}
+            variant="subtitle2"
+            id={imgQuantityError ? 'photos-error' : ''}
+          >
+            {imgQuantityError
+              ? 'Ви не можете завантажити більше 6 фото'
+              : 'Перше фото - обкладинка. Оберіть найкраще фото для вашого товару.'}
+          </Typography>
+        </Stack>
+      )}
+    />
   );
 };
