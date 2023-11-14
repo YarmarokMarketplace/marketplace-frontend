@@ -18,8 +18,8 @@ export const StyledContainer = styled(Container)(({ theme }) => ({
     gridTemplateColumns: '1fr',
   },
 
-  [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: '1fr',
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'minmax(0px, 1fr)',
   },
 }));
 

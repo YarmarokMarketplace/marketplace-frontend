@@ -62,6 +62,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
   const dispatch: AppDispatch = useDispatch();
   const theme: Theme = useTheme();
   const isLgScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const {
     control,
@@ -265,8 +266,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
                     name="free"
                     render={({ field: { onChange, value } }) => (
                       <FormControlLabel
-                        label="Безкоштовно"
-                        sx={{ height: '1rem' }}
+                        label={
+                          <Typography
+                            variant={isSmScreen ? 'caption' : 'body1'}
+                          >
+                            Безкоштовно
+                          </Typography>
+                        }
+                        sx={{
+                          height: '1rem',
+                        }}
                         control={
                           <Checkbox
                             onChange={(event) => {
@@ -297,13 +306,26 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
                             <FormControlLabel
                               value="new"
                               control={<Radio disabled={loading} />}
-                              label="Нове"
+                              label={
+                                <Typography
+                                  variant={isSmScreen ? 'caption' : 'body1'}
+                                >
+                                  Нове
+                                </Typography>
+                              }
                               id="new"
+                              sx={{ mr: 1 }}
                             />
                             <FormControlLabel
                               value="used"
                               control={<Radio disabled={loading} />}
-                              label="Вживане"
+                              label={
+                                <Typography
+                                  variant={isSmScreen ? 'caption' : 'body1'}
+                                >
+                                  Вживане
+                                </Typography>
+                              }
                               id="used"
                             />
                           </Stack>
