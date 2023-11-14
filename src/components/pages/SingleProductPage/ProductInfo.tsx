@@ -108,9 +108,12 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack
+      spacing={2}
+      sx={{ display: 'grid', gridTemplateColumns: 'minmax(0px, 1fr)' }}
+    >
       <StyledInfoBlock>
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" justifyContent={'space-between'}>
           <Typography color="success.main" variant="body1">
             {product.goodtype ? goodTypeNames[product.goodtype] : ''}
           </Typography>
@@ -149,7 +152,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
         </Stack>
         {product.owner !== user.id && (
           <Stack mt={2} direction="row" justifyContent="space-between" gap={2}>
-            <Stack spacing={2} direction="row">
+            <Stack gap={2} direction="row">
               <StyledBuyButton
                 id="buy-btn"
                 onClick={handleBuyClick}

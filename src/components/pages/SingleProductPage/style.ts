@@ -83,6 +83,10 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
   pointerEvents: 'none',
   width: '33%',
   padding: theme.spacing(2, 0),
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.875rem',
+    width: '45%',
+  },
 }));
 
 export const StyledCarouselWrapper = styled(Stack)(({ theme, hidden }) => ({
@@ -106,6 +110,9 @@ export const StyledProductWrapper = styled(Container)(({ theme, hidden }) => ({
   gridTemplateColumns: 'minmax(580px, 1.2fr) minmax(520px, 0.9fr)',
   gridGap: theme.spacing(3),
   [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: '1fr',
+  },
+  [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
   },
 }));
@@ -153,6 +160,9 @@ export const StyledBuyButton = styled(Button)(({ theme }) => ({
   width: theme.spacing(12.5),
   fontSize: '1.125rem',
   [theme.breakpoints.down('sm')]: {
-    width: theme.spacing(24),
+    width: theme.spacing(22),
+  },
+  [theme.breakpoints.only('xs')]: {
+    width: theme.spacing(15),
   },
 }));
