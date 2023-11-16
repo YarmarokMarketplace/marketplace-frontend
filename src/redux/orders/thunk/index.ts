@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
-import { getSellOrders, changeOrderStatus } from 'src/api/orders';
+import { getSellOrders, getBuyOrders, changeOrderStatus } from 'src/api/orders';
 
-const USER_SELL_ORDERS_THUNK_TYPE = 'USER_RESET_PASSWORD_THUNK_TYPE';
+const USER_SELL_ORDERS_THUNK_TYPE = 'USER_SELL_ORDERS_THUNK_TYPE';
+const USER_BUY_ORDERS_THUNK_TYPE = 'USER_BUY_PASSWORD_THUNK_TYPE';
 const CHANGE_ORDER_STATUS_THUNK_TYPE = 'CHANGE_ORDER_STATUS_THUNK_TYPE';
 
 export const getSellOrdersFetch = createAsyncThunk(
@@ -11,6 +12,17 @@ export const getSellOrdersFetch = createAsyncThunk(
   async (page: number, { rejectWithValue }) => {
     try {
       return await getSellOrders(page);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const getBuyOrdersFetch = createAsyncThunk(
+  USER_BUY_ORDERS_THUNK_TYPE,
+  async (page: number, { rejectWithValue }) => {
+    try {
+      return await getBuyOrders(page);
     } catch (error) {
       return rejectWithValue(error);
     }

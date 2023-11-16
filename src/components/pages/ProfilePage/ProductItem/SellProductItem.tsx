@@ -1,3 +1,7 @@
+import React from 'react';
+import moment from 'moment';
+// import 'moment-duration-format';
+
 import {
   CardActionArea,
   Stack,
@@ -5,7 +9,6 @@ import {
   Collapse,
   Rating,
 } from '@mui/material';
-import React from 'react';
 import {
   StyledChip,
   StyledImgWrapper,
@@ -15,13 +18,13 @@ import {
 } from './style';
 
 import placeholder from '../../../../img/placeholder-image.png';
-import { ProductItem, SellOrder } from '../../../../types';
+import { ProductItem, Order } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
 import { locations } from 'src/constants';
 
 interface SellProductProps {
   children?: React.ReactNode;
-  order: SellOrder;
+  order: Order;
   isExpanded?: boolean;
   sell?: boolean;
   onToggle?: () => void;
@@ -35,9 +38,48 @@ const SellProductItem: React.FC<SellProductProps> = ({
 }) => {
   const navigate = useNavigate();
   const { product } = order;
-  const location = locations.find(
-    (location) => location.value === product.location
-  );
+  // const location = locations.find(
+  //   (location) => location.value === product.location
+  // );
+
+  const DateComponent = (createdAt: string) => {
+    const currentDate = moment();
+    const startDate = moment(createdAt);
+    const duration = moment.duration(currentDate.diff(startDate));
+
+    // const years = Math.floor(duration.asYears());
+    // const months = Math.floor(duration.asMonths() % 12);
+
+    // const formattedDuration = (duration as any).format('y [роки] M [місяці]', {
+    //   trim: 'both',
+    // });
+
+    // return <div>{formattedDuration}</div>;
+    const years = duration.years();
+    const months = duration.months();
+    console.log(duration);
+
+    const formattedYears =
+      years === 1
+        ? `${years} рік`
+        : years >= 2 && years <= 4
+        ? `${years} роки`
+        : `${years} років`;
+
+    const formattedMonths =
+      months === 1
+        ? `${months} місяць`
+        : months >= 2 && months <= 4
+        ? `${months} місяці`
+        : `${months} місяців`;
+    console.log(years);
+    const formattedDuration =
+      years !== 0
+        ? `${formattedYears} ${formattedMonths}`
+        : `${formattedMonths}`;
+
+    return <div>{formattedDuration}</div>;
+  };
 
   return (
     <StyledProductContainer>
@@ -238,6 +280,7 @@ const SellProductItem: React.FC<SellProductProps> = ({
           </Stack>
         </StyledInfoContainer>
       </Collapse>
+
       {sell && (
         <StyledInfoContainer sx={{ flexDirection: 'row' }}>
           <Stack width='15%' gap={2} mt={2}>
@@ -253,7 +296,7 @@ const SellProductItem: React.FC<SellProductProps> = ({
                 {product.contactName}
               </Typography>
               <Typography color='divider' variant='caption'>
-                {location?.label}
+                {product.location}
               </Typography>
             </Stack>
           </Stack>
@@ -262,22 +305,22 @@ const SellProductItem: React.FC<SellProductProps> = ({
               <Rating
                 color='info'
                 size='medium'
-                value={4.5}
+                value={product.owner.rating}
                 precision={0.5}
                 readOnly
               />
               <Typography color='info.main' fontWeight={700} variant='h6'>
-                4.5
+                {product.owner.rating}
               </Typography>
             </Stack>
             <Stack spacing={1}>
               <Typography variant='caption'>
-                2 роки та 4 місяці на yarmarok.ua
+                {DateComponent(product.owner.createdAt)} на yarmarok.ua
               </Typography>
               <Typography color='primary.main' variant='caption'>
                 {`• `}
                 <Typography color='primary.main' variant='caption'>
-                  7 відгуків
+                  {product.reviews.length} відгуків
                 </Typography>
               </Typography>
             </Stack>

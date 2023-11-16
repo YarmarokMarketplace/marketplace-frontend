@@ -76,7 +76,6 @@ export const updateUserState = (
   state: UserAuthState,
   action: PayloadAction<UserUpdatePayload>
 ) => {
-  console.log(action.payload);
   state.user = action.payload;
 };
 

@@ -17,7 +17,10 @@ export interface ProductItem {
   location: string;
   price: number;
   comments?: string;
-  owner: string;
+  owner: {
+    rating: number;
+    createdAt: string;
+  };
   createdAt: string;
   updatedAt: string;
   active?: boolean;
@@ -25,6 +28,7 @@ export interface ProductItem {
   contactNumber: string;
   contactsViews: number;
   views: number;
+  reviews: [];
 }
 
 export interface ProductListResponse {
@@ -67,6 +71,7 @@ export enum ModalContent {
   deleteAccount = 'deleteAccount',
   deleteProduct = 'deleteProduct',
   confirmPurchase = 'confirmPurchase',
+  confirmReceived = 'confirmReceived',
   cancel = 'cancel',
   noContent = 'noContent',
 }
@@ -286,14 +291,22 @@ export interface sellOrdersResponse {
   totalPages: number;
   page: number;
   limit: number;
-  result: SellOrder[];
+  result: Order[];
+}
+
+export interface buyOrdersResponse {
+  totalResult: number;
+  totalPages: number;
+  page: number;
+  limit: number;
+  result: Order[];
 }
 
 export interface changeOrderStatusResponse {
-  result: SellOrder;
+  result: Order;
 }
 
-export interface SellOrder {
+export interface Order {
   _id: string;
   buyerName: string;
   buyerLastname: string;
@@ -331,6 +344,16 @@ export interface SellOrder {
     deliveryType: string;
   };
   comments: string;
+  createdAt: string;
+  product: ProductItem;
+  status: string;
+}
+
+export interface BuyOrder {
+  _id: string;
+  buyerName: string;
+  buyerLastname: string;
+  buyerPatronymic: string;
   createdAt: string;
   product: ProductItem;
   status: string;

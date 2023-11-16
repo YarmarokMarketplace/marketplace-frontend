@@ -7,3 +7,10 @@ export const currentPageSet = (
 ) => {
   state.orders.page = action.payload;
 };
+
+export const setOrderId = (
+  state: OrdersState,
+  action: PayloadAction<string>
+) => {
+  state.orderId = action.payload;
+};

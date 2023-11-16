@@ -14,6 +14,7 @@ import LogoutModal from '../ModalContent/LogoutModal';
 import DeleteAccountModal from '../ModalContent/DeleteAccountModal';
 import ConfirmPurchase from '../ModalContent/ConfirmPurchase';
 import DeleteProductModal from '../ModalContent/DeleteProductModal';
+import ConfirmReceivedModal from '../ModalContent/ConfirmReceivedModal';
 
 const CustomModal = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -39,6 +40,7 @@ const CustomModal = () => {
           {content == ModalContent.deleteAccount && <DeleteAccountModal />}
           {content == ModalContent.confirmPurchase && <ConfirmPurchase />}
           {content == ModalContent.deleteProduct && <DeleteProductModal />}
+          {content == ModalContent.confirmReceived && <ConfirmReceivedModal />}
         </StyledBox>
       </Modal>
     </div>
