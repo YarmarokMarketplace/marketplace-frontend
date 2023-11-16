@@ -28,6 +28,18 @@ jobs:
         id: version
         run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
+      - name: Checkout Test Repository
+        uses: actions/checkout@v2
+        with:
+          repository: https://github.com/YarmarokMarketplace/automation-tests.git
+          path: automation-tests
+          ref: main
+
+      - name: Run Python Tests
+        run: |
+          pip install -r automation-tests/requirements.txt
+          pytest automation-tests/tests
+
       - name: Build and Deploy
         run: |
           start_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
