@@ -31,7 +31,7 @@ jobs:
       - name: Checkout Test Repository
         uses: actions/checkout@v2
         with:
-          repository: https://github.com/YarmarokMarketplace/automation-tests.git
+          repository: YarmarokMarketplace/automation-tests
           path: automation-tests
           ref: main
 
