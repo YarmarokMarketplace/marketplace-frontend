@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import {
+  Stack,
+  Theme,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   StyledContainer,
   StyledCrumpsLink,
@@ -14,17 +20,22 @@ import { ProductFeedback } from './ProductFeedback';
 import { useDispatch, useSelector } from 'react-redux';
 import { productStateSelector } from './selectors';
 import { AppDispatch } from '../../../store';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { productFetch } from './thunk';
 import BasicBreadcrumbs from '../../Breadcrumbs';
 import { categoryNames } from '../../../constants';
 import { ProductItem } from 'src/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const SingleProductPage = () => {
   const { loading, error, product } = useSelector(productStateSelector);
   const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
+
+  const theme: Theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -95,6 +106,7 @@ const SingleProductPage = () => {
           </Stack>
         </>
       )}
+      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledContainer>
   );
 };

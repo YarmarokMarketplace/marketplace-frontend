@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import Carousel from "react-material-ui-carousel";
+import React, { useState } from 'react';
+import Carousel from 'react-material-ui-carousel';
 import {
   StyledCarouselWrapper,
   StyledCurrentImage,
   StyledIndicator,
-} from "./style";
-import { useParams } from "react-router-dom";
-import placeholderImg from "/src/img/placeholder-image.png";
-import { Theme, useTheme } from "@mui/material";
+  StyledImage,
+} from './style';
+import { useParams } from 'react-router-dom';
+import placeholderImg from '/src/img/placeholder-image.png';
+import { Theme, useMediaQuery, useTheme } from '@mui/material';
 
 type CarouselProps = {
   photos?: string[];
@@ -20,57 +21,72 @@ export const CarouselImage: React.FC<CarouselProps> = ({ photos }) => {
     setError(true);
   };
   const theme: Theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isLgScreen = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
     <StyledCarouselWrapper hidden={!photos?.length}>
-      <Carousel
-        autoPlay={false}
-        navButtonsAlwaysInvisible
-        sx={{
-          display: "flex",
-          flexDirection: "row-reverse",
-          alignItems: "flex-start",
-          ".css-1f8sh1y": {
-            marginY: "auto",
-          },
-        }}
-        indicatorContainerProps={{
-          style: {
-            display: "flex",
-            margin: "auto",
-            flexDirection: "column",
-            gap: 20,
-            height: "100%",
-            marginRight: 16,
-            width: "20%",
-          },
-        }}
-        indicatorIconButtonProps={{
-          style: {
-            borderRadius: 12,
-            border: `3px solid transparent`,
-            overflow: "hidden",
-          },
-        }}
-        activeIndicatorIconButtonProps={{
-          style: {
-            borderRadius: 12,
-            border: `3px solid ${theme.palette.primary.main}`,
-          },
-        }}
-        IndicatorIcon={photos?.map((src) => (
-          <StyledIndicator
-            src={error ? placeholderImg : src}
-            onError={handleImageError}
-          />
-        ))}
-      >
-        {photos?.map((src) => (
-          <StyledCurrentImage key={src}>
-            <img id={`${categoryName}-${src.slice(-9, -4)}`} src={src} />
-          </StyledCurrentImage>
-        ))}
-      </Carousel>
+      {isSmScreen ? (
+        <>
+          {photos?.map((src) => (
+            <StyledImage
+              sx={{ width: photos.length > 1 ? '19rem' : '100%' }}
+              key={src}
+              id={`${categoryName}-${src.slice(-9, -4)}`}
+              src={src}
+            />
+          ))}
+        </>
+      ) : (
+        <Carousel
+          autoPlay={false}
+          navButtonsAlwaysInvisible
+          sx={{
+            display: 'flex',
+            flexDirection: 'row-reverse',
+            alignItems: 'flex-start',
+            '.css-1f8sh1y': {
+              marginY: 'auto',
+            },
+          }}
+          indicatorContainerProps={{
+            style: {
+              display: 'flex',
+              margin: 'auto',
+              flexDirection: 'column',
+              gap: 20,
+              height: '100%',
+              marginRight: 16,
+              width: '20%',
+            },
+          }}
+          indicatorIconButtonProps={{
+            style: {
+              borderRadius: 12,
+              border: `3px solid transparent`,
+              overflow: 'hidden',
+            },
+          }}
+          activeIndicatorIconButtonProps={{
+            style: {
+              borderRadius: 12,
+              border: `3px solid ${theme.palette.primary.main}`,
+            },
+          }}
+          IndicatorIcon={photos?.map((src) => (
+            <StyledIndicator
+              src={error ? placeholderImg : src}
+              onError={handleImageError}
+            />
+          ))}
+        >
+          {photos?.map((src) => (
+            <StyledCurrentImage key={src}>
+              <img id={`${categoryName}-${src.slice(-9, -4)}`} src={src} />
+            </StyledCurrentImage>
+          ))}
+        </Carousel>
+      )}
     </StyledCarouselWrapper>
   );
 };
