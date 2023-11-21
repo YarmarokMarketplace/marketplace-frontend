@@ -35,11 +35,12 @@ export const getAllProducts = async (
     goodtype: string;
     price: string;
     location: string;
+    rating: string;
   }
 ) => {
   try {
     return await client.get<never, ProductsResponse>(
-      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}`
+      `/notices/${categoryName}?page=${page}&limit=${limit}&sort=${sort}${filterBy.goodtype}${filterBy.price}${filterBy.location}${filterBy.rating}`
     );
   } catch (error) {
     return Promise.reject(error);

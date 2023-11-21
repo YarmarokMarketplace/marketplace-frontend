@@ -45,38 +45,34 @@ const CategoryProducts = () => {
               return (
                 <Stack key={index} gap={1} p={2}>
                   <Skeleton
-                    animation="wave"
-                    variant="rounded"
+                    animation='wave'
+                    variant='rounded'
                     sx={{
                       height: '12.5rem',
                       width: '100%rem',
-                      // [theme.breakpoints.down('md')]: {
-                      //   heigth: '80%',
-                      //   width: '80%'
-                      // }
                     }}
                   />
                   <Skeleton
-                    animation="wave"
+                    animation='wave'
                     sx={{ height: '2.438rem', width: '90%' }}
-                    variant="rounded"
+                    variant='rounded'
                   />
                   <Skeleton
-                    animation="wave"
+                    animation='wave'
                     sx={{ height: '0.875rem', width: '50%' }}
-                    variant="rounded"
+                    variant='rounded'
                   />
                   <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    direction='row'
+                    justifyContent='space-between'
+                    alignItems='center'
                   >
                     <Skeleton
-                      animation="wave"
+                      animation='wave'
                       sx={{ height: '1.5em', width: '45%' }}
-                      variant="rounded"
+                      variant='rounded'
                     />
-                    <Skeleton variant="circular" width={32} height={32} />
+                    <Skeleton variant='circular' width={32} height={32} />
                   </Stack>
                 </Stack>
               );

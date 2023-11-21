@@ -17,6 +17,7 @@ type ProductsArgs = {
     goodtype: string;
     price: string;
     location: string;
+    rating: string;
   };
 };
 

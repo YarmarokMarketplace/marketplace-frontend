@@ -10,6 +10,7 @@ import LocationFilter from './Filters/LocationFilter';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CategoryFilterModal from './CategoryFilterModal';
+import RatingFilter from './Filters/RatingFilter';
 
 interface CategoryFiltersProps {
   openFilterModal: boolean;
@@ -29,6 +30,7 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
     value: string;
     img?: string | undefined;
   } | null>(null);
+  const [ratingValue, setRatingValue] = useState<string[]>([]);
 
   const { isGoodType, maxPriceInCategory } = useSelector(
     productsResultStateSelector
@@ -48,6 +50,7 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
             setMinPriceValue={setMinPriceValue}
             setMaxPriceValue={setMaxPriceValue}
             setValue={setValue}
+            setRatingValue={setRatingValue}
           />
           {isGoodType && (
             <GoodtypeFilter
@@ -65,6 +68,10 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
             setMaxPriceValue={setMaxPriceValue}
             maxPrice={maxPriceInCategory}
           />
+          <RatingFilter
+            ratingValue={ratingValue}
+            setRatingValue={setRatingValue}
+          />
           <LocationFilter value={value} setValue={setValue} />
         </FiltersContainer>
       )}
@@ -80,6 +87,7 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
               setMinPriceValue={setMinPriceValue}
               setMaxPriceValue={setMaxPriceValue}
               setValue={setValue}
+              setRatingValue={setRatingValue}
             />
             <LocationFilter value={value} setValue={setValue} />
             <PriceFilter
@@ -97,6 +105,10 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
                 іsCheckedUsed={isCheckedUsed}
               />
             )}
+            <RatingFilter
+              ratingValue={ratingValue}
+              setRatingValue={setRatingValue}
+            />
           </FiltersContainer>
         </CategoryFilterModal>
       )}

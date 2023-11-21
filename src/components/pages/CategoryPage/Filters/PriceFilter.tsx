@@ -92,10 +92,6 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
 
     let newFilterByPrice = '';
 
-    console.log('min: ' + minPriceRef.current?.value);
-    console.log('max: ' + maxPriceRef.current?.value);
-    console.log(maxPrice);
-
     if (minPriceRef.current?.value && maxPriceRef.current?.value) {
       newFilterByPrice = `&priceRange=${minPriceRef.current?.value}-${maxPriceRef.current?.value}`;
     } else if (!minPriceRef.current?.value && maxPriceRef.current?.value) {
@@ -118,23 +114,23 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
   return (
     <>
       {isMdScreen ? (
-        <FilterText primary="За ціною" />
+        <FilterText primary='За ціною' />
       ) : (
         <FormLabel>
           <ListItemButton onClick={priceHandleClick}>
-            <FilterText primary="За ціною" />
+            <FilterText primary='За ціною' />
             {priceOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </FormLabel>
       )}
       <Collapse
         in={priceOpen}
-        timeout="auto"
+        timeout='auto'
         unmountOnExit
         onChange={handlePriceChange}
       >
         <Box
-          component="form"
+          component='form'
           sx={{
             '& > :not(style)': { m: 0.5 },
             display: 'flex',
@@ -143,31 +139,31 @@ const PriceFilter: React.FC<CategoryFilterProps> = ({
             mb: 3,
           }}
           noValidate
-          autoComplete="off"
+          autoComplete='off'
         >
           {!isMdScreen && (
-            <Typography className="filters" mr=".3rem !important">
+            <Typography className='filters' mr='.3rem !important'>
               Ціна:
             </Typography>
           )}
           <TextField
             sx={{ flexGrow: '1' }}
-            size="small"
-            id="minPrice-textfield"
-            label="Від"
-            variant="outlined"
-            name="min"
+            size='small'
+            id='minPrice-textfield'
+            label='Від'
+            variant='outlined'
+            name='min'
             value={minPriceValue}
             inputRef={minPriceRef}
           />
           <TextField
             sx={{ flexGrow: '1' }}
             error={maxPriceError}
-            size="small"
-            id="maxPrice-textfield"
-            label="До"
-            variant="outlined"
-            name="max"
+            size='small'
+            id='maxPrice-textfield'
+            label='До'
+            variant='outlined'
+            name='max'
             value={maxPriceValue}
             inputRef={maxPriceRef}
           />

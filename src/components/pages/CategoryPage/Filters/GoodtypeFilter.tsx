@@ -38,8 +38,6 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
 }) => {
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
-  console.log('іsCheckedUsed ' + іsCheckedUsed);
-  console.log('іsCheckedNew ' + іsCheckedNew);
 
   const [typeOpen, setTypeOpen] = React.useState(true);
   const { filterBy } = useSelector(productsStateSelector);
@@ -99,39 +97,39 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
         <>
           <FormLabel>
             <ListItemButton onClick={goodtypeHandleClick} sx={{ mb: '.5rem' }}>
-              <FilterText primary="За станом" />
+              <FilterText primary='За станом' />
               {typeOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
           </FormLabel>
           <Collapse
             in={typeOpen}
-            timeout="auto"
+            timeout='auto'
             unmountOnExit
             onChange={handleGoodtypeChange}
           >
             <RadioGroup sx={{ mb: 1 }}>
               <GoodtypeFormControlLabel
-                className="filters"
-                value="new"
+                className='filters'
+                value='new'
                 control={<Checkbox checked={іsCheckedNew} />}
-                label="Нове"
+                label='Нове'
               />
               <GoodtypeFormControlLabel
-                className="filters"
-                value="used"
+                className='filters'
+                value='used'
                 control={<Checkbox checked={іsCheckedUsed} />}
-                label="Вживане"
+                label='Вживане'
               />
             </RadioGroup>
           </Collapse>
         </>
       ) : (
         <Stack
-          direction="row"
-          alignItems="baseline"
+          direction='row'
+          alignItems='baseline'
           onChange={handleGoodtypeChange}
         >
-          <FilterText primary="За станом" />
+          <FilterText primary='За станом' />
           <RadioGroup
             sx={{
               mb: 1,
@@ -151,11 +149,11 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
                     : theme.palette.text.primary,
                 },
               }}
-              value="new"
+              value='new'
               control={
                 <Checkbox checked={іsCheckedNew} sx={{ display: 'none' }} />
               }
-              label="Нове"
+              label='Нове'
             />
             <GoodtypeFormControlLabelMobile
               sx={{
@@ -168,11 +166,11 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
                     : theme.palette.text.primary,
                 },
               }}
-              value="used"
+              value='used'
               control={
                 <Checkbox checked={іsCheckedUsed} sx={{ display: 'none' }} />
               }
-              label="Вживане"
+              label='Вживане'
             />
           </RadioGroup>
         </Stack>
