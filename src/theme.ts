@@ -141,6 +141,9 @@ export const theme = createTheme({
         },
         h4: {
           lineHeight: '2rem',
+          '@media (max-width: 600px)': {
+            fontSize: '1.5rem',
+          },
         },
       },
     },
