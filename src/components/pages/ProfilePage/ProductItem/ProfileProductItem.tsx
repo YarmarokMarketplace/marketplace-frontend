@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-// import 'moment-duration-format';
 
 import {
   CardActionArea,
@@ -18,11 +17,10 @@ import {
 } from './style';
 
 import placeholder from '../../../../img/placeholder-image.png';
-import { ProductItem, Order } from '../../../../types';
+import { Order } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
-import { locations } from 'src/constants';
 
-interface SellProductProps {
+interface ProfileProductProps {
   children?: React.ReactNode;
   order: Order;
   isExpanded?: boolean;
@@ -30,7 +28,7 @@ interface SellProductProps {
   onToggle?: () => void;
 }
 
-const SellProductItem: React.FC<SellProductProps> = ({
+const ProfileProductItem: React.FC<ProfileProductProps> = ({
   children,
   order,
   isExpanded,
@@ -38,26 +36,14 @@ const SellProductItem: React.FC<SellProductProps> = ({
 }) => {
   const navigate = useNavigate();
   const { product } = order;
-  // const location = locations.find(
-  //   (location) => location.value === product.location
-  // );
 
   const DateComponent = (createdAt: string) => {
     const currentDate = moment();
     const startDate = moment(createdAt);
     const duration = moment.duration(currentDate.diff(startDate));
 
-    // const years = Math.floor(duration.asYears());
-    // const months = Math.floor(duration.asMonths() % 12);
-
-    // const formattedDuration = (duration as any).format('y [роки] M [місяці]', {
-    //   trim: 'both',
-    // });
-
-    // return <div>{formattedDuration}</div>;
     const years = duration.years();
     const months = duration.months();
-    console.log(duration);
 
     const formattedYears =
       years === 1
@@ -67,18 +53,24 @@ const SellProductItem: React.FC<SellProductProps> = ({
         : `${years} років`;
 
     const formattedMonths =
-      months === 1
+      months === 0
+        ? `Менше місяця`
+        : months === 1
         ? `${months} місяць`
         : months >= 2 && months <= 4
         ? `${months} місяці`
         : `${months} місяців`;
-    console.log(years);
-    const formattedDuration =
-      years !== 0
-        ? `${formattedYears} ${formattedMonths}`
-        : `${formattedMonths}`;
 
-    return <div>{formattedDuration}</div>;
+    if (years === 0) {
+      const formattedDuration = `${formattedMonths}`;
+      return <div>{formattedDuration}</div>;
+    } else if (years && !months) {
+      const formattedDuration = `${formattedYears}`;
+      return <div>{formattedDuration}</div>;
+    } else if (years && months) {
+      const formattedDuration = `${formattedYears} ${formattedMonths}`;
+      return <div>{formattedDuration}</div>;
+    }
   };
 
   return (
@@ -331,4 +323,4 @@ const SellProductItem: React.FC<SellProductProps> = ({
   );
 };
 
-export default SellProductItem;
+export default ProfileProductItem;

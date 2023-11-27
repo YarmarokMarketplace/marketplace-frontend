@@ -9,18 +9,17 @@ import {
   openModalAction,
   setModalContentAction,
 } from '../../../CustomModal/reducer';
-import { BuyOrder, ModalContent } from '../../../../types';
+import { ModalContent } from '../../../../types';
 
 import { StyledAdsContainer, StyledTitleContainer } from '../style';
 import { Typography, Button, IconButton, Tooltip, Box } from '@mui/material';
 import { Stack } from '@mui/system';
-import SellProductItem from '../ProductItem/SellProductItem';
+import ProfileProductItem from '../ProductItem/ProfileProductItem';
 import ProfilePagination from '../ProfilePagination';
-import { StyledContrastButton } from '../ProductItem/style';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import NoProductMessage from '../NoProductMessage';
 import placeholder from '../../../../img/no-fav-product.png';
+import SkeletonAds from '../SkeletonAds';
 
 const BuyProducts = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -30,8 +29,6 @@ const BuyProducts = () => {
     error,
     orders: { totalPages, page, limit, result },
   } = useSelector(ordersStateSelector);
-
-  console.log(totalPages);
 
   useEffect(() => {
     dispatch(getBuyOrdersFetch(page));
@@ -86,28 +83,27 @@ const BuyProducts = () => {
     }
   };
 
-  const infoText = `Натисніть “Я отримав” у випадку коли ви отримали замовлення. Натисніть “Я не отримав” у випадку коли ви не отримали замовлення та продавець не виходить на звʼязок.`;
-
   return (
     <StyledAdsContainer sx={{ width: '100%' }}>
       <StyledTitleContainer>
         <Typography variant='h4'>Купую</Typography>
       </StyledTitleContainer>
+      {loading && <SkeletonAds limit={limit} />}
       {!loading && !error && result.length > 0 && (
         <Stack gap={3}>
           {result.map((order, i) => {
             return (
-              <SellProductItem order={order} key={order._id} sell>
+              <ProfileProductItem order={order} key={order._id} sell>
                 <Stack width='30%' textAlign='end' gap={3}>
                   {orderStatusChange(order.status, order._id, i)}
                 </Stack>
-              </SellProductItem>
+              </ProfileProductItem>
             );
           })}
         </Stack>
       )}
 
-      {!loading && result.length === 0 && (
+      {!loading && error && (
         <NoProductMessage src={placeholder}>
           <Typography variant='h4' fontWeight={700} mt={3}>
             Почніть купувати

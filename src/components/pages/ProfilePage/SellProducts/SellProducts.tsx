@@ -10,7 +10,7 @@ import { currentPageSetAction } from 'redux/orders/reducer';
 import { StyledAdsContainer, StyledTitleContainer } from '../style';
 import { Typography, Button, IconButton } from '@mui/material';
 import { Stack } from '@mui/system';
-import SellProductItem from '../ProductItem/SellProductItem';
+import ProfileProductItem from '../ProductItem/ProfileProductItem';
 import ProfilePagination from '../ProfilePagination';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { StyledContrastButton } from '../ProductItem/style';
@@ -111,7 +111,7 @@ const SellProducts = () => {
         <Stack gap={3}>
           {result.map((order, i) => {
             return (
-              <SellProductItem
+              <ProfileProductItem
                 order={order}
                 key={order._id}
                 isExpanded={cardStates[i]}
@@ -137,13 +137,13 @@ const SellProducts = () => {
                     {<Moment format='DD/MM/YYYY'>{order.createdAt}</Moment>}
                   </Typography>
                 </Stack>
-              </SellProductItem>
+              </ProfileProductItem>
             );
           })}
         </Stack>
       )}
 
-      {!loading && result.length === 0 && (
+      {!loading && error && (
         <NoProductMessage src={placeholder}>
           <Typography variant='h4' fontWeight={700} mt={3}>
             Тут будуть відображатись товари, які хтось у Вас купує.
