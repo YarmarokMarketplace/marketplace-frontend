@@ -13,6 +13,7 @@ import {
   searchProductStateReset,
   filterStateReset,
   productFilterCategory,
+  productFilterRating,
 } from '../actions';
 import { ProductItem, SearchResponse } from 'src/types';
 
@@ -37,6 +38,7 @@ export interface ProductsState {
     price: string;
     location: string;
     category: string;
+    rating: string;
   };
 }
 
@@ -49,6 +51,7 @@ export const initialState: ProductsState = {
     price: localStorage.getItem('price') || '',
     location: localStorage.getItem('location') || '',
     category: '',
+    rating: localStorage.getItem('rating') || '',
   },
   search: localStorage.getItem('search') || '',
   products: {
@@ -87,6 +90,7 @@ const productsSlice = createSlice({
     searchProductStateReset,
     filterStateReset,
     productFilterCategory,
+    productFilterRating,
   },
   extraReducers(builder) {
     builder
@@ -128,6 +132,7 @@ export const {
   searchProductStateReset: searchProductStateResetAction,
   filterStateReset: filterStateResetAction,
   productFilterCategory: productFilterCategoryAction,
+  productFilterRating: productFilterRatingAction,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -5,6 +5,7 @@ import {
   productFilterGoodtypeAction,
   productFilterPriceAction,
   productFilterLocationAction,
+  productFilterRatingAction,
 } from '../../../redux/products/reducer';
 
 import {
@@ -41,9 +42,11 @@ const CategoryItem: React.FC<CategotyItemProp> = ({
     dispatch(productFilterGoodtypeAction(''));
     dispatch(productFilterPriceAction(''));
     dispatch(productFilterLocationAction(''));
+    dispatch(productFilterRatingAction(''));
     localStorage.removeItem('goodtype');
     localStorage.removeItem('price');
     localStorage.removeItem('location');
+    localStorage.removeItem('rating');
     navigate(`/${category.name}`);
   };
 
