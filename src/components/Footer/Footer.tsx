@@ -48,7 +48,7 @@ const Footer = () => {
               Правила безпеки
             </CustomLink>
             <CustomLink
-              id="requirements-link"
+              id="privacy-policy-link"
               target="_blank"
               href="#/rules/privacy-policy"
             >
