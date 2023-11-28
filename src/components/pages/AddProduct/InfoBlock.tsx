@@ -1,9 +1,9 @@
-import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import React from 'react';
+import { Box, Stack, Typography } from '@mui/material';
 
 export const InfoBlock = () => {
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} padding={{ sm: '24px 80px', md: 0 }}>
       <Box>
         <Typography variant="h6" fontWeight={700}>
           Як сфотографувати товар?

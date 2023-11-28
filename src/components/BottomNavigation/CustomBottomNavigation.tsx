@@ -13,7 +13,17 @@ import {
   StyledNavigationContainer,
   StyledNavigationTab,
 } from './style';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from 'src/store';
+import { userLoginStateSelector } from 'redux/auth/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  openDrawerAction,
+  setDrawerContentAction,
+} from '../CustomDrawer/reducer';
+import { resetAddAdvertStateAction } from '../pages/AddProduct/reducer';
+import { DrawerContent } from 'src/types';
+import { Paper } from '@mui/material';
 
 export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
   pathname,
@@ -26,64 +36,107 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
     setNavigationValue(newValue);
   };
 
+  const dispatch: AppDispatch = useDispatch();
+  const { isLogin } = useSelector(userLoginStateSelector);
+
+  const navigate = useNavigate();
+
+  const handleAddAdvert = () => {
+    if (isLogin) {
+      navigate('/add-advert', { replace: true });
+      dispatch(resetAddAdvertStateAction());
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+      setNavigationValue('main');
+    }
+  };
+
+  const handleClickProfile = () => {
+    if (isLogin) {
+      navigate('/profile/settings', { replace: true });
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+      setNavigationValue('main');
+    }
+  };
+
+  const handleCheckFavourites = () => {
+    if (isLogin) {
+      navigate('/profile/favourites', { replace: true });
+    } else {
+      dispatch(openDrawerAction(true));
+      dispatch(setDrawerContentAction(DrawerContent.login));
+      setNavigationValue('main');
+    }
+  };
   return (
-    <StyledNavigationContainer
-      showLabels
-      value={navigationValue}
-      onChange={handleNavigationChange}
+    <Paper
+      sx={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+      }}
+      elevation={3}
     >
-      <StyledNavigationTab
-        label="Головна"
-        value="main"
-        icon={navigationValue === 'main' ? <HomeIcon /> : <HomeOutlinedIcon />}
-        component={Link}
-        to="/"
-      />
-      <StyledNavigationTab
-        label="Обране"
-        value="favorite"
-        icon={
-          navigationValue === 'favorite' ? (
-            <FavoriteIcon />
-          ) : (
-            <FavoriteBorderIcon />
-          )
-        }
-        component={Link}
-        to="profile/favourites"
-      />
-      <StyledNavigationTab
-        value="add-advert"
-        icon={
-          <StyledNavigationButton
-            className={navigationValue === 'add-advert' ? 'Mui-selected' : ''}
-            component={Link}
-            to="add-advert"
-          >
-            <AddIcon />
-          </StyledNavigationButton>
-        }
-      />
-      <StyledNavigationTab
-        label="Профіль"
-        value="profile"
-        icon={
-          navigationValue === 'profile' ? (
-            <PersonIcon />
-          ) : (
-            <PersonOutlineOutlinedIcon />
-          )
-        }
-        component={Link}
-        to="/profile/settings"
-      />
-      <StyledNavigationTab
-        label="Чат"
-        value="chat"
-        icon={navigationValue === 'chat' ? <ChatIcon /> : <ChatOutlinedIcon />}
-        component={Link}
-        to="/"
-      />
-    </StyledNavigationContainer>
+      <StyledNavigationContainer
+        showLabels
+        value={navigationValue}
+        onChange={handleNavigationChange}
+      >
+        <StyledNavigationTab
+          label="Головна"
+          value="main"
+          icon={
+            navigationValue === 'main' ? <HomeIcon /> : <HomeOutlinedIcon />
+          }
+          onClick={() => navigate('/', { replace: true })}
+        />
+        <StyledNavigationTab
+          label="Обране"
+          value="favorite"
+          icon={
+            navigationValue === 'favorite' ? (
+              <FavoriteIcon />
+            ) : (
+              <FavoriteBorderIcon />
+            )
+          }
+          onClick={handleCheckFavourites}
+        />
+        <StyledNavigationTab
+          value="add-advert"
+          onClick={handleAddAdvert}
+          icon={
+            <StyledNavigationButton
+              className={navigationValue === 'add-advert' ? 'Mui-selected' : ''}
+            >
+              <AddIcon />
+            </StyledNavigationButton>
+          }
+        />
+        <StyledNavigationTab
+          label="Профіль"
+          value="profile"
+          icon={
+            navigationValue === 'profile' ? (
+              <PersonIcon />
+            ) : (
+              <PersonOutlineOutlinedIcon />
+            )
+          }
+          onClick={handleClickProfile}
+        />
+        <StyledNavigationTab
+          label="Чат"
+          value="chat"
+          icon={
+            navigationValue === 'chat' ? <ChatIcon /> : <ChatOutlinedIcon />
+          }
+        />
+      </StyledNavigationContainer>
+    </Paper>
   );
 };

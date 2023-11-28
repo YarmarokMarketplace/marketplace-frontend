@@ -1,6 +1,7 @@
 import {
   BottomNavigation,
   BottomNavigationAction,
+  Box,
   IconButton,
   styled,
 } from '@mui/material';
@@ -24,11 +25,15 @@ export const StyledNavigationTab = styled(BottomNavigationAction)(
   })
 );
 
-export const StyledNavigationButton = styled(IconButton)(({ theme }) => ({
+export const StyledNavigationButton = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
+  borderRadius: '50%',
   padding: theme.spacing(2),
+  display: 'flex',
+  alignItems: 'center',
   '&.Mui-selected': {
     backgroundColor: theme.palette.primary.main,
+    pointerEvent: 'none',
   },
   svg: {
     color: theme.palette.white,

@@ -7,7 +7,10 @@ import {
   RadioGroup,
   Stack,
   TextField,
+  Theme,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -57,6 +60,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
   const { categories } = useSelector(categoriesStateSelector);
 
   const dispatch: AppDispatch = useDispatch();
+  const theme: Theme = useTheme();
+  const isLgScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const {
     control,
@@ -175,7 +181,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
     form.append('location', location);
     goodtype && form.append('goodtype', goodtype);
     selectedImage.length > 0 &&
-      [...selectedImage].reverse().forEach((img) => form.append('photos', img));
+      [...selectedImage].forEach((img) => form.append('photos', img));
     if (edit) {
       dispatch(editAdvertFetch({ data: editData, id: product?._id! }));
     } else {
@@ -184,8 +190,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
   };
 
   return (
-    <Stack alignItems="start" spacing={3} mb={8}>
-      <Typography mb={3} variant="h4">
+    <Stack alignItems="start" gap={1} spacing={{ lg: 3 }} mb={{ md: 0, lg: 8 }}>
+      <Typography mb={{ lg: 3 }} variant="h4">
         {edit ? 'Змінити оголошення' : 'Створити оголошення'}
       </Typography>
       <StyledForm
@@ -208,7 +214,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         )}
 
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Назва та опис</StyledFormLabel>
+          {isLgScreen && <StyledFormLabel>Назва та опис</StyledFormLabel>}
           <Stack spacing={3}>
             <TitleInput control={control} errors={errors} loading={loading} />
             <DescriptionInput
@@ -219,7 +225,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
           </Stack>
         </StyledFormControl>
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Категорія</StyledFormLabel>
+          {isLgScreen && <StyledFormLabel>Категорія</StyledFormLabel>}
           <CategoryInput
             control={control}
             errors={errors}
@@ -232,13 +238,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
           />
         </StyledFormControl>
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Ціна</StyledFormLabel>
-          <Stack alignItems="end">
+          {isLgScreen && <StyledFormLabel>Ціна</StyledFormLabel>}
+          <Stack
+            alignItems={{ md: 'flex-start', lg: 'end' }}
+            width={{ md: '100%', lg: '47.5rem' }}
+          >
             <Stack
-              direction="row"
-              width="47.5rem"
+              direction={{ md: 'column', lg: 'row' }}
+              width={{ md: '100%', lg: '47.5rem' }}
               spacing={3}
-              alignItems={'center'}
+              gap={2}
+              alignItems={{ md: 'flex-start', lg: 'center' }}
             >
               <PriceInput
                 control={control}
@@ -249,78 +259,105 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
                 forFree={forFree}
                 trigger={trigger}
               />
-              <StyledFormControl>
-                <Controller
-                  control={control}
-                  name="free"
-                  render={({ field: { onChange, value } }) => (
-                    <FormControlLabel
-                      label="Безкоштовно"
-                      sx={{ height: '1rem' }}
-                      control={
-                        <Checkbox
-                          onChange={(event) => {
-                            onChange(event);
-                            setForFree(event.target.checked);
-                          }}
-                          value={value}
-                          checked={value}
-                          id="for-free"
-                          disabled={category === 'for-free' || loading}
-                        />
-                      }
-                    />
-                  )}
-                />
-              </StyledFormControl>
-              {checkGoodtype() && (
+              <Stack direction={'row'} alignItems={'center'}>
                 <StyledFormControl>
                   <Controller
                     control={control}
-                    name="goodtype"
-                    render={({ field }) => (
-                      <RadioGroup
-                        {...field}
-                        sx={{ height: '2.5rem', flexWrap: 'unset' }}
-                      >
-                        <Stack direction="row">
-                          <FormControlLabel
-                            value="new"
-                            control={<Radio disabled={loading} />}
-                            label="Нове"
-                            id="new"
-                          />
-                          <FormControlLabel
-                            value="used"
-                            control={<Radio disabled={loading} />}
-                            label="Вживане"
-                            id="used"
-                          />
-                        </Stack>
-                        {errors.goodtype && (
+                    name="free"
+                    render={({ field: { onChange, value } }) => (
+                      <FormControlLabel
+                        label={
                           <Typography
-                            id="goodtype-error"
-                            color="error"
-                            variant="subtitle2"
+                            variant={isSmScreen ? 'caption' : 'body1'}
                           >
-                            {errors.goodtype?.message}
+                            Безкоштовно
                           </Typography>
-                        )}
-                      </RadioGroup>
+                        }
+                        sx={{
+                          height: '1rem',
+                        }}
+                        control={
+                          <Checkbox
+                            onChange={(event) => {
+                              onChange(event);
+                              setForFree(event.target.checked);
+                            }}
+                            value={value}
+                            checked={value}
+                            id="for-free"
+                            disabled={category === 'for-free' || loading}
+                          />
+                        }
+                      />
                     )}
                   />
                 </StyledFormControl>
-              )}
+                {checkGoodtype() && (
+                  <StyledFormControl>
+                    <Controller
+                      control={control}
+                      name="goodtype"
+                      render={({ field }) => (
+                        <RadioGroup
+                          {...field}
+                          sx={{ height: '2.5rem', flexWrap: 'unset' }}
+                        >
+                          <Stack direction="row">
+                            <FormControlLabel
+                              value="new"
+                              control={<Radio disabled={loading} />}
+                              label={
+                                <Typography
+                                  variant={isSmScreen ? 'caption' : 'body1'}
+                                >
+                                  Нове
+                                </Typography>
+                              }
+                              id="new"
+                              sx={{ mr: 1 }}
+                            />
+                            <FormControlLabel
+                              value="used"
+                              control={<Radio disabled={loading} />}
+                              label={
+                                <Typography
+                                  variant={isSmScreen ? 'caption' : 'body1'}
+                                >
+                                  Вживане
+                                </Typography>
+                              }
+                              id="used"
+                            />
+                          </Stack>
+                          {errors.goodtype && (
+                            <Typography
+                              id="goodtype-error"
+                              color="error"
+                              variant="subtitle2"
+                            >
+                              {errors.goodtype?.message}
+                            </Typography>
+                          )}
+                        </RadioGroup>
+                      )}
+                    />
+                  </StyledFormControl>
+                )}
+              </Stack>
             </Stack>
           </Stack>
         </StyledFormControl>
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Імʼя контактної особи</StyledFormLabel>
+          {isLgScreen && (
+            <StyledFormLabel sx={{ maxWidth: '12%' }}>
+              Імʼя контактної особи
+            </StyledFormLabel>
+          )}
           <Controller
             control={control}
             name="contactName"
             render={({ field }) => (
-              <Stack width="47.5rem">
+              <Stack width={{ md: '100%', lg: '47.5rem' }}>
                 <StyledFormLabel required>Імʼя</StyledFormLabel>
                 <TextField
                   {...field}
@@ -341,12 +378,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
           />
         </StyledFormControl>
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Телефон</StyledFormLabel>
+          {isLgScreen && <StyledFormLabel>Телефон</StyledFormLabel>}
           <Controller
             control={control}
             name="contactNumber"
             render={({ field: { onBlur, onChange } }) => (
-              <Stack width="47.5rem">
+              <Stack width={{ md: '100%', lg: '47.5rem' }}>
                 <StyledFormLabel required>Номер телефону</StyledFormLabel>
                 <TextField
                   onChange={(event) => {
@@ -373,7 +410,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
           />
         </StyledFormControl>
         <StyledFormControl fullWidth>
-          <StyledFormLabel>Місцезнаходження</StyledFormLabel>
+          {isLgScreen && <StyledFormLabel>Місцезнаходження</StyledFormLabel>}
           <LocationInput
             getValue={getValues}
             control={control}
@@ -387,7 +424,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
             control={control}
             name="agree"
             render={({ field: { value, onChange } }) => (
-              <Stack width="47.5rem">
+              <Stack width={{ md: '100%', lg: '47.5rem' }}>
                 <FormControlLabel
                   sx={{ width: 'fit-content', alignItems: 'center' }}
                   label={
@@ -425,12 +462,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         </StyledFormControl>
         <StyledFormControl>
           <StyledFormLabel></StyledFormLabel>
-          <Stack width="47.5rem" spacing={2}>
+          <Stack width={{ md: '100%', lg: '47.5rem' }} spacing={2}>
             <Button
               disabled={loading}
               type="submit"
               variant="contained"
-              sx={{ width: '11.5rem' }}
+              sx={{ width: { md: '100%', lg: '11.5rem' } }}
               id="submit-btn"
             >
               {edit ? 'Зберегти зміни' : 'Опублікувати'}

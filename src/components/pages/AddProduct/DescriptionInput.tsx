@@ -17,7 +17,7 @@ export const DescriptionInput: React.FC<InputProps> = ({
         control={control}
         name="description"
         render={({ field: { onBlur, onChange, value } }) => (
-          <Stack width="47.5rem">
+          <Stack width={{ md: '100%', lg: '47.5rem' }}>
             <StyledFormLabel required>Опис</StyledFormLabel>
             <TextField
               multiline
