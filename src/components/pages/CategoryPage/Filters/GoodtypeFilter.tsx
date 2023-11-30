@@ -128,6 +128,7 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
           direction='row'
           alignItems='baseline'
           onChange={handleGoodtypeChange}
+          sx={{ mb: '1rem' }}
         >
           <FilterText primary='За станом' />
           <RadioGroup
@@ -135,7 +136,6 @@ const GoodtypeFilter: React.FC<CategoryFilterProps> = ({
               mb: 1,
               display: 'flex',
               flexDirection: 'row',
-              // columnGap: '1rem'
             }}
           >
             <GoodtypeFormControlLabelMobile
