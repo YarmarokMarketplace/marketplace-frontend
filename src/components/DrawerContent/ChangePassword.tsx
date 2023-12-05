@@ -5,6 +5,8 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 
@@ -17,6 +19,7 @@ import {
   StyledLabel,
   StyledChangePassBtn,
   StyledVector,
+  StyledTypography,
 } from './style';
 import success from '../../img/success.svg';
 
@@ -56,6 +59,8 @@ const changePasswordSchema = yup.object().shape({
 const ChangePassword = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { loading, error, passWrongError, isChanged } = useSelector(
     changePasswordSelector
   );
@@ -100,15 +105,15 @@ const ChangePassword = () => {
 
   const changePasswordMessage = () => {
     return (
-      <Stack alignItems="center" textAlign="center" spacing={4} width="20.5rem">
+      <Stack alignItems='center' textAlign='center' spacing={4} width='20.5rem'>
         <StyledVector>
-          <img src={success} alt="success-vector" />
+          <img src={success} alt='success-vector' />
         </StyledVector>
-        <Typography color="primary.main" variant="h4">
+        <StyledTypography color='primary.main' variant='h4'>
           Ваш пароль успішно змінений!
-        </Typography>
-        <Stack alignItems="center" spacing={2} width="15.5rem">
-          <Typography color="primary.dark">
+        </StyledTypography>
+        <Stack alignItems='center' spacing={2} width='15.5rem'>
+          <Typography color='primary.dark'>
             Для того щоб мати змогу купувати та продавати
             <br />
             вам необхідно авторизуватись ще раз.
@@ -119,17 +124,17 @@ const ChangePassword = () => {
   };
 
   return (
-    <Stack alignItems="center">
+    <Stack alignItems='center'>
       {isChanged ? (
         changePasswordMessage()
       ) : (
         <>
-          <Typography padding={2} color="primary.main" variant="h4">
+          <Typography padding={2} color='primary.main' variant='h4'>
             Зміна паролю
           </Typography>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            id="change-password-form"
+            id='change-password-form'
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -137,14 +142,14 @@ const ChangePassword = () => {
             }}
           >
             <input
-              type="text"
-              name="username"
+              type='text'
+              name='username'
               style={{ display: 'none' }}
               defaultValue={name}
-              autoComplete="username"
+              autoComplete='username'
             />
             <StyledBox>
-              <Typography fontSize="1rem" fontWeight={500}>
+              <Typography fontSize='1rem' fontWeight={500}>
                 Після зміни паролю, вам необхідно повторно авторизуватись!
               </Typography>
 
@@ -152,7 +157,7 @@ const ChangePassword = () => {
                 <StyledLabel>Ваш поточний пароль</StyledLabel>
                 <Controller
                   control={control}
-                  name="password"
+                  name='password'
                   render={({ field }) => (
                     <StyledInput
                       type={showPassword ? 'text' : 'password'}
@@ -164,7 +169,7 @@ const ChangePassword = () => {
                       error={Boolean(errors.password) || passWrongError}
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position="end">
+                          <InputAdornment position='end'>
                             <IconButton
                               onClick={() => setShowPassword(!showPassword)}
                             >
@@ -191,9 +196,9 @@ const ChangePassword = () => {
                         sx: { paddingRight: 1 },
                       }}
                       {...field}
-                      id="password"
-                      size="small"
-                      autoComplete="password"
+                      id='password'
+                      size='small'
+                      autoComplete='password'
                     />
                   )}
                 />
@@ -202,7 +207,7 @@ const ChangePassword = () => {
                 <StyledLabel>Новий пароль</StyledLabel>
                 <Controller
                   control={control}
-                  name="newPassword"
+                  name='newPassword'
                   render={({ field }) => (
                     <StyledInput
                       type={showNewPassword ? 'text' : 'password'}
@@ -210,7 +215,7 @@ const ChangePassword = () => {
                       error={Boolean(errors.newPassword)}
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position="end">
+                          <InputAdornment position='end'>
                             <IconButton
                               onClick={() =>
                                 setShowNewPassword(!showNewPassword)
@@ -239,9 +244,9 @@ const ChangePassword = () => {
                         sx: { paddingRight: 1 },
                       }}
                       {...field}
-                      id="new-password"
-                      size="small"
-                      autoComplete="new-password"
+                      id='new-password'
+                      size='small'
+                      autoComplete='new-password'
                     />
                   )}
                 />
@@ -249,23 +254,23 @@ const ChangePassword = () => {
             </StyledBox>
 
             <Stack
-              direction="row"
-              justifyContent="center"
+              direction='row'
+              justifyContent='center'
               spacing={2}
-              width="90%"
+              width={isSmScreen ? '100%' : '90%'}
             >
               <StyledChangePassBtn
-                id="change-pass-btn"
-                color="primary"
-                variant="contained"
-                type="submit"
+                id='change-pass-btn'
+                color='primary'
+                variant='contained'
+                type='submit'
                 disabled={!isValid}
               >
                 Змінити
               </StyledChangePassBtn>
               <StyledChangePassBtn
                 onClick={handleCloseDrawer}
-                variant="outlined"
+                variant='outlined'
               >
                 Скасувати
               </StyledChangePassBtn>

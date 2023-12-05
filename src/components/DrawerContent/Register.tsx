@@ -19,6 +19,7 @@ import {
   StyledLink,
   StyledLoginBtn,
   StyledVector,
+  StyledTypography,
 } from './style';
 import { AppDispatch } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -125,18 +126,18 @@ const Register = () => {
   };
 
   return (
-    <Stack alignItems="center">
+    <Stack alignItems='center'>
       {isAuth ? (
-        <Stack spacing={4} alignItems="center" textAlign="center">
+        <Stack spacing={4} alignItems='center' textAlign='center'>
           <StyledVector>
-            <img src={success} alt="success-vector" />
+            <img src={success} alt='success-vector' />
           </StyledVector>
-          <Typography color="primary.main" width="15rem" variant="h4">
+          <StyledTypography color='primary.main' width='15rem' variant='h4'>
             Вітаємо на нашому маркетплейсі YARMAROK!{' '}
-          </Typography>
+          </StyledTypography>
           <Stack spacing={2}>
-            <Typography color="primary.dark">Дякуємо за реєстрацію!</Typography>
-            <Typography color="primary.dark" width="15rem">
+            <Typography color='primary.dark'>Дякуємо за реєстрацію!</Typography>
+            <Typography color='primary.dark' width='15rem'>
               Щоб завершити процес реєстрації, будь ласка, підтвердьте свою
               адресу електронної пошти.
             </Typography>
@@ -144,12 +145,12 @@ const Register = () => {
         </Stack>
       ) : (
         <>
-          <Typography padding={2} color="primary.main" variant="h4">
+          <Typography padding={2} color='primary.main' variant='h4'>
             Зареєструватися
           </Typography>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            id="register-form"
+            id='register-form'
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -158,10 +159,10 @@ const Register = () => {
           >
             <StyledBox>
               <Stack spacing={1}>
-                <Typography fontWeight={700} variant="body1">
+                <Typography fontWeight={700} variant='body1'>
                   Створити профіль
                 </Typography>
-                <Typography variant="subtitle2">
+                <Typography variant='subtitle2'>
                   Заповніть всі поля, щоб створити свій профіль та мати змогу
                   продавати та купувати
                 </Typography>
@@ -170,19 +171,19 @@ const Register = () => {
                 <StyledLabel>Ваше імʼя</StyledLabel>
                 <Controller
                   control={control}
-                  name="name"
+                  name='name'
                   render={({ field }) => (
                     <StyledInput
                       helperText={errors.name?.message}
                       error={Boolean(errors.name)}
-                      id="name"
+                      id='name'
                       disabled={loading}
                       {...field}
-                      size="small"
+                      size='small'
                       InputProps={{
                         endAdornment: errors.name && (
                           <InfoOutlinedIcon
-                            color="error"
+                            color='error'
                             sx={{ fontSize: '1rem' }}
                           />
                         ),
@@ -195,7 +196,7 @@ const Register = () => {
                 <StyledLabel>Ваша електронна пошта</StyledLabel>
                 <Controller
                   control={control}
-                  name="email"
+                  name='email'
                   render={({ field }) => (
                     <StyledInput
                       helperText={
@@ -210,16 +211,16 @@ const Register = () => {
                         emailError ||
                         requestLimitError
                       }
-                      id="email"
+                      id='email'
                       disabled={loading}
                       {...field}
-                      size="small"
+                      size='small'
                       InputProps={{
                         endAdornment: (errors.email ||
                           emailError ||
                           requestLimitError) && (
                           <InfoOutlinedIcon
-                            color="error"
+                            color='error'
                             sx={{ fontSize: '1rem' }}
                           />
                         ),
@@ -232,7 +233,7 @@ const Register = () => {
                 <StyledLabel>Ваш надійний пароль</StyledLabel>
                 <Controller
                   control={control}
-                  name="password"
+                  name='password'
                   render={({ field }) => (
                     <StyledInput
                       type={showPassword ? 'text' : 'password'}
@@ -243,12 +244,12 @@ const Register = () => {
                         trigger('confirmPassword');
                         field.onChange(event);
                       }}
-                      id="password"
+                      id='password'
                       disabled={loading}
-                      size="small"
+                      size='small'
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position="end">
+                          <InputAdornment position='end'>
                             <IconButton
                               onClick={() => handlePasswordDisplay('password')}
                             >
@@ -282,19 +283,19 @@ const Register = () => {
                 <StyledLabel>Повторіть пароль</StyledLabel>
                 <Controller
                   control={control}
-                  name="confirmPassword"
+                  name='confirmPassword'
                   render={({ field }) => (
                     <StyledInput
                       helperText={errors.confirmPassword?.message}
                       error={Boolean(errors.confirmPassword)}
                       type={showConfirmPassword ? 'text' : 'password'}
                       disabled={loading}
-                      id="confirmPassword"
+                      id='confirmPassword'
                       {...field}
-                      size="small"
+                      size='small'
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position="end">
+                          <InputAdornment position='end'>
                             <IconButton
                               onClick={() =>
                                 handlePasswordDisplay('confirmPassword')
@@ -326,9 +327,9 @@ const Register = () => {
                   )}
                 />
               </FormControl>
-              <Typography variant="subtitle2">
+              <Typography variant='subtitle2'>
                 Створюючи профіль на YARMAROK, ви погоджуєтесь{' '}
-                <StyledLink id="rules-link" to="/rules" target="_blank">
+                <StyledLink id='rules-link' to='/rules' target='_blank'>
                   з умовами використання
                 </StyledLink>
               </Typography>
@@ -341,27 +342,27 @@ const Register = () => {
                 fontWeight: 600,
                 paddingY: 1,
               }}
-              color="primary"
-              variant="contained"
-              type="submit"
-              id="register-btn"
+              color='primary'
+              variant='contained'
+              type='submit'
+              id='register-btn'
               disabled={!isValid || loading}
             >
               Зареєструватись
             </Button>
           </form>
           <SocialAuth />
-          <Stack mt={2} direction="row" alignItems="center">
-            <Typography variant="caption">Вже зареєстрований?</Typography>
+          <Stack mt={2} direction='row' alignItems='center'>
+            <Typography variant='caption'>Вже зареєстрований?</Typography>
 
             <StyledLoginBtn
               sx={{ fontSize: '0.75rem' }}
-              variant="text"
-              color="primary"
-              size="small"
-              id="login-redirect"
+              variant='text'
+              color='primary'
+              size='small'
+              id='login-redirect'
               disableTouchRipple
-              title="hello"
+              title='hello'
               onClick={handleLoginRedirect}
             >
               Увійти
