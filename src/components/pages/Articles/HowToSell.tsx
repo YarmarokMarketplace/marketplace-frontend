@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Stack, Typography } from '@mui/material';
 import sell from '../../../img/sell.png';
+import { HowToContainer } from './style';
 
 const HowToSell = () => {
   return (
-    <Container maxWidth="xl" disableGutters>
+    <HowToContainer maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Як продавати на Yarmarok</Typography>
         <Stack spacing={3}>
@@ -40,7 +41,7 @@ const HowToSell = () => {
           </Typography>
         </Stack>
       </Stack>
-    </Container>
+    </HowToContainer>
   );
 };
 
