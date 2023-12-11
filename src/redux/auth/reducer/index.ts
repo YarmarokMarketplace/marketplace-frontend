@@ -29,6 +29,7 @@ import {
   isPassChangedReset,
   passWrongErrorToggle,
   emailInUseErrorToggle,
+  emailPatternErrorToggle,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -48,6 +49,7 @@ export interface UserAuthState {
     error: boolean;
     isAuth: boolean;
     emailError: boolean;
+    emailPattern: boolean;
     requestLimitError: boolean;
   };
   login: {
@@ -121,6 +123,7 @@ const initialState: UserAuthState = {
     error: false,
     isAuth: false,
     emailError: false,
+    emailPattern: false,
     requestLimitError: false,
   },
   login: {
@@ -201,6 +204,7 @@ export const userAuthSlice = createSlice({
     isPassChangedReset,
     passWrongErrorToggle,
     emailInUseErrorToggle,
+    emailPatternErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -402,6 +406,7 @@ export const {
   isPassChangedReset: isPassChangedResetAction,
   passWrongErrorToggle: passWrongErrorToggleAction,
   emailInUseErrorToggle: emailInUseErrorToggleAction,
+  emailPatternErrorToggle: emailPatternErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

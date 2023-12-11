@@ -10,6 +10,13 @@ export const emailErrorToggle = (
   state.forgotPassword.emailError = action.payload;
 };
 
+export const emailPatternErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.register.emailPattern = action.payload;
+};
+
 export const isAuthReset = (state: UserAuthState) => {
   state.register.isAuth = false;
 };
@@ -63,7 +70,7 @@ export const updateUserState = (
   action: PayloadAction<UserUpdatePayload>
 ) => {
   console.log(action.payload);
-  state.login.user = action.payload;
+  state.user = action.payload;
 };
 
 export const successMessageToggle = (
@@ -95,8 +102,8 @@ export const socialLoginUserSet = (
   state: UserAuthState,
   action: PayloadAction<{ name: string; email: string }>
 ) => {
-  state.login.user.name = action.payload.name;
-  state.login.user.email = action.payload.email;
+  state.user.name = action.payload.name;
+  state.user.email = action.payload.email;
 };
 
 export const isSocialLoginSet = (
