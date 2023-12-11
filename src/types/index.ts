@@ -23,6 +23,8 @@ export interface ProductItem {
   active?: boolean;
   contactName: string;
   contactNumber: string;
+  contactsViews: number;
+  views: number;
 }
 
 export interface ProductListResponse {
