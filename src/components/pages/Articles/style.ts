@@ -54,7 +54,7 @@ export const StyledListItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-export const StyledListTabletContentItem = styled(Box)(({ theme }) => ({
+export const StyledListTabletContentItem = styled(Box)(({ theme, hidden }) => ({
   color: theme.palette.text.primary,
   fontSize: '0.75rem',
   fontWeight: 500,
@@ -63,7 +63,9 @@ export const StyledListTabletContentItem = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   padding: theme.spacing(1),
   borderRadius: '8px',
-  background: theme.palette.white,
+  border: hidden ? `1px solid ${theme.palette.primary.light}` : 'none',
+
+  background: hidden ? theme.palette.primary.contrastText : theme.palette.white,
   boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
   p: {
     '::before': {

@@ -15,7 +15,20 @@ import {
   StyledListTabletContentItem,
   StyledNavLink,
 } from './style';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
+import {
+  RulesOfUse,
+  InfoPresentation,
+  InfoContent,
+  ProhibitedGoods,
+  PrivacyPolicy,
+  SecurityRules,
+  ProhibitedServices,
+  Activities,
+} from './';
+import NotFoundPage from 'src/components/NotFoundPage';
+import HowToBuy from './HowToBuy';
+import HowToSell from './HowToSell';
 
 const pathNames = ['general', 'info', 'prohibited', 'activities'];
 
@@ -38,9 +51,11 @@ export const TabletContent = () => {
       <Typography fontWeight={700} variant="h6">
         Зміст
       </Typography>
+
       <List>
         <StyledListTabletContentItem
           onClick={() => setTermsExpanded(!termsExpanded)}
+          hidden={termsExpanded}
         >
           <Typography variant="body1">Умови використання</Typography>
           <IconButton>
@@ -88,11 +103,29 @@ export const TabletContent = () => {
               Види діяльності
             </StyledNavLink>
           </ListItem>
+          <Routes>
+            <Route path="general-requirements" element={<RulesOfUse />}></Route>
+            <Route
+              path="info-presentation"
+              element={<InfoPresentation />}
+            ></Route>
+            <Route path="info-content" element={<InfoContent />}></Route>
+            <Route
+              path="prohibited-goods"
+              element={<ProhibitedGoods />}
+            ></Route>
+            <Route
+              path="prohibited-services"
+              element={<ProhibitedServices />}
+            ></Route>
+            <Route path="activities" element={<Activities />}></Route>
+          </Routes>
         </Collapse>
       </List>
       <List>
         <StyledListTabletContentItem
           onClick={() => setHowToExpanded(!howToExpanded)}
+          hidden={howToExpanded}
         >
           <Typography variant="body1">
             Посібник з покупок на Yarmarok
@@ -116,11 +149,16 @@ export const TabletContent = () => {
               Як продавати на Yarmarok
             </StyledNavLink>
           </ListItem>
+          <Routes>
+            <Route path="how-to-buy" element={<HowToBuy />}></Route>
+            <Route path="how-to-sell" element={<HowToSell />}></Route>
+          </Routes>
         </Collapse>
       </List>
       <List>
         <StyledListTabletContentItem
           onClick={() => setRulesExpanded(!rulesExpanded)}
+          hidden={rulesExpanded}
         >
           <Typography variant="body1">Правила безпеки</Typography>
           <IconButton>
@@ -137,12 +175,16 @@ export const TabletContent = () => {
               Як захистити себе при купівлі товарів через Інтернет
             </StyledNavLink>
           </ListItem>
+          <Routes>
+            <Route path="security-rules" element={<SecurityRules />}></Route>
+          </Routes>
         </Collapse>
       </List>
       <List>
         <StyledListTabletContentItem
           onClick={() => setPrivacyExpanded(!privacyExpanded)}
           sx={{ padding: '16px 16px 16px 8px' }}
+          hidden={privacyExpanded}
         >
           <Typography variant="body1">Політика конфіденційності</Typography>
           {privacyExpanded ? (
@@ -157,6 +199,9 @@ export const TabletContent = () => {
               Загальні положення
             </StyledNavLink>
           </ListItem>
+          <Routes>
+            <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
+          </Routes>
         </Collapse>
       </List>
     </List>

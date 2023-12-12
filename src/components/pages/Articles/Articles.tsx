@@ -54,28 +54,6 @@ const Articles = () => {
       ) : (
         <>
           <TabletContent />
-          <Routes>
-            <Route path="general-requirements" element={<RulesOfUse />}></Route>
-            <Route
-              path="info-presentation"
-              element={<InfoPresentation />}
-            ></Route>
-            <Route path="info-content" element={<InfoContent />}></Route>
-            <Route
-              path="prohibited-goods"
-              element={<ProhibitedGoods />}
-            ></Route>
-            <Route
-              path="prohibited-services"
-              element={<ProhibitedServices />}
-            ></Route>
-            <Route path="how-to-buy" element={<HowToBuy />}></Route>
-            <Route path="how-to-sell" element={<HowToSell />}></Route>
-            <Route path="activities" element={<Activities />}></Route>
-            <Route path="security-rules" element={<SecurityRules />}></Route>
-            <Route path="privacy-policy" element={<PrivacyPolicy />}></Route>
-            <Route path="*" element={<NotFoundPage />}></Route>
-          </Routes>
           <CustomBottomNavigation pathname={pathname} />
         </>
       )}
