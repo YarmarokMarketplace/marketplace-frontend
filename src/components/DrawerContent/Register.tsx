@@ -80,7 +80,7 @@ const Register = () => {
     isAuth,
     emailError,
     requestLimitError,
-    emailPattern,
+    emailPatternError,
   } = useSelector(userRegisterStateSelector);
 
   const {
@@ -210,7 +210,7 @@ const Register = () => {
                           ? 'Обліковий запис з такою електронною адресою вже існує. Будь ласка, виберіть іншу адресу або використайте опцію відновлення пароля.'
                           : requestLimitError
                           ? 'Забагато запитів, повторіть спробу через 24 години'
-                          : emailPattern
+                          : emailPatternError
                           ? 'Некоректна електронна адреса. Перевірте правильність введення електронної адреси.'
                           : errors.email?.message
                       }
@@ -218,7 +218,7 @@ const Register = () => {
                         Boolean(errors?.email) ||
                         emailError ||
                         requestLimitError ||
-                        emailPattern
+                        emailPatternError
                       }
                       id="email"
                       disabled={loading}

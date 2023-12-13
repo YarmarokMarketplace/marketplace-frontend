@@ -14,7 +14,14 @@ export const emailPatternErrorToggle = (
   state: UserAuthState,
   action: PayloadAction<boolean>
 ) => {
-  state.register.emailPattern = action.payload;
+  state.register.emailPatternError = action.payload;
+};
+
+export const emailPatternLoginErrorToggle = (
+  state: UserAuthState,
+  action: PayloadAction<boolean>
+) => {
+  state.login.emailPatternError = action.payload;
 };
 
 export const isAuthReset = (state: UserAuthState) => {
