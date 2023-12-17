@@ -27,12 +27,12 @@ const CustomModal = () => {
       <Modal
         open={open}
         onClose={handleToggleModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <StyledBox>
-          <StyledIconButton color="inherit" onClick={handleToggleModal}>
-            <CloseIcon fontSize="medium" />
+          <StyledIconButton color='inherit' onClick={handleToggleModal}>
+            <CloseIcon fontSize='medium' />
           </StyledIconButton>
 
           {content == ModalContent.logout && <LogoutModal />}

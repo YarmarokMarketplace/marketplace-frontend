@@ -13,6 +13,7 @@ import userAuthReducer from 'redux/auth/reducer';
 import addAdvert from '../../components/pages/AddProduct/reducer';
 import profile from 'redux/profile/reducer';
 import orders from 'redux/orders/reducer';
+import profileDrawer from '../../components/ProfileMenuDrawer/reducer';
 
 const persistConfig = {
   key: 'authData',
@@ -38,4 +39,5 @@ export default combineReducers({
   addAdvert: persistedAdvertReducer,
   profile,
   orders,
+  profileDrawer,
 });

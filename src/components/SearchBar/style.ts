@@ -48,3 +48,15 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.white,
   padding: theme.spacing(2, 3, 6),
 }));
+
+export const ProfileButton = styled(Button)(({ theme }) => ({
+  // backgroundColor: theme.palette.primary.contrastText,
+  borderColor: theme.palette.primary.contrastText,
+  // padding: theme.spacing(1, 5),
+  position: 'absolute',
+  right: theme.spacing(0.5),
+  width: theme.spacing(0.5),
+  '& .MuiButton-startIcon': {
+    margin: 0,
+  },
+}));
