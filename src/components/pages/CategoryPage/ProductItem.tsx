@@ -120,12 +120,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product, productList }) => {
                 fontSize: '0.75rem',
                 fontWeight: '500',
                 pb: '.5rem',
-                minHeight: {
-                  xs: '42px',
-                  sm: '42px',
-                  md: '42px',
-                  lg: 'fit-content',
-                },
+                minHeight: { xs: '42px', sm: '42px', md: 'fit-content' },
               }}
             >
               {location} -{<Moment format="DD/MM/YY">{createdAt}</Moment>}

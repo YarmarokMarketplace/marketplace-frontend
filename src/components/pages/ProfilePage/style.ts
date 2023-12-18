@@ -69,6 +69,7 @@ export const NoAdsContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.white,
   display: 'flex',
   flexDirection: 'column',
+  textAlign: 'center',
   justifyContent: 'center',
   alignItems: 'center',
   boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
@@ -80,14 +81,16 @@ export const NoAdsContainer = styled(Box)(({ theme }) => ({
 export const GridProductsWrapper = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr 1fr',
-  width: '61.5rem',
+  width: '100%',
+
   gridGap: theme.spacing(2),
   //   marginBottom: theme.spacing(8),
   [theme.breakpoints.down('lg')]: {
-    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr',
+    width: '100%',
   },
   [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr',
   },
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr 1fr',

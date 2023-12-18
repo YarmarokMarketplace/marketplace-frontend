@@ -36,6 +36,7 @@ import OwnAdsTab from './OwnAdsTab/OwnAdsTab';
 import SellProducts from './SellProducts/SellProducts';
 import BuyProducts from './BuyProducts/BuyProducts';
 import FavProducts from './FavProducts/FavProducts';
+import SearchBar from 'src/components/SearchBar';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -60,47 +61,47 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Stack direction='row' alignItems='flex-start' gap='1.5rem'>
+    <Stack direction="row" alignItems="flex-start" gap="1.5rem">
       {!isSmScreen && (
         <MenuContainer>
           <Box>
-            <Typography variant='body1' fontWeight='700'>
+            <Typography variant="body1" fontWeight="700">
               {name}
             </Typography>
-            <Typography variant='body2' color='#8D9092'>
+            <Typography variant="body2" color="#8D9092">
               {email}
             </Typography>
           </Box>
           <Divider sx={{ mt: '.5rem', mb: '1.5rem' }} />
-          <Stack gap='1rem' mb='3.5rem'>
-            <StyledLink id='profile-advert' to='own-ads'>
+          <Stack gap="1rem" mb="3.5rem">
+            <StyledLink id="profile-advert" to="own-ads">
               Оголошення
             </StyledLink>
-            <Stack direction='row' gap={1} alignItems='center'>
-              <StyledLink id='profile-sell' to='sell'>
+            <Stack direction="row" gap={1} alignItems="center">
+              <StyledLink id="profile-sell" to="sell">
                 Продаю
               </StyledLink>
-              <StyledNotification color='primary' variant='dot' />
+              <StyledNotification color="primary" variant="dot" />
             </Stack>
-            <Stack direction='row' gap={1} alignItems='center'>
-              <StyledLink id='profile-buy' to='buy'>
+            <Stack direction="row" gap={1} alignItems="center">
+              <StyledLink id="profile-buy" to="buy">
                 Купую
               </StyledLink>
-              <StyledNotification color='primary' variant='dot' />
+              <StyledNotification color="primary" variant="dot" />
             </Stack>
-            <StyledLink id='profile-selected' to='favourites'>
+            <StyledLink id="profile-selected" to="favourites">
               Обране
             </StyledLink>
-            <StyledLink id='profile-viewed' to='viewed'>
+            <StyledLink id="profile-viewed" to="viewed">
               Переглянуті товари
             </StyledLink>
-            <StyledLink id='profile-settings' to='settings'>
+            <StyledLink id="profile-settings" to="settings">
               Налаштування
             </StyledLink>
           </Stack>
 
           <StyledButton
-            variant='text'
+            variant="text"
             endIcon={<LogoutIcon />}
             onClick={handleClickLogout}
           >
@@ -108,14 +109,13 @@ const ProfilePage = () => {
           </StyledButton>
         </MenuContainer>
       )}
-
       <Routes>
-        <Route path='settings' element={<SettingsTab />} />
-        <Route path='viewed' element={<ViewedProducts />} />
-        <Route path='own-ads' element={<OwnAdsTab />} />
-        <Route path='sell' element={<SellProducts />} />
-        <Route path='buy' element={<BuyProducts />} />
-        <Route path='favourites' element={<FavProducts />} />
+        <Route path="settings" element={<SettingsTab />} />
+        <Route path="viewed" element={<ViewedProducts />} />
+        <Route path="own-ads" element={<OwnAdsTab />} />
+        <Route path="sell" element={<SellProducts />} />
+        <Route path="buy" element={<BuyProducts />} />
+        <Route path="favourites" element={<FavProducts />} />
       </Routes>
     </Stack>
   );

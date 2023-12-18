@@ -5,13 +5,16 @@ import {
   StyledAdsContainer,
   StyledTitleContainer,
 } from '../style';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ProductItem as ProductItemType } from 'src/types';
 import ProductItem from '../../CategoryPage/ProductItem';
 import ProfilePagination from '../ProfilePagination';
 import NoProductMessage from '../NoProductMessage';
 
 import placeholderImage from '../../../../img/no-fav-product.png';
+import SearchBar from 'src/components/SearchBar';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
+import { useLocation } from 'react-router-dom';
 
 const ViewedProducts = () => {
   const [page, setPage] = useState<number>(1);
@@ -21,6 +24,10 @@ const ViewedProducts = () => {
   const [endOffset, setEndOffset] = useState<number>(0);
   const [products, setProducts] = useState<ProductItemType[] | []>([]);
   const [productList, setProductList] = useState<ProductItemType[] | []>([]);
+  const { pathname } = useLocation();
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const viewed: ProductItemType[] = JSON.parse(
@@ -48,6 +55,7 @@ const ViewedProducts = () => {
 
   return (
     <StyledAdsContainer>
+      {isSmScreen && <SearchBar />}
       <StyledTitleContainer>
         <Typography variant="h4">Переглянуті товари</Typography>
       </StyledTitleContainer>
@@ -80,6 +88,7 @@ const ViewedProducts = () => {
           </Typography>
         </NoProductMessage>
       )}
+      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledAdsContainer>
   );
 };

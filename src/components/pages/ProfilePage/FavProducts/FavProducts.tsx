@@ -4,7 +4,13 @@ import {
   StyledAdsContainer,
   StyledTitleContainer,
 } from '../style';
-import { Skeleton, Stack, Typography } from '@mui/material';
+import {
+  Skeleton,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import ProductItem from '../../CategoryPage/ProductItem';
 import ProfilePagination from '../ProfilePagination';
 import NoProductMessage from '../NoProductMessage';
@@ -21,6 +27,9 @@ import {
   currentFavPageSetAction,
   offsetFavSetAction,
 } from 'redux/profile/reducer';
+import SearchBar from 'src/components/SearchBar';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
+import { useLocation } from 'react-router-dom';
 
 const FavProducts = () => {
   const { loading, error, data, page, offset, itemsPerPage } =
@@ -33,6 +42,10 @@ const FavProducts = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const favoriteList = useSelector(profileStateSelector).favorites;
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(userFavoritesProductsListFetch());
@@ -61,6 +74,8 @@ const FavProducts = () => {
 
   return (
     <StyledAdsContainer>
+      {isSmScreen && <SearchBar />}
+
       <StyledTitleContainer>
         <Typography variant="h4">Обране</Typography>
       </StyledTitleContainer>
@@ -131,6 +146,7 @@ const FavProducts = () => {
           </Typography>
         </NoProductMessage>
       )}
+      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledAdsContainer>
   );
 };
