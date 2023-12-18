@@ -95,15 +95,21 @@ const FavProducts = () => {
         {loading &&
           Array.from(Array(8).keys()).map((item, index) => {
             return (
-              <Stack key={index} gap={1} p={2}>
+              <Stack key={index} gap={1} p={2} width="100%">
                 <Skeleton
                   animation="wave"
                   variant="rounded"
-                  sx={{ height: '12.5rem', width: '12.5rem' }}
+                  sx={{
+                    height: '12.5rem',
+                    width: { xs: '10rem', sm: '12.5rem' },
+                  }}
                 />
                 <Skeleton
                   animation="wave"
-                  sx={{ height: '2.438rem', width: '12rem' }}
+                  sx={{
+                    height: '2.438rem',
+                    width: { xs: '10rem', sm: '12rem' },
+                  }}
                   variant="rounded"
                 />
                 <Skeleton
