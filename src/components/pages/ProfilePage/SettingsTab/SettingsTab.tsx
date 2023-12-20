@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Tabs, Typography } from '@mui/material';
+import { Tabs, Typography, useTheme } from '@mui/material';
 import { SettingsContainer, StyledTab, BoxShadowContainer } from './style';
 import PersonalData from './PersonalData';
 import Login_Password from './Login_Password';
@@ -16,7 +16,7 @@ function CustomTabPanel(props: TabPanelProps) {
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`profile-tabpanel-${index}`}
       aria-labelledby={`profile-tab-${index}`}
@@ -30,6 +30,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 const SettingsTab = () => {
+  const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -39,7 +40,16 @@ const SettingsTab = () => {
   return (
     <SettingsContainer>
       <BoxShadowContainer sx={{ mb: 2 }}>
-        <Typography variant="h4">Налаштування</Typography>
+        <Typography
+          variant='h4'
+          sx={{
+            [theme.breakpoints.down('sm')]: {
+              fontSize: '1.125rem',
+            },
+          }}
+        >
+          Налаштування
+        </Typography>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -56,14 +66,14 @@ const SettingsTab = () => {
           }}
         >
           <StyledTab
-            label="Персональні дані"
-            id="profile-tab-0"
-            aria-controls="profile-tabpanel-0"
+            label='Персональні дані'
+            id='profile-tab-0'
+            aria-controls='profile-tabpanel-0'
           />
           <StyledTab
-            label="Логін та пароль"
-            id="profile-tab-1"
-            aria-controls="profile-tabpanel-1"
+            label='Логін та пароль'
+            id='profile-tab-1'
+            aria-controls='profile-tabpanel-1'
           />
         </Tabs>
       </BoxShadowContainer>
