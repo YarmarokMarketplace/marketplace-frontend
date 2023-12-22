@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+     types: [opened, reopened, synchronize]
 
 jobs:
   build:
@@ -56,7 +58,10 @@ jobs:
           echo "Build started at: $start_time"
           echo "Build finished at: $end_time"
           echo "Build duration: ${duration_minutes} min ${duration_seconds} sec"
-
+          
+      - name: Deploy Preview (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: "npx netlify-cli deploy --dir=build --message 'Deploy Preview: ${{ github.event.pull_request.head.ref }} - ${{ github.event.head_commit.message }} --prod=false"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -72,6 +77,7 @@ jobs:
         run: npm list --depth=0
 
       - name: Deploy to Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           deploy_start_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
