@@ -58,7 +58,12 @@ jobs:
           echo "Build started at: $start_time"
           echo "Build finished at: $end_time"
           echo "Build duration: ${duration_minutes} min ${duration_seconds} sec"
-          
+
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          REACT_APP_API: ${{ secrets.REACT_APP_API }}
+        
       - name: Deploy Preview (Pull Request)
         if: github.event_name == 'pull_request'
         run: "npx netlify-cli deploy --dir=build --message 'Deploy Preview: ${{ github.event.pull_request.head.ref }} - ${{ github.event.head_commit.message }} --prod=false"
