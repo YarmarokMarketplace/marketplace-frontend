@@ -18,12 +18,6 @@ import AddProduct from '../pages/AddProduct';
 import ResetPassword from '../pages/ResetPassword/ResetPassword';
 import SearchPage from '../pages/SearchPage';
 import { CategoryListPage } from '../pages/HomePage/CategoryListModal';
-import BuyProducts from '../pages/ProfilePage/BuyProducts/BuyProducts';
-import SellProducts from '../pages/ProfilePage/SellProducts/SellProducts';
-import FavProducts from '../pages/ProfilePage/FavProducts/FavProducts';
-import OwnAdsTab from '../pages/ProfilePage/OwnAdsTab/OwnAdsTab';
-import ViewedProducts from '../pages/ProfilePage/ViewedProducts/ViewedProducts';
-import SettingsTab from '../pages/ProfilePage/SettingsTab/SettingsTab';
 
 const EditProduct = lazy(() => import('../pages/AddProduct/EditProduct'));
 
@@ -67,15 +61,6 @@ const App: React.FC = () => {
               path='/api/auth/reset-password/:resetId/:resetToken'
               element={<ResetPassword />}
             />
-
-            {/* Mobile profile */}
-            <Route path='/mobile/own-ads' index element={<OwnAdsTab />} />
-            <Route path='/mobile/sell' index element={<SellProducts />} />
-            <Route path='/mobile/buy' index element={<BuyProducts />} />
-            <Route path='/mobile/favourites' index element={<FavProducts />} />
-            <Route path='/mobile/viewed' index element={<ViewedProducts />} />
-            <Route path='/mobile/settings' index element={<SettingsTab />} />
-
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Layout>

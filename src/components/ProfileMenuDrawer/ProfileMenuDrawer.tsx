@@ -164,37 +164,37 @@ const ProfileMenuDrawer = () => {
           >
             <StyledNavigateButton
               id='mobile-advert'
-              data-navigate-link='/mobile/own-ads'
+              data-navigate-link='/profile/own-ads'
             >
               Оголошення
             </StyledNavigateButton>
             <StyledNavigateButton
               id='mobile-sell'
-              data-navigate-link='/mobile/sell'
+              data-navigate-link='/profile/sell'
             >
               Продаю
             </StyledNavigateButton>
             <StyledNavigateButton
               id='mobile-buy'
-              data-navigate-link='/mobile/buy'
+              data-navigate-link='/profile/buy'
             >
               Купую
             </StyledNavigateButton>
             <StyledNavigateButton
               id='mobile-selected'
-              data-navigate-link='/mobile/favourites'
+              data-navigate-link='/profile/favourites'
             >
               Обране
             </StyledNavigateButton>
             <StyledNavigateButton
               id='mobile-viewed'
-              data-navigate-link='/mobile/viewed'
+              data-navigate-link='/profile/viewed'
             >
               Переглянуті товари
             </StyledNavigateButton>
             <StyledNavigateButton
               id='mobile-settings'
-              data-navigate-link='/mobile/settings'
+              data-navigate-link='/profile/settings'
             >
               Налаштування
             </StyledNavigateButton>

@@ -10,7 +10,15 @@ import {
   userLoginStateSelector,
   getUserStateSelector,
 } from 'redux/auth/selector';
-import { Box, Typography, Stack, Divider, Badge } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Stack,
+  Divider,
+  Badge,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   MenuContainer,
   StyledLink,
@@ -32,8 +40,11 @@ import FavProducts from './FavProducts/FavProducts';
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
   const { isLogin } = useSelector(userLoginStateSelector);
   const { name, email } = useSelector(getUserStateSelector);
+
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleMenuClick = (event: React.MouseEvent<HTMLLIElement>) => {};
 
@@ -49,59 +60,62 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Stack direction="row" alignItems="flex-start" gap="1.5rem">
-      <MenuContainer>
-        <Box>
-          <Typography variant="body1" fontWeight="700">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="#8D9092">
-            {email}
-          </Typography>
-        </Box>
-        <Divider sx={{ mt: '.5rem', mb: '1.5rem' }} />
-        <Stack gap="1rem" mb="3.5rem">
-          <StyledLink id="profile-advert" to="own-ads">
-            Оголошення
-          </StyledLink>
-          <Stack direction="row" gap={1} alignItems="center">
-            <StyledLink id="profile-sell" to="sell">
-              Продаю
+    <Stack direction='row' alignItems='flex-start' gap='1.5rem'>
+      {!isSmScreen && (
+        <MenuContainer>
+          <Box>
+            <Typography variant='body1' fontWeight='700'>
+              {name}
+            </Typography>
+            <Typography variant='body2' color='#8D9092'>
+              {email}
+            </Typography>
+          </Box>
+          <Divider sx={{ mt: '.5rem', mb: '1.5rem' }} />
+          <Stack gap='1rem' mb='3.5rem'>
+            <StyledLink id='profile-advert' to='own-ads'>
+              Оголошення
             </StyledLink>
-            <StyledNotification color="primary" variant="dot" />
-          </Stack>
-          <Stack direction="row" gap={1} alignItems="center">
-            <StyledLink id="profile-buy" to="buy">
-              Купую
+            <Stack direction='row' gap={1} alignItems='center'>
+              <StyledLink id='profile-sell' to='sell'>
+                Продаю
+              </StyledLink>
+              <StyledNotification color='primary' variant='dot' />
+            </Stack>
+            <Stack direction='row' gap={1} alignItems='center'>
+              <StyledLink id='profile-buy' to='buy'>
+                Купую
+              </StyledLink>
+              <StyledNotification color='primary' variant='dot' />
+            </Stack>
+            <StyledLink id='profile-selected' to='favourites'>
+              Обране
             </StyledLink>
-            <StyledNotification color="primary" variant="dot" />
+            <StyledLink id='profile-viewed' to='viewed'>
+              Переглянуті товари
+            </StyledLink>
+            <StyledLink id='profile-settings' to='settings'>
+              Налаштування
+            </StyledLink>
           </Stack>
-          <StyledLink id="profile-selected" to="favourites">
-            Обране
-          </StyledLink>
-          <StyledLink id="profile-viewed" to="viewed">
-            Переглянуті товари
-          </StyledLink>
-          <StyledLink id="profile-settings" to="settings">
-            Налаштування
-          </StyledLink>
-        </Stack>
 
-        <StyledButton
-          variant="text"
-          endIcon={<LogoutIcon />}
-          onClick={handleClickLogout}
-        >
-          Вийти
-        </StyledButton>
-      </MenuContainer>
+          <StyledButton
+            variant='text'
+            endIcon={<LogoutIcon />}
+            onClick={handleClickLogout}
+          >
+            Вийти
+          </StyledButton>
+        </MenuContainer>
+      )}
+
       <Routes>
-        <Route path="settings" element={<SettingsTab />} />
-        <Route path="viewed" element={<ViewedProducts />} />
-        <Route path="own-ads" element={<OwnAdsTab />} />
-        <Route path="sell" element={<SellProducts />} />
-        <Route path="buy" element={<BuyProducts />} />
-        <Route path="favourites" element={<FavProducts />} />
+        <Route path='settings' element={<SettingsTab />} />
+        <Route path='viewed' element={<ViewedProducts />} />
+        <Route path='own-ads' element={<OwnAdsTab />} />
+        <Route path='sell' element={<SellProducts />} />
+        <Route path='buy' element={<BuyProducts />} />
+        <Route path='favourites' element={<FavProducts />} />
       </Routes>
     </Stack>
   );
