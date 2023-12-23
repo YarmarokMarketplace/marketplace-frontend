@@ -7,8 +7,18 @@ import PriceFilter from '../CategoryPage/Filters/PriceFilter';
 import LocationFilter from '../CategoryPage/Filters/LocationFilter';
 import { productsStateSelector } from 'redux/products/selector';
 import CategoryFilter from '../CategoryPage/Filters/CategoryFilter';
+import RatingFilter from '../CategoryPage/Filters/RatingFilter';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
+import CategoryFilterModal from '../CategoryPage/CategoryFilterModal';
 
-const SearchFilters: React.FC = () => {
+interface SearchFiltersProps {
+  openFilterModal: boolean;
+  setOpenFilterModal: (value: boolean) => void;
+}
+const SearchFilters: React.FC<SearchFiltersProps> = ({
+  setOpenFilterModal,
+  openFilterModal,
+}) => {
   const {
     searchProducts: { maxPriceInSearchResult },
   } = useSelector(productsStateSelector);
@@ -22,31 +32,80 @@ const SearchFilters: React.FC = () => {
     img?: string | undefined;
   } | null>(null);
 
-  return (
-    <FiltersContainer>
-      <CategoryFilter
-        setIsCheckedNew={setIsCheckedNew}
-        setIsCheckedUsed={setIsCheckedUsed}
-        setMinPriceValue={setMinPriceValue}
-        setMaxPriceValue={setMaxPriceValue}
-        setValue={setValue}
-      />
-      <GoodtypeFilter
-        setIsCheckedNew={setIsCheckedNew}
-        setIsCheckedUsed={setIsCheckedUsed}
-        іsCheckedNew={isCheckedNew}
-        іsCheckedUsed={isCheckedUsed}
-      />
+  const [ratingValue, setRatingValue] = useState<string[]>([]);
+  const theme = useTheme();
+  const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-      <PriceFilter
-        minPriceValue={minPriceValue}
-        setMinPriceValue={setMinPriceValue}
-        maxPriceValue={maxPriceValue}
-        setMaxPriceValue={setMaxPriceValue}
-        maxPrice={maxPriceInSearchResult}
-      />
-      <LocationFilter value={value} setValue={setValue} />
-    </FiltersContainer>
+  return (
+    <>
+      {!isMdScreen && (
+        <FiltersContainer>
+          <CategoryFilter
+            setIsCheckedNew={setIsCheckedNew}
+            setIsCheckedUsed={setIsCheckedUsed}
+            setMinPriceValue={setMinPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+            setRatingValue={setRatingValue}
+            setValue={setValue}
+          />
+          <GoodtypeFilter
+            setIsCheckedNew={setIsCheckedNew}
+            setIsCheckedUsed={setIsCheckedUsed}
+            іsCheckedNew={isCheckedNew}
+            іsCheckedUsed={isCheckedUsed}
+          />
+
+          <PriceFilter
+            minPriceValue={minPriceValue}
+            setMinPriceValue={setMinPriceValue}
+            maxPriceValue={maxPriceValue}
+            setMaxPriceValue={setMaxPriceValue}
+            maxPrice={maxPriceInSearchResult}
+          />
+          <RatingFilter
+            ratingValue={ratingValue}
+            setRatingValue={setRatingValue}
+          />
+          <LocationFilter value={value} setValue={setValue} />
+        </FiltersContainer>
+      )}
+      {isMdScreen && (
+        <CategoryFilterModal
+          openFilterModal={openFilterModal}
+          setOpenFilterModal={setOpenFilterModal}
+        >
+          <FiltersContainer>
+            <CategoryFilter
+              setIsCheckedNew={setIsCheckedNew}
+              setIsCheckedUsed={setIsCheckedUsed}
+              setMinPriceValue={setMinPriceValue}
+              setMaxPriceValue={setMaxPriceValue}
+              setRatingValue={setRatingValue}
+              setValue={setValue}
+            />
+            <GoodtypeFilter
+              setIsCheckedNew={setIsCheckedNew}
+              setIsCheckedUsed={setIsCheckedUsed}
+              іsCheckedNew={isCheckedNew}
+              іsCheckedUsed={isCheckedUsed}
+            />
+
+            <PriceFilter
+              minPriceValue={minPriceValue}
+              setMinPriceValue={setMinPriceValue}
+              maxPriceValue={maxPriceValue}
+              setMaxPriceValue={setMaxPriceValue}
+              maxPrice={maxPriceInSearchResult}
+            />
+            <RatingFilter
+              ratingValue={ratingValue}
+              setRatingValue={setRatingValue}
+            />
+            <LocationFilter value={value} setValue={setValue} />
+          </FiltersContainer>
+        </CategoryFilterModal>
+      )}
+    </>
   );
 };
 
