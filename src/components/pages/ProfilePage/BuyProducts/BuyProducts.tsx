@@ -76,9 +76,19 @@ const BuyProducts = () => {
       );
     } else if (status === 'received') {
       return (
-        <Typography fontWeight={500} color='success.main' variant='h6'>
-          Отримано
-        </Typography>
+        <>
+          <Typography fontWeight={500} color='success.main' variant='h6'>
+            Отримано
+          </Typography>
+          <Button
+            data-order-id={_id}
+            // onClick={}
+            sx={{ paddingX: 2, textWrap: 'nowrap' }}
+            variant='contained'
+          >
+            Залишити відгук
+          </Button>
+        </>
       );
     }
   };

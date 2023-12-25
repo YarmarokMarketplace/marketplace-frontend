@@ -81,7 +81,7 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
           onClick={() => navigate(`/${product.category}/${product._id}`)}
         >
           <StyledImgWrapper>
-            <img src={product.photos?.[0] ? product.photos[0] : placeholder} />
+            <img src={product.photos?.[0] || placeholder} alt='Product Image' />
           </StyledImgWrapper>
         </CardActionArea>
         <Stack width='100%' gap={1}>
