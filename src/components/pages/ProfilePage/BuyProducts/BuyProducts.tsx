@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppDispatch } from 'src/store';
 import { useDispatch, useSelector } from 'react-redux';
+import Moment from 'react-moment';
 
 import { ordersStateSelector } from 'redux/orders/selector';
 import { getBuyOrdersFetch } from 'redux/orders/thunk';
@@ -48,7 +49,14 @@ const BuyProducts = () => {
   const orderStatusChange = (status: string, _id: string, i: number) => {
     if (status === 'await-confirm') {
       return (
-        <Typography fontWeight={500} color='info.main' variant='h6'>
+        <Typography
+          fontWeight={500}
+          color='info.main'
+          variant='h6'
+          sx={{
+            whiteSpace: 'nowrap',
+          }}
+        >
           Очікується підтвердження
         </Typography>
       );
@@ -104,8 +112,16 @@ const BuyProducts = () => {
           {result.map((order, i) => {
             return (
               <ProfileProductItem order={order} key={order._id} sell>
-                <Stack width='30%' textAlign='end' gap={3}>
+                <Stack
+                  width='30%'
+                  textAlign='end'
+                  justifyContent='space-between'
+                  gap={3}
+                >
                   {orderStatusChange(order.status, order._id, i)}
+                  <Typography variant='body1' color='secondary.dark'>
+                    {<Moment format='DD/MM/YYYY'>{order.createdAt}</Moment>}
+                  </Typography>
                 </Stack>
               </ProfileProductItem>
             );
