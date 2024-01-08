@@ -4,6 +4,7 @@ import {
   SearchSmButton,
   SearchWrapper,
   StyledInput,
+  ProfileButton,
 } from './style';
 import {
   InputAdornment,
@@ -21,6 +22,8 @@ import {
   searchValueSetAction,
 } from 'redux/products/reducer';
 import SearchModal from './SearchModal';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import { openProfileDrawerAction } from '../ProfileMenuDrawer/reducer';
 
 const SearchBar = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -63,33 +66,44 @@ const SearchBar = () => {
       }
     }
   };
+  const handleOpenProfileDrawer = () => {
+    dispatch(openProfileDrawerAction(true));
+  };
+
   return (
-    <SearchWrapper direction="row" spacing={3}>
+    <SearchWrapper direction='row' spacing={3}>
       {isSmScreen ? (
-        <SearchSmButton
-          startIcon={<SearchIcon />}
-          fullWidth
-          color="secondary"
-          onClick={() => setOpenModal(!openModal)}
-        />
+        <>
+          <SearchSmButton
+            startIcon={<SearchIcon />}
+            fullWidth
+            color='secondary'
+            onClick={() => setOpenModal(!openModal)}
+          />
+          <ProfileButton
+            startIcon={<PersonRoundedIcon />}
+            color='secondary'
+            onClick={handleOpenProfileDrawer}
+          />
+        </>
       ) : (
         <StyledInput
           fullWidth
-          placeholder="Що шукаєте?"
-          size="small"
+          placeholder='Що шукаєте?'
+          size='small'
           value={search}
           onChange={handleSearchChange}
-          variant="outlined"
-          id="search"
+          variant='outlined'
+          id='search'
           onKeyDown={handleKeyPress}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
                 <SearchButton
-                  id="search-btn"
+                  id='search-btn'
                   onClick={handleSearchClick}
-                  variant="outlined"
+                  variant='outlined'
                   disabled={!search}
                 >
                   Пошук

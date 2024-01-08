@@ -42,7 +42,7 @@ export const theme = createTheme({
       fontWeight: 700,
       lineHeight: '2rem',
       [breakpoints.down('sm')]: {
-        fontSize: '1rem',
+        fontSize: '1rem !important',
       },
     },
     caption: {
