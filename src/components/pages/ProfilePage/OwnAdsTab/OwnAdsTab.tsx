@@ -6,6 +6,7 @@ import OwnProductItem from '../ProductItem/OwnProductItem';
 import { StyledContrastButton, StyledIconButton } from '../ProductItem/style';
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import NoProductItem from './NoProductItem';
@@ -241,30 +242,32 @@ const OwnAdsTab = () => {
             {inactiveNotices.map((product) => {
               return (
                 <OwnProductItem product={product} key={product._id}>
-                  <Stack gap={3} marginLeft={5.5}>
-                    <Button
-                      data-product-id={product._id}
-                      onClick={handleActivateProductClick}
-                      id='activate-btn'
-                      variant='outlined'
-                      fullWidth
-                    >
-                      Активувати
-                    </Button>
+                  <Stack justifyContent='space-between' alignItems='flex-end'>
                     <Stack
                       direction='row'
-                      gap={3}
-                      justifyContent='center'
+                      gap={1.5}
+                      justifyContent='space-between'
                       height='fit-content'
                     >
-                      <StyledContrastButton
+                      <Button
+                        data-product-id={product._id}
+                        onClick={handleActivateProductClick}
+                        id='activate-btn'
+                        variant='outlined'
+                        fullWidth
+                      >
+                        Активувати
+                      </Button>
+                      <StyledIconButton
                         data-del-btn-id={product._id}
                         id='delete-btn'
-                        variant='outlined'
                         onClick={handleClickDeleteProduct}
                       >
-                        Видалити
-                      </StyledContrastButton>
+                        <DeleteOutlineIcon
+                          sx={{ fontSize: '1.5rem' }}
+                          color='primary'
+                        />
+                      </StyledIconButton>
                       <StyledIconButton
                         id='edit-btn'
                         onClick={() => navigate(`/edit-advert/${product._id}`)}
@@ -274,6 +277,23 @@ const OwnAdsTab = () => {
                           color='primary'
                         />
                       </StyledIconButton>
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                      <Stack direction='row' spacing={1}>
+                        <VisibilityIcon fontSize='small' color='secondary' />
+                        <Typography variant='body1' color='secondary.dark'>
+                          {product.views}
+                        </Typography>
+                      </Stack>
+                      <Stack direction='row' spacing={1}>
+                        <PhoneIcon fontSize='small' color='secondary' />
+                        <Typography variant='body1' color='secondary.dark'>
+                          {product.contactsViews}
+                        </Typography>
+                      </Stack>
+                      <Typography variant='body1' color='secondary.dark'>
+                        {<Moment format='DD/MM/YY'>{product.createdAt}</Moment>}
+                      </Typography>
                     </Stack>
                   </Stack>
                 </OwnProductItem>
