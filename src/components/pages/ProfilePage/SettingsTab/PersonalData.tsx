@@ -7,7 +7,14 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Stack, TextField, IconButton, Modal, useTheme } from '@mui/material';
+import {
+  Stack,
+  TextField,
+  IconButton,
+  Modal,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
 import {
   StyledFormLabel,
   StyledStar,
@@ -70,6 +77,7 @@ const personalDataSchema = yup.object().shape({
 const PersonalData = () => {
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const fileRef = useRef<HTMLInputElement>(null);
   type UserType = {
     id: string;
@@ -257,7 +265,17 @@ const PersonalData = () => {
           Замініть системні зображення на свої
         </DescriptionTypography>
 
-        <Stack direction='column' alignItems='center' width='10.5rem' mb='2rem'>
+        <Stack
+          direction='column'
+          alignItems='center'
+          width='10.5rem'
+          mb='2rem'
+          sx={{
+            [theme.breakpoints.down('sm')]: {
+              margin: '0 auto',
+            },
+          }}
+        >
           <input
             type='file'
             ref={fileRef}

@@ -43,6 +43,9 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
     zIndex: 1,
     border: `1px solid ${theme.palette.primary.main}`,
   },
+  [theme.breakpoints.down('sm')]: {
+    marginRight: theme.spacing(1.8),
+  },
 }));
 
 export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
