@@ -1,13 +1,14 @@
 import React from 'react';
-import { Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import buy from '../../../img/buy.png';
 import delivery from '../../../img/info-buy.png';
 import receive from '../../../img/receive.png';
 import feedback from '../../../img/feedback.png';
+import { HowToContainer } from './style';
 
 const HowToBuy = () => {
   return (
-    <Container maxWidth="xl" disableGutters>
+    <HowToContainer maxWidth="xl" disableGutters>
       <Stack spacing={3}>
         <Typography variant="h4">Як купувати на Yarmarok</Typography>
         <Stack spacing={3}>
@@ -27,7 +28,9 @@ const HowToBuy = () => {
             заповніть дані для відправки у віконечку, після чого продавець
             отримає ваш запит на покупку.
           </Typography>
-          <img src={buy} alt="buy-screenshot" />
+          <Box>
+            <img src={buy} alt="buy-screenshot" />
+          </Box>
           <Typography variant="body1">
             5. Наступним етапом потрібно ввести дані для відправки у віконце
           </Typography>
@@ -54,7 +57,7 @@ const HowToBuy = () => {
           <img src={feedback} alt="feedback-screenshot" />
         </Stack>
       </Stack>
-    </Container>
+    </HowToContainer>
   );
 };
 
