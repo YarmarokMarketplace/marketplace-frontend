@@ -48,13 +48,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
             setRatingValue={setRatingValue}
             setValue={setValue}
           />
-          <GoodtypeFilter
-            setIsCheckedNew={setIsCheckedNew}
-            setIsCheckedUsed={setIsCheckedUsed}
-            іsCheckedNew={isCheckedNew}
-            іsCheckedUsed={isCheckedUsed}
-          />
-
           <PriceFilter
             minPriceValue={minPriceValue}
             setMinPriceValue={setMinPriceValue}
@@ -83,13 +76,6 @@ const SearchFilters: React.FC<SearchFiltersProps> = ({
               setRatingValue={setRatingValue}
               setValue={setValue}
             />
-            <GoodtypeFilter
-              setIsCheckedNew={setIsCheckedNew}
-              setIsCheckedUsed={setIsCheckedUsed}
-              іsCheckedNew={isCheckedNew}
-              іsCheckedUsed={isCheckedUsed}
-            />
-
             <PriceFilter
               minPriceValue={minPriceValue}
               setMinPriceValue={setMinPriceValue}
