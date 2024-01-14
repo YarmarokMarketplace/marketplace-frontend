@@ -29,6 +29,8 @@ import {
   isPassChangedReset,
   passWrongErrorToggle,
   emailInUseErrorToggle,
+  emailPatternErrorToggle,
+  emailPatternLoginErrorToggle,
 } from '../actions';
 import { SuccessMessageContent, ErrorMessageContent } from '../../../types';
 
@@ -48,6 +50,7 @@ export interface UserAuthState {
     error: boolean;
     isAuth: boolean;
     emailError: boolean;
+    emailPatternError: boolean;
     requestLimitError: boolean;
   };
   login: {
@@ -56,6 +59,7 @@ export interface UserAuthState {
     emailError: boolean;
     rememberLogin: boolean;
     requestError: boolean;
+    emailPatternError: boolean;
     notVerifiedError: boolean;
   };
   forgotPassword: {
@@ -121,6 +125,7 @@ const initialState: UserAuthState = {
     error: false,
     isAuth: false,
     emailError: false,
+    emailPatternError: false,
     requestLimitError: false,
   },
   login: {
@@ -130,6 +135,7 @@ const initialState: UserAuthState = {
     rememberLogin: false,
     requestError: false,
     notVerifiedError: false,
+    emailPatternError: false,
   },
   forgotPassword: {
     loading: false,
@@ -201,6 +207,8 @@ export const userAuthSlice = createSlice({
     isPassChangedReset,
     passWrongErrorToggle,
     emailInUseErrorToggle,
+    emailPatternErrorToggle,
+    emailPatternLoginErrorToggle,
   },
   extraReducers(builder) {
     builder
@@ -402,6 +410,8 @@ export const {
   isPassChangedReset: isPassChangedResetAction,
   passWrongErrorToggle: passWrongErrorToggleAction,
   emailInUseErrorToggle: emailInUseErrorToggleAction,
+  emailPatternErrorToggle: emailPatternErrorToggleAction,
+  emailPatternLoginErrorToggle: emailPatternLoginErrorToggleAction,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

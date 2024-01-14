@@ -29,6 +29,8 @@ import {
   isTokenExpiredToggleAction,
   passWrongErrorToggleAction,
   emailInUseErrorToggleAction,
+  emailPatternErrorToggleAction,
+  emailPatternLoginErrorToggleAction,
 } from '../reducer';
 import { RootState } from '../../../store';
 import { setToken } from '../../../api/client';
@@ -54,6 +56,13 @@ export const userRegisterFetch = createAsyncThunk(
       return await register(data);
     } catch (error) {
       if (error instanceof AxiosError) {
+        if (
+          error.response?.data.message.includes(
+            'fails to match the required pattern'
+          )
+        ) {
+          dispatch(emailPatternErrorToggleAction(true));
+        }
         if (error.response?.data.message == 'Email in use') {
           dispatch(emailErrorToggleAction(true));
         }
@@ -76,7 +85,7 @@ export const userLoginFetch = createAsyncThunk(
     } catch (error) {
       if (error instanceof AxiosError) {
         const { message } = error.response?.data;
-        console.log(message);
+
         if (message === 'Email or password is wrong') {
           dispatch(emailErrorToggleAction(true));
         }
@@ -85,6 +94,9 @@ export const userLoginFetch = createAsyncThunk(
         }
         if (message === 'Email is not verified') {
           dispatch(notVerifiedErrorToggleAction(true));
+        }
+        if (message.includes('fails to match the required pattern')) {
+          dispatch(emailPatternLoginErrorToggleAction(true));
         }
         return rejectWithValue(error.response?.data);
       }

@@ -60,6 +60,7 @@ const Login = () => {
     rememberLogin,
     requestError,
     notVerifiedError,
+    emailPatternError,
   } = useSelector(userLoginStateSelector);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -130,6 +131,9 @@ const Login = () => {
       helperText = 'Забагато запитів, повторіть спробу через 1 хвилину';
     } else if (notVerifiedError) {
       helperText = 'Email не підтверджено. Підтвердіть свою електронну пошту';
+    } else if (emailPatternError) {
+      helperText =
+        'Некоректна електронна адреса. Перевірте правильність введення електронної адреси.';
     } else {
       helperText = errors.email?.message;
     }
@@ -172,7 +176,8 @@ const Login = () => {
                     Boolean(errors?.email) ||
                     emailError ||
                     requestError ||
-                    notVerifiedError
+                    notVerifiedError ||
+                    emailPatternError
                   }
                   InputProps={{
                     endAdornment: (errors.email ||
