@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Tabs, Typography, useTheme } from '@mui/material';
 import { SettingsContainer, StyledTab, BoxShadowContainer } from './style';
@@ -59,6 +59,10 @@ const SettingsTab = () => {
             borderRadius: 3,
             '& .MuiTabs-flexContainer': {
               maxHeight: '100%',
+              '@media (max-width: 380px)': {
+                flexDirection: 'column',
+                gap: theme.spacing(2),
+              },
             },
             '& .MuiTabs-indicator': {
               background: 'none',

@@ -46,6 +46,9 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     marginRight: theme.spacing(1.8),
   },
+  '@media (max-width: 380px)': {
+    marginRight: theme.spacing(0),
+  },
 }));
 
 export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
