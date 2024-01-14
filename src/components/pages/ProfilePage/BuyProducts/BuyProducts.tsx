@@ -46,19 +46,29 @@ const BuyProducts = () => {
     dispatch(setModalContentAction(ModalContent.confirmReceived));
   };
 
-  const orderStatusChange = (status: string, _id: string, i: number) => {
+  const orderStatusChange = (
+    status: string,
+    _id: string,
+    date: string,
+    i: number
+  ) => {
     if (status === 'await-confirm') {
       return (
-        <Typography
-          fontWeight={500}
-          color='info.main'
-          variant='h6'
-          sx={{
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Очікується підтвердження
-        </Typography>
+        <>
+          <Typography
+            fontWeight={500}
+            color='info.main'
+            variant='h6'
+            sx={{
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Очікується підтвердження
+          </Typography>
+          <Typography variant='body1' color='secondary.dark'>
+            {<Moment format='DD/MM/YYYY'>{date}</Moment>}
+          </Typography>
+        </>
       );
     } else if (status === 'await-delivery') {
       return (
@@ -66,10 +76,13 @@ const BuyProducts = () => {
           <Typography fontWeight={500} color='info.main' variant='h6'>
             Очікується доставка
           </Typography>
+          <Typography variant='body1' color='secondary.dark'>
+            {<Moment format='DD/MM/YYYY'>{date}</Moment>}
+          </Typography>
           <Button
             data-order-id={_id}
             onClick={handleOpenModal}
-            sx={{ paddingX: 2 }}
+            sx={{ paddingX: 2, fontSize: '1rem' }}
             variant='contained'
           >
             Я отримав
@@ -78,9 +91,14 @@ const BuyProducts = () => {
       );
     } else if (status === 'cancelled-by-seller') {
       return (
-        <Typography fontWeight={500} color='error.main' variant='h6'>
-          Скасовано
-        </Typography>
+        <>
+          <Typography fontWeight={500} color='error.main' variant='h6'>
+            Скасовано
+          </Typography>
+          <Typography variant='body1' color='secondary.dark'>
+            {<Moment format='DD/MM/YYYY'>{date}</Moment>}
+          </Typography>
+        </>
       );
     } else if (status === 'received') {
       return (
@@ -88,10 +106,13 @@ const BuyProducts = () => {
           <Typography fontWeight={500} color='success.main' variant='h6'>
             Отримано
           </Typography>
+          <Typography variant='body1' color='secondary.dark'>
+            {<Moment format='DD/MM/YYYY'>{date}</Moment>}
+          </Typography>
           <Button
             data-order-id={_id}
             // onClick={}
-            sx={{ paddingX: 2, textWrap: 'nowrap' }}
+            sx={{ paddingX: 2, textWrap: 'nowrap', fontSize: '1rem' }}
             variant='contained'
           >
             Залишити відгук
@@ -115,13 +136,15 @@ const BuyProducts = () => {
                 <Stack
                   width='30%'
                   textAlign='end'
-                  justifyContent='space-between'
-                  gap={3}
+                  justifyContent='flex-start'
+                  spacing={2}
                 >
-                  {orderStatusChange(order.status, order._id, i)}
-                  <Typography variant='body1' color='secondary.dark'>
-                    {<Moment format='DD/MM/YYYY'>{order.createdAt}</Moment>}
-                  </Typography>
+                  {orderStatusChange(
+                    order.status,
+                    order._id,
+                    order.createdAt,
+                    i
+                  )}
                 </Stack>
               </ProfileProductItem>
             );
