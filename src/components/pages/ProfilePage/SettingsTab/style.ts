@@ -1,9 +1,24 @@
-import { Box, Typography, FormLabel, Tab, Button, Stack } from '@mui/material';
+import {
+  Box,
+  Typography,
+  FormLabel,
+  Tab,
+  Button,
+  Stack,
+  TextField,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Avatar from '../../../../img/profile-avatar-upload.png';
 
 export const SettingsContainer = styled(Box)(({ theme }) => ({
   width: theme.spacing(123),
+  marginBottom: theme.spacing(8),
+  [theme.breakpoints.down('md')]: {
+    marginBottom: theme.spacing(2),
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
 }));
 
 export const BoxShadowContainer = styled(Box)(({ theme }) => ({
@@ -28,6 +43,12 @@ export const StyledTab = styled(Tab)(({ theme }) => ({
     zIndex: 1,
     border: `1px solid ${theme.palette.primary.main}`,
   },
+  [theme.breakpoints.down('sm')]: {
+    marginRight: theme.spacing(1.8),
+  },
+  '@media (max-width: 380px)': {
+    marginRight: theme.spacing(0),
+  },
 }));
 
 export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
@@ -44,6 +65,9 @@ export const StyledStar = styled('span')(({ theme }) => ({
 export const InputWrapper = styled(Stack)(({ theme }) => ({
   alignItems: 'baseline',
   marginBottom: theme.spacing(3.75),
+  [theme.breakpoints.down('md')]: {
+    marginBottom: theme.spacing(4),
+  },
 }));
 
 export const HeaderTypography = styled(Typography)(({ theme }) => ({
@@ -80,10 +104,19 @@ export const ActionButton = styled(Button)(({ theme }) => ({
   fontSize: '1rem',
   fontWeigth: '600',
   minWidth: theme.spacing(23),
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
 }));
 
 export const EmailTypography = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(0.5),
   marginBottom: theme.spacing(0.5),
   color: theme.palette.text.secondary,
+}));
+
+export const StyledTextField = styled(TextField)(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
 }));
