@@ -19,6 +19,7 @@ import {
   currentSearchPageSetAction,
   filterStateResetAction,
   productSortAction,
+  setSearchCategoryAction,
 } from '../../../redux/products/reducer';
 import { searchProductListFetch } from '../../../redux/products/thunk';
 import SearchFilters from './SearchFilters';
@@ -55,6 +56,7 @@ const SearchPage = () => {
       localStorage.removeItem('sort');
       dispatch(filterStateResetAction());
       dispatch(productSortAction('newest'));
+      dispatch(setSearchCategoryAction(''));
     };
   }, []);
 

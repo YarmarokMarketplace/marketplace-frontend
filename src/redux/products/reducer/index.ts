@@ -14,6 +14,7 @@ import {
   filterStateReset,
   productFilterCategory,
   productFilterRating,
+  setSearchCategory,
 } from '../actions';
 import { ProductItem, SearchResponse } from 'src/types';
 
@@ -33,6 +34,7 @@ export interface ProductsState {
   search: string;
   products: ResponseProducts;
   searchProducts: SearchResponse;
+  searchCategory: string;
   filterBy: {
     goodtype: string;
     price: string;
@@ -54,6 +56,7 @@ export const initialState: ProductsState = {
     rating: localStorage.getItem('rating') || '',
   },
   search: localStorage.getItem('search') || '',
+  searchCategory: '',
   products: {
     totalPages: 1,
     totalResult: 0,
@@ -91,6 +94,7 @@ const productsSlice = createSlice({
     filterStateReset,
     productFilterCategory,
     productFilterRating,
+    setSearchCategory,
   },
   extraReducers(builder) {
     builder
@@ -133,6 +137,7 @@ export const {
   filterStateReset: filterStateResetAction,
   productFilterCategory: productFilterCategoryAction,
   productFilterRating: productFilterRatingAction,
+  setSearchCategory: setSearchCategoryAction,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

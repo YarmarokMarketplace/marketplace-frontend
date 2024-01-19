@@ -8,7 +8,7 @@ import LocationFilter from '../CategoryPage/Filters/LocationFilter';
 import { productsStateSelector } from 'redux/products/selector';
 import CategoryFilter from '../CategoryPage/Filters/CategoryFilter';
 import RatingFilter from '../CategoryPage/Filters/RatingFilter';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import CategoryFilterModal from '../CategoryPage/CategoryFilterModal';
 
 interface SearchFiltersProps {
