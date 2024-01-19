@@ -1,12 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sellOrdersResponse, SellOrder } from '../../../types';
-import { currentPageSet } from '../actions';
-import { getSellOrdersFetch, changeOrderStatusFetch } from '../thunk';
+import { sellOrdersResponse } from '../../../types';
+import { currentPageSet, setOrderId } from '../actions';
+import {
+  getSellOrdersFetch,
+  getBuyOrdersFetch,
+  changeOrderStatusFetch,
+} from '../thunk';
 
 export interface OrdersState {
   loading: boolean;
   error: boolean | null;
   orders: sellOrdersResponse;
+  orderId: string | null;
 }
 
 export const initialState: OrdersState = {
@@ -19,6 +24,7 @@ export const initialState: OrdersState = {
     limit: 3,
     result: [],
   },
+  orderId: null,
 };
 
 const name = 'ORDERS';
@@ -28,6 +34,7 @@ const ordersSlice = createSlice({
   initialState,
   reducers: {
     currentPageSet,
+    setOrderId,
   },
   extraReducers(builder) {
     builder
@@ -40,6 +47,18 @@ const ordersSlice = createSlice({
         state.orders = action.payload;
       })
       .addCase(getSellOrdersFetch.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(getBuyOrdersFetch.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getBuyOrdersFetch.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orders = action.payload;
+      })
+      .addCase(getBuyOrdersFetch.rejected, (state) => {
         state.loading = false;
         state.error = true;
       })
@@ -63,6 +82,9 @@ const ordersSlice = createSlice({
   },
 });
 
-export const { currentPageSet: currentPageSetAction } = ordersSlice.actions;
+export const {
+  currentPageSet: currentPageSetAction,
+  setOrderId: setOrderIdAction,
+} = ordersSlice.actions;
 
 export default ordersSlice.reducer;

@@ -1,10 +1,20 @@
-import { sellOrdersResponse, changeOrderStatusResponse } from '../types';
+import {
+  sellOrdersResponse,
+  buyOrdersResponse,
+  changeOrderStatusResponse,
+} from '../types';
 import { loginClient, setToken } from './client';
 import { client } from './client';
 
 export const getSellOrders = async (page: number) => {
   return await loginClient.get<never, sellOrdersResponse>(
     `/orders/user/sell?page=${page}`
+  );
+};
+
+export const getBuyOrders = async (page: number) => {
+  return await loginClient.get<never, buyOrdersResponse>(
+    `orders/user/buy?page=${page}`
   );
 };
 
