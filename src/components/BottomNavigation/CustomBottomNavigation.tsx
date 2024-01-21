@@ -121,9 +121,9 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
         />
         <StyledNavigationTab
           label="Обране"
-          value="favorite"
+          value="/profile/favourites"
           icon={
-            navigationValue === 'favorite' ? (
+            navigationValue === '/profile/favourites' ? (
               <FavoriteIcon />
             ) : (
               <FavoriteBorderIcon />
