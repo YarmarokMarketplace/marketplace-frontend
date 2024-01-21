@@ -307,5 +307,5 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   width: '100vw',
   overflowY: 'auto',
   backgroundColor: theme.palette.white,
-  padding: theme.spacing(2, 3, 6),
+  padding: theme.spacing(2, 3, 14),
 }));
