@@ -48,9 +48,16 @@ loginClient.interceptors.response.use(
             ] = `Bearer ${response.accessToken}`; //Set authorization header to failed request
             localStorage.setItem('refreshToken', response.refreshToken);
             return loginClient(error.response.config);
+          })
+          .catch((error) => {
+            if (error.response.status === 403) {
+              localStorage.clear();
+              window.location.href = '/';
+            }
           });
       }
     }
+
     return Promise.reject(error);
   }
 );
