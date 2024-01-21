@@ -153,6 +153,7 @@ export const logoutFetch = createAsyncThunk(
       localStorage.setItem('advertData', JSON.stringify(advertInitialData));
       dispatch(resetAddSavedDataAction());
       dispatch(resetFavoriteListAction());
+      localStorage.setItem('viewedProducts', JSON.stringify([]));
       return result;
     } catch ({ response }: any) {
       const { status, data } = response;

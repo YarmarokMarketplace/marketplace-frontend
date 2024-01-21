@@ -5,6 +5,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -95,16 +97,16 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
           onClick={() => navigate('/', { replace: true })}
         />
         <StyledNavigationTab
-          label="Обране"
-          value="favorite"
+          label="Каталог"
+          value="all-categories"
           icon={
-            navigationValue === 'favorite' ? (
-              <FavoriteIcon />
+            navigationValue === 'all-categories' ? (
+              <BusinessCenterIcon />
             ) : (
-              <FavoriteBorderIcon />
+              <BusinessCenterOutlinedIcon />
             )
           }
-          onClick={handleCheckFavourites}
+          onClick={() => navigate('/all-categories')}
         />
         <StyledNavigationTab
           value="add-advert"
@@ -118,16 +120,16 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
           }
         />
         <StyledNavigationTab
-          label="Профіль"
-          value="profile"
+          label="Обране"
+          value="/profile/favourites"
           icon={
-            navigationValue === 'profile' ? (
-              <PersonIcon />
+            navigationValue === '/profile/favourites' ? (
+              <FavoriteIcon />
             ) : (
-              <PersonOutlineOutlinedIcon />
+              <FavoriteBorderIcon />
             )
           }
-          onClick={handleClickProfile}
+          onClick={handleCheckFavourites}
         />
         <StyledNavigationTab
           label="Чат"
