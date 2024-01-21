@@ -15,6 +15,7 @@ export const categoryNames: { [key: string]: string } = {
   animals: 'Тварини',
   'goods-to-win': 'Товари для перемоги',
   'hobbies-recreation-sports': 'Хобі, відпочинок і спорт',
+  '': 'Всі категорії',
 };
 
 import ua from '../img/locations/ukraine.png';

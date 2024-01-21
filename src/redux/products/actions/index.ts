@@ -75,3 +75,10 @@ export const productFilterRating = (
 ) => {
   state.filterBy.rating = action.payload;
 };
+
+export const setSearchCategory = (
+  state: ProductsState,
+  action: PayloadAction<string>
+) => {
+  state.searchCategory = action.payload;
+};

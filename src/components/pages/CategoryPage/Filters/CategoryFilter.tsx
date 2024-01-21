@@ -9,6 +9,7 @@ import {
   productFilterLocationAction,
   productFilterCategoryAction,
   productFilterRatingAction,
+  setSearchCategoryAction,
 } from 'redux/products/reducer';
 import { categoriesStateSelector } from '../../HomePage/selector';
 import { categoryListFetch } from '../../HomePage/thunk';
@@ -33,6 +34,7 @@ import {
   CurrentCategoryListItemText,
   CategoryListItemText,
 } from '../style';
+import { productsStateSelector } from 'redux/products/selector';
 
 interface CategoryFilterProps {
   setIsCheckedNew: (value: boolean) => void;
@@ -55,6 +57,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 }) => {
   const dispatch: AppDispatch = useDispatch();
   const { categories, loading, error } = useSelector(categoriesStateSelector);
+  const { searchCategory } = useSelector(productsStateSelector);
   const navigate = useNavigate();
   let { categoryName } = useParams();
   const theme = useTheme();
@@ -94,8 +97,10 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     localStorage.removeItem('location');
     localStorage.removeItem('rating');
     const categoryName = event.currentTarget.getAttribute('value');
+
     setSelectedCategory(categoryName ? categoryName : '');
     if (matchPath('/search', pathname)) {
+      dispatch(setSearchCategoryAction(categoryName || ''));
       dispatch(
         productFilterCategoryAction(
           categoryName ? `&category=${categoryName}` : ''
@@ -106,29 +111,28 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     }
   };
 
-  const handleCategorySearchClick = (
-    event: React.MouseEvent<HTMLLIElement>
-  ) => {
-    console.log('search', categoryName);
-  };
-
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <List disablePadding>
       {isMdScreen ? (
-        <FilterText primary='Категорія' />
+        <FilterText primary="Категорія" />
       ) : (
         <FormLabel>
           <ListItemButton onClick={categoryHandleClick}>
-            <FilterText primary='Категорія' />
+            <FilterText primary="Категорія" />
             {categoryOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
         </FormLabel>
       )}
-      <CategoryCollapse in={categoryOpen} timeout='auto' unmountOnExit>
+      <CategoryCollapse in={categoryOpen} timeout="auto" unmountOnExit>
         <FormLabel>
           <ListItemButton onClick={categoryListHandleClick}>
+            {matchPath('/search', pathname) && (
+              <CurrentCategoryListItemText
+                primary={categoryNames[`${searchCategory}`]}
+              />
+            )}
             <CurrentCategoryListItemText
               primary={categoryNames[`${categoryName}`]}
             />
@@ -136,8 +140,8 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
           </ListItemButton>
         </FormLabel>
 
-        <Collapse in={categoryListOpen} timeout='auto' unmountOnExit>
-          <FormControl sx={{ m: 1, minWidth: 120, width: '100%' }} size='small'>
+        <Collapse in={categoryListOpen} timeout="auto" unmountOnExit>
+          <FormControl sx={{ m: 1, minWidth: 120, width: '100%' }} size="small">
             <CategoryList>
               {matchPath('/search', pathname) && (
                 <ListItem
