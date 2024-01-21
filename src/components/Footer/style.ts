@@ -26,7 +26,7 @@ export const Logo = styled('img')({
 });
 
 export const LinksContainer = styled(Box)(({ theme }) => ({
-  maxWidth: '85%',
+  maxWidth: '78%',
   display: 'flex',
   gap: theme.spacing(3),
   flexDirection: 'row',
