@@ -12,7 +12,7 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import { categoryListColors } from 'src/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoriesStateSelector } from './selector';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppDispatch } from 'src/store';
 import { categoryListFetch } from './thunk';
 import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
@@ -24,6 +24,8 @@ export const CategoryListPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(categoryListFetch());
@@ -59,7 +61,7 @@ export const CategoryListPage = () => {
           );
         })}
       </Stack>
-      {isSmScreen && <CustomBottomNavigation pathname="all-categories" />}
+      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </Stack>
   );
 };

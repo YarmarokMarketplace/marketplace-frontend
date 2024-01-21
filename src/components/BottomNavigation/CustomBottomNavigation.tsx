@@ -5,11 +5,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import AddIcon from '@mui/icons-material/Add';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import {
   StyledNavigationButton,
   StyledNavigationContainer,
@@ -98,15 +98,15 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
         />
         <StyledNavigationTab
           label="Каталог"
-          value="all-categories"
+          value="/all-categories"
           icon={
-            navigationValue === 'all-categories' ? (
+            navigationValue === '/all-categories' ? (
               <BusinessCenterIcon />
             ) : (
               <BusinessCenterOutlinedIcon />
             )
           }
-          onClick={() => navigate('/all-categories')}
+          onClick={() => navigate('/all-categories', { replace: true })}
         />
         <StyledNavigationTab
           value="add-advert"
