@@ -49,6 +49,14 @@ export const theme = createTheme({
       fontSize: '0.75rem',
       lineHeight: '0.875rem',
     },
+    button: {
+      [breakpoints.down('sm')]: {
+        fontSize: '1rem',
+      },
+      [breakpoints.down('xs')]: {
+        fontSize: '0.875rem',
+      },
+    },
   },
   palette: {
     background: {

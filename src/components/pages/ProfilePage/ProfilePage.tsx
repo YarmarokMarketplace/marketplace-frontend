@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppDispatch } from '../../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   openModalAction,
   setModalContentAction,
@@ -24,6 +24,7 @@ import {
   StyledLink,
   StyledButton,
   StyledNotification,
+  StyledProfileContainer,
 } from './style';
 import { Routes, Route } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ import SellProducts from './SellProducts/SellProducts';
 import BuyProducts from './BuyProducts/BuyProducts';
 import FavProducts from './FavProducts/FavProducts';
 import SearchBar from 'src/components/SearchBar';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const ProfilePage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -61,7 +63,8 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <Stack direction="row" alignItems="flex-start" gap="1.5rem">
+    <StyledProfileContainer>
+      {isSmScreen && <SearchBar />}
       {!isSmScreen && (
         <MenuContainer>
           <Box>
@@ -109,6 +112,7 @@ const ProfilePage = () => {
           </StyledButton>
         </MenuContainer>
       )}
+
       <Routes>
         <Route path="settings" element={<SettingsTab />} />
         <Route path="viewed" element={<ViewedProducts />} />
@@ -117,7 +121,7 @@ const ProfilePage = () => {
         <Route path="buy" element={<BuyProducts />} />
         <Route path="favourites" element={<FavProducts />} />
       </Routes>
-    </Stack>
+    </StyledProfileContainer>
   );
 };
 

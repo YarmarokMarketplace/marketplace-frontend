@@ -38,22 +38,28 @@ const DeleteProductModal = () => {
   };
 
   return (
-    <Stack direction='column' alignItems='center' gap='1.5rem'>
-      <Typography variant='h4'>
+    <Stack direction="column" alignItems="center" gap="1.5rem">
+      <Typography variant="h4">
         Ви дійсно бажаєте видалити оголошення?
       </Typography>
-      <Stack direction='row' justifyContent='center' spacing={5}>
+      <Stack direction="row" justifyContent="center" spacing={5}>
         <Button
           onClick={handleProductDelete}
-          variant='contained'
-          sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+          variant="contained"
+          sx={{
+            fontSize: { xs: '0.875rem', md: '1.25rem' },
+            fontWeight: '500',
+          }}
         >
           Так, видалити
         </Button>
         <Button
           onClick={handleCancel}
-          variant='outlined'
-          sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+          variant="outlined"
+          sx={{
+            fontSize: { xs: '0.875rem', md: '1.25rem' },
+            fontWeight: '500',
+          }}
         >
           Скасувати
         </Button>
