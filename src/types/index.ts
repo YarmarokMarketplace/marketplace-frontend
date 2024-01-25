@@ -17,9 +17,30 @@ export interface ProductItem {
   location: string;
   price: number;
   comments?: string;
+  owner: string;
+  createdAt: string;
+  updatedAt: string;
+  active?: boolean;
+  contactName: string;
+  contactNumber: string;
+  contactsViews: number;
+  views: number;
+}
+
+export interface ProductOrderItem {
+  _id: string;
+  category: string;
+  goodtype?: string;
+  title: string;
+  description: string;
+  photos: string[];
+  location: string;
+  price: number;
+  comments?: string;
   owner: {
     rating: number;
     createdAt: string;
+    reviews: [];
   };
   createdAt: string;
   updatedAt: string;
@@ -28,7 +49,6 @@ export interface ProductItem {
   contactNumber: string;
   contactsViews: number;
   views: number;
-  reviews: [];
 }
 export interface SingleProductItem {
   _id: string;
@@ -311,7 +331,9 @@ export interface sellOrdersResponse {
   totalPages: number;
   page: number;
   limit: number;
-  result: Order[];
+  result: {
+    sell: Order[];
+  };
 }
 
 export interface buyOrdersResponse {
@@ -365,7 +387,7 @@ export interface Order {
   };
   comments: string;
   createdAt: string;
-  product: ProductItem;
+  product: ProductOrderItem;
   status: string;
 }
 

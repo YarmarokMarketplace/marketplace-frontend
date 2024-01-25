@@ -51,6 +51,7 @@ export const StyledAdsContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledTitleContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
   borderRadius: 20,
   padding: theme.spacing(3),
   marginBottom: theme.spacing(2),

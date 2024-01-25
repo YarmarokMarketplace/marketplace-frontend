@@ -8,6 +8,13 @@ export const currentPageSet = (
   state.orders.page = action.payload;
 };
 
+export const currentSellPageSet = (
+  state: OrdersState,
+  action: PayloadAction<number>
+) => {
+  state.sellOrders.page = action.payload;
+};
+
 export const setOrderId = (
   state: OrdersState,
   action: PayloadAction<string>

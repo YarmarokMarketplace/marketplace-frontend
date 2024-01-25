@@ -2,7 +2,7 @@ import React from 'react';
 import { AppDispatch } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModalAction } from '../CustomModal/reducer';
-import { changeOrderStatusFetch } from 'redux/orders/thunk';
+import { changeOrderStatusFetch, getBuyOrdersFetch } from 'redux/orders/thunk';
 import { ordersStateSelector } from 'redux/orders/selector';
 
 import { Typography, Stack, Button } from '@mui/material';
@@ -18,6 +18,7 @@ const ConfirmReceivedModal = () => {
       await dispatch(changeOrderStatusFetch({ status, _id }));
     }
     dispatch(openModalAction(false));
+    dispatch(getBuyOrdersFetch(1));
   };
 
   const handleCancel = () => {
@@ -25,7 +26,7 @@ const ConfirmReceivedModal = () => {
   };
 
   return (
-    <Stack direction="column" alignItems="center" gap="1.5rem" width="36.75rem">
+    <Stack direction="column" alignItems="center" gap="1.5rem" width="100%">
       <Typography variant="h4" textAlign="center" width="70%">
         Ви дійсно хочете підтвердити отримання? Після підтвердження Ви вже не
         зможете змінити статус покупки.
