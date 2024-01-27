@@ -37,7 +37,7 @@ export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
   fontSize: '1rem',
   fontWeight: 700,
   minWidth: '155px',
-  wordBreak: 'break-all',
+  wordBreak: 'break-word',
 }));
 
 export const StyledFileInput = styled(Box)(({ theme }) => ({

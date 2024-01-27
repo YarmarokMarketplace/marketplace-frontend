@@ -350,7 +350,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         <StyledFormControl fullWidth>
           {isLgScreen && (
             <StyledFormLabel sx={{ maxWidth: '12%' }}>
-              Імʼя контактної особи
+              {`Імʼя контактної\n особи`}
             </StyledFormLabel>
           )}
           <Controller
