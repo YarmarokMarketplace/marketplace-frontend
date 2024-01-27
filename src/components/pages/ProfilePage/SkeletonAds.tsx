@@ -22,7 +22,7 @@ const SkeletonAds: React.FC<{ limit: number }> = ({ limit }) => {
                 animation="wave"
                 sx={{
                   height: '1.5rem',
-                  width: { lg: '32rem', md: '20rem', sm: '15rem', xs: '5rem' },
+                  width: { lg: '32rem', md: '20rem', sm: '13rem', xs: '5rem' },
                 }}
                 variant="rounded"
               />
@@ -30,7 +30,7 @@ const SkeletonAds: React.FC<{ limit: number }> = ({ limit }) => {
                 animation="wave"
                 sx={{
                   height: '1.5rem',
-                  width: { lg: '32rem', md: '20rem', sm: '15rem', xs: '5rem' },
+                  width: { lg: '32rem', md: '20rem', sm: '13rem', xs: '5rem' },
                 }}
                 variant="rounded"
               />

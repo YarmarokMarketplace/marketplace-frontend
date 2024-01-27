@@ -193,7 +193,7 @@ const SellProducts = () => {
         </Stack>
       )}
 
-      {!loading && error && (
+      {!loading && !result.sell.length && (
         <NoProductMessage src={placeholder}>
           <Typography variant="h4" fontWeight={700} mt={3}>
             Тут будуть відображатись товари, які хтось у Вас купує.

@@ -60,6 +60,7 @@ const ordersSlice = createSlice({
       .addCase(getSellOrdersFetch.rejected, (state) => {
         state.loading = false;
         state.error = true;
+        state.sellOrders = initialState.sellOrders;
       })
       .addCase(getBuyOrdersFetch.pending, (state) => {
         state.loading = true;

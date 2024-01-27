@@ -85,10 +85,17 @@ export const createOrderSchema = yup.object().shape({
   }),
 
   saveData: yup.boolean().required(),
-  comment: yup.string().when('deliveryType', {
-    is: (deliveryType: string) => deliveryType === 'other',
-    then: (schema) => schema.required('Вкажіть бажаний спосіб доставки').min(3),
-  }),
+  comment: yup
+    .string()
+    .max(250, 'Максимальна довжина поля - 250 символів')
+    .when('deliveryType', {
+      is: (deliveryType: string) => deliveryType === 'other',
+      then: (schema) =>
+        schema
+          .required('Вкажіть бажаний спосіб доставки')
+          .min(3)
+          .max(250, 'Максимальна довжина поля - 250 символів'),
+    }),
 });
 
 export const createOrderDefaultValues = {

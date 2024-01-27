@@ -179,14 +179,26 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
           >
             <Stack width={{ sm: '50%', md: '30%' }} gap={1}>
               {!order.deliveryData?.otherSchema?.typeOfOtherDelivery && (
-                <Typography variant="body1" color="text.secondary">
+                <Typography
+                  minHeight={{ xs: 40, md: 'fit-content' }}
+                  variant="body1"
+                  color="text.secondary"
+                >
                   Тип доставки
                 </Typography>
               )}
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                minHeight={{ xs: 40, md: 'fit-content' }}
+                variant="body1"
+                color="text.secondary"
+              >
                 Прізвище та імʼя
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                minHeight={{ xs: 40, md: 'fit-content' }}
+                variant="body1"
+                color="text.secondary"
+              >
                 Номер телефону
               </Typography>
 
@@ -248,20 +260,34 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
               )}
             </Stack>
 
-            <Stack gap={1}>
-              <Typography variant="body1" color="primary.main">
-                {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
-                  ?.postOfficeSchema && 'Нова Пошта відділення'}
-                {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
-                  ?.addressSchema && 'Нова Пошта адреса'}
-                {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
-                  ?.postBoxSchema && 'Нова Пошта поштомат'}
-                {order.deliveryData?.ukrPostSchema && 'Укр Пошта відділення'}
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
+            <Stack gap={1} width={{ sm: '80%', md: '50%' }}>
+              {!order.deliveryData?.otherSchema && (
+                <Typography
+                  minHeight={{ xs: 40, md: 'fit-content' }}
+                  variant="body1"
+                  color="primary.main"
+                >
+                  {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
+                    ?.postOfficeSchema && 'Нова Пошта відділення'}
+                  {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
+                    ?.addressSchema && 'Нова Пошта адреса'}
+                  {order.deliveryData?.newPostSchema?.typeOfNovaPostDelivery
+                    ?.postBoxSchema && 'Нова Пошта поштомат'}
+                  {order.deliveryData?.ukrPostSchema && 'Укр Пошта відділення'}
+                </Typography>
+              )}
+              <Typography
+                minHeight={{ xs: 40, md: 'fit-content' }}
+                variant="body1"
+                color="text.secondary"
+              >
                 {order.buyerName} {order.buyerLastname}
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography
+                minHeight={{ xs: 40, md: 'fit-content' }}
+                variant="body1"
+                color="text.secondary"
+              >
                 {order.buyerPhone}
               </Typography>
 
@@ -333,7 +359,11 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
                 </Typography>
               )}
               {order.comments && (
-                <Typography variant="body1" color="text.secondary">
+                <Typography
+                  maxWidth={'60%'}
+                  variant="body1"
+                  color="text.secondary"
+                >
                   {order.comments}
                 </Typography>
               )}

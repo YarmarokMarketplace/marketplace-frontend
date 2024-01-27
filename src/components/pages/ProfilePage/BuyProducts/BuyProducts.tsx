@@ -197,7 +197,7 @@ const BuyProducts = () => {
         </Stack>
       )}
 
-      {!loading && error && (
+      {!loading && !error && !result.length && (
         <NoProductMessage src={placeholder}>
           <Typography variant="h4" fontWeight={700} mt={3}>
             Почніть купувати
