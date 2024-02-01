@@ -8,6 +8,9 @@ export const MenuContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
   backgroundColor: theme.palette.white,
   boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
+  [theme.breakpoints.down('lg')]: {
+    width: '100%',
+  },
 }));
 
 export const StyledLink = styled(NavLink)(({ theme }) => ({
@@ -44,7 +47,7 @@ export const StyledList = styled(List)(({ theme }) => ({
 }));
 
 export const StyledAdsContainer = styled(Box)(({ theme }) => ({
-  width: theme.spacing(123),
+  width: '100%',
 }));
 
 export const StyledTitleContainer = styled(Box)(({ theme }) => ({
@@ -52,6 +55,8 @@ export const StyledTitleContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
   marginBottom: theme.spacing(2),
   backgroundColor: theme.palette.white,
+  width: '100%',
+
   boxShadow: '0px 4px 120px 0px rgba(151, 159, 183, 0.15)',
 }));
 
@@ -102,4 +107,13 @@ export const StyledNotification = styled(Badge)(({ theme }) => ({
   '.MuiBadge-badge': {
     top: '50%',
   },
+}));
+
+export const StyledProfileContainer = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '0.3fr 1fr',
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '1fr',
+  },
+  gap: '1.5rem',
 }));

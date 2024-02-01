@@ -28,31 +28,37 @@ const LogoutModal = () => {
   };
 
   return (
-    <Stack direction='column' alignItems='center' gap='1.5rem'>
-      <Typography variant='h4'>Ви дійсно бажаєте вийти з профілю?</Typography>
+    <Stack direction="column" alignItems="center" gap="1.5rem">
+      <Typography variant="h4">Ви дійсно бажаєте вийти з профілю?</Typography>
       {!isSmScreen ? (
-        <Stack direction='row' justifyContent='center' spacing={5}>
+        <Stack direction="row" justifyContent="center" spacing={5}>
           <Button
             onClick={handleLogout}
-            variant='outlined'
-            sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+            variant="outlined"
+            sx={{
+              fontSize: { xs: '0.75rem', md: '1.25rem' },
+              fontWeight: '500',
+            }}
           >
             Так, вийти
           </Button>
           <Button
             onClick={handleCancel}
-            variant='contained'
-            sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+            variant="contained"
+            sx={{
+              fontSize: { xs: '0.875rem', md: '1.25rem' },
+              fontWeight: '500',
+            }}
           >
             Скасувати
           </Button>
         </Stack>
       ) : (
-        <Stack direction='row' justifyContent='center' spacing={2}>
+        <Stack direction="row" justifyContent="center" spacing={2}>
           <Button
             onClick={handleLogout}
-            variant='outlined'
-            size='small'
+            variant="outlined"
+            size="small"
             sx={{
               fontSize: '1rem',
               fontWeight: '500',
@@ -63,8 +69,8 @@ const LogoutModal = () => {
           </Button>
           <Button
             onClick={handleCancel}
-            variant='contained'
-            size='small'
+            variant="contained"
+            size="small"
             sx={{
               fontSize: '1rem',
               fontWeight: '500',

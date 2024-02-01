@@ -31,7 +31,7 @@ const DeleteAccountModal = () => {
       gap="1.5rem"
       textAlign="center"
     >
-      <Typography variant="h4" width="29.5rem">
+      <Typography variant="h4" width="100%">
         Ви дійсно бажаєте видалити профіль, адже це призведе до видалення всіх
         ваших даних та оголошень?
       </Typography>
@@ -40,14 +40,20 @@ const DeleteAccountModal = () => {
           onClick={handleDelete}
           variant="outlined"
           color="error"
-          sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+          sx={{
+            fontSize: { xs: '0.875rem', md: '1.25rem' },
+            fontWeight: '500',
+          }}
         >
           Так, видалити
         </Button>
         <Button
           onClick={handleCancel}
           variant="contained"
-          sx={{ fontSize: '1.25rem', fontWeight: '500' }}
+          sx={{
+            fontSize: { xs: '0.875rem', md: '1.25rem' },
+            fontWeight: '500',
+          }}
         >
           Скасувати
         </Button>

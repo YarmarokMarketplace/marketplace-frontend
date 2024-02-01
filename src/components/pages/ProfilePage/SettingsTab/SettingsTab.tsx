@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Tabs, Typography, useTheme } from '@mui/material';
+import { Tabs, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { SettingsContainer, StyledTab, BoxShadowContainer } from './style';
 import PersonalData from './PersonalData';
 import Login_Password from './Login_Password';
+import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
+import { useLocation } from 'react-router-dom';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -16,7 +18,7 @@ function CustomTabPanel(props: TabPanelProps) {
 
   return (
     <div
-      role='tabpanel'
+      role="tabpanel"
       hidden={value !== index}
       id={`profile-tabpanel-${index}`}
       aria-labelledby={`profile-tab-${index}`}
@@ -32,16 +34,18 @@ function CustomTabPanel(props: TabPanelProps) {
 const SettingsTab = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const { pathname } = useLocation();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <SettingsContainer>
       <BoxShadowContainer sx={{ mb: 2 }}>
         <Typography
-          variant='h4'
+          variant="h4"
           sx={{
             [theme.breakpoints.down('sm')]: {
               fontSize: '1.125rem',
@@ -70,14 +74,14 @@ const SettingsTab = () => {
           }}
         >
           <StyledTab
-            label='Персональні дані'
-            id='profile-tab-0'
-            aria-controls='profile-tabpanel-0'
+            label="Персональні дані"
+            id="profile-tab-0"
+            aria-controls="profile-tabpanel-0"
           />
           <StyledTab
-            label='Логін та пароль'
-            id='profile-tab-1'
-            aria-controls='profile-tabpanel-1'
+            label="Логін та пароль"
+            id="profile-tab-1"
+            aria-controls="profile-tabpanel-1"
           />
         </Tabs>
       </BoxShadowContainer>
@@ -87,6 +91,7 @@ const SettingsTab = () => {
       <CustomTabPanel value={value} index={1}>
         <Login_Password />
       </CustomTabPanel>
+      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </SettingsContainer>
   );
 };

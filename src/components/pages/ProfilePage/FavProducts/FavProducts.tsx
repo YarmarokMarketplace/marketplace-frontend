@@ -74,8 +74,6 @@ const FavProducts = () => {
 
   return (
     <StyledAdsContainer>
-      {isSmScreen && <SearchBar />}
-
       <StyledTitleContainer>
         <Typography variant="h4">Обране</Typography>
       </StyledTitleContainer>

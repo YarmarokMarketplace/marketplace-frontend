@@ -11,13 +11,10 @@ import { styled } from '@mui/material/styles';
 import Avatar from '../../../../img/profile-avatar-upload.png';
 
 export const SettingsContainer = styled(Box)(({ theme }) => ({
-  width: theme.spacing(123),
+  width: '100%',
   marginBottom: theme.spacing(8),
   [theme.breakpoints.down('md')]: {
     marginBottom: theme.spacing(2),
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
   },
 }));
 

@@ -55,7 +55,6 @@ const ViewedProducts = () => {
 
   return (
     <StyledAdsContainer>
-      {isSmScreen && <SearchBar />}
       <StyledTitleContainer>
         <Typography variant="h4">Переглянуті товари</Typography>
       </StyledTitleContainer>

@@ -16,13 +16,24 @@ export const StyledChip = styled(Chip)(({ theme }) => ({
   fontSize: '0.875rem',
   fontWeight: '600',
   width: 'fit-content',
-  marginTop: theme.spacing(2),
 }));
 
 export const StyledImgWrapper = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
   width: theme.spacing(15),
   height: theme.spacing(14.5),
+  [theme.breakpoints.down('md')]: {
+    width: theme.spacing(11),
+    height: theme.spacing(10.5),
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: theme.spacing(15),
+    height: theme.spacing(14.5),
+  },
+  [theme.breakpoints.only('xs')]: {
+    width: theme.spacing(11),
+    height: theme.spacing(10.5),
+  },
   borderRadius: 8,
   img: {
     width: '100%',
@@ -36,6 +47,9 @@ export const StyledContrastButton = styled(Button)(({ theme }) => ({
   borderColor: theme.palette.primary.contrastText,
   height: 'fit-content',
   padding: theme.spacing(1, 2),
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
 }));
 
 export const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -54,7 +68,7 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: '1rem',
   fontWeight: 500,
-  height: theme.spacing(6),
+  height: 'fit-content',
   ':hover': {
     color: theme.palette.text.secondary,
   },
