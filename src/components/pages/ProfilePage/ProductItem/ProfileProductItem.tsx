@@ -111,7 +111,11 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
           <StyledLink to={`/${product.category}/${product._id}`}>
             {product.title}
           </StyledLink>
-          <Typography variant="body1" color="text.secondary">
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            width={{ sm: '100%', md: '90%' }}
+          >
             {product.description?.length > 53
               ? `${product.description.slice(0, 53)}...`
               : product.description}
