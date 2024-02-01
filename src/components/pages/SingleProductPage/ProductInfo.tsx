@@ -63,14 +63,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   const { isLogin, user } = useSelector(userAuthStateSelector);
   const { favorites } = useSelector(profileStateSelector);
   const [fav, setFav] = useState<boolean>(
-    user.favorite.some((notice) => notice === product._id)
+    user.favorite?.some((notice) => notice === product._id)
   );
   const theme: Theme = useTheme();
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (favorites.length) {
-      setFav(favorites.some((notice) => notice === product._id));
+      setFav(favorites?.some((notice) => notice === product._id));
     }
   }, [favorites, product._id]);
   const dispatch: AppDispatch = useDispatch();
