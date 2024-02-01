@@ -1,7 +1,12 @@
 import React from 'react';
 import { Control, FieldErrors, Controller } from 'react-hook-form';
 import { FormControl, Stack, TextField, Typography } from '@mui/material';
-import { StyledLabel, StyledTab, StyledTabContainer } from './style';
+import {
+  DeliveryInfoContainer,
+  StyledLabel,
+  StyledTab,
+  StyledTabContainer,
+} from './style';
 import { CreateOrderInput } from 'src/types';
 
 export interface InputProps {
@@ -59,7 +64,7 @@ const NovaPostInput: React.FC<InputProps> = ({
       />
 
       <CustomTabPanel value={tabValue} type="department">
-        <Stack direction="row" gap={3}>
+        <DeliveryInfoContainer>
           <FormControl>
             <StyledLabel required>Номер поштового відділення</StyledLabel>
             <Controller
@@ -70,7 +75,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                 <TextField
                   id="department"
                   placeholder="Введіть номер поштового відділення"
-                  sx={{ width: '20.5rem' }}
+                  sx={{ width: '100%' }}
                   size="small"
                   type="number"
                   InputProps={{ inputProps: { min: 0 } }}
@@ -90,7 +95,7 @@ const NovaPostInput: React.FC<InputProps> = ({
               render={({ field }) => (
                 <TextField
                   placeholder="Введіть місто"
-                  sx={{ width: '20.5rem' }}
+                  sx={{ width: '100%' }}
                   id="city"
                   size="small"
                   {...field}
@@ -100,7 +105,7 @@ const NovaPostInput: React.FC<InputProps> = ({
               )}
             />
           </FormControl>
-        </Stack>
+        </DeliveryInfoContainer>
       </CustomTabPanel>
 
       <CustomTabPanel value={tabValue} type="address">
@@ -108,7 +113,7 @@ const NovaPostInput: React.FC<InputProps> = ({
           <Typography variant="body1" fontWeight={700}>
             Адреса
           </Typography>
-          <Stack direction="row" gap={3}>
+          <DeliveryInfoContainer>
             <FormControl>
               <StyledLabel required>Населений пункт</StyledLabel>
               <Controller
@@ -119,7 +124,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                   <TextField
                     id="city"
                     placeholder="Введіть місто"
-                    sx={{ width: '20.5rem' }}
+                    sx={{ width: '100%' }}
                     size="small"
                     {...field}
                     error={Boolean(errors.city)}
@@ -137,7 +142,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                 render={({ field }) => (
                   <TextField
                     placeholder="Обовʼязково"
-                    sx={{ width: '20.5rem' }}
+                    sx={{ width: '100%' }}
                     id="street"
                     size="small"
                     {...field}
@@ -147,8 +152,8 @@ const NovaPostInput: React.FC<InputProps> = ({
                 )}
               />
             </FormControl>
-          </Stack>
-          <Stack direction="row" gap={3}>
+          </DeliveryInfoContainer>
+          <DeliveryInfoContainer>
             <FormControl>
               <StyledLabel required>Будинок</StyledLabel>
               <Controller
@@ -159,7 +164,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                   <TextField
                     id="house"
                     placeholder="Обовʼязково"
-                    sx={{ width: '20.5rem' }}
+                    sx={{ width: '100%' }}
                     size="small"
                     {...field}
                     error={Boolean(errors.house)}
@@ -177,7 +182,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                 render={({ field }) => (
                   <TextField
                     placeholder="Обовʼязково"
-                    sx={{ width: '20.5rem' }}
+                    sx={{ width: '100%' }}
                     id="flat"
                     size="small"
                     type="number"
@@ -189,12 +194,12 @@ const NovaPostInput: React.FC<InputProps> = ({
                 )}
               />
             </FormControl>
-          </Stack>
+          </DeliveryInfoContainer>
         </Stack>
       </CustomTabPanel>
 
       <CustomTabPanel value={tabValue} type="postOffice">
-        <Stack direction="row" gap={3}>
+        <DeliveryInfoContainer>
           <FormControl>
             <StyledLabel required>Населений пункт</StyledLabel>
             <Controller
@@ -205,7 +210,7 @@ const NovaPostInput: React.FC<InputProps> = ({
                 <TextField
                   id="city"
                   placeholder="Введіть місто"
-                  sx={{ width: '20.5rem' }}
+                  sx={{ width: '100%' }}
                   size="small"
                   {...field}
                   error={Boolean(errors.city)}
@@ -223,7 +228,7 @@ const NovaPostInput: React.FC<InputProps> = ({
               render={({ field }) => (
                 <TextField
                   placeholder="Введіть номер поштомату"
-                  sx={{ width: '20.5rem' }}
+                  sx={{ width: '100%' }}
                   id="postOffice"
                   size="small"
                   {...field}
@@ -233,7 +238,7 @@ const NovaPostInput: React.FC<InputProps> = ({
               )}
             />
           </FormControl>
-        </Stack>
+        </DeliveryInfoContainer>
       </CustomTabPanel>
     </Stack>
   );

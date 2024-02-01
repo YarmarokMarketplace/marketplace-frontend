@@ -54,11 +54,14 @@ export const StyledTabContainer = styled(Tabs)(({ theme }) => ({
 
 export const StyledContainer = styled(Stack)(({ theme }) => ({
   overflowY: 'auto',
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
+
   maxHeight: 'calc(100vh - 150px)',
   scrollbarWidth: 'auto',
   width: 'fit-content',
-  scrollbarColor: `#ffffff #808080`,
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
   '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
     width: '0.2em',
     marginLeft: '8px',
@@ -73,4 +76,31 @@ export const StyledContainer = styled(Stack)(({ theme }) => ({
   '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
     background: '#555',
   },
+}));
+
+export const PersonalInfoContainer = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr 1fr',
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: '1fr',
+  },
+  gap: '8px',
+}));
+
+export const DeliveryInfoContainer = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: '1fr',
+  },
+  gap: '8px',
+}));
+
+export const UkrPostInfoContainer = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1.5fr 1fr 1fr',
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: '1fr',
+  },
+  gap: '8px',
 }));

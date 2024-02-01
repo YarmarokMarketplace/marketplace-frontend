@@ -2,7 +2,11 @@ import React from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { FormControl, Stack, TextField } from '@mui/material';
-import { StyledLabel } from './style';
+import {
+  DeliveryInfoContainer,
+  StyledLabel,
+  UkrPostInfoContainer,
+} from './style';
 import { CreateOrderInput } from 'src/types';
 
 interface InputProps {
@@ -14,7 +18,7 @@ interface InputProps {
 const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
   return (
     <Stack gap={2}>
-      <Stack direction="row" gap={3}>
+      <DeliveryInfoContainer>
         <FormControl>
           <StyledLabel required>Населений пункт</StyledLabel>
           <Controller
@@ -24,7 +28,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
               <TextField
                 id="city"
                 placeholder="Введіть місто"
-                sx={{ width: '20.5rem' }}
+                sx={{ width: '100%' }}
                 size="small"
                 {...field}
                 error={Boolean(errors.city)}
@@ -41,7 +45,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             render={({ field }) => (
               <TextField
                 placeholder="Введіть поштовий індекс"
-                sx={{ width: '20.5rem' }}
+                sx={{ width: '100%' }}
                 id="postCode"
                 size="small"
                 {...field}
@@ -53,8 +57,8 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             )}
           />
         </FormControl>
-      </Stack>
-      <Stack direction="row" gap={2}>
+      </DeliveryInfoContainer>
+      <UkrPostInfoContainer>
         <FormControl>
           <StyledLabel>Вулиця</StyledLabel>
           <Controller
@@ -63,7 +67,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             render={({ field }) => (
               <TextField
                 id="street"
-                sx={{ width: '18.5rem' }}
+                sx={{ width: '100%' }}
                 size="small"
                 {...field}
               />
@@ -77,7 +81,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             name="house"
             render={({ field }) => (
               <TextField
-                sx={{ width: '11rem' }}
+                sx={{ width: '100%' }}
                 id="house"
                 size="small"
                 {...field}
@@ -92,7 +96,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             name="flat"
             render={({ field }) => (
               <TextField
-                sx={{ width: '11rem' }}
+                sx={{ width: '100%' }}
                 id="flat"
                 size="small"
                 type="number"
@@ -102,7 +106,7 @@ const UkrPostInput: React.FC<InputProps> = ({ control, errors }) => {
             )}
           />
         </FormControl>
-      </Stack>
+      </UkrPostInfoContainer>
     </Stack>
   );
 };

@@ -20,6 +20,7 @@ import {
   Chip,
 } from '@mui/material';
 import {
+  PersonalInfoContainer,
   StyledContainer,
   StyledForm,
   StyledImageWrapper,
@@ -120,7 +121,7 @@ const ConfirmPurchase = () => {
   };
 
   return (
-    <StyledContainer gap={3} width="42rem">
+    <StyledContainer gap={3} width={{ sm: '100%', md: '42rem' }}>
       {success ? (
         <Typography textAlign="center" variant="h4">
           Дякуємо за покупку! Ваше замовлення прийнято в обробку. Слідкуйте за
@@ -165,7 +166,7 @@ const ConfirmPurchase = () => {
                 Вкажіть ваші персональні дані
               </Typography>
             </Stack>
-            <Stack direction="row" gap={2} mb={2}>
+            <PersonalInfoContainer>
               <FormControl>
                 <StyledLabel required>Ім'я</StyledLabel>
                 <Controller
@@ -174,7 +175,7 @@ const ConfirmPurchase = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <TextField
-                      sx={{ width: '13.5rem' }}
+                      sx={{ width: '100%' }}
                       id="firstName"
                       size="small"
                       disabled={loading}
@@ -193,7 +194,7 @@ const ConfirmPurchase = () => {
                   defaultValue=""
                   render={({ field }) => (
                     <TextField
-                      sx={{ width: '13.5rem' }}
+                      sx={{ width: '100%' }}
                       id="lastName"
                       size="small"
                       disabled={loading}
@@ -211,7 +212,7 @@ const ConfirmPurchase = () => {
                   name="patronymic"
                   render={({ field }) => (
                     <TextField
-                      sx={{ width: '13.5rem' }}
+                      sx={{ width: '100%' }}
                       id="patronymic"
                       size="small"
                       disabled={loading}
@@ -220,7 +221,7 @@ const ConfirmPurchase = () => {
                   )}
                 />
               </FormControl>
-            </Stack>
+            </PersonalInfoContainer>
             <FormControl>
               <StyledLabel required>Номер телефону</StyledLabel>
               <Controller
@@ -228,7 +229,7 @@ const ConfirmPurchase = () => {
                 name="phone"
                 render={({ field: { onBlur, onChange } }) => (
                   <TextField
-                    sx={{ width: '13.5rem' }}
+                    sx={{ width: { sm: '100%', md: '13.5rem' } }}
                     id="phone"
                     size="small"
                     disabled={loading}
@@ -253,7 +254,7 @@ const ConfirmPurchase = () => {
                 name="deliveryType"
                 render={({ field: { onBlur, onChange, value } }) => (
                   <Select
-                    sx={{ width: '20.5rem' }}
+                    sx={{ width: { sm: '100%', md: '50%' } }}
                     id="deliveryType"
                     size="small"
                     disabled={loading || deliveryDisabled}
