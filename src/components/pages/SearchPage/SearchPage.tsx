@@ -42,6 +42,8 @@ const SearchPage = () => {
       searchProductListFetch({ keywords: search, sort, page, limit, filterBy })
     );
   }, [search, sort, page, limit, filterBy]);
+
+  console.log(page, filterBy);
   const theme = useTheme();
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
