@@ -4,6 +4,11 @@ import logo from '../../img/logo.png';
 export const SearchWrapper = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(3, 0),
   alignItems: 'center',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(1, 0, 1, 2),
+    backgroundColor: theme.palette.primary.contrastText,
+    borderRadius: '1rem',
+  },
 }));
 
 export const SearchButton = styled(Button)(({ theme }) => ({

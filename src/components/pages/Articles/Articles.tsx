@@ -17,7 +17,6 @@ import HowToSell from './HowToSell';
 import NotFoundPage from 'src/components/NotFoundPage';
 import { useTheme, useMediaQuery } from '@mui/material';
 import { TabletContent } from './TabletContent';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const Articles = () => {
   const theme = useTheme();
@@ -54,7 +53,6 @@ const Articles = () => {
       ) : (
         <>
           <TabletContent />
-          <CustomBottomNavigation pathname={pathname} />
         </>
       )}
     </StyledContainer>

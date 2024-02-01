@@ -71,39 +71,39 @@ const SearchBar = () => {
   };
 
   return (
-    <SearchWrapper direction='row' spacing={3}>
+    <SearchWrapper direction="row" spacing={3}>
       {isSmScreen ? (
         <>
           <SearchSmButton
             startIcon={<SearchIcon />}
             fullWidth
-            color='secondary'
+            color="secondary"
             onClick={() => setOpenModal(!openModal)}
           />
           <ProfileButton
             startIcon={<PersonRoundedIcon />}
-            color='secondary'
+            color="secondary"
             onClick={handleOpenProfileDrawer}
           />
         </>
       ) : (
         <StyledInput
           fullWidth
-          placeholder='Що шукаєте?'
-          size='small'
+          placeholder="Що шукаєте?"
+          size="small"
           value={search}
           onChange={handleSearchChange}
-          variant='outlined'
-          id='search'
+          variant="outlined"
+          id="search"
           onKeyDown={handleKeyPress}
           InputProps={{
             startAdornment: (
-              <InputAdornment position='start'>
+              <InputAdornment position="start">
                 <SearchIcon />
                 <SearchButton
-                  id='search-btn'
+                  id="search-btn"
                   onClick={handleSearchClick}
-                  variant='outlined'
+                  variant="outlined"
                   disabled={!search}
                 >
                   Пошук

@@ -27,8 +27,6 @@ import {
   currentFavPageSetAction,
   offsetFavSetAction,
 } from 'redux/profile/reducer';
-import SearchBar from 'src/components/SearchBar';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 import { useLocation } from 'react-router-dom';
 
 const FavProducts = () => {
@@ -150,7 +148,6 @@ const FavProducts = () => {
           </Typography>
         </NoProductMessage>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledAdsContainer>
   );
 };

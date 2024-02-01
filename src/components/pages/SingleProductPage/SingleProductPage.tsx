@@ -15,7 +15,6 @@ import {
 import { CarouselImage } from './Carousel';
 import { ProductInfo } from './ProductInfo';
 import { ProductDescription } from './ProductDescription';
-import SearchBar from '../../SearchBar';
 import { ProductFeedback } from './ProductFeedback';
 import { useDispatch, useSelector } from 'react-redux';
 import { productStateSelector } from './selectors';
@@ -26,7 +25,6 @@ import BasicBreadcrumbs from '../../Breadcrumbs';
 import { categoryNames } from '../../../constants';
 import { ProductItem } from 'src/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const SingleProductPage = () => {
   const { loading, error, product } = useSelector(productStateSelector);
@@ -62,7 +60,6 @@ const SingleProductPage = () => {
 
   return (
     <StyledContainer maxWidth={false} disableGutters>
-      <SearchBar />
       {!loading && !error && product && (
         <>
           <BasicBreadcrumbs>
@@ -106,7 +103,6 @@ const SingleProductPage = () => {
           </Stack>
         </>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledContainer>
   );
 };

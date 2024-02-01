@@ -9,6 +9,9 @@ export const FooterContainer = styled('footer')(({ theme }) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   color: theme.palette.white,
+  [theme.breakpoints.down('sm')]: {
+    marginBottom: '50px',
+  },
 }));
 
 export const LogoContainer = styled(Box)(({ theme }) => ({
@@ -18,6 +21,7 @@ export const LogoContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     width: '50%',
+    marginBottom: '50px',
   },
 }));
 

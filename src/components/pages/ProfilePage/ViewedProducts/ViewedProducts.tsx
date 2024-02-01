@@ -12,8 +12,7 @@ import ProfilePagination from '../ProfilePagination';
 import NoProductMessage from '../NoProductMessage';
 
 import placeholderImage from '../../../../img/no-fav-product.png';
-import SearchBar from 'src/components/SearchBar';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
+
 import { useLocation } from 'react-router-dom';
 
 const ViewedProducts = () => {
@@ -87,7 +86,6 @@ const ViewedProducts = () => {
           </Typography>
         </NoProductMessage>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledAdsContainer>
   );
 };

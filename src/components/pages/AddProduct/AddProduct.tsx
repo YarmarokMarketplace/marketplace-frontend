@@ -18,7 +18,6 @@ import { AppDispatch } from '../../../store';
 import { resetAddSavedDataAction } from './reducer';
 import { userLoginStateSelector } from '../../../redux/auth/selector';
 import { advertInitialData } from './utils';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const AddProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);
@@ -78,7 +77,6 @@ const AddProduct = () => {
           <InfoBlock />
         </>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname="add-advert" />}
     </StyledContainer>
   );
 };

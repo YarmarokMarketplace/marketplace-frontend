@@ -21,7 +21,6 @@ import { productFetch } from '../SingleProductPage/thunk';
 import { productStateSelector } from '../SingleProductPage/selectors';
 import { ProductForm } from './ProductForm';
 import { resetAddAdvertState } from './actions';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const EditProduct = () => {
   const { loading, error, data } = useSelector(addAdvertStateSelector);
@@ -92,7 +91,6 @@ const EditProduct = () => {
           )}
         </>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname="edit-advert" />}
     </StyledContainer>
   );
 };

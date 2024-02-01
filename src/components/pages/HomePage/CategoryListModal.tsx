@@ -15,8 +15,6 @@ import { categoriesStateSelector } from './selector';
 import { Link, useLocation } from 'react-router-dom';
 import { AppDispatch } from 'src/store';
 import { categoryListFetch } from './thunk';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
-import SearchBar from 'src/components/SearchBar';
 
 export const CategoryListPage = () => {
   const { categories } = useSelector(categoriesStateSelector);
@@ -33,7 +31,6 @@ export const CategoryListPage = () => {
 
   return (
     <Stack gap={1} mb={1}>
-      <SearchBar />
       <Stack direction="row" alignItems="center" mb={2}>
         <IconButton
           disableFocusRipple
@@ -61,7 +58,6 @@ export const CategoryListPage = () => {
           );
         })}
       </Stack>
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </Stack>
   );
 };
