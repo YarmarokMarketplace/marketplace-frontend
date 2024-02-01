@@ -36,6 +36,8 @@ export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: '1rem',
   fontWeight: 700,
+  minWidth: '155px',
+  wordBreak: 'break-word',
 }));
 
 export const StyledFileInput = styled(Box)(({ theme }) => ({
@@ -43,7 +45,7 @@ export const StyledFileInput = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(3),
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(6.5rem, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(5.5rem, 1fr))',
   '&.empty': {
     gridTemplateColumns: '1fr',
   },

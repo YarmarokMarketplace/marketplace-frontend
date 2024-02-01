@@ -162,7 +162,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       name="photos"
       defaultValue=""
       render={({ field: { onBlur, onChange } }) => (
-        <Stack width={{ md: '100%', lg: '47.5rem' }}>
+        <Stack width={{ md: '100%', lg: '80%' }}>
           <StyledFileInput
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -194,7 +194,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
                 return (
                   <Stack
                     key={typeof img === 'string' ? img : img.name}
-                    width="6.5rem"
+                    width="5.5rem"
                     height="7.3rem"
                     position="relative"
                     overflow="hidden"
@@ -247,7 +247,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({
               })}
             <StyledFileLable
               sx={{
-                minWidth: `calc(100% - ${selectedImage.length} * (6.5rem))`,
+                minWidth: `calc(100% - ${selectedImage.length} * (5.5rem))`,
                 display: selectedImage.length < 6 ? '' : 'none',
                 border: selectedImage.length ? '1px solid #D4D7DF' : '',
               }}

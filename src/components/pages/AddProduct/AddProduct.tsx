@@ -44,7 +44,7 @@ const AddProduct = () => {
   return (
     <StyledContainer maxWidth="xl" disableGutters>
       {!loading && !error && data ? (
-        <Stack spacing={3} paddingTop={3}>
+        <Stack spacing={3} paddingTop={3} minHeight="80vh">
           <Typography variant="h4">
             Вітаємо! Ваше оголошення успішно опубліковано
           </Typography>

@@ -15,7 +15,7 @@ export const TitleInput: React.FC<InputProps> = ({
         control={control}
         name="title"
         render={({ field }) => (
-          <Stack width={{ md: '100%', lg: '47.5rem' }}>
+          <Stack width="100%">
             <StyledFormLabel required> Назва</StyledFormLabel>
             <TextField
               error={Boolean(errors.title)}

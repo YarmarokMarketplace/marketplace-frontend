@@ -215,7 +215,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
 
         <StyledFormControl fullWidth>
           {isLgScreen && <StyledFormLabel>Назва та опис</StyledFormLabel>}
-          <Stack spacing={3}>
+          <Stack spacing={3} width={{ md: '100%', lg: '80%' }}>
             <TitleInput control={control} errors={errors} loading={loading} />
             <DescriptionInput
               control={control}
@@ -240,12 +240,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         <StyledFormControl fullWidth>
           {isLgScreen && <StyledFormLabel>Ціна</StyledFormLabel>}
           <Stack
-            alignItems={{ md: 'flex-start', lg: 'end' }}
-            width={{ md: '100%', lg: '47.5rem' }}
+            alignItems={{ md: 'flex-start', lg: 'flex-start' }}
+            width={{ md: '100%', lg: '80%' }}
           >
             <Stack
               direction={{ md: 'column', lg: 'row' }}
-              width={{ md: '100%', lg: '47.5rem' }}
+              width={{ md: '100%', lg: '80%' }}
               spacing={3}
               gap={2}
               alignItems={{ md: 'flex-start', lg: 'center' }}
@@ -350,14 +350,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         <StyledFormControl fullWidth>
           {isLgScreen && (
             <StyledFormLabel sx={{ maxWidth: '12%' }}>
-              Імʼя контактної особи
+              {`Імʼя контактної\n особи`}
             </StyledFormLabel>
           )}
           <Controller
             control={control}
             name="contactName"
             render={({ field }) => (
-              <Stack width={{ md: '100%', lg: '47.5rem' }}>
+              <Stack width={{ md: '100%', lg: '80%' }}>
                 <StyledFormLabel required>Імʼя</StyledFormLabel>
                 <TextField
                   {...field}
@@ -383,7 +383,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
             control={control}
             name="contactNumber"
             render={({ field: { onBlur, onChange } }) => (
-              <Stack width={{ md: '100%', lg: '47.5rem' }}>
+              <Stack width={{ md: '100%', lg: '80%' }}>
                 <StyledFormLabel required>Номер телефону</StyledFormLabel>
                 <TextField
                   onChange={(event) => {
@@ -424,7 +424,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
             control={control}
             name="agree"
             render={({ field: { value, onChange } }) => (
-              <Stack width={{ md: '100%', lg: '47.5rem' }}>
+              <Stack width={{ md: '100%', lg: '80%' }}>
                 <FormControlLabel
                   sx={{ width: 'fit-content', alignItems: 'center' }}
                   label={
@@ -462,7 +462,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ edit, product }) => {
         </StyledFormControl>
         <StyledFormControl>
           <StyledFormLabel></StyledFormLabel>
-          <Stack width={{ md: '100%', lg: '47.5rem' }} spacing={2}>
+          <Stack width={{ md: '100%', lg: '80%' }} spacing={2}>
             <Button
               disabled={loading}
               type="submit"
