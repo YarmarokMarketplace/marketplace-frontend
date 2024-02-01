@@ -87,7 +87,11 @@ const SellProducts = () => {
             name="cancel"
             sx={{
               paddingX: 2,
-              width: isSmScreen ? '70%' : isMdScreen ? '75%' : 'fit-content',
+              width: isSmScreen
+                ? '70% !important'
+                : isMdScreen
+                ? '75% !important'
+                : 'fit-content',
             }}
             onClick={handleChangeStatus}
             variant="outlined"
