@@ -23,7 +23,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { productFetch } from './thunk';
 import BasicBreadcrumbs from '../../Breadcrumbs';
 import { categoryNames } from '../../../constants';
-import { ProductItem } from 'src/types';
+import { ProductItem, SingleProductItem } from 'src/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const SingleProductPage = () => {
@@ -43,7 +43,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     if (product) {
-      const items: ProductItem[] =
+      const items: SingleProductItem[] =
         JSON.parse(localStorage.getItem('viewedProducts')!) || [];
       const viewedProducts = items.filter(
         (item) => item._id !== product.notice._id

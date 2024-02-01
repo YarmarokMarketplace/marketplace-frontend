@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductItem } from '../../../../types';
+import { ProductItem, SingleProductItem } from '../../../../types';
 import { productFetch } from '../thunk';
 
 export interface ProductState {
   loading: boolean;
   error: boolean | null;
-  product: { notice: ProductItem; sellerRating: number } | null;
+  product: { notice: SingleProductItem; sellerRating: number } | null;
 }
 
 export const initialState: ProductState = {
