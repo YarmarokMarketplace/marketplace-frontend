@@ -74,7 +74,8 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   },
   width: '90%',
   [theme.breakpoints.down('md')]: {
-    width: '100%',
+    maxWidth: '100%',
+    wordBreak: ' break-all',
   },
 }));
 
