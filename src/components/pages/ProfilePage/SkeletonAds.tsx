@@ -15,14 +15,17 @@ const SkeletonAds: React.FC<{ limit: number }> = ({ limit }) => {
             <Skeleton
               animation="wave"
               variant="rounded"
-              sx={{ height: '7rem', width: '7.5rem' }}
+              sx={{
+                height: { xs: '5rem', md: '7rem' },
+                width: { xs: '60%', md: '30%' },
+              }}
             />
-            <Stack gap={2}>
+            <Stack gap={2} width="100%">
               <Skeleton
                 animation="wave"
                 sx={{
                   height: '1.5rem',
-                  width: { lg: '32rem', md: '20rem', sm: '13rem', xs: '5rem' },
+                  width: { xs: '80%', md: '50%' },
                 }}
                 variant="rounded"
               />
@@ -30,13 +33,13 @@ const SkeletonAds: React.FC<{ limit: number }> = ({ limit }) => {
                 animation="wave"
                 sx={{
                   height: '1.5rem',
-                  width: { lg: '32rem', md: '20rem', sm: '13rem', xs: '5rem' },
+                  width: { xs: '100%', md: '70%' },
                 }}
                 variant="rounded"
               />
               <Skeleton
                 animation="wave"
-                sx={{ height: '1.5rem', width: '5rem' }}
+                sx={{ height: '1.5rem', width: { xs: '50%', md: '20%' } }}
                 variant="rounded"
               />
             </Stack>
