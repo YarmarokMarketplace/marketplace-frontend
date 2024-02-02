@@ -64,7 +64,6 @@ const ProfilePage = () => {
 
   return (
     <StyledProfileContainer>
-      {isSmScreen && <SearchBar />}
       {!isSmScreen && (
         <MenuContainer>
           <Box>
