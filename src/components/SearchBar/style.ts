@@ -8,6 +8,7 @@ export const SearchWrapper = styled(Stack)(({ theme }) => ({
     padding: theme.spacing(1, 0, 1, 2),
     backgroundColor: theme.palette.primary.contrastText,
     borderRadius: '1rem',
+    marginTop: '0px',
   },
 }));
 
