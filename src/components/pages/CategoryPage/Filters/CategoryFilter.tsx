@@ -10,6 +10,8 @@ import {
   productFilterCategoryAction,
   productFilterRatingAction,
   setSearchCategoryAction,
+  currentPageSetAction,
+  currentSearchPageSetAction,
 } from 'redux/products/reducer';
 import { categoriesStateSelector } from '../../HomePage/selector';
 import { categoryListFetch } from '../../HomePage/thunk';
@@ -99,6 +101,8 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
     const categoryName = event.currentTarget.getAttribute('value');
 
     setSelectedCategory(categoryName ? categoryName : '');
+    dispatch(currentPageSetAction(1));
+    dispatch(currentSearchPageSetAction(1));
     if (matchPath('/search', pathname)) {
       dispatch(setSearchCategoryAction(categoryName || ''));
       dispatch(

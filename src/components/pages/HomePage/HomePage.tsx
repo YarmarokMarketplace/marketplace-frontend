@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ChatButton from '../../ChatButton';
 import CategoryItem from './CategoryItem';
-import SearchBar from '../../SearchBar';
 import {
   StyledCategoryContainer,
   StyledContainer,
@@ -51,7 +50,6 @@ const HomePage = () => {
 
   return (
     <StyledContainer maxWidth="xl" disableGutters>
-      <SearchBar />
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h4">Головні рубрики</Typography>
         <StyledLink

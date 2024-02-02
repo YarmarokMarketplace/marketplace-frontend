@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import { Typography, Stack, Link, useTheme } from '@mui/material';
 
-import SearchBar from '../../SearchBar';
 import CategoryFilters from './CategoryFilters';
 
 import { CategoryPageContainer } from './style';
@@ -29,15 +28,14 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <CategoryPageContainer maxWidth='xl' disableGutters>
-      <SearchBar />
+    <CategoryPageContainer maxWidth="xl" disableGutters>
       <BasicBreadcrumbs>
-        <Typography color='text.primary'>Каталог</Typography>
+        <Typography color="text.primary">Каталог</Typography>
       </BasicBreadcrumbs>
       <Stack
-        direction='row'
-        justifyContent='space-between'
-        alignItems='center'
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         spacing={2}
       >
         <CategoryHeader />
@@ -51,9 +49,9 @@ const CategoryPage = () => {
           mt: 3,
           mb: 3,
         }}
-        direction='row'
-        justifyContent='space-between'
-        alignItems='flex-start'
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
         spacing={4}
       >
         <CategoryFilters

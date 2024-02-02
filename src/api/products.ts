@@ -5,6 +5,7 @@ import {
   UserFavProductsResponse,
   UserProductsResponse,
   SearchResponse,
+  SingleProductItem,
 } from '../types';
 import { client, loginClient } from './client';
 
@@ -19,7 +20,7 @@ type ProductsResponse = {
 };
 
 type ProductResponse = {
-  notice: ProductItem;
+  notice: SingleProductItem;
   sellerRating: number;
 };
 type AddProductResponse = {

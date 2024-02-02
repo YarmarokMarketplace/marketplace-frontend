@@ -102,6 +102,7 @@ export const StyledCarouselWrapper = styled(Stack)(({ theme, hidden }) => ({
     flexDirection: 'row',
     gap: '12px',
     overflow: 'auto',
+    minHeight: '333px',
   },
 }));
 

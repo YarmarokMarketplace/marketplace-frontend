@@ -15,7 +15,6 @@ import {
 import { CarouselImage } from './Carousel';
 import { ProductInfo } from './ProductInfo';
 import { ProductDescription } from './ProductDescription';
-import SearchBar from '../../SearchBar';
 import { ProductFeedback } from './ProductFeedback';
 import { useDispatch, useSelector } from 'react-redux';
 import { productStateSelector } from './selectors';
@@ -24,9 +23,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import { productFetch } from './thunk';
 import BasicBreadcrumbs from '../../Breadcrumbs';
 import { categoryNames } from '../../../constants';
-import { ProductItem } from 'src/types';
+import { ProductItem, SingleProductItem } from 'src/types';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 
 const SingleProductPage = () => {
   const { loading, error, product } = useSelector(productStateSelector);
@@ -45,7 +43,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     if (product) {
-      const items: ProductItem[] =
+      const items: SingleProductItem[] =
         JSON.parse(localStorage.getItem('viewedProducts')!) || [];
       const viewedProducts = items.filter(
         (item) => item._id !== product.notice._id
@@ -62,7 +60,6 @@ const SingleProductPage = () => {
 
   return (
     <StyledContainer maxWidth={false} disableGutters>
-      <SearchBar />
       {!loading && !error && product && (
         <>
           <BasicBreadcrumbs>
@@ -72,7 +69,9 @@ const SingleProductPage = () => {
             >
               {categoryNames[product.notice.category]}
             </StyledCrumpsLink>
-            <Typography color="text.primary">{product.notice.title}</Typography>
+            <Typography sx={{ wordBreak: 'break-all' }} color="text.primary">
+              {product.notice.title}
+            </Typography>
           </BasicBreadcrumbs>
           {!product.notice.active && (
             <StyledInfoProductWrapper
@@ -106,7 +105,6 @@ const SingleProductPage = () => {
           </Stack>
         </>
       )}
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </StyledContainer>
   );
 };

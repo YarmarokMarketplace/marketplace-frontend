@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -38,6 +38,9 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
     setNavigationValue(newValue);
   };
 
+  useEffect(() => {
+    setNavigationValue(pathname);
+  }, [pathname]);
   const dispatch: AppDispatch = useDispatch();
   const { isLogin } = useSelector(userLoginStateSelector);
 
@@ -90,10 +93,8 @@ export const CustomBottomNavigation: React.FC<{ pathname: string }> = ({
       >
         <StyledNavigationTab
           label="Головна"
-          value="main"
-          icon={
-            navigationValue === 'main' ? <HomeIcon /> : <HomeOutlinedIcon />
-          }
+          value="/"
+          icon={navigationValue === '/' ? <HomeIcon /> : <HomeOutlinedIcon />}
           onClick={() => navigate('/', { replace: true })}
         />
         <StyledNavigationTab

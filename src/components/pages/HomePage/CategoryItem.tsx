@@ -6,6 +6,7 @@ import {
   productFilterPriceAction,
   productFilterLocationAction,
   productFilterRatingAction,
+  currentPageSetAction,
 } from '../../../redux/products/reducer';
 
 import {
@@ -47,6 +48,7 @@ const CategoryItem: React.FC<CategotyItemProp> = ({
     localStorage.removeItem('price');
     localStorage.removeItem('location');
     localStorage.removeItem('rating');
+    dispatch(currentPageSetAction(1));
     navigate(`/${category.name}`);
   };
 

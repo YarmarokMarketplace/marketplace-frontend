@@ -23,7 +23,12 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
-import { DrawerContent, ModalContent, ProductItem } from '../../../types';
+import {
+  DrawerContent,
+  ModalContent,
+  ProductItem,
+  SingleProductItem,
+} from '../../../types';
 import moment from 'moment';
 import {
   categoriesDeliveryAbsense,
@@ -48,7 +53,7 @@ import {
 } from 'src/components/CustomModal/reducer';
 
 type ProductInfoProps = {
-  product: ProductItem;
+  product: SingleProductItem;
   sellerRating: number;
 };
 
@@ -63,14 +68,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   const { isLogin, user } = useSelector(userAuthStateSelector);
   const { favorites } = useSelector(profileStateSelector);
   const [fav, setFav] = useState<boolean>(
-    user.favorite.some((notice) => notice === product._id)
+    user.favorite?.some((notice) => notice === product._id)
   );
   const theme: Theme = useTheme();
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (favorites.length) {
-      setFav(favorites.some((notice) => notice === product._id));
+      setFav(favorites?.some((notice) => notice === product._id));
     }
   }, [favorites, product._id]);
   const dispatch: AppDispatch = useDispatch();
@@ -109,8 +114,11 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
 
   return (
     <Stack
-      spacing={2}
-      sx={{ display: 'grid', gridTemplateColumns: 'minmax(0px, 1fr)' }}
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: 'minmax(0px, 1fr)',
+        gap: '16px',
+      }}
     >
       <StyledInfoBlock>
         <Stack direction="row" justifyContent={'space-between'}>
@@ -121,7 +129,12 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             {`ID:${product._id.replace(/[^\d]/g, '').slice(9)}`}
           </Typography>
         </Stack>
-        <Typography variant="h4" mt={1} minHeight="4rem">
+        <Typography
+          variant="h4"
+          mt={1}
+          minHeight="4rem"
+          sx={{ wordBreak: 'break-all' }}
+        >
           {product.title}
         </Typography>
         <Stack direction="row" justifyContent="space-between">

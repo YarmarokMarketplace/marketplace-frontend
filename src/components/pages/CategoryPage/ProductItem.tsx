@@ -55,7 +55,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product, productList }) => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (favoriteList.length) {
+    if (favoriteList?.length) {
       setFav(favoriteList.some((notice) => notice === product._id));
     }
   }, [favoriteList, product._id]);
@@ -63,7 +63,7 @@ const ProductItem: React.FC<ProductItemProp> = ({ product, productList }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (favorites.length) {
+    if (favorites?.length) {
       setFav(favorites.some((notice) => notice === product._id));
     }
   }, [favorites, product._id]);

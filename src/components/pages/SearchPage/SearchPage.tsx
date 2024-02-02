@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import BasicBreadcrumbs from 'src/components/Breadcrumbs';
-import SearchBar from 'src/components/SearchBar';
 import CategorySort from '../CategoryPage/CategorySort';
 import { useDispatch, useSelector } from 'react-redux';
 import { productsStateSelector } from '../../../redux/products/selector';
@@ -23,7 +22,6 @@ import {
 } from '../../../redux/products/reducer';
 import { searchProductListFetch } from '../../../redux/products/thunk';
 import SearchFilters from './SearchFilters';
-import { CustomBottomNavigation } from 'src/components/BottomNavigation/CustomBottomNavigation';
 import { useLocation } from 'react-router-dom';
 
 const SearchPage = () => {
@@ -44,6 +42,8 @@ const SearchPage = () => {
       searchProductListFetch({ keywords: search, sort, page, limit, filterBy })
     );
   }, [search, sort, page, limit, filterBy]);
+
+  console.log(page, filterBy);
   const theme = useTheme();
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
   const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -66,7 +66,6 @@ const SearchPage = () => {
 
   return (
     <Container maxWidth="xl" disableGutters>
-      <SearchBar />
       <BasicBreadcrumbs />
       <Stack
         direction="row"
@@ -102,7 +101,6 @@ const SearchPage = () => {
           handlePageChange={handlePageChange}
         />
       )}
-      {isSmScreen && <CustomBottomNavigation pathname={pathname} />}
     </Container>
   );
 };
