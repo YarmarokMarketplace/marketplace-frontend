@@ -97,26 +97,30 @@ const FavProducts = () => {
                   variant="rounded"
                   sx={{
                     height: '12.5rem',
-                    width: { xs: '10rem', sm: '12.5rem' },
+                    width: '100%',
                   }}
                 />
                 <Skeleton
                   animation="wave"
                   sx={{
                     height: '2.438rem',
-                    width: { xs: '10rem', sm: '12rem' },
+                    width: '100%',
                   }}
                   variant="rounded"
                 />
                 <Skeleton
                   animation="wave"
-                  sx={{ height: '0.875rem', width: '6rem' }}
+                  sx={{ height: '0.875rem', width: '50%' }}
                   variant="rounded"
                 />
-                <Stack direction="row" justifyContent="space-between">
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
                   <Skeleton
                     animation="wave"
-                    sx={{ height: '1.5em', width: '5.5rem' }}
+                    sx={{ height: '1.5em', width: '50%' }}
                     variant="rounded"
                   />
                   <Skeleton variant="circular" width={32} height={32} />

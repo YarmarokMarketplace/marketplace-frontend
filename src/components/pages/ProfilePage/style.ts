@@ -88,7 +88,7 @@ export const GridProductsWrapper = styled(Box)(({ theme }) => ({
   gridTemplateColumns: '1fr 1fr 1fr 1fr',
   width: '100%',
 
-  gridGap: theme.spacing(2),
+  // gridGap: theme.spacing(2),
   //   marginBottom: theme.spacing(8),
   [theme.breakpoints.down('lg')]: {
     gridTemplateColumns: '1fr 1fr 1fr',

@@ -69,7 +69,9 @@ const SingleProductPage = () => {
             >
               {categoryNames[product.notice.category]}
             </StyledCrumpsLink>
-            <Typography color="text.primary">{product.notice.title}</Typography>
+            <Typography sx={{ wordBreak: 'break-all' }} color="text.primary">
+              {product.notice.title}
+            </Typography>
           </BasicBreadcrumbs>
           {!product.notice.active && (
             <StyledInfoProductWrapper
