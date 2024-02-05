@@ -132,7 +132,7 @@ const ConfirmPurchase = () => {
           <Typography variant="h4" fontWeight={700}>
             Дані для покупки
           </Typography>
-          <Stack direction="row" gap={2}>
+          <Stack direction={{ xs: 'column', md: 'row' }} gap={2}>
             <StyledImageWrapper>
               <img
                 src={
@@ -143,7 +143,9 @@ const ConfirmPurchase = () => {
               />
             </StyledImageWrapper>
             <Stack gap={2}>
-              <Typography variant="h6">{product?.notice?.title}</Typography>
+              <Typography sx={{ wordBreak: 'break-all' }} variant="h6">
+                {product?.notice?.title}
+              </Typography>
               <Chip
                 label={`${product?.notice?.price} грн`}
                 size="small"
