@@ -114,7 +114,8 @@ const ProfileProductItem: React.FC<ProfileProductProps> = ({
           <Typography
             variant="body1"
             color="text.secondary"
-            width={{ sm: '100%', md: '90%' }}
+            width={{ sm: '100%', md: '80%' }}
+            sx={{ wordBreak: 'break-all' }}
           >
             {product.description?.length > 53
               ? `${product.description.slice(0, 53)}...`

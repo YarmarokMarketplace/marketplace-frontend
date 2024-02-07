@@ -72,7 +72,7 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   ':hover': {
     color: theme.palette.text.secondary,
   },
-  width: '90%',
+  width: '75%',
   wordBreak: 'break-all',
   [theme.breakpoints.down('md')]: {
     maxWidth: '100%',
