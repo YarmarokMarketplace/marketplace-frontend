@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { productsResultStateSelector } from 'redux/products/selector';
 
+import { categoryWithoutGoodtype } from 'src/constants';
 import { FiltersContainer } from './style';
 import CategoryFilter from './Filters/CategoryFilter';
 import GoodtypeFilter from './Filters/GoodtypeFilter';
@@ -31,10 +33,12 @@ const CategoryFilters: React.FC<CategoryFiltersProps> = ({
     img?: string | undefined;
   } | null>(null);
   const [ratingValue, setRatingValue] = useState<string[]>([]);
+  const { categoryName } = useParams();
 
-  const { isGoodType, maxPriceInCategory } = useSelector(
-    productsResultStateSelector
-  );
+  const { maxPriceInCategory } = useSelector(productsResultStateSelector);
+
+  const isGoodType =
+    categoryName && !categoryWithoutGoodtype.includes(categoryName);
 
   const theme = useTheme();
   const isMdScreen = useMediaQuery(theme.breakpoints.down('md'));
