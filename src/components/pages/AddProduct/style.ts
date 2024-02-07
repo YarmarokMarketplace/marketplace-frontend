@@ -97,7 +97,6 @@ export const StyledForm = styled('form')(({ theme }) => ({
 export const menuStyles = {
   height: '15rem',
   scrollbarWidth: 'auto',
-  scrollbarColor: '#ffffff #808080',
   '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
     width: '0.6em',
   },

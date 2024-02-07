@@ -35,7 +35,6 @@ export const CategoryProductsWrapper = styled(Box)(({ theme }) => ({
 
 export const FiltersContainer = styled(Box)(({ theme }) => ({
   scrollbarWidth: 'auto',
-  scrollbarColor: '#ffffff #808080',
   '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
     width: '0.6em',
   },
