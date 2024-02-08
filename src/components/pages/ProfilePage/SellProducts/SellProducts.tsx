@@ -161,7 +161,8 @@ const SellProducts = () => {
                     gap={{ xs: 2, md: 3 }}
                     height="fit-content"
                     alignItems={
-                      order.status === 'await-delivery' ? 'center' : 'flex-end'
+                      'center'
+                      // order.status === 'await-delivery' ? 'center' : 'flex-end'
                     }
                     flexWrap="wrap"
                     justifyContent={{
@@ -174,16 +175,14 @@ const SellProducts = () => {
                     width={{ xs: '100%', md: '120%' }}
                   >
                     {orderStatusChange(order.status, order._id, i)}
-                    {order.status !== 'received' &&
-                      order.status !== 'cancelled-by-seller' && (
-                        <IconButton onClick={() => handleToggleCard(i)}>
-                          {cardStates[i] ? (
-                            <ExpandLess color="primary" fontSize="large" />
-                          ) : (
-                            <ExpandMore color="primary" fontSize="large" />
-                          )}
-                        </IconButton>
+
+                    <IconButton onClick={() => handleToggleCard(i)}>
+                      {cardStates[i] ? (
+                        <ExpandLess color="primary" fontSize="large" />
+                      ) : (
+                        <ExpandMore color="primary" fontSize="large" />
                       )}
+                    </IconButton>
                   </Stack>
                   {isLgScreen && (
                     <Typography variant="body1" color="secondary.dark">
