@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sellOrdersResponse } from '../../../types';
-import { currentPageSet, setOrderId } from '../actions';
+import { buyOrdersResponse, sellOrdersResponse } from '../../../types';
+import { currentPageSet, setOrderId, currentSellPageSet } from '../actions';
 import {
   getSellOrdersFetch,
   getBuyOrdersFetch,
@@ -10,8 +10,9 @@ import {
 export interface OrdersState {
   loading: boolean;
   error: boolean | null;
-  orders: sellOrdersResponse;
+  orders: buyOrdersResponse;
   orderId: string | null;
+  sellOrders: sellOrdersResponse;
 }
 
 export const initialState: OrdersState = {
@@ -25,6 +26,15 @@ export const initialState: OrdersState = {
     result: [],
   },
   orderId: null,
+  sellOrders: {
+    totalResult: 0,
+    totalPages: 0,
+    page: 1,
+    limit: 3,
+    result: {
+      sell: [],
+    },
+  },
 };
 
 const name = 'ORDERS';
@@ -35,6 +45,7 @@ const ordersSlice = createSlice({
   reducers: {
     currentPageSet,
     setOrderId,
+    currentSellPageSet,
   },
   extraReducers(builder) {
     builder
@@ -44,11 +55,12 @@ const ordersSlice = createSlice({
       })
       .addCase(getSellOrdersFetch.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload;
+        state.sellOrders = action.payload;
       })
       .addCase(getSellOrdersFetch.rejected, (state) => {
         state.loading = false;
         state.error = true;
+        state.sellOrders = initialState.sellOrders;
       })
       .addCase(getBuyOrdersFetch.pending, (state) => {
         state.loading = true;
@@ -68,11 +80,11 @@ const ordersSlice = createSlice({
       })
       .addCase(changeOrderStatusFetch.fulfilled, (state, { payload }) => {
         state.loading = false;
-        const index = state.orders.result.findIndex(
+        const index = state.sellOrders.result.sell.findIndex(
           (order) => order._id === payload.result._id
         );
         if (index !== -1) {
-          state.orders.result[index] = payload.result;
+          state.sellOrders.result.sell[index] = payload.result;
         }
       })
       .addCase(changeOrderStatusFetch.rejected, (state) => {
@@ -85,6 +97,7 @@ const ordersSlice = createSlice({
 export const {
   currentPageSet: currentPageSetAction,
   setOrderId: setOrderIdAction,
+  currentSellPageSet: currentSellPageSetAction,
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

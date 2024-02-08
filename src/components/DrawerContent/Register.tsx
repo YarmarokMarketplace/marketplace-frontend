@@ -338,7 +338,11 @@ const Register = () => {
               </FormControl>
               <Typography variant="subtitle2">
                 Створюючи профіль на YARMAROK, ви погоджуєтесь{' '}
-                <StyledLink id="rules-link" to="/rules" target="_blank">
+                <StyledLink
+                  id="rules-link"
+                  to="/rules/general-requirements"
+                  target="_blank"
+                >
                   з умовами використання
                 </StyledLink>
               </Typography>

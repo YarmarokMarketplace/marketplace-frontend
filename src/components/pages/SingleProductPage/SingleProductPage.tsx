@@ -94,6 +94,7 @@ const SingleProductPage = () => {
               <ProductInfo
                 product={product.notice}
                 sellerRating={product.sellerRating}
+                sellerReviews={product.sellerReviews}
               />
               <Stack spacing={4}>
                 <ProductDescription description={product.notice.description} />

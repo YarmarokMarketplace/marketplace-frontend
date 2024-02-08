@@ -3,6 +3,8 @@ import { AxiosError } from 'axios';
 
 import { getSellOrders, getBuyOrders, changeOrderStatus } from 'src/api/orders';
 
+import { initialState } from '../reducer';
+
 const USER_SELL_ORDERS_THUNK_TYPE = 'USER_SELL_ORDERS_THUNK_TYPE';
 const USER_BUY_ORDERS_THUNK_TYPE = 'USER_BUY_PASSWORD_THUNK_TYPE';
 const CHANGE_ORDER_STATUS_THUNK_TYPE = 'CHANGE_ORDER_STATUS_THUNK_TYPE';
@@ -11,7 +13,8 @@ export const getSellOrdersFetch = createAsyncThunk(
   USER_SELL_ORDERS_THUNK_TYPE,
   async (page: number, { rejectWithValue }) => {
     try {
-      return await getSellOrders(page);
+      const response = await getSellOrders(page);
+      return response ? response : initialState.sellOrders;
     } catch (error) {
       return rejectWithValue(error);
     }

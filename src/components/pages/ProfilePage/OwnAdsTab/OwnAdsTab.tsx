@@ -56,7 +56,7 @@ const CustomTabPanel: React.FC<TabPanelProps> = (props) => {
       id={`own-ads-tab-${type}`}
       aria-labelledby={`own-ads-tab-${type}`}
       {...other}
-      style={{ width: '100%' }}
+      style={{ width: '100%', minHeight: '50vh' }}
     >
       {value === type && <>{children}</>}
     </div>

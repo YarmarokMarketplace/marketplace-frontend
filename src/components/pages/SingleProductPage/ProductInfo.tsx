@@ -55,11 +55,13 @@ import {
 type ProductInfoProps = {
   product: SingleProductItem;
   sellerRating: number;
+  sellerReviews: [];
 };
 
 export const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
   sellerRating,
+  sellerReviews,
 }) => {
   const location = locations.find(
     (location) => location.value === product.location
@@ -253,14 +255,14 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1}>
-            <Typography variant="caption">
+            {/* <Typography variant="caption">
               2 роки та 4 місяці на yarmarok.ua
-            </Typography>
+            </Typography> */}
             <Typography color="primary.main" variant="caption">
               •
             </Typography>
             <Typography color="primary.main" variant="caption">
-              7 відгуків
+              {`${sellerReviews.length} відгуків`}
             </Typography>
           </Stack>
         </Stack>
